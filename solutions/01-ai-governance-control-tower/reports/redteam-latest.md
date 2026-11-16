@@ -1,6 +1,6 @@
 # Red-team results
 
-Run at 2026-11-16T18:43:57+00:00 (UTC). Measured by running `python -m control_tower redteam` in this folder.
+Run at 2026-11-16T20:11:35+00:00 (UTC). Measured by running `python -m control_tower redteam` in this folder.
 
 Scope, stated plainly: this is a scripted campaign of 29 attacks against the policy gateway. It assumes each attacked agent is already fully compromised and tests whether the control layer contains it. It does not yet test live language models, and the tools behind the gateway are simulated. All data is synthetic.
 

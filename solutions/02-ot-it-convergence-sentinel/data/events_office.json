@@ -1,0 +1,12 @@
+{
+  "_note": "Synthetic alerts in the style of an office security monitoring tool the company already owns. The tool is simulated.",
+  "source_tool": "office-security-monitoring (simulated)",
+  "alerts": [
+    {"id": "IT-N1", "time": "2026-11-10T01:50:00Z", "host": "ws-hr-044", "account": "employee-0412", "type": "failed_sign_in", "severity": "low", "detail": "Three failed sign-ins, then a correct one."},
+    {"id": "IT-1", "time": "2026-11-10T02:10:00Z", "host": "ws-fin-117", "account": "employee-0733", "type": "malicious_attachment_opened", "severity": "medium", "detail": "Email attachment flagged after it was opened."},
+    {"id": "IT-2", "time": "2026-11-10T02:14:00Z", "host": "ws-fin-117", "account": "employee-0733", "type": "password_theft_behaviour", "severity": "high", "detail": "A program read stored passwords from memory."},
+    {"id": "IT-N2", "time": "2026-11-10T02:20:00Z", "host": "srv-print-02", "account": "system", "type": "restart_after_update", "severity": "info", "detail": "Planned restart after a software update."},
+    {"id": "IT-3", "time": "2026-11-10T02:31:00Z", "host": "dc-01", "account": "svc-maint-p04", "source_host": "ws-fin-117", "type": "unusual_sign_in_source", "severity": "medium", "detail": "Plant maintenance account signed in from a finance workstation."},
+    {"id": "IT-4", "time": "2026-11-10T02:38:00Z", "host": "jump-p04-01", "account": "svc-maint-p04", "source_host": "ws-fin-117", "type": "remote_session_outside_window", "severity": "medium", "detail": "Remote access to the plant floor opened outside the agreed maintenance window."}
+  ]
+}

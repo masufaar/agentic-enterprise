@@ -1,0 +1,13 @@
+{
+  "_note": "Synthetic events in the style of a plant-floor monitoring tool the company already owns. The tool is simulated. Field names differ from the office tool on purpose.",
+  "sensor": "plant-floor-monitoring (simulated)",
+  "events": [
+    {"event_id": "OT-N1", "ts": "2026-11-10T02:00:00Z", "src": "scada-p04", "dst": "plc-a1-01", "category": "routine_polling", "level": 1, "description": "Supervision server reads values from the controller, as every minute."},
+    {"event_id": "OT-N2", "ts": "2026-11-10T02:30:00Z", "src": "hmi-a1", "dst": "hmi-a1", "category": "operator_sign_in", "level": 1, "description": "Operator signed in at the panel."},
+    {"event_id": "OT-1", "ts": "2026-11-10T02:44:00Z", "src": "jump-p04-01", "dst": "ews-b2-01", "category": "remote_desktop_session", "level": 3, "description": "Remote screen session to the engineering workstation."},
+    {"event_id": "OT-N3", "ts": "2026-11-10T02:47:00Z", "src": "hist-p04", "dst": "hist-p04", "category": "clock_warning", "level": 1, "description": "Clock differs from the time server by two seconds."},
+    {"event_id": "OT-2", "ts": "2026-11-10T02:52:00Z", "src": "ews-b2-01", "dst": "plc-b2-01", "category": "controller_program_read", "level": 4, "description": "Full controller program copied outside a change window."},
+    {"event_id": "OT-3", "ts": "2026-11-10T02:55:00Z", "src": "ews-b2-01", "dst": "plc-b2-02", "category": "controller_program_read", "level": 4, "description": "Full controller program copied outside a change window."},
+    {"event_id": "OT-4", "ts": "2026-11-10T03:02:00Z", "src": "ews-b2-01", "dst": "hmi-c1", "category": "file_share_scan", "level": 4, "description": "Search for open file shares in Line C, cell 1."}
+  ]
+}

@@ -8,10 +8,17 @@ Status words used in this repository: "Designed", "In build", "Working".
 - Fictional company and shared assumptions defined.
 - AI Governance Control Tower, version 0, working: agent registry, policy gateway, audit trail, kill switch, daily volume limit, data labels at the source, an approval queue for the accountable owner of each agent and a one-page board report. What works and what is still a design is listed in [the Control Tower page](../solutions/01-ai-governance-control-tower/README.md).
 - First red-team campaign run and published, including the attacks that got through. It has been repeated after each fix; one breach is open and published with its designed fix. See [the latest results](../solutions/01-ai-governance-control-tower/reports/redteam-latest.md).
+- OT/IT Convergence Sentinel, first slice, working: four registered agents join the alerts of two simulated security tools into one incident, price each response in lost output and ask for the chosen one through the Control Tower, which holds it for the accountable owner. One scripted incident, fixed rules, no language model. See [the solution page](../solutions/02-ot-it-convergence-sentinel/README.md) and [the page for the crisis team](../solutions/02-ot-it-convergence-sentinel/reports/incident-latest.md).
 
 ## In build
 
-The AI Governance Control Tower. Next for it, in order:
+**The OT/IT Convergence Sentinel**, the first business solution on top of the Control Tower. Next for it, in order:
+
+1. Two further attack scenarios, published with the cases the correlation misses.
+2. A production schedule that changes by shift, to show how the recommendation moves with the hour.
+3. The notification to the regulator, after its deadlines are checked against the official text.
+
+**The AI Governance Control Tower**, paused at version 0 while the first business solution is built. Next for it, in order:
 
 1. Turn the approval queue into a screen with company sign-in, and reduce the load on a single approver.
 2. Close the open breach: a second check of outgoing text for personal data that exact comparison cannot see.
@@ -23,9 +30,8 @@ The AI Governance Control Tower. Next for it, in order:
 ## Next steps after that
 
 1. Build the synthetic data generator for the fictional company. Today the synthetic data is a small set of files written for the Control Tower; there is no generator.
-2. Build the first business solution on top of the Control Tower and register its agents.
-3. Connect both to the AI Value Ledger and publish the first board dashboard.
-4. Add the remaining solutions one at a time, each as a thin working slice.
+2. Connect the Control Tower and the Sentinel to the AI Value Ledger and publish the first board dashboard.
+3. Add the remaining solutions one at a time, each as a thin working slice.
 
 ## Principles for the build
 

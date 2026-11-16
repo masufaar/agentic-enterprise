@@ -19,7 +19,7 @@ def gateway(tmp_path):
 
 def test_registry_loads_and_every_agent_has_an_owner():
     cards = registry.load()
-    assert len(cards) == 16
+    assert len(cards) == 18
     assert all(card["owner"] for card in cards.values())
 
 
@@ -414,9 +414,9 @@ def test_board_page_answers_in_plain_words(gateway):
 
 def test_board_figures_count_every_agent_once_by_tier(gateway):
     f = board.figures(redteam.run(gateway))
-    assert sum(len(cards) for cards in f["by_tier"].values()) == f["agents"] == 16
-    assert sum(f["by_autonomy"].values()) == 16
-    assert len(f["approved"]) + len(f["not_approved"]) == 16
+    assert sum(len(cards) for cards in f["by_tier"].values()) == f["agents"] == 18
+    assert sum(f["by_autonomy"].values()) == 18
+    assert len(f["approved"]) + len(f["not_approved"]) == 18
 
 
 def test_board_pass_rate_counts_refused_held_and_capped_as_contained(gateway):

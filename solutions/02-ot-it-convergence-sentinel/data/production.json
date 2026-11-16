@@ -1,0 +1,74 @@
+{
+  "_note": "Synthetic. Every value here is an assumption. The cost of a stopped line-hour comes from docs/company-profile.md; the others are set for this scenario.",
+  "cost_per_stopped_line_hour_eur": 15000,
+  "assumptions": {
+    "order_buffer_hours": {
+      "value": 6,
+      "basis": "Assumption: a line keeps running this long on orders already loaded when the link to the office side is closed.",
+      "unit": "hours"
+    },
+    "recovery_hours_if_encrypted": {
+      "value": 48,
+      "basis": "Assumption: time to restore a line whose controllers and workstations were encrypted.",
+      "unit": "hours"
+    },
+    "cell_stops_line": {
+      "value": true,
+      "basis": "Assumption: a disconnected cell stops its whole line.",
+      "unit": ""
+    }
+  },
+  "lines": [
+    {
+      "id": "line-a",
+      "name": "Line A (casting)",
+      "cells": [
+        "cell-a1"
+      ],
+      "restart_extra_hours": 12,
+      "restart_basis": "Assumption, from the author's plant experience: a casting line cannot be stopped and restarted like other lines. An unplanned stop costs this many further hours before good output returns."
+    },
+    {
+      "id": "line-b",
+      "name": "Line B",
+      "cells": [
+        "cell-b1",
+        "cell-b2"
+      ]
+    },
+    {
+      "id": "line-c",
+      "name": "Line C",
+      "cells": [
+        "cell-c1"
+      ]
+    }
+  ],
+  "schedule": [
+    {
+      "line": "line-a",
+      "from": "2026-11-10T00:00:00Z",
+      "to": "2026-11-11T00:00:00Z",
+      "state": "running"
+    },
+    {
+      "line": "line-b",
+      "from": "2026-11-10T00:00:00Z",
+      "to": "2026-11-11T00:00:00Z",
+      "state": "running"
+    },
+    {
+      "line": "line-c",
+      "from": "2026-11-10T00:00:00Z",
+      "to": "2026-11-10T08:00:00Z",
+      "state": "planned maintenance"
+    },
+    {
+      "line": "line-c",
+      "from": "2026-11-10T08:00:00Z",
+      "to": "2026-11-11T00:00:00Z",
+      "state": "running"
+    }
+  ],
+  "orders_arrive_over": "link-dmz-ot"
+}

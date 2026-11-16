@@ -80,10 +80,10 @@
     },
     {
       "id": "ot-asset-discovery",
-      "name": "OT Asset Discovery Scanner",
+      "name": "Plant Asset and Alert Collector",
       "solution": "02-ot-it-convergence-sentinel",
       "owner": "Head of OT Engineering",
-      "purpose": "Passively inventories PLCs and SCADA devices across all 12 plants so the company holds one complete list of its shop-floor assets.",
+      "purpose": "Keeps one list of the shop-floor assets of all 12 plants and collects the alerts of the office and plant-floor security tools the company already owns, in one common format.",
       "model_class": "mid",
       "autonomy": "act",
       "approval": {"status": "approved", "approved_by": "Chief Information Security Officer", "approved_on": "2026-09-30"},
@@ -98,7 +98,7 @@
         "generates_content": false
       },
       "permissions": {
-        "tools": ["plc.read", "scada.read", "network.read"],
+        "tools": ["plc.read", "scada.read", "network.read", "security.alerts.read"],
         "data_classes": ["ot_telemetry", "internal"],
         "spend_limit_eur": 0,
         "ot_write": false
@@ -124,8 +124,80 @@
         "generates_content": true
       },
       "permissions": {
-        "tools": ["network.read", "network.isolate", "scada.read", "report.write"],
+        "tools": ["network.read", "network.isolate", "scada.read", "report.write", "incident.read", "production.read"],
         "data_classes": ["ot_telemetry", "internal"],
+        "spend_limit_eur": 0,
+        "ot_write": false
+      }
+    },
+    {
+      "id": "ot-threat-correlation",
+      "name": "Office and Plant Threat Correlator",
+      "solution": "02-ot-it-convergence-sentinel",
+      "owner": "Head of Security Operations",
+      "purpose": "Joins alerts from the office network and the plant floor into one incident, with the path the intruder took and the production lines within reach.",
+      "model_class": "mid",
+      "autonomy": "advise",
+      "approval": {
+        "status": "approved",
+        "approved_by": "Chief Information Security Officer",
+        "approved_on": "2026-11-12"
+      },
+      "use_case_flags": {
+        "social_scoring": false,
+        "biometric_identification": false,
+        "employment_decisions": false,
+        "critical_infrastructure": false,
+        "safety_component": false,
+        "essential_services_access": false,
+        "interacts_with_people": false,
+        "generates_content": false
+      },
+      "permissions": {
+        "tools": [
+          "security.alerts.read",
+          "network.read",
+          "incident.write"
+        ],
+        "data_classes": [
+          "ot_telemetry",
+          "internal"
+        ],
+        "spend_limit_eur": 0,
+        "ot_write": false
+      }
+    },
+    {
+      "id": "ot-briefing",
+      "name": "Crisis Team Briefing Writer",
+      "solution": "02-ot-it-convergence-sentinel",
+      "owner": "Chief Information Security Officer",
+      "purpose": "Writes the one-page picture of a security incident for the crisis team: what happened, what each response costs in lost output, and who must decide.",
+      "model_class": "small",
+      "autonomy": "advise",
+      "approval": {
+        "status": "approved",
+        "approved_by": "VP Operations",
+        "approved_on": "2026-11-12"
+      },
+      "use_case_flags": {
+        "social_scoring": false,
+        "biometric_identification": false,
+        "employment_decisions": false,
+        "critical_infrastructure": false,
+        "safety_component": false,
+        "essential_services_access": false,
+        "interacts_with_people": false,
+        "generates_content": true
+      },
+      "permissions": {
+        "tools": [
+          "incident.read",
+          "report.write"
+        ],
+        "data_classes": [
+          "internal"
+        ],
         "spend_limit_eur": 0,
         "ot_write": false
       }

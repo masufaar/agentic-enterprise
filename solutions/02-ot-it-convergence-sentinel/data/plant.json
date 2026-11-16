@@ -1,0 +1,187 @@
+{
+  "_note": "Synthetic. Plant 04 of the fictional company Halden Industrial. No real network, device or person is described. Device names are invented.",
+  "plant": {
+    "id": "plant-04",
+    "name": "Halden Plant 04 (fictional)",
+    "region": "Region 2"
+  },
+  "zones": [
+    {
+      "id": "office",
+      "name": "Office network",
+      "side": "IT"
+    },
+    {
+      "id": "dmz",
+      "name": "Buffer zone between office and plant floor",
+      "side": "IT/OT"
+    },
+    {
+      "id": "supervisory",
+      "name": "Plant supervision",
+      "side": "OT"
+    },
+    {
+      "id": "cell-a1",
+      "name": "Line A, cell 1",
+      "side": "OT",
+      "line": "line-a"
+    },
+    {
+      "id": "cell-b1",
+      "name": "Line B, cell 1",
+      "side": "OT",
+      "line": "line-b"
+    },
+    {
+      "id": "cell-b2",
+      "name": "Line B, cell 2",
+      "side": "OT",
+      "line": "line-b"
+    },
+    {
+      "id": "cell-c1",
+      "name": "Line C, cell 1",
+      "side": "OT",
+      "line": "line-c"
+    }
+  ],
+  "assets": [
+    {
+      "id": "ws-fin-117",
+      "kind": "office workstation",
+      "zone": "office"
+    },
+    {
+      "id": "ws-hr-044",
+      "kind": "office workstation",
+      "zone": "office"
+    },
+    {
+      "id": "srv-print-02",
+      "kind": "print server",
+      "zone": "office"
+    },
+    {
+      "id": "dc-01",
+      "kind": "sign-in server",
+      "zone": "office"
+    },
+    {
+      "id": "jump-p04-01",
+      "kind": "remote access gateway to the plant floor",
+      "zone": "dmz"
+    },
+    {
+      "id": "hist-p04",
+      "kind": "production data recorder",
+      "zone": "dmz"
+    },
+    {
+      "id": "scada-p04",
+      "kind": "plant supervision server",
+      "zone": "supervisory"
+    },
+    {
+      "id": "plc-a1-01",
+      "kind": "machine controller",
+      "zone": "cell-a1"
+    },
+    {
+      "id": "hmi-a1",
+      "kind": "operator panel",
+      "zone": "cell-a1"
+    },
+    {
+      "id": "plc-b1-01",
+      "kind": "machine controller",
+      "zone": "cell-b1"
+    },
+    {
+      "id": "ews-b2-01",
+      "kind": "engineering workstation",
+      "zone": "cell-b2"
+    },
+    {
+      "id": "plc-b2-01",
+      "kind": "machine controller",
+      "zone": "cell-b2"
+    },
+    {
+      "id": "plc-b2-02",
+      "kind": "machine controller",
+      "zone": "cell-b2"
+    },
+    {
+      "id": "plc-c1-01",
+      "kind": "machine controller",
+      "zone": "cell-c1"
+    },
+    {
+      "id": "hmi-c1",
+      "kind": "operator panel",
+      "zone": "cell-c1"
+    }
+  ],
+  "connections": [
+    {
+      "id": "link-office-dmz",
+      "from": "office",
+      "to": "dmz"
+    },
+    {
+      "id": "link-dmz-ot",
+      "from": "dmz",
+      "to": [
+        "supervisory",
+        "cell-a1",
+        "cell-b1",
+        "cell-b2",
+        "cell-c1"
+      ],
+      "_note": "The only way from the office side to the plant floor."
+    },
+    {
+      "id": "link-b2-c1",
+      "from": "cell-b2",
+      "to": "cell-c1",
+      "_note": "File share between two cells, left open after a past project."
+    }
+  ],
+  "isolation_points": [
+    {
+      "id": "cut-cell-b2",
+      "name": "Disconnect Line B, cell 2",
+      "cuts_zones": [
+        "cell-b2"
+      ],
+      "hold_hours": 8,
+      "hold_basis": "Assumption: time to check and clean the devices of one cell."
+    },
+    {
+      "id": "cut-link-dmz-ot",
+      "name": "Close the link between office side and plant floor",
+      "cuts_connections": [
+        "link-dmz-ot"
+      ],
+      "hold_hours": 4,
+      "hold_basis": "Assumption: time to clean the remote access gateway and replace the stolen account."
+    },
+    {
+      "id": "cut-plant-ot",
+      "name": "Disconnect the whole plant floor",
+      "cuts_zones": [
+        "supervisory",
+        "cell-a1",
+        "cell-b1",
+        "cell-b2",
+        "cell-c1"
+      ],
+      "cuts_connections": [
+        "link-dmz-ot"
+      ],
+      "hold_hours": 8,
+      "hold_basis": "Assumption: time to check and clean the devices of the plant floor."
+    }
+  ]
+}

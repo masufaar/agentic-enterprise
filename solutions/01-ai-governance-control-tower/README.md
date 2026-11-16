@@ -20,7 +20,7 @@ The board gets one page that answers three questions at any moment: how many age
 
 | Feature | Status | What it does in version 0 |
 |---|---|---|
-| Agent registry | Working | 16 agents from the ten solutions, each with an accountable owner, a named approver, an autonomy level and a permission list. See the [agent inventory](reports/agent-inventory.md). |
+| Agent registry | Working | 18 agents from the ten solutions, each with an accountable owner, a named approver, an autonomy level and a permission list. See the [agent inventory](reports/agent-inventory.md). |
 | Risk classification | Working (rule-based) | Proposes an EU AI Act tier and the ISO/IEC 42001 control areas for each agent. A proposal for human sign-off, not legal advice. |
 | Policy as code | Working | 13 company rules and one volume limit in [data/policies.json](data/policies.json). Design target: 30 to 50. |
 | Policy gateway | Working | Allows, denies or holds every action for a named human approver. Fails closed. An agent cannot approve itself. |
