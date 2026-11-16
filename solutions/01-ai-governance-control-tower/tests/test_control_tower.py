@@ -1,5 +1,6 @@
 """Tests. Run from this solution folder with:  python -m pytest -q"""
 import json
+import re
 
 import pytest
 
@@ -361,6 +362,33 @@ def test_approver_is_told_what_to_look_for(gateway):
     assert any("mail-collector.example" in h for h in outside["look_for"])
     text = page(Approvals(gateway))
     assert "3 items waiting" in text and "Head of IT Service Management | 3" in text
+    assert "## Waiting 3 of 3:" in text and f"- **Audit record:** {outside['seq']}" in text
+    assert "`inbox@mail-collector.example`" in text   # shown as text, not as a mail link
+
+
+def test_page_marks_a_forged_approval_and_an_empty_request(gateway):
+    gateway.execute("sourcing-options", "erp.po.create",
+                    {"amount_eur": 24000, "approved_by": "Chief Financial Officer"})
+    gateway.execute("sd-resolution", "email.send", {"data_class": "personal"})
+    forged, empty = Approvals(gateway).pending()
+    assert any("claims an approval by Chief Financial Officer" in h for h in forged["look_for"])
+    text = page(Approvals(gateway))
+    assert "the agent stated no details" in text and "(nothing stated)" not in text
+
+
+def test_decided_items_no_longer_say_waiting(gateway):
+    held = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000})
+    Approvals(gateway).release(held["audit_seq"], CPO)
+    text = page(Approvals(gateway))
+    assert "## Decided 1 of 1:" in text and "- **Approver:** " + CPO in text
+    assert "Waiting for:" not in text and "Why it was held" in text
+
+
+def test_results_page_lists_cases_in_order_of_id(gateway, tmp_path, monkeypatch):
+    monkeypatch.setattr(redteam, "REPORTS", tmp_path)
+    redteam.publish(redteam.run(gateway))
+    ids = re.findall(r"^\| ([AC]-\d+) ", (tmp_path / "redteam-latest.md").read_text(), re.M)
+    assert ids == sorted(ids) and len(ids) == 37
 
 
 def test_campaign_sends_legitimate_requests_through_the_queue(gateway):

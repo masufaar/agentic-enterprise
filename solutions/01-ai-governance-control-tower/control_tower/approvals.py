@@ -14,6 +14,8 @@ pulled or a limit was reached in the meantime, the release does not go through.
 Version 0 does not verify who is at the keyboard: the approver states a role.
 Company sign-in is designed, not built.
 """
+import re
+
 from .gateway import Gateway
 from .tools import UNREADABLE, normal, _strings
 
@@ -61,6 +63,11 @@ class Approvals:
     def _hints(self, record: dict) -> list[str]:
         """What the gateway knows that helps the approver decide."""
         params, labels, hints = record["params"], self.gateway.labels, []
+        if params.get("approved_by"):
+            owner = self.gateway.registry[record["agent_id"]]["owner"]
+            hints.append(f"The request itself claims an approval by {params['approved_by']}. The agent wrote "
+                         f"that claim, so it counts for nothing: only a release from this queue by {owner} "
+                         "approves the action.")
         if "P-006" in record["rule"]:
             where = params.get("recipient_domain")
             if where == UNREADABLE:
@@ -137,32 +144,42 @@ def page(approvals: Approvals) -> str:
         "by their approver and are listed at the end.", "",
         "The approver is the accountable owner of the agent. Version 0 does not verify who is at the "
         "keyboard; company sign-in is designed, not built. On a live queue the approver decides with "
-        "`python -m control_tower release ITEM --as ROLE` or `refuse ITEM --as ROLE reason`; "
-        "both are written to the audit trail.", "",
+        "`python -m control_tower release RECORD --as ROLE` or `refuse RECORD --as ROLE reason`, where "
+        "RECORD is the audit record number shown on the item; both are written to the audit trail.", "",
         f"**{len(waiting)} items waiting, {len(decided)} decided.**", "",
         "| Approver | Items waiting |", "|---|---|",
         *[f"| {who} | {count} |" for who, count in sorted(load.items(), key=lambda x: -x[1])], "",
     ]
-    for item in waiting:
-        lines += _item_lines(item)
+    for number, item in enumerate(waiting, 1):
+        lines += _item_lines(item, f"Waiting {number} of {len(waiting)}")
     if decided:
         lines += ["# Decided", ""]
-        for item in decided:
+        for number, item in enumerate(decided, 1):
             out = item["outcome"]
             verb = {"allow": "Released and carried out", "refused": "Refused"}.get(
                 out["decision"], f"Release did not go through ({out['reason']})")
-            lines += _item_lines(item) + [f"**{verb}** by {out['approved_by']} (audit record {out['seq']}).", ""]
+            lines += _item_lines(item, f"Decided {number} of {len(decided)}", waiting=False) + [
+                f"**{verb}** by {out['approved_by']} (audit record {out['seq']}).", ""]
     return "\n".join(lines) + "\n"
 
 
-def _item_lines(item: dict) -> list[str]:
-    lines = [f"## Item {item['seq']}: {item['agent_name']} wants to use `{item['tool']}`", "",
-             f"- **Waiting for:** {item['approver']}",
-             *[f"- **Why it is held ({rule}):** {why}" for rule, why in zip(item["rules"], item["why"])],
-             *[f"- **Look for:** {hint}" for hint in item["look_for"]],
-             "- **The request:**"]
-    for key, value in item["request"].items():
-        lines.append(f"  - {key.replace('_', ' ')}: {str(value).replace('|', '/')}")
+def _shown(value) -> str:
+    """Text as the page shows it: no table breaks, and addresses as plain text, not as mail links."""
+    return re.sub(r"[\w.+-]+@[\w.-]*\w", lambda m: f"`{m.group()}`", str(value).replace("|", "/"))
+
+
+def _item_lines(item: dict, position: str, waiting: bool = True) -> list[str]:
+    """One item. It is counted in the order of the page; the audit record number is what
+    the approver types to release or refuse it."""
+    held = "is held" if waiting else "was held"
+    lines = [f"## {position}: {item['agent_name']} {'wants' if waiting else 'asked'} to use `{item['tool']}`", "",
+             f"- **{'Waiting for' if waiting else 'Approver'}:** {item['approver']}",
+             f"- **Audit record:** {item['seq']}",
+             *[f"- **Why it {held} ({rule}):** {why}" for rule, why in zip(item["rules"], item["why"])],
+             *[f"- **Look for:** {_shown(hint)}" for hint in item["look_for"]]]
     if not item["request"]:
-        lines.append("  - (nothing stated)")
+        return lines + ["- **The request:** the agent stated no details: no recipient, no amount, no text.", ""]
+    lines.append("- **The request:**")
+    for key, value in item["request"].items():
+        lines.append(f"  - {key.replace('_', ' ')}: {_shown(value)}")
     return lines + [""]

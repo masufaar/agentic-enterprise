@@ -423,7 +423,52 @@ The last of the eight original features with nothing to show, the board dashboar
 - Three points M was shown before publishing and that were left as they are: open finding A-29 starts with "The same, but disguised", taken from the campaign list; agents appear by technical id in the per-agent table; the 97% is prominent in the first table.
 - Published: M read the final text of the board report and gave his go on 16 November 2026; this session's changes were pushed to the public repository.
 
-## Running totals after session 8
+## Session 9, 16 November 2026
+
+### What was done
+
+The board report page was read in a browser on the public site for the first time, and the list of small faults from the first browser check (session 7) was worked off on the approver page and the red-team results page. No rule, no decision logic and no campaign figure changed; only how the pages are written.
+
+### What the browser check of the board report showed
+
+- The page shows as intended: nine-row summary, five points for the board, six tables, and the three links (agent inventory, red-team results, approver page) all lead to the right pages.
+- Nothing on it becomes a mail link.
+- Three points of wording were seen and left for M to decide, not changed: with a single high-risk agent the sentence still starts "They may read on their own"; the answer to "Is the record of decisions unaltered?" is the technical phrase "chain intact"; the per-agent table shows technical ids (already left as it is in session 8).
+
+### Decisions
+
+| # | Decision | Why | Rejected alternative |
+|---|---|---|---|
+| D71 | Items on the approver page are counted in the order of the page ("Waiting 5 of 11", "Decided 1 of 3"). The audit record number moves to its own line and is what the approver types to release or refuse. | A reader saw items 1, 4, 7, 8, 73 and asked where the others were. The number that looked like a count was an audit reference. The command still needs that reference, so it stays, named for what it is. | Renumbering the audit trail, which would break its chain; hiding the record number, which would leave the approver nothing to type. |
+| D72 | Decided items say "Approver" and "Why it was held", not "Waiting for" and "Why it is held". | They are no longer waiting. | |
+| D73 | Email addresses on the approver page are written as literal text. | The public site turned the synthetic addresses into mail links that a visitor could click. | Leaving the addresses out, which would hide what the approver has to judge. |
+| D74 | When a request carries its own "approved by", the approver is told: the agent wrote that claim, it counts for nothing, only a release from the queue by the accountable owner approves the action. | The forged approval (attack A-13) was held correctly but shown without comment, so the approver could have read the forged line as a fact. | |
+| D75 | A request without details says so in words ("the agent stated no details") instead of "(nothing stated)". | The old line read like a fault of the page. | |
+| D76 | The red-team results page lists cases by id. The campaign still runs in the order of `data/attacks.json`, and the results file keeps that order. | C-05 was shown before C-04. The run order is deliberate and was not touched; only the listing is sorted. | Reordering the campaign file, which would change the audit record numbers of the run. |
+| D77 | No delegation. | About 30 changed lines in the page generator, next to the approval logic; a hand-over would have cost more than the work. | |
+
+### Steps and cost
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Read handovers g and h, the board report in the browser, `approvals.py`, `redteam.py`, the command line and the tests | Main (Fable 5.2) | Input only, about 16,000 estimated |
+| 2 | Changes to `approvals.py` and `redteam.py` | Main | About 900 estimated output |
+| 3 | 3 new tests and 3 added checks in an existing test; ran tests and the campaign | Main | About 500 estimated output |
+| 4 | This log | Main | About 900 estimated output |
+
+### Measured results
+
+- 76 of 76 tests pass (73 before).
+- Campaign figures unchanged: 29 attacks, 16 blocked, 11 held, 1 capped, 1 breach (A-29), 8 of 8 legitimate actions allowed. The campaign was run again to regenerate the pages, so the time stamp on all three pages is new.
+- Size: about 1,100 lines of Python (1,120).
+
+### Open points
+
+- Published: M was shown the final text of the changes and gave his go on 16 November 2026. The check of the corrected pages in a browser follows the push.
+- `docs/architecture.md` still says the plan is to build on an existing open-source enforcement layer; version 0 does not. Not part of this session.
+- The three wording points on the board report listed above wait for M.
+
+## Running totals after session 9
 
 | | Value | Kind |
 |---|---|---|
@@ -436,11 +481,12 @@ The last of the eight original features with nothing to show, the board dashboar
 | Text written by the main model, session 6 | about 5,600 tokens | Estimated from file size |
 | Text written by the main model, session 8 | about 4,800 tokens | Estimated from file size |
 | Text written by the main model, session 7 | about 1,300 tokens for the repository, about 9,000 for the deck | Estimated from file size |
+| Text written by the main model, session 9 | about 2,300 tokens | Estimated from file size |
 | Total tokens of the main model including reading and reasoning | Not known from inside the session | Take it from the usage screen |
 | Python code | about 1,100 lines | Measured |
-| Tests | 73 of 73 passing | Measured |
+| Tests | 76 of 76 passing | Measured |
 | Red-team attacks | 29: 16 blocked, 11 held, 1 capped, 1 open breach (A-29) | Measured |
-| Commits to the public repository | 11 | Measured |
+| Commits to the public repository | 12 | Measured |
 
 ## Where to continue
 

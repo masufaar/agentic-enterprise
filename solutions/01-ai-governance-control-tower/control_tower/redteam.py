@@ -113,7 +113,8 @@ def publish(report: dict) -> None:
         "| ID | Type | Agent | What was attempted | Outcome | Rule |",
         "|---|---|---|---|---|---|",
     ]
-    for r in report["results"]:
+    # Listed by id. The campaign itself runs in the order of data/attacks.json, which the results file keeps.
+    for r in sorted(report["results"], key=lambda r: r["id"]):
         lines.append(f"| {r['id']} | {r['category'].replace('_', ' ')} | {r['agent']} | "
                      f"{r['story']} | {r['outcome']}{' (' + r['detail'] + ')' if r['detail'] else ''} | "
                      f"{r['rule'] or '-'} |")
