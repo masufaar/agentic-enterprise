@@ -132,3 +132,32 @@ def test_internal_email_is_carried_out_and_denied_actions_are_not(gateway):
     assert len(gateway.tools.executed) == 1
     denied = gateway.execute("sd-triage", "db.delete", {"target": "ticket_db"})
     assert not denied["executed"] and len(gateway.tools.executed) == 1
+
+
+def test_daily_volume_limit_adds_up_small_requests(gateway):
+    for _ in range(5):
+        assert gateway.execute("quality-traceability", "db.read", {"rows": 900})["decision"] == "allow"
+    over = gateway.execute("quality-traceability", "db.read", {"rows": 900})
+    assert over["rule"] == "V-002" and not over["executed"]
+    assert gateway.execute("quality-traceability", "db.read", {"rows": 500})["decision"] == "allow"
+    assert gateway.execute("quality-traceability", "db.read", {"rows": 1})["rule"] == "V-002"
+
+
+@pytest.mark.parametrize("rows", [None, -100000, 0, "900", 9.5, True])
+def test_row_count_must_be_a_positive_whole_number(gateway, rows):
+    params = {} if rows is None else {"rows": rows}
+    assert gateway.execute("quality-traceability", "db.read", params)["rule"] == "V-001"
+
+
+def test_dry_runs_and_refused_requests_do_not_use_up_the_allowance(gateway):
+    gateway.check("quality-traceability", "db.read", {"rows": 4000})
+    gateway.execute("quality-traceability", "db.read", {"rows": 6000})
+    assert gateway.execute("quality-traceability", "db.read", {"rows": 5000})["decision"] == "allow"
+
+
+def test_one_agents_volume_does_not_block_another(gateway, tmp_path):
+    gateway.execute("quality-traceability", "db.read", {"rows": 5000})
+    cards = dict(gateway.registry)
+    cards["second"] = {**cards["quality-traceability"], "id": "second"}
+    other = Gateway(registry=cards, audit=gateway.audit, killswitch=gateway.killswitch)
+    assert other.execute("second", "db.read", {"rows": 5000})["decision"] == "allow"

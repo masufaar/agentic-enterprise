@@ -105,3 +105,75 @@ Same caveat as before: estimates cover text written, not reading and reasoning.
 - "Held for a human" is only as good as the human. Eight of twenty attacks now end on an approver's desk; approval fatigue is a real risk and the approval screen is not built.
 - Unchanged from session 1: legal references unverified; thresholds are assumptions.
 - Published: M gave his go on 16 November 2026 and this session's changes were pushed to the public repository.
+
+## Session 3, 16 November 2026
+
+Goal: close breach A-10, where an agent copied a database in 60 small requests of 900 rows, each one within the rules.
+
+### What was wrong
+
+Every rule looked at one request at a time. Nothing added requests up.
+
+### Decisions
+
+| # | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D17 | A daily allowance of rows per agent (5,000, an assumption), across database reads and exports together. | Smallest control that makes the total count, not just each request. | Rate limits per minute. They slow an attacker down but do not cap the total. |
+| D18 | Usage is counted from the audit trail, not from a separate counter. | No new storage, and the count inherits the trail's tamper evidence: an agent cannot reset a counter that does not exist. | A counter file. One more thing to protect. |
+| D19 | The row count is the cap the gateway enforces on the tool, not a figure the agent reports afterwards. It must be a positive whole number or the request is refused. | Same lesson as A-08: do not rely on the agent's word. While designing the fix I saw that a negative number would have earned allowance back, so that is refused and is now attack A-22. | Counting what the agent says it read. |
+| D20 | Only requests that were actually carried out count. Dry runs and refused requests do not. | Otherwise a person asking "would this be allowed?" would use up an agent's allowance. | Counting every allowed decision. |
+| D21 | New outcome "capped" in the results. | A-10 is not fully blocked: the first 5 requests (4,500 rows) go through because that is within what the agent may read on a normal day. Calling that "blocked" would overstate it. | Reporting it as blocked. |
+| D22 | Each campaign run gets its own fresh audit file. | With a daily allowance, a second run on the same day would start with the allowance used up and show different results. Results must be repeatable. | Clearing the audit trail before a run. Deleting audit records is the wrong habit to build in. |
+| D23 | Slow attacks over many days and several agents sharing the work are written up as known limits, not simulated. | Simulating days needs a controllable clock, which adds machinery for little proof today. | Building a time simulator now. |
+| D24 | No delegation to a lighter model. | About 40 lines of security-sensitive logic. Same reasoning as D16. | |
+
+### Steps and cost
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Volume limit in the gateway and the rules file | Main (Fable 5.2) | About 450 estimated output |
+| 2 | "Capped" outcome and fresh audit file per campaign | Main | About 350 estimated output |
+| 3 | Two new attacks (A-21, A-22), one new control (C-05), nine new tests | Main | About 700 estimated output |
+| 4 | Ran tests and campaign twice; found and fixed one defect (below) | Main | Small |
+| 5 | README, this log | Main | About 1,600 estimated output |
+| 6 | Push to GitHub, copy to the Desktop folder, handover summary written to the project | Main | About 1,200 estimated output |
+
+Estimates cover text written, not reading and reasoning.
+
+### Defect found and fixed
+
+Running the campaign twice within the same second gave the two runs the same audit file name, so the second run started with the first run's usage and reported different figures. Fixed by making the file name unique to the microsecond. Found by running the campaign twice on purpose to check repeatability.
+
+### Measured results
+
+- 31 of 31 tests pass (22 before).
+- Campaign: 22 attacks, 12 blocked, 8 held for a human, 1 capped, 1 breach (A-09). 5 of 5 legitimate actions allowed. Two consecutive runs give the same figures.
+- Size: about 600 lines of Python.
+
+### Open points
+
+- The gateway re-reads the whole audit file on every decision. Fine at this size; it will need an index before real volumes.
+- The 5,000-row allowance is one figure for all agents. Real agents need their own.
+- The volume limit covers database reads and exports only.
+- Unchanged: tools are simulated; legal references unverified; thresholds are assumptions.
+- Published: M gave his go on 16 November 2026 and this session's changes were pushed to the public repository.
+
+## Running totals after session 3
+
+| | Value | Kind |
+|---|---|---|
+| Tokens used by the lighter model (one delegated task) | 75,980 | Measured |
+| Text written by the main model, session 1 | about 11,300 tokens | Estimated from file size |
+| Text written by the main model, session 2 | about 3,350 tokens | Estimated from file size |
+| Text written by the main model, session 3 | about 4,300 tokens | Estimated from file size |
+| Total tokens of the main model including reading and reasoning | Not known from inside the session | Take it from the usage screen |
+| Python code | about 600 lines | Measured |
+| Tests | 31 of 31 passing | Measured |
+| Red-team attacks | 22: 12 blocked, 8 held, 1 capped, 1 open breach (A-09) | Measured |
+| Commits to the public repository | 4 | Measured |
+
+## Where to continue
+
+1. Breach A-09: personal data copied into a shared knowledge article. Needs data labelled at its source so the gateway can follow where it goes.
+2. Then: nightly run with history, model-driven red-team agent, more rules, board one-pager, first real tool.
+3. Still to verify against the official texts: EU AI Act article references and ISO/IEC 42001 control names in `classifier.py`.

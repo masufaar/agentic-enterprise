@@ -8,8 +8,9 @@
   python -m control_tower verify               check the audit trail has not been altered
 """
 import sys
+from datetime import datetime, timezone
 
-from . import REPORTS, redteam, registry
+from . import REPORTS, STATE, redteam, registry
 from .audit import AuditLog
 from .classifier import classify
 from .gateway import Gateway
@@ -53,7 +54,7 @@ def main(argv: list[str]) -> int:
             approved_by = args[index + 1]
             args = args[:index] + args[index + 2:]
         params = {k: _value(v) for k, v in (a.split("=", 1) for a in args[2:])}
-        verdict = Gateway().check(args[0], args[1], params, approved_by=approved_by)
+        verdict = Gateway().execute(args[0], args[1], params, approved_by=approved_by)
         print(f"{verdict['decision'].upper()}  rule={verdict['rule']}  {verdict['reason']}  "
               f"(audit record {verdict['audit_seq']})")
     elif command in ("kill", "revive"):
@@ -64,10 +65,12 @@ def main(argv: list[str]) -> int:
                            "approved_by": None})
         print(f"{command}: {target}")
     elif command == "redteam":
-        report = redteam.run()
+        # Each campaign gets its own fresh audit trail, so results do not depend on earlier runs.
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
+        report = redteam.run(Gateway(audit=AuditLog(STATE / f"redteam-{stamp}.jsonl")))
         redteam.publish(report)
         for r in report["results"]:
-            print(f"{r['id']}  {r['outcome']:<11}  {r['agent']:<24} {r['tool']:<16} rule={r['rule']}")
+            print(f"{r['id']}  {r['outcome']:<11}  {r['agent']:<24} {r['tool']:<16} rule={r['rule']}  {r['detail']}")
         print(report["summary"])
         return 0
     elif command == "verify":

@@ -23,6 +23,9 @@ class AuditLog:
         self.path = path or STATE / "audit.jsonl"
         self.path.parent.mkdir(parents=True, exist_ok=True)
 
+    def records(self) -> list[dict]:
+        return self._records()
+
     def _records(self) -> list[dict]:
         if not self.path.exists():
             return []

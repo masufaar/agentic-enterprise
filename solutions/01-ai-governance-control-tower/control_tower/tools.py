@@ -46,4 +46,7 @@ class SimulatedTools:
 
     def run(self, agent_id: str, tool: str, call: dict) -> dict:
         self.executed.append({"agent_id": agent_id, "tool": tool, "call": call})
-        return {"executed": True, "simulated": True}
+        result = {"executed": True, "simulated": True}
+        if isinstance(call.get("rows"), int):
+            result["rows_returned"] = call["rows"]  # a real tool returns at most this many
+        return result

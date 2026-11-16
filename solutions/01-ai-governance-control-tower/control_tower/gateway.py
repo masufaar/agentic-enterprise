@@ -6,7 +6,8 @@ Decision order (first failure wins, and the gateway fails closed):
   3. Agent must be approved by a named role
   4. Risk tier must not be "prohibited"
   5. Tool and data class must be on the agent's own permission list
-  6. Company rules in data/policies.json  (deny beats require-approval)
+  6. Daily volume limit per agent         (counted from the audit trail)
+  7. Company rules in data/policies.json  (deny beats require-approval)
 Every decision, allowed or not, is written to the audit trail.
 
 The human approval is passed in by the calling workflow (approved_by). It is
@@ -20,6 +21,7 @@ Two entry points:
              A dry run for people asking "would this be allowed?".
 """
 import json
+from datetime import datetime, timezone
 from fnmatch import fnmatch
 from pathlib import Path
 
@@ -72,6 +74,32 @@ class Gateway:
                 return True  # fail closed on a value of the wrong type
         return True
 
+    # -- volume limit --------------------------------------------------------
+    def _rows_used_today(self, agent_id: str, tools: list[str]) -> int:
+        """Rows this agent was already allowed to fetch today, read from the audit trail."""
+        today = datetime.now(timezone.utc).date().isoformat()
+        return sum(
+            r["params"]["rows"] for r in self.audit.records()
+            if r.get("agent_id") == agent_id and r.get("tool") in tools
+            and r.get("decision") == "allow" and r.get("mode") == "execute"
+            and r["ts"].startswith(today)
+        )
+
+    def _volume_violation(self, agent_id: str, tool: str, params: dict):
+        limit = self.policies.get("volume_limit")
+        if not limit or tool not in limit["tools"]:
+            return None
+        # "rows" is the cap the gateway passes to the tool, not a claim by the agent:
+        # the tool returns at most that many rows. So it must be a positive whole number.
+        rows = params.get("rows")
+        if type(rows) is not int or rows <= 0:
+            return "V-001", "A data request must state a positive number of rows, which the gateway enforces as the cap"
+        cap = limit["rows_per_agent_per_day"]
+        used = self._rows_used_today(agent_id, limit["tools"])
+        if used + rows > cap:
+            return "V-002", f"Daily volume limit reached ({used} of {cap} rows already used today)"
+        return None
+
     # -- entry points --------------------------------------------------------
     def execute(self, agent_id: str, tool: str, call: dict | None = None,
                 approved_by: str | None = None, source: str = "agent") -> dict:
@@ -79,18 +107,19 @@ class Gateway:
         call = call or {}
         facts = derive_facts(tool, call, self.policies["company_domain"])
         verdict = self.check(agent_id, tool, {**call, **facts},  # facts overwrite claims
-                             approved_by=approved_by, source=source)
+                             approved_by=approved_by, source=source, mode="execute")
         verdict["executed"] = False
         if verdict["decision"] == "allow":
             verdict["executed"] = self.tools.run(agent_id, tool, call)["executed"]
         return verdict
 
     def check(self, agent_id: str, tool: str, params: dict | None = None,
-              approved_by: str | None = None, source: str = "agent") -> dict:
+              approved_by: str | None = None, source: str = "agent",
+              mode: str = "dry_run") -> dict:
         params = params or {}
         decision, rule, reason = self._decide(agent_id, tool, params, approved_by)
         record = self.audit.append({
-            "source": source, "agent_id": agent_id, "tool": tool, "params": params,
+            "source": source, "mode": mode, "agent_id": agent_id, "tool": tool, "params": params,
             "decision": decision, "rule": rule, "reason": reason, "approved_by": approved_by,
         })
         return {"decision": decision, "rule": rule, "reason": reason, "audit_seq": record["seq"]}
@@ -112,6 +141,10 @@ class Gateway:
         data_class = params.get("data_class")
         if data_class is not None and data_class not in perms["data_classes"]:
             return "deny", "PERM-2", f"Data class '{data_class}' is not permitted for this agent"
+
+        volume = self._volume_violation(agent_id, tool, params)
+        if volume:
+            return ("deny", *volume)
 
         hits = [r for r in self.policies["rules"] if self._matches(r, card, tier, tool, params)]
         for rule in hits:

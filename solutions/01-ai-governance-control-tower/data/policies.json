@@ -1,6 +1,11 @@
 {
   "_note": "Policy as code for the fictional company Halden Industrial. Thresholds are illustrative assumptions, not measured values. Version 0 holds 9 rules; the design target is 30 to 50.",
   "company_domain": "halden-industrial.example",
+  "volume_limit": {
+    "_note": "Assumption. Counts rows per agent per calendar day (UTC) across all listed tools.",
+    "tools": ["db.read", "db.export"],
+    "rows_per_agent_per_day": 5000
+  },
   "rules": [
     {
       "id": "P-001",
