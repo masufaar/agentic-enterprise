@@ -58,4 +58,4 @@ The first test run failed. An empty audit log counted as "nothing" in Python, so
 - The EU AI Act article references and the ISO/IEC 42001 control area names in `classifier.py` are from my own knowledge. I have not checked them against the official texts in this session. They need a check before anyone relies on them.
 - Classifying the plant-floor response agent as high risk ("safety component") is a cautious assumption, not a legal finding.
 - The thresholds in the rules (EUR 10,000, 1,000 rows) are illustrative assumptions.
-- Nothing has been committed or pushed. That waits for M's go.
+- Published: M gave his go on 16 November 2026 and version 0 was pushed to the public repository (commit 2324cb9). A working copy of all files is kept in the Desktop folder agentic-enterprise.
