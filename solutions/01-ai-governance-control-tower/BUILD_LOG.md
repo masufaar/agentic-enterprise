@@ -59,3 +59,49 @@ The first test run failed. An empty audit log counted as "nothing" in Python, so
 - Classifying the plant-floor response agent as high risk ("safety component") is a cautious assumption, not a legal finding.
 - The thresholds in the rules (EUR 10,000, 1,000 rows) are illustrative assumptions.
 - Published: M gave his go on 16 November 2026 and version 0 was pushed to the public repository (commit 2324cb9). A working copy of all files is kept in the Desktop folder agentic-enterprise.
+
+## Session 2, 16 November 2026
+
+Goal: close breach A-08, where an agent could state that an email was internal while the real address was external.
+
+### What was wrong
+
+The gateway decided on a description of the action written by the agent. A compromised agent simply described it falsely. The rule itself (P-006) was correct; it was being fed the agent's word.
+
+### Decisions
+
+| # | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D10 | The gateway carries out the action itself (`Gateway.execute`). The agent hands over the call and never touches the tool. | Whoever checks must also be the one who acts, otherwise the checked thing and the done thing can differ. This is the smallest change that makes that true. | Asking agents to describe actions honestly, or checking descriptions harder. Neither helps against a compromised agent. |
+| D11 | The gateway works out the facts its rules need from the call itself and overwrites whatever the agent claimed. | Removes the agent's word from the decision. One small function per tool (`tools.py`); today only email needs one. | Trusting some fields and not others, case by case. |
+| D12 | All recipient fields count (to, copy, blind copy). One outside or unreadable address makes the whole email "outside". | The obvious next attack after the fix is to hide the outside address. | Looking at the main recipient only. |
+| D13 | An address the gateway cannot read with certainty is treated as outside. | Same fail-closed principle as D7. While testing I found my own first idea (take the text after the last @) could be fooled by an address containing two @ signs, so the check accepts only a strictly well-formed address. | Best-effort parsing. |
+| D14 | Tools stay simulated. | There are no real systems yet. The README says so. The remaining exposure, an agent reaching a real system around the gateway, is a matter of who holds the credentials and is listed as "Designed". | Wiring a real mail server now. |
+| D15 | Kept `check()` as a dry run for people. | Useful to ask "would this be allowed?" without doing anything. Agents use `execute()`. | Removing it. |
+| D16 | No delegation to a lighter model this session. | The work was about 70 lines of security-sensitive logic and its tests. Session 1 measured about 76,000 tokens of overhead for one delegated file; that is not worth it for a task this small, and this is the kind of code I should not hand down. | Delegating the tests. |
+
+### Steps and cost
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | `tools.py`: fact reader for email, simulated tools | Main (Fable 5.2) | About 500 estimated output |
+| 2 | `Gateway.execute` | Main | About 250 estimated output |
+| 3 | Three new attacks (A-18, A-19, A-20), ten new tests | Main | About 900 estimated output |
+| 4 | Ran tests and campaign. One slip of mine: a self-check in my edit script had the wrong expected count and stopped the edit halfway; I re-applied the remaining edits. No code defect. | Main | Small |
+| 5 | README, this log | Main | About 1,700 estimated output |
+
+Same caveat as before: estimates cover text written, not reading and reasoning.
+
+### Measured results
+
+- 22 of 22 tests pass (12 before).
+- Campaign: 20 attacks, 10 blocked, 8 held for a human, 2 breaches (A-09, A-10). 4 of 4 legitimate actions allowed. A-08 is now held.
+- Audit trail: 83 records after one campaign, chain intact.
+- Size: about 550 lines of Python.
+
+### Open points
+
+- The fix is proven against simulated tools only.
+- "Held for a human" is only as good as the human. Eight of twenty attacks now end on an approver's desk; approval fatigue is a real risk and the approval screen is not built.
+- Unchanged from session 1: legal references unverified; thresholds are assumptions.
+- Published: M gave his go on 16 November 2026 and this session's changes were pushed to the public repository.

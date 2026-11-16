@@ -27,7 +27,7 @@ def run(gateway: Gateway | None = None) -> dict:
         try:
             verdict = None
             for _ in range(case.get("repeat", 1)):
-                verdict = gateway.check(case["agent"], case["tool"], case["params"],
+                verdict = gateway.execute(case["agent"], case["tool"], case["params"],
                                         approved_by=case.get("approved_by"), source="redteam")
         finally:
             if case.get("kill_first"):
@@ -57,7 +57,6 @@ def run(gateway: Gateway | None = None) -> dict:
 
 # Known gaps: what a breach means and what closes it. Keyed by attack id.
 FIXES = {
-    "A-08": "The gateway trusts what the agent says about its own request. Fix (designed): the gateway sits in front of the real tool and reads the recipient from the actual call.",
     "A-09": "The gateway checks who may touch which data, but not where the data ends up. Fix (designed): label data at the source and block writes of personal data to shared stores.",
     "A-10": "Each small request is within the rules; the total is not. Fix (designed): volume limits per agent per day and an alert on unusual patterns.",
 }
@@ -73,9 +72,10 @@ def publish(report: dict) -> None:
         f"Run at {s['run_at']} (UTC). Measured by running `python -m control_tower redteam` in this folder.",
         "",
         "Scope, stated plainly: this is a scripted campaign of "
-        f"{s['attacks']} attacks against the policy gateway, version 0. It assumes each attacked agent "
+        f"{s['attacks']} attacks against the policy gateway. It assumes each attacked agent "
         "is already fully compromised and tests whether the control layer contains it. "
-        "It does not yet test live language models. All data is synthetic.",
+        "It does not yet test live language models, and the tools behind the gateway are simulated. "
+        "All data is synthetic.",
         "",
         "## Summary",
         "",

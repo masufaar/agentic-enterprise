@@ -11,6 +11,13 @@ Every decision, allowed or not, is written to the audit trail.
 
 The human approval is passed in by the calling workflow (approved_by). It is
 never read from the agent's own request, so an agent cannot approve itself.
+
+Two entry points:
+  execute()  the agent hands over the call; the gateway reads the facts from
+             the call itself, decides, and only then carries it out. This is
+             the path agents use.
+  check()    decides on stated values only, without carrying anything out.
+             A dry run for people asking "would this be allowed?".
 """
 import json
 from fnmatch import fnmatch
@@ -20,6 +27,7 @@ from . import DATA, registry as registry_module
 from .audit import AuditLog
 from .classifier import classify
 from .killswitch import KillSwitch
+from .tools import SimulatedTools, derive_facts
 
 OPS = {
     "gt": lambda a, b: a > b,
@@ -30,11 +38,13 @@ OPS = {
 
 class Gateway:
     def __init__(self, registry: dict | None = None, policies_path: Path | None = None,
-                 audit: AuditLog | None = None, killswitch: KillSwitch | None = None):
+                 audit: AuditLog | None = None, killswitch: KillSwitch | None = None,
+                 tools: SimulatedTools | None = None):
         self.registry = registry if registry is not None else registry_module.load()
         self.policies = json.loads((policies_path or DATA / "policies.json").read_text())
         self.audit = audit if audit is not None else AuditLog()
         self.killswitch = killswitch if killswitch is not None else KillSwitch()
+        self.tools = tools if tools is not None else SimulatedTools()
 
     # -- rule matching -------------------------------------------------------
     def _matches(self, rule: dict, card: dict, tier: str, tool: str, params: dict) -> bool:
@@ -62,7 +72,19 @@ class Gateway:
                 return True  # fail closed on a value of the wrong type
         return True
 
-    # -- the one public entry point -----------------------------------------
+    # -- entry points --------------------------------------------------------
+    def execute(self, agent_id: str, tool: str, call: dict | None = None,
+                approved_by: str | None = None, source: str = "agent") -> dict:
+        """Decide on the real call, then carry it out only if allowed."""
+        call = call or {}
+        facts = derive_facts(tool, call, self.policies["company_domain"])
+        verdict = self.check(agent_id, tool, {**call, **facts},  # facts overwrite claims
+                             approved_by=approved_by, source=source)
+        verdict["executed"] = False
+        if verdict["decision"] == "allow":
+            verdict["executed"] = self.tools.run(agent_id, tool, call)["executed"]
+        return verdict
+
     def check(self, agent_id: str, tool: str, params: dict | None = None,
               approved_by: str | None = None, source: str = "agent") -> dict:
         params = params or {}

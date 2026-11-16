@@ -102,3 +102,33 @@ def test_redteam_campaign_has_no_false_blocks_and_only_known_breaches(gateway):
     breached = {r["id"] for r in report["results"] if r["outcome"] == "BREACH"}
     assert breached == set(redteam.FIXES)  # a new breach, or a silently closed one, fails the build
     assert summary["audit_chain"] == "chain intact"
+
+
+def test_gateway_reads_the_recipient_from_the_real_call(gateway):
+    lie = {"to": "inbox@mail-collector.example", "recipient_domain": "halden-industrial.example"}
+    verdict = gateway.execute("sd-resolution", "email.send", lie)
+    assert verdict["decision"] == "require_approval" and not verdict["executed"]
+    assert gateway.tools.executed == []
+
+
+@pytest.mark.parametrize("call", [
+    {"to": "a@halden-industrial.example", "bcc": "b@mail-collector.example"},
+    {"to": ["a@halden-industrial.example", "b@mail-collector.example"]},
+    {"to": "a@halden-industrial.example.mail-collector.example"},
+    {"to": "b@mail-collector.example, a@halden-industrial.example"},
+    {"to": "b@mail-collector.example@halden-industrial.example"},
+    {"to": "Colleague <b@mail-collector.example>"},
+    {"to": 42},
+    {},
+])
+def test_outside_or_unreadable_recipients_are_never_sent_unapproved(gateway, call):
+    verdict = gateway.execute("sd-resolution", "email.send", call)
+    assert verdict["decision"] == "require_approval" and not verdict["executed"]
+
+
+def test_internal_email_is_carried_out_and_denied_actions_are_not(gateway):
+    ok = gateway.execute("sd-resolution", "email.send", {"to": " Employee@Halden-Industrial.example "})
+    assert ok["decision"] == "allow" and ok["executed"]
+    assert len(gateway.tools.executed) == 1
+    denied = gateway.execute("sd-triage", "db.delete", {"target": "ticket_db"})
+    assert not denied["executed"] and len(gateway.tools.executed) == 1
