@@ -1,0 +1,60 @@
+{
+  "_note": "Policy as code for the fictional company Halden Industrial. Thresholds are illustrative assumptions, not measured values. Version 0 holds 9 rules; the design target is 30 to 50.",
+  "company_domain": "halden-industrial.example",
+  "rules": [
+    {
+      "id": "P-001",
+      "description": "No agent deletes or drops production data.",
+      "effect": "deny",
+      "when": {"tools": ["db.delete", "db.drop"]}
+    },
+    {
+      "id": "P-002",
+      "description": "No agent writes to plant-floor controllers.",
+      "effect": "deny",
+      "when": {"tools": ["plc.write", "scada.write"]}
+    },
+    {
+      "id": "P-003",
+      "description": "A purchase order may not exceed the agent's own spend limit.",
+      "effect": "deny",
+      "when": {"tools": ["erp.po.create"], "param": {"name": "amount_eur", "op": "gt", "value_from": "spend_limit_eur"}}
+    },
+    {
+      "id": "P-004",
+      "description": "Bulk data export above 1,000 rows is not allowed (assumption).",
+      "effect": "deny",
+      "when": {"tools": ["db.export"], "param": {"name": "rows", "op": "gt", "value": 1000}}
+    },
+    {
+      "id": "P-005",
+      "description": "Purchase orders above EUR 10,000 need a named human approver (assumption).",
+      "effect": "require_approval",
+      "when": {"tools": ["erp.po.create"], "param": {"name": "amount_eur", "op": "gt", "value": 10000}}
+    },
+    {
+      "id": "P-006",
+      "description": "Email to an address outside the company needs a named human approver.",
+      "effect": "require_approval",
+      "when": {"tools": ["email.send"], "param": {"name": "recipient_domain", "op": "ne", "value_from": "company_domain"}}
+    },
+    {
+      "id": "P-007",
+      "description": "Isolating a network segment can stop production and needs a named human approver.",
+      "effect": "require_approval",
+      "when": {"tools": ["network.isolate"]}
+    },
+    {
+      "id": "P-008",
+      "description": "High-risk agents may read on their own; every other action needs a named human approver.",
+      "effect": "require_approval",
+      "when": {"tier": ["high"], "tools_except": ["*.read"]}
+    },
+    {
+      "id": "P-009",
+      "description": "Agents registered as 'act with approval' need a named human approver for every action that is not a read.",
+      "effect": "require_approval",
+      "when": {"autonomy": ["act_with_approval"], "tools_except": ["*.read"]}
+    }
+  ]
+}
