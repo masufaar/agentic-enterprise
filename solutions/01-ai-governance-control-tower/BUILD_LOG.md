@@ -396,6 +396,7 @@ The last of the eight original features with nothing to show, the board dashboar
 | D67 | The report's time stamp is the campaign's. | Running `board` twice gives the same page. | A second time stamp. |
 | D68 | The page says what it does not cover: scripted attacks, simulated tools, no trend, no cost and benefit, no detection of unregistered AI use. | A board page that looks complete would overstate version 0. | Leaving the limits to the other pages. |
 | D69 | No delegation. | About 120 lines that summarise security results; the wording of the findings is the control. | |
+| D70 | The board deck is local only: kept in the Desktop folder, updated when a feature is added or its status changes, never pushed. A `.gitignore` at the top of the repository excludes the folder `board-deck`. | M's decision on 16 November 2026. The deck is a selling document for a meeting, not part of the public proof. The exclusion guards against a later session copying the whole Desktop folder into a clone. | Relying on the handover note alone. |
 
 ### Steps and cost
 
@@ -439,7 +440,7 @@ The last of the eight original features with nothing to show, the board dashboar
 | Python code | about 1,100 lines | Measured |
 | Tests | 73 of 73 passing | Measured |
 | Red-team attacks | 29: 16 blocked, 11 held, 1 capped, 1 open breach (A-29) | Measured |
-| Commits to the public repository | 10 | Measured |
+| Commits to the public repository | 11 | Measured |
 
 ## Where to continue
 
