@@ -1,10 +1,16 @@
 {
-  "_note": "Policy as code for the fictional company Halden Industrial. Thresholds are illustrative assumptions, not measured values. Version 0 holds 9 rules; the design target is 30 to 50.",
+  "_note": "Policy as code for the fictional company Halden Industrial. Thresholds are illustrative assumptions, not measured values. Version 0 holds 11 rules; the design target is 30 to 50.",
   "company_domain": "halden-industrial.example",
   "volume_limit": {
     "_note": "Assumption. Counts rows per agent per calendar day (UTC) across all listed tools.",
     "tools": ["db.read", "db.export"],
     "rows_per_agent_per_day": 5000
+  },
+  "data_labels": {
+    "_note": "Data is labelled where it lives. 'sources' are the tools that hand out labelled records; 'shared_stores' are the tools that write somewhere a wide audience can read. The gateway compares what is being written with the labelled values at the source, whatever the agent says the text contains.",
+    "sources": {"ticket.read": "tickets.json"},
+    "shared_stores": {"kb.write": "every employee"},
+    "labels_kept_out_of_shared_stores": ["personal"]
   },
   "rules": [
     {
@@ -60,6 +66,18 @@
       "description": "Agents registered as 'act with approval' need a named human approver for every action that is not a read.",
       "effect": "require_approval",
       "when": {"autonomy": ["act_with_approval"], "tools_except": ["*.read"]}
+    },
+    {
+      "id": "P-010",
+      "description": "Personal data may not be written to a store that every employee can read.",
+      "effect": "deny",
+      "when": {"tools": ["kb.write"], "param": {"name": "content_label", "op": "in", "value": ["personal", "unreadable"]}}
+    },
+    {
+      "id": "P-011",
+      "description": "Text written to a shared store by an agent that has handled personal data needs a named human to release it.",
+      "effect": "require_approval",
+      "when": {"tools": ["kb.write"], "param": {"name": "content_label", "op": "eq", "value": "unverified"}}
     }
   ]
 }

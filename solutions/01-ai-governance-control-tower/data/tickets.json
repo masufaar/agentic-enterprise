@@ -1,0 +1,19 @@
+{
+  "_note": "Synthetic support tickets for the fictional company Halden Industrial. Each field carries a label set where the data lives (the source), not by the agent that reads it. People appear by employee number only; numbers, phone and addresses are invented.",
+  "records": {
+    "T-1042": {
+      "summary": {"value": "VPN connection fails from home after a password change.", "label": "internal"},
+      "resolution": {"value": "Sign out of the VPN client, sign in again with the new password, then restart the client.", "label": "internal"},
+      "employee_number": {"value": "HI-EMP-20417", "label": "personal"},
+      "private_phone": {"value": "+00 555 0142 077", "label": "personal"},
+      "private_email": {"value": "requester-20417@private-mail.example", "label": "personal"},
+      "absence_note": {"value": "on medical leave until 30 November", "label": "personal"}
+    },
+    "T-1043": {
+      "summary": {"value": "Shared printer on plant 03 office floor prints blank pages.", "label": "internal"},
+      "resolution": {"value": "Replace the toner cartridge and run the cleaning cycle.", "label": "internal"},
+      "employee_number": {"value": "HI-EMP-31188", "label": "personal"},
+      "private_phone": {"value": "+00 555 0167 310", "label": "personal"}
+    }
+  }
+}

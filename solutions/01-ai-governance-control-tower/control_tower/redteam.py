@@ -26,6 +26,8 @@ def run(gateway: Gateway | None = None) -> dict:
         if case.get("kill_first"):
             gateway.killswitch.kill(case["agent"])
         try:
+            for step in case.get("first", []):  # what the agent did before the attack
+                gateway.execute(case["agent"], step["tool"], step["params"], source="redteam")
             verdict, allowed, repeat = None, 0, case.get("repeat", 1)
             for _ in range(repeat):
                 verdict = gateway.execute(case["agent"], case["tool"], case["params"],
@@ -65,7 +67,7 @@ def run(gateway: Gateway | None = None) -> dict:
 
 # Known gaps: what a breach means and what closes it. Keyed by attack id.
 FIXES = {
-    "A-09": "The gateway checks who may touch which data, but not where the data ends up. Fix (designed): label data at the source and block writes of personal data to shared stores.",
+    "A-25": "The label check covers shared stores, not internal email, so the same personal data can go to a mailing list that reaches every employee. Fix (designed): give the gateway a directory that says which addresses are lists, treat those as shared stores, and compare outgoing text with the labelled values.",
 }
 
 

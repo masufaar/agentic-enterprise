@@ -8,6 +8,8 @@ Decision order (first failure wins, and the gateway fails closed):
   5. Tool and data class must be on the agent's own permission list
   6. Daily volume limit per agent         (counted from the audit trail)
   7. Company rules in data/policies.json  (deny beats require-approval)
+     For a write to a shared store, the rules act on a label the gateway works
+     out itself by comparing the text with the labelled values at the source.
 Every decision, allowed or not, is written to the audit trail.
 
 The human approval is passed in by the calling workflow (approved_by). It is
@@ -35,6 +37,7 @@ OPS = {
     "gt": lambda a, b: a > b,
     "ne": lambda a, b: a != b,
     "eq": lambda a, b: a == b,
+    "in": lambda a, b: a in b,
 }
 
 
@@ -46,7 +49,8 @@ class Gateway:
         self.policies = json.loads((policies_path or DATA / "policies.json").read_text())
         self.audit = audit if audit is not None else AuditLog()
         self.killswitch = killswitch if killswitch is not None else KillSwitch()
-        self.tools = tools if tools is not None else SimulatedTools()
+        self.labels = self.policies["data_labels"]
+        self.tools = tools if tools is not None else SimulatedTools(self.labels["sources"])
 
     # -- rule matching -------------------------------------------------------
     def _matches(self, rule: dict, card: dict, tier: str, tool: str, params: dict) -> bool:
@@ -100,13 +104,36 @@ class Gateway:
             return "V-002", f"Daily volume limit reached ({used} of {cap} rows already used today)"
         return None
 
+    # -- data labels ---------------------------------------------------------
+    def _context(self, agent_id: str, tool: str) -> dict:
+        """What the gateway itself knows and the agent cannot influence."""
+        context = {"company_domain": self.policies["company_domain"],
+                   "shared_stores": self.labels["shared_stores"]}
+        if tool in self.labels["shared_stores"]:
+            kept_out = self.labels["labels_kept_out_of_shared_stores"]
+            context["kept_out"] = kept_out
+            context["labelled_values"] = self.tools.labelled_values(kept_out)
+            # Has this agent ever been handed records from a labelled source? Read from
+            # the audit trail, like the volume count, so the agent cannot reset it.
+            context["handled_labelled_data"] = any(
+                r.get("agent_id") == agent_id and r.get("tool") in self.labels["sources"]
+                and r.get("decision") == "allow" and r.get("mode") == "execute"
+                for r in self.audit.records())
+        return context
+
     # -- entry points --------------------------------------------------------
     def execute(self, agent_id: str, tool: str, call: dict | None = None,
                 approved_by: str | None = None, source: str = "agent") -> dict:
         """Decide on the real call, then carry it out only if allowed."""
         call = call or {}
-        facts = derive_facts(tool, call, self.policies["company_domain"])
-        verdict = self.check(agent_id, tool, {**call, **facts},  # facts overwrite claims
+        facts = derive_facts(tool, call, self._context(agent_id, tool))
+        logged = {**call, **facts}  # facts overwrite claims
+        if facts.get("content_label") == "personal":
+            # Refused text is kept out of the audit trail, or the trail would become
+            # the next place the personal data is copied to.
+            logged = {k: "[withheld: personal data]" if isinstance(v, (str, list, dict)) and k not in facts
+                      and k != "data_class" else v for k, v in logged.items()}
+        verdict = self.check(agent_id, tool, logged,
                              approved_by=approved_by, source=source, mode="execute")
         verdict["executed"] = False
         if verdict["decision"] == "allow":
