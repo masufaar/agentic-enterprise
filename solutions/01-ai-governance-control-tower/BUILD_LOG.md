@@ -322,7 +322,50 @@ Estimates cover text written, not reading and reasoning.
 - Unchanged: A-29 open; one labelled source; tools simulated; legal references unverified; thresholds are assumptions.
 - Published: M gave his go on 16 November 2026 and this session's changes were pushed to the public repository.
 
-## Running totals after session 6
+## Session 7, 16 November 2026
+
+### What was done
+
+1. The public pages were checked in a browser for the first time, signed out, as a visitor sees them: front page, this solution's page, the approver page, the red-team results, the agent inventory and the roadmap, at desktop width and at a narrow width.
+2. `docs/roadmap.md` was corrected. It still listed building the Control Tower and running the first red-team campaign as future work.
+
+### What the check found
+
+- All tables display correctly at both widths. All links on the front page point to the right places.
+- The roadmap was out of date (corrected in this session).
+- Approver page, not yet corrected: decided items still carry the line "Waiting for"; items are numbered by audit record (1, 4, 7, 8, 73 ...), which looks arbitrary; synthetic email addresses become clickable mail links; the forged approval in item 73 gets no "Look for" hint; item 7 shows "The request: (nothing stated)".
+- Red-team results: C-05 is listed before C-04.
+- Not checked: this log, the business cases, the other two pages in `docs`, the nine "Designed" solution pages.
+
+### Decisions
+
+| # | Decision | Why | Rejected alternative |
+|---|---|---|---|
+| D57 | The roadmap gets an "In build" section that repeats the six next steps of this solution's page, in the same order. | Two published lists of next steps that differ would contradict each other in front of a visitor. | A separate, shorter list in the roadmap. |
+| D58 | The roadmap carries no counts (attacks, rules, tests). It links to the pages that do. | Counts change with every run; the front page quotes none for the same reason. | Repeating the campaign figures. |
+| D59 | The roadmap states that there is no data generator yet. | Checked in the repository: the data is five files written for this solution. The architecture page still describes one generator for all solutions, which is a design. | Leaving it unsaid. |
+| D60 | The principle "after each fix, a new attack is written against its edge" is added to the roadmap. | Decided in sessions 4 and 5; it belongs with the other build principles. | |
+| D61 | The corrections to the approver page are a separate step. | They change the page generator in `approvals.py`, which needs tests and a new campaign run. | Editing the generated page by hand, which the next run would overwrite. |
+
+### Steps and cost
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Browser check of six pages | Main (Fable 5.2) | Mostly input (page text and screenshots), roughly 60,000 estimated |
+| 2 | Roadmap rewritten; this log | Main | About 1,300 estimated output |
+
+### Measured results
+
+- No code changed. Tests and campaign figures are as after session 6.
+
+### Open points
+
+- Approver page and red-team table corrections listed above.
+- The architecture page says the plan is to build on an existing open-source enforcement layer; version 0 does not (D2). The two pages should say the same.
+- A board deck of 30 slides was drafted from the elevator pitch and this repository. It is not part of the repository; a copy is in the Desktop folder under `board-deck`. It adds up the ten business cases (EUR 7,644,400 per year plus EUR 9M one-off, all illustrative assumptions) and the build estimates (595 to 835 hours).
+- Published: M gave his go on 16 November 2026 and the roadmap and this log were pushed to the public repository.
+
+## Running totals after session 7
 
 | | Value | Kind |
 |---|---|---|
@@ -333,11 +376,12 @@ Estimates cover text written, not reading and reasoning.
 | Text written by the main model, session 4 | about 5,100 tokens | Estimated from file size |
 | Text written by the main model, session 5 | about 4,600 tokens | Estimated from file size |
 | Text written by the main model, session 6 | about 5,600 tokens | Estimated from file size |
+| Text written by the main model, session 7 | about 1,300 tokens for the repository, about 9,000 for the deck | Estimated from file size |
 | Total tokens of the main model including reading and reasoning | Not known from inside the session | Take it from the usage screen |
 | Python code | about 940 lines | Measured |
 | Tests | 67 of 67 passing | Measured |
 | Red-team attacks | 29: 16 blocked, 11 held, 1 capped, 1 open breach (A-29) | Measured |
-| Commits to the public repository | 8 | Measured |
+| Commits to the public repository | 9 | Measured |
 
 ## Where to continue
 
