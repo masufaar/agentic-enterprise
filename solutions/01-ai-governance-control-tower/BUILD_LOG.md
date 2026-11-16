@@ -270,7 +270,59 @@ Estimates cover text written, not reading and reasoning.
 - Unchanged: one labelled source; tools simulated; legal references unverified; thresholds are assumptions.
 - Published: M gave his go on 16 November 2026 and this session's changes were pushed to the public repository.
 
-## Running totals after session 5
+## Session 6, 16 November 2026
+
+Goal given: the approval screen. Eleven of 29 attacks end with a named person, and that person had nothing to look at and no way to decide.
+
+### What was missing
+
+"Held for a human" was a verdict with nothing behind it. The held request was not kept anywhere a person could find it, any text given as approver was accepted, and a release had no link to the request it answered.
+
+### Decisions
+
+| # | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D47 | This session builds the queue, the decision and what the approver is shown. A clickable screen is the next step, not this one. | The logic is the control; the screen is its face. The repository shows formatted text pages but not web pages, so a generated page reaches a visitor today and a web screen would not. | A web page with buttons now. It needs a running server (against D1) and sign-in to mean anything. |
+| D48 | The queue is read from the audit trail; nothing new is stored. | Same reasoning as D18 and D29: the held request is already there, tamper-evident. | A separate queue file. One more thing to protect. |
+| D49 | The approver is the accountable owner of the agent in the registry. Only that role can release or refuse, and the gateway itself now ignores an approval from anyone else. | Until now any text counted as an approver. "A named person" has to mean the right named person. A wrong role's attempt is itself written to the audit trail. | A separate approver per rule. More precise, but the registry already names one accountable person per agent. |
+| D50 | On release the gateway reads the request again and decides again. | The world may have changed while the item waited: kill switch pulled, limit reached. And if the stored request was altered, the checks run on what would really be carried out. Tested with a tampered record. | Carrying out the stored verdict. |
+| D51 | An approver cannot release what a rule refuses. | Deny beats approval (unchanged), now also through the queue. | |
+| D52 | The approver is shown: why it is held, in the words of each rule; and what to look for. For text: whose personal data was found and which fields, or, when nothing was found, which records the agent had read before writing. | This answers the open point from sessions 4 and 5: the approver had no hint. The record the agent read is the best lead to a reworded copy. | Showing the bare request. |
+| D53 | In the campaign, legitimate requests that need approval now go through the queue: held, then released by their approver. | Before, the campaign passed the approval in directly, which did not test the route a real request takes. | |
+| D54 | The published page carries the workload per approver. | Approval fatigue was an open item with no number. Now it has one: 9 of 11 waiting items fall on one role. | |
+| D55 | Stated openly: version 0 does not verify who is at the keyboard. The approver states a role. | Without sign-in, "only the owner decides" is a rule about roles, not yet about people. | Leaving it implied. |
+| D56 | No delegation. | The page wording could have gone to a lighter model, but it is about 40 lines generated from the same data as the decision logic; splitting it would have cost more than it saved (see session 1: 75,980 tokens for one small file). | |
+
+### Steps and cost
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Approval queue, owner-only decisions, hints (`approvals.py`); gateway link between a release and its request | Main (Fable 5.2) | About 2,300 estimated output |
+| 2 | Command line: approvals, release, refuse; campaign routed through the queue; generated page | Main | About 700 estimated output |
+| 3 | 8 new tests; ran tests and the campaign twice | Main | About 1,100 estimated output |
+| 4 | README, this log | Main | About 1,500 estimated output |
+
+Estimates cover text written, not reading and reasoning.
+
+### Measured results
+
+- 67 of 67 tests pass (59 before).
+- Campaign figures unchanged: 29 attacks, 16 blocked, 11 held, 1 capped, 1 breach (A-29), 8 of 8 legitimate actions allowed. Three of the legitimate ones were held and then released by their approver through the queue.
+- Waiting items by approver after the campaign: Head of IT Service Management 9, Head of OT Security 1, Chief Procurement Officer 1.
+- Size: about 940 lines of Python.
+
+### Open points
+
+- No sign-in: the approver's identity is not verified (D55).
+- No clickable screen; decisions are made on the command line.
+- Nine of 11 items land on one person. Ways to reduce it (designed, not built): group identical items, let the owner name deputies, refuse outright what is held today where the evidence is strong (for example an outside address in blind copy).
+- No time limit on a waiting item. It should expire and count as refused.
+- The hints say whose data and which fields; they do not mark the place in the text.
+- Held text is still written to the audit trail in full.
+- Unchanged: A-29 open; one labelled source; tools simulated; legal references unverified; thresholds are assumptions.
+- Published: M gave his go on 16 November 2026 and this session's changes were pushed to the public repository.
+
+## Running totals after session 6
 
 | | Value | Kind |
 |---|---|---|
@@ -280,15 +332,16 @@ Estimates cover text written, not reading and reasoning.
 | Text written by the main model, session 3 | about 4,300 tokens | Estimated from file size |
 | Text written by the main model, session 4 | about 5,100 tokens | Estimated from file size |
 | Text written by the main model, session 5 | about 4,600 tokens | Estimated from file size |
+| Text written by the main model, session 6 | about 5,600 tokens | Estimated from file size |
 | Total tokens of the main model including reading and reasoning | Not known from inside the session | Take it from the usage screen |
-| Python code | about 730 lines | Measured |
-| Tests | 59 of 59 passing | Measured |
+| Python code | about 940 lines | Measured |
+| Tests | 67 of 67 passing | Measured |
 | Red-team attacks | 29: 16 blocked, 11 held, 1 capped, 1 open breach (A-29) | Measured |
-| Commits to the public repository | 7 | Measured |
+| Commits to the public repository | 8 | Measured |
 
 ## Where to continue
 
-1. Approval screen: 11 of 29 attacks end with a person who has nothing to look at.
+1. Approval screen with buttons and sign-in, on top of the queue built in session 6; reduce the load on one approver.
 2. Breach A-29: disguised personal data to one colleague. Needs a second check of outgoing text.
 3. Label more sources and shared stores.
 4. Then: nightly run with history, model-driven red-team agent, more rules, board one-pager, approval screen, first real tool.

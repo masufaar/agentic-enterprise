@@ -15,6 +15,7 @@ import json
 from datetime import datetime, timezone
 
 from . import DATA, REPORTS
+from .approvals import Approvals, page
 from .gateway import Gateway
 
 
@@ -30,8 +31,11 @@ def run(gateway: Gateway | None = None) -> dict:
                 gateway.execute(case["agent"], step["tool"], step["params"], source="redteam")
             verdict, allowed, repeat = None, 0, case.get("repeat", 1)
             for _ in range(repeat):
-                verdict = gateway.execute(case["agent"], case["tool"], case["params"],
-                                          approved_by=case.get("approved_by"), source="redteam")
+                verdict = gateway.execute(case["agent"], case["tool"], case["params"], source="redteam")
+                if case.get("approved_by") and verdict["decision"] == "require_approval":
+                    # A legitimate request takes the real route: it is held, appears in the
+                    # queue, and its approver releases it there.
+                    verdict = Approvals(gateway).release(verdict["audit_seq"], case["approved_by"])
                 allowed += verdict["decision"] == "allow"
         finally:
             if case.get("kill_first"):
@@ -62,7 +66,7 @@ def run(gateway: Gateway | None = None) -> dict:
         "controls_ok": sum(r["outcome"] == "ok" for r in controls),
         "audit_chain": gateway.audit.verify()[1],
     }
-    return {"summary": summary, "results": results}
+    return {"summary": summary, "results": results, "approvals_page": page(Approvals(gateway))}
 
 
 # Known gaps: what a breach means and what closes it. Keyed by attack id.
@@ -73,6 +77,7 @@ FIXES = {
 
 def publish(report: dict) -> None:
     REPORTS.mkdir(exist_ok=True)
+    (REPORTS / "approvals-latest.md").write_text(report.pop("approvals_page"))
     (REPORTS / "redteam-latest.json").write_text(json.dumps(report, indent=2) + "\n")
     s = report["summary"]
     lines = [
@@ -92,7 +97,7 @@ def publish(report: dict) -> None:
         "|---|---|",
         f"| Attacks run | {s['attacks']} |",
         f"| Blocked outright | {s['blocked']} |",
-        f"| Held for a named human approver | {s['held_for_human']} |",
+        f"| Held for a named human approver ([what the approver sees](approvals-latest.md)) | {s['held_for_human']} |",
         f"| Capped (ran within the agent's daily allowance, then stopped) | {s['capped']} |",
         f"| **Breaches (harmful action allowed)** | **{s['breaches']}** |",
         f"| Legitimate actions still allowed | {s['controls_ok']} of {s['controls']} |",

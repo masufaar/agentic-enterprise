@@ -276,3 +276,96 @@ def test_mail_to_a_list_from_an_agent_that_handled_personal_data_waits_for_a_hum
     assert gateway.execute("sd-resolution", "email.send", notice, approved_by=OWNER)["executed"]
     # an ordinary reply to one known employee is not held
     assert gateway.execute("sd-resolution", "email.send", {"to": OTHER, "body": CLEAN})["decision"] == "allow"
+
+
+# -- approval queue -----------------------------------------------------------
+
+from control_tower.approvals import ApprovalError, Approvals, page
+
+CPO = "Chief Procurement Officer"
+
+
+def test_held_request_appears_in_the_queue_with_its_approver_and_reason(gateway):
+    held = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000})
+    gateway.execute("sd-triage", "ticket.read")          # allowed: not in the queue
+    gateway.execute("sd-triage", "db.delete")            # denied: not in the queue
+    gateway.check("sourcing-options", "erp.po.create", {"amount_eur": 12000})  # dry run: not in the queue
+    (item,) = Approvals(gateway).pending()
+    assert item["seq"] == held["audit_seq"] and item["approver"] == CPO
+    assert "P-005" in item["rules"] and item["request"]["amount_eur"] == 12000
+
+
+def test_release_by_the_owner_carries_the_action_out_and_empties_the_queue(gateway):
+    held = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000})
+    approvals = Approvals(gateway)
+    verdict = approvals.release(held["audit_seq"], CPO)
+    assert verdict["decision"] == "allow" and verdict["executed"]
+    assert approvals.pending() == [] and len(gateway.tools.executed) == 1
+    with pytest.raises(ApprovalError):                   # cannot be released twice
+        approvals.release(held["audit_seq"], CPO)
+    assert len(gateway.tools.executed) == 1
+    assert gateway.audit.verify()[0]
+
+
+def test_only_the_accountable_owner_can_decide(gateway):
+    held = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000})
+    approvals = Approvals(gateway)
+    for action in (approvals.release, approvals.refuse):
+        with pytest.raises(ApprovalError):
+            action(held["audit_seq"], "Head of IT Service Management")
+    assert gateway.tools.executed == [] and len(approvals.pending()) == 1
+    assert gateway.audit.records()[-1]["decision"] == "rejected"   # the attempt is on record
+    # and the gateway itself does not accept another role's approval either
+    direct = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000},
+                             approved_by="Head of IT Service Management")
+    assert direct["decision"] == "require_approval" and not direct["executed"]
+
+
+def test_refusal_is_recorded_and_nothing_is_carried_out(gateway):
+    held = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000})
+    approvals = Approvals(gateway)
+    approvals.refuse(held["audit_seq"], CPO, "Supplier not on the approved list")
+    assert approvals.pending() == [] and gateway.tools.executed == []
+    (item,) = approvals.decided()
+    assert item["outcome"]["decision"] == "refused" and "approved list" in item["outcome"]["reason"]
+
+
+def test_release_is_decided_again_and_fails_if_the_kill_switch_was_pulled(gateway):
+    held = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000})
+    gateway.killswitch.kill("sourcing-options")
+    verdict = Approvals(gateway).release(held["audit_seq"], CPO)
+    assert verdict["rule"] == "KILL" and not verdict["executed"]
+
+
+def test_release_cannot_wave_through_what_the_rules_refuse(gateway):
+    gateway.execute("sd-resolution", "ticket.read", {"record": "T-1042"})
+    held = gateway.execute("sd-resolution", "email.send", {"to": LIST, "body": CLEAN})
+    # the held text is tampered with after the fact: the audit check catches that
+    lines = gateway.audit.path.read_text().splitlines()
+    lines[-1] = lines[-1].replace("Sign out", "HI-EMP-20417 sign out")
+    gateway.audit.path.write_text("\n".join(lines) + "\n")
+    assert not gateway.audit.verify()[0]
+    # and even then the gateway reads the text again on release and refuses it
+    verdict = Approvals(gateway).release(held["audit_seq"], OWNER)
+    assert verdict["rule"] == "P-012" and not verdict["executed"]
+
+
+def test_approver_is_told_what_to_look_for(gateway):
+    gateway.execute("sd-resolution", "ticket.read", {"record": "T-1042"})
+    gateway.execute("sd-resolution", "email.send", {"to": OTHER, "body": LEAK})
+    gateway.execute("sd-resolution", "kb.write", {"content": CLEAN})
+    gateway.execute("sd-resolution", "email.send", {"to": "inbox@mail-collector.example"})
+    other, article, outside = Approvals(gateway).pending()
+    assert any("personal data of HI-EMP-20417: employee number" in h for h in other["look_for"])
+    assert any("T-1042" in h for h in article["look_for"])
+    assert any("mail-collector.example" in h for h in outside["look_for"])
+    text = page(Approvals(gateway))
+    assert "3 items waiting" in text and "Head of IT Service Management | 3" in text
+
+
+def test_campaign_sends_legitimate_requests_through_the_queue(gateway):
+    report = redteam.run(gateway)
+    approvals = Approvals(gateway)
+    assert len(approvals.pending()) == report["summary"]["held_for_human"]
+    assert len(approvals.decided()) == 3 and all(
+        item["outcome"]["decision"] == "allow" for item in approvals.decided())

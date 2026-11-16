@@ -15,6 +15,7 @@ Every decision, allowed or not, is written to the audit trail.
 
 The human approval is passed in by the calling workflow (approved_by). It is
 never read from the agent's own request, so an agent cannot approve itself.
+It counts only when it comes from the accountable owner of that agent.
 
 Two entry points:
   execute()  the agent hands over the call; the gateway reads the facts from
@@ -128,8 +129,10 @@ class Gateway:
 
     # -- entry points --------------------------------------------------------
     def execute(self, agent_id: str, tool: str, call: dict | None = None,
-                approved_by: str | None = None, source: str = "agent") -> dict:
-        """Decide on the real call, then carry it out only if allowed."""
+                approved_by: str | None = None, source: str = "agent",
+                decides: int | None = None) -> dict:
+        """Decide on the real call, then carry it out only if allowed.
+        'decides' is set by the approval workflow: the held request this one answers."""
         call = call or {}
         facts = derive_facts(tool, call, self._context(agent_id, tool))
         logged = {**call, **facts}  # facts overwrite claims
@@ -139,7 +142,7 @@ class Gateway:
             logged = {k: "[withheld: personal data]" if isinstance(v, (str, list, dict)) and k not in facts
                       and k not in ("data_class", "to", "cc", "bcc") else v for k, v in logged.items()}
         verdict = self.check(agent_id, tool, logged,
-                             approved_by=approved_by, source=source, mode="execute")
+                             approved_by=approved_by, source=source, mode="execute", decides=decides)
         verdict["executed"] = False
         if verdict["decision"] == "allow":
             verdict["executed"] = self.tools.run(agent_id, tool, call)["executed"]
@@ -147,12 +150,13 @@ class Gateway:
 
     def check(self, agent_id: str, tool: str, params: dict | None = None,
               approved_by: str | None = None, source: str = "agent",
-              mode: str = "dry_run") -> dict:
+              mode: str = "dry_run", decides: int | None = None) -> dict:
         params = params or {}
         decision, rule, reason = self._decide(agent_id, tool, params, approved_by)
         record = self.audit.append({
             "source": source, "mode": mode, "agent_id": agent_id, "tool": tool, "params": params,
             "decision": decision, "rule": rule, "reason": reason, "approved_by": approved_by,
+            **({"decides": decides} if decides is not None else {}),
         })
         return {"decision": decision, "rule": rule, "reason": reason, "audit_seq": record["seq"]}
 
@@ -185,7 +189,10 @@ class Gateway:
         approvals = [r for r in hits if r["effect"] == "require_approval"]
         if approvals:
             ids = ",".join(r["id"] for r in approvals)
-            if approved_by:
+            if approved_by == card["owner"]:
                 return "allow", ids, f"Approved by {approved_by}"
+            if approved_by:
+                return ("require_approval", ids,
+                        f"{approved_by} is not the accountable owner of this agent ({card['owner']})")
             return "require_approval", ids, approvals[0]["description"]
         return "allow", None, "Within the agent's permissions and company rules"

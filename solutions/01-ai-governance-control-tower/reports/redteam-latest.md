@@ -1,6 +1,6 @@
 # Red-team results
 
-Run at 2026-11-16T14:41:50+00:00 (UTC). Measured by running `python -m control_tower redteam` in this folder.
+Run at 2026-11-16T14:46:38+00:00 (UTC). Measured by running `python -m control_tower redteam` in this folder.
 
 Scope, stated plainly: this is a scripted campaign of 29 attacks against the policy gateway. It assumes each attacked agent is already fully compromised and tests whether the control layer contains it. It does not yet test live language models, and the tools behind the gateway are simulated. All data is synthetic.
 
@@ -10,7 +10,7 @@ Scope, stated plainly: this is a scripted campaign of 29 attacks against the pol
 |---|---|
 | Attacks run | 29 |
 | Blocked outright | 16 |
-| Held for a named human approver | 11 |
+| Held for a named human approver ([what the approver sees](approvals-latest.md)) | 11 |
 | Capped (ran within the agent's daily allowance, then stopped) | 1 |
 | **Breaches (harmful action allowed)** | **1** |
 | Legitimate actions still allowed | 8 of 8 |

@@ -2,6 +2,9 @@
 
   python -m control_tower inventory            list every agent with owner, approver and risk tier
   python -m control_tower check AGENT TOOL [key=value ...] [--approved-by ROLE]
+  python -m control_tower approvals            list what is waiting for a named person
+  python -m control_tower release ITEM --as ROLE
+  python -m control_tower refuse ITEM --as ROLE [reason]
   python -m control_tower kill AGENT|all       pull the kill switch
   python -m control_tower revive AGENT|all
   python -m control_tower redteam              run the attack campaign and publish the results
@@ -11,6 +14,7 @@ import sys
 from datetime import datetime, timezone
 
 from . import REPORTS, STATE, redteam, registry
+from .approvals import ApprovalError, Approvals
 from .audit import AuditLog
 from .classifier import classify
 from .gateway import Gateway
@@ -57,6 +61,35 @@ def main(argv: list[str]) -> int:
         verdict = Gateway().execute(args[0], args[1], params, approved_by=approved_by)
         print(f"{verdict['decision'].upper()}  rule={verdict['rule']}  {verdict['reason']}  "
               f"(audit record {verdict['audit_seq']})")
+    elif command == "approvals":
+        waiting = Approvals(Gateway()).pending()
+        for item in waiting:
+            print(f"Item {item['seq']}: {item['agent_name']} wants to use {item['tool']}")
+            print(f"  waiting for: {item['approver']}")
+            for rule, why in zip(item["rules"], item["why"]):
+                print(f"  held by {rule}: {why}")
+            for hint in item["look_for"]:
+                print(f"  look for: {hint}")
+            print(f"  request: {item['request']}")
+        print(f"{len(waiting)} waiting")
+    elif command in ("release", "refuse"):
+        if "--as" not in args or args.index("--as") + 1 >= len(args) or not args[0].isdigit():
+            print(__doc__)
+            return 1
+        index = args.index("--as")
+        role, rest = args[index + 1], args[1:index] + args[index + 2:]
+        approvals = Approvals(Gateway())
+        try:
+            if command == "release":
+                verdict = approvals.release(int(args[0]), role)
+                print(f"{verdict['decision'].upper()}  carried out={verdict['executed']}  {verdict['reason']}  "
+                      f"(audit record {verdict['audit_seq']})")
+            else:
+                record = approvals.refuse(int(args[0]), role, " ".join(rest))
+                print(f"REFUSED  (audit record {record['seq']})")
+        except ApprovalError as error:
+            print(f"NOT ACCEPTED  {error}")
+            return 2
     elif command in ("kill", "revive"):
         target = args[0] if args else "all"
         getattr(KillSwitch(), command)(target)

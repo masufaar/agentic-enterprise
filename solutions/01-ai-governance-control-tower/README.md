@@ -29,11 +29,12 @@ The board gets one page that answers three questions at any moment: how many age
 | Kill switch | Working | Stops one agent or all agents with one command. |
 | Volume limit | Working | Each agent has a daily allowance of database rows (5,000, an assumption). Usage is counted from the audit trail, so there is nothing separate to tamper with. |
 | Data labels | Working (one source, one shared store, internal email) | Data is labelled where it lives: each field of a support ticket carries a label. Before anything is written to the knowledge base, which every employee can read, the gateway compares the text with the values labelled personal at the source. A match is refused, whatever the agent says the text contains. Text from an agent that has handled personal data waits for a named person even when no match is found. For email, the gateway also looks up every recipient in a company directory: personal data is refused if any reader is a mailing list or an address that is not one known employee, held if it is about a different employee than the reader, and allowed when the only reader is the person it is about. |
+| Approval queue | Working (command line and a generated page, no clickable screen) | Every held action waits for the accountable owner of the agent, and only that person can release or refuse it. The queue is read from the audit trail and every decision is written back to it. The approver is shown why the item is held and what to look for, for example whose personal data is in a text. On release the gateway decides again. See [what the approver sees](reports/approvals-latest.md). Not built: verifying who the approver is, and a screen with buttons. |
 | Red-team campaign | Working (scripted) | 29 attacks and 8 legitimate control actions. See the [latest results](reports/redteam-latest.md). |
 | Red-team agent driven by a language model | Designed | Version 0 replays a fixed list of attacks. It does not yet invent new ones. |
 | Nightly schedule | Designed | The campaign runs on demand today. |
 | Connection to real systems | Designed | The gateway must be the only holder of the passwords and keys to the real systems, so that no agent can go around it. Not built: there are no real systems behind it yet. |
-| Board dashboard, approval workflow screen | Designed | |
+| Board dashboard, clickable approval screen with company sign-in | Designed | |
 
 ## Measured results of the red-team campaign
 
@@ -54,7 +55,7 @@ Measured on 16 November 2026 by running the campaign in this folder. All data is
 - Run 4 found, with a new attack written to test the edge of that fix, that the agent could send the same personal data to the all-employees mailing list instead. Closed: the gateway looks up every recipient in a company directory. In run 5 the email is refused, also when the list is hidden in blind copy. One employee's personal data sent to a single other colleague is held for a named person. A reply to the employee the data is about is still allowed.
 - One breach is open in run 5 and is published with its designed fix in the [results](reports/redteam-latest.md). Again it is a new attack at the edge of the fix: personal data that is disguised (spelled out and broken up) and sent to one single colleague is neither recognised nor held. The same disguised text sent to a mailing list or to the knowledge base is held.
 
-Known limits of the data labels: one labelled source (support tickets), one shared store (the knowledge base) and email. The comparison finds exact values, ignoring capitals and spacing; reworded or encoded personal data is not recognised. Attachments are compared only as far as their text is in the call. An employee's private address is not in the directory, so a reply there that contains their data is refused. Once an agent has handled a ticket, every knowledge article and every email to a list waits for a person: 11 of 29 attacks now end on an approver's desk, and the approval screen is not built.
+Known limits of the data labels: one labelled source (support tickets), one shared store (the knowledge base) and email. The comparison finds exact values, ignoring capitals and spacing; reworded or encoded personal data is not recognised. Attachments are compared only as far as their text is in the call. An employee's private address is not in the directory, so a reply there that contains their data is refused. Once an agent has handled a ticket, every knowledge article and every email to a list waits for a person: 11 of 29 attacks now end on an approver's desk, handled through the approval queue above. The 11 waiting items of run 5 fall on three people: 9 on the Head of IT Service Management, 1 each on the Head of OT Security and the Chief Procurement Officer.
 
 Known limits of the volume control, not yet tested by the campaign: an agent that stays just under the limit every day for weeks, and several agents each taking a share. Both need pattern detection over time, which is designed, not built. The limit covers database reads and exports only.
 
@@ -68,6 +69,9 @@ Needs Python 3.11 or later. Nothing to install. Run from this folder.
 python -m control_tower inventory
 python -m control_tower check sd-triage ticket.read
 python -m control_tower check sourcing-options erp.po.create amount_eur=250000
+python -m control_tower check sourcing-options erp.po.create amount_eur=12000
+python -m control_tower approvals
+python -m control_tower release ITEM --as "Chief Procurement Officer"
 python -m control_tower kill sd-triage
 python -m control_tower redteam
 python -m control_tower verify
@@ -76,7 +80,7 @@ python -m pytest -q
 
 ## How it is put together
 
-Plain Python, standard library only, about 730 lines. No database, no server, no language model.
+Plain Python, standard library only, about 940 lines. No database, no server, no language model.
 
 - `data/agents.json` the registry (synthetic)
 - `data/policies.json` the company rules
@@ -85,6 +89,7 @@ Plain Python, standard library only, about 730 lines. No database, no server, no
 - `data/attacks.json` the red-team campaign
 - `control_tower/gateway.py` the single checkpoint every action passes
 - `control_tower/tools.py` reads the facts from each call; simulated tools
+- `control_tower/approvals.py` the queue of held actions and the approver's decisions
 - `control_tower/audit.py`, `killswitch.py`, `classifier.py`, `registry.py`, `redteam.py`
 - `reports/` published results
 - [BUILD_LOG.md](BUILD_LOG.md) what was decided, why, and what it cost
@@ -97,7 +102,7 @@ All data is synthetic and belongs to the fictional company described in [docs/co
 
 ## Next steps
 
-1. Build the approval screen, so that a person releasing held text sees what to look for. Then label more sources than tickets.
+1. Turn the approval queue into a screen with buttons and company sign-in, and reduce the load on one approver (9 of 11 items). Then label more sources than tickets.
 2. Close breach A-29: a second check of outgoing text for personal data that exact comparison cannot see.
 3. Run the campaign every night and keep the history.
 4. Replace the scripted campaign with a model-driven red-team agent, and add detection of slow patterns over days and across agents.
