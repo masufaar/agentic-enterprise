@@ -468,7 +468,43 @@ The board report page was read in a browser on the public site for the first tim
 - `docs/architecture.md` still says the plan is to build on an existing open-source enforcement layer; version 0 does not. Not part of this session.
 - The three wording points on the board report listed above wait for M.
 
-## Running totals after session 9
+## Session 10, 16 November 2026
+
+### What was done
+
+Three small points left open by session 9 were closed: one sentence in `docs/architecture.md` and two wordings on the board report. The board deck, which is local and not part of the repository, was then brought in step.
+
+### Decisions
+
+| # | Decision | Why | Rejected alternative |
+|---|---|---|---|
+| D78 | `docs/architecture.md` now says that version 0 runs on the project's own small gateway, that it has a single entry point so an open-source enforcement layer can replace it later, and that this replacement is not built. | The page still described the earlier plan as the current one (see D2). The Control Tower page already said the opposite. | Removing the mention of an open-source layer, which would hide a choice a technical reader will ask about. |
+| D79 | On the board report the answer to "Is the record of decisions unaltered?" is given in words: "Yes. Every entry was checked against the one before it and none was changed." If the check fails the answer starts with a bold "No" and gives the technical result. | "chain intact" is the tool's phrase, not a board answer. The technical phrase stays on the red-team results page. | Changing the audit check's own message, which other pages and a test rely on. |
+| D80 | With exactly one high-risk agent the sentence reads "It may read on its own; every other action it takes waits for a named person"; with several it stays "They may read on their own". | The page said "They" about one agent. | |
+| D81 | No delegation, although the task was small enough for a lighter model. | Three sentences and one test; starting a second model would have cost more than the change (see session 1). M was told beforehand that a lighter model would do. | |
+
+### Steps and cost
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Read `docs/architecture.md`, `board.py`, decision D2 and the deck's build notes | Main (Fable 5.2) | Input only, about 6,000 estimated |
+| 2 | Changes to `architecture.md` and `board.py`, 1 new test; ran tests and the campaign | Main | About 500 estimated output |
+| 3 | This log | Main | About 600 estimated output |
+
+### Measured results
+
+- 77 of 77 tests pass (76 before).
+- Campaign figures unchanged: 29 attacks, 16 blocked, 11 held, 1 capped, 1 breach (A-29), 8 of 8 legitimate actions allowed. The campaign was run again, so the time stamp on the report pages is new.
+- Size: about 1,100 lines of Python (1,129).
+
+### Open points
+
+- `docs/architecture.md` lists a red-team scoreboard for "nightly attacks" and a one-page board dashboard among the planned features. Both are still correct as plans; the risk half of the board page now exists in a first form and the page does not say so.
+- Agents still appear by technical id in the per-agent table of the board report (left as it is by M in session 8).
+- Published: M was shown the final text of the three wordings and gave his go on 16 November 2026.
+- The board deck (local, not in the repository) was brought in step: the test count on the evidence slide and in its speaker note is 77. The PowerPoint file was rebuilt from the saved build scripts, which confirms they work. The private online copy of the deck could not be changed from this session and still says 73.
+
+## Running totals after session 10
 
 | | Value | Kind |
 |---|---|---|
@@ -482,11 +518,12 @@ The board report page was read in a browser on the public site for the first tim
 | Text written by the main model, session 8 | about 4,800 tokens | Estimated from file size |
 | Text written by the main model, session 7 | about 1,300 tokens for the repository, about 9,000 for the deck | Estimated from file size |
 | Text written by the main model, session 9 | about 2,300 tokens | Estimated from file size |
+| Text written by the main model, session 10 | about 1,100 tokens for the repository | Estimated from file size |
 | Total tokens of the main model including reading and reasoning | Not known from inside the session | Take it from the usage screen |
 | Python code | about 1,100 lines | Measured |
-| Tests | 76 of 76 passing | Measured |
+| Tests | 77 of 77 passing | Measured |
 | Red-team attacks | 29: 16 blocked, 11 held, 1 capped, 1 open breach (A-29) | Measured |
-| Commits to the public repository | 12 | Measured |
+| Commits to the public repository | 13 | Measured |
 
 ## Where to continue
 

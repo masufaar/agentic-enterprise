@@ -403,6 +403,15 @@ def test_campaign_sends_legitimate_requests_through_the_queue(gateway):
 from control_tower import board
 
 
+def test_board_page_answers_in_plain_words(gateway):
+    report = redteam.run(gateway)
+    text = board.page(report)
+    assert "| Is the record of decisions unaltered? | Yes. " in text and "chain intact" not in text
+    assert "It may read on its own" in text and "They may read" not in text   # one high-risk agent
+    report["summary"]["audit_chain"] = "chain broken at record 5"
+    assert "| **No.** The check failed (chain broken at record 5)." in board.page(report)
+
+
 def test_board_figures_count_every_agent_once_by_tier(gateway):
     f = board.figures(redteam.run(gateway))
     assert sum(len(cards) for cards in f["by_tier"].values()) == f["agents"] == 16

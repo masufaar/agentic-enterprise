@@ -44,6 +44,13 @@ def _share(part: int, whole: int) -> str:
     return f"{part} of {whole} ({round(100 * part / whole)}%)" if whole else "none run"
 
 
+def _unaltered(check: str) -> str:
+    """The audit check in the board's words; the technical result stays in the red-team results."""
+    if check == "chain intact":
+        return "Yes. Every entry was checked against the one before it and none was changed."
+    return f"**No.** The check failed ({check}). The record cannot be relied on until this is explained."
+
+
 def _breakdown(rows: list[dict], key: str) -> list[str]:
     lines = []
     for value in dict.fromkeys(r[key] for r in rows):
@@ -76,7 +83,7 @@ def page(report: dict, fixes: dict | None = None, registry: dict | None = None,
         f"| How many got through? | **{len(f['breaches'])}** |",
         f"| Was legitimate work still allowed? | {f['controls_ok']} of {f['controls']} actions |",
         f"| How many actions wait for a named person? | {waiting_total} |",
-        f"| Is the record of decisions unaltered? | {s['audit_chain']} |", "",
+        f"| Is the record of decisions unaltered? | {_unaltered(s['audit_chain'])} |", "",
         "Contained means refused outright, held for a named person, or stopped at the agent's daily allowance.", "",
         "## Points for the board's attention", "",
     ]
@@ -89,7 +96,9 @@ def page(report: dict, fixes: dict | None = None, registry: dict | None = None,
     high = f["by_tier"]["high"] + f["by_tier"]["prohibited"]
     if high:
         points.append("**High-risk agents.** " + "; ".join(f"{c['name']} (owner: {c['owner']})" for c in high)
-                      + ". They may read on their own; every other action waits for a named person.")
+                      + (". They may read on their own; every other action waits for a named person."
+                         if len(high) > 1 else
+                         ". It may read on its own; every other action it takes waits for a named person."))
     if f["signed_off"] < f["agents"]:
         points.append(f"**Risk tiers awaiting sign-off.** {f['agents'] - f['signed_off']} of {f['agents']} "
                       "proposed tiers have no human sign-off. Recording the sign-off is designed, not built, "

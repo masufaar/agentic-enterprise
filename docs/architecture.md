@@ -5,7 +5,7 @@ The ten solutions share a small set of building blocks. Building them once is wh
 ## Shared building blocks
 
 - **Agent registry.** One card per agent: owner, purpose, model, tools, data access, autonomy level.
-- **Policy gateway.** Deterministic allow, deny or require-approval decisions on every tool call. The plan is to build on an existing open-source enforcement layer and not to write one from scratch.
+- **Policy gateway.** Deterministic allow, deny or require-approval decisions on every tool call. Version 0 runs on the project's own small gateway, kept short enough to read in one sitting. It has a single entry point, so an established open-source enforcement layer can replace it later without changing the agents. That replacement is not built.
 - **Human approval workflow.** High-impact actions wait for a named person.
 - **Audit trail.** Hash-chained, replayable record of every agent decision.
 - **Model-agnostic routing.** Each agent states the model class it needs (small, mid, top). The same agent can run on a hosted model at headquarters or on a self-hosted open model in an isolated plant.
