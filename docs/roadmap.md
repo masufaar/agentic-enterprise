@@ -6,7 +6,7 @@ Status words used in this repository: "Designed", "In build", "Working".
 
 - Ten solutions designed, each with a description and a one-page business case.
 - Fictional company and shared assumptions defined.
-- AI Governance Control Tower, version 0, working: agent registry, policy gateway, audit trail, kill switch, daily volume limit, data labels at the source and an approval queue for the accountable owner of each agent. What works and what is still a design is listed in [the Control Tower page](../solutions/01-ai-governance-control-tower/README.md).
+- AI Governance Control Tower, version 0, working: agent registry, policy gateway, audit trail, kill switch, daily volume limit, data labels at the source, an approval queue for the accountable owner of each agent and a one-page board report. What works and what is still a design is listed in [the Control Tower page](../solutions/01-ai-governance-control-tower/README.md).
 - First red-team campaign run and published, including the attacks that got through. It has been repeated after each fix; one breach is open and published with its designed fix. See [the latest results](../solutions/01-ai-governance-control-tower/reports/redteam-latest.md).
 
 ## In build
@@ -17,7 +17,7 @@ The AI Governance Control Tower. Next for it, in order:
 2. Close the open breach: a second check of outgoing text for personal data that exact comparison cannot see.
 3. Run the campaign every night and keep the history.
 4. Replace the scripted campaign with a red-team agent driven by a language model.
-5. Grow the rule set and add the board one-pager.
+5. Grow the rule set. Give the board report a quarterly schedule and trends over time.
 6. Connect the first real tool, with the gateway as the only holder of its credentials.
 
 ## Next steps after that

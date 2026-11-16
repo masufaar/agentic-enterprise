@@ -8,12 +8,14 @@
   python -m control_tower kill AGENT|all       pull the kill switch
   python -m control_tower revive AGENT|all
   python -m control_tower redteam              run the attack campaign and publish the results
+  python -m control_tower board                one page for the board, from the registry and the latest campaign
   python -m control_tower verify               check the audit trail has not been altered
 """
+import json
 import sys
 from datetime import datetime, timezone
 
-from . import REPORTS, STATE, redteam, registry
+from . import REPORTS, STATE, board, redteam, registry
 from .approvals import ApprovalError, Approvals
 from .audit import AuditLog
 from .classifier import classify
@@ -106,6 +108,15 @@ def main(argv: list[str]) -> int:
             print(f"{r['id']}  {r['outcome']:<11}  {r['agent']:<24} {r['tool']:<16} rule={r['rule']}  {r['detail']}")
         print(report["summary"])
         return 0
+    elif command == "board":
+        latest = REPORTS / "redteam-latest.json"
+        if not latest.exists():
+            print("No campaign results yet. Run: python -m control_tower redteam")
+            return 1
+        report = json.loads(latest.read_text())
+        text = board.page(report, redteam.FIXES, stopped=KillSwitch().stopped(), rules=report.get("rules"))
+        (REPORTS / "board-latest.md").write_text(text)
+        print(text)
     elif command == "verify":
         ok, message = AuditLog().verify()
         print(f"{len(AuditLog())} records, {message}")

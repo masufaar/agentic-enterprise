@@ -369,3 +369,50 @@ def test_campaign_sends_legitimate_requests_through_the_queue(gateway):
     assert len(approvals.pending()) == report["summary"]["held_for_human"]
     assert len(approvals.decided()) == 3 and all(
         item["outcome"]["decision"] == "allow" for item in approvals.decided())
+
+
+# --- board report -------------------------------------------------------------
+from control_tower import board
+
+
+def test_board_figures_count_every_agent_once_by_tier(gateway):
+    f = board.figures(redteam.run(gateway))
+    assert sum(len(cards) for cards in f["by_tier"].values()) == f["agents"] == 16
+    assert sum(f["by_autonomy"].values()) == 16
+    assert len(f["approved"]) + len(f["not_approved"]) == 16
+
+
+def test_board_pass_rate_counts_refused_held_and_capped_as_contained(gateway):
+    report = redteam.run(gateway)
+    f, s = board.figures(report), report["summary"]
+    assert f["contained"] == s["blocked"] + s["held_for_human"] + s["capped"]
+    assert f["contained"] + len(f["breaches"]) == f["attacks"] == s["attacks"]
+
+
+def test_board_page_names_every_open_finding_with_its_fix(gateway):
+    report = redteam.run(gateway)
+    text = board.page(report, redteam.FIXES)
+    for r in report["results"]:
+        if r["outcome"] == "BREACH":
+            assert f"Open finding {r['id']}" in text and redteam.FIXES[r["id"]] in text
+
+
+def test_board_page_reports_a_breach_free_campaign_without_inventing_findings(gateway):
+    report = redteam.run(gateway)
+    report["results"] = [r for r in report["results"] if r["outcome"] != "BREACH"]
+    assert "Open finding" not in board.page(report, redteam.FIXES)
+
+
+def test_board_page_flags_load_on_one_approver_and_agents_not_approved(gateway):
+    report = redteam.run(gateway)
+    text = board.page(report, redteam.FIXES)
+    top = max(report["waiting_by_approver"].values())
+    assert f"{top} of {sum(report['waiting_by_approver'].values())} waiting actions fall on one role" in text
+    assert "Registered but not approved" in text
+    assert sum(report["waiting_by_approver"].values()) == report["summary"]["held_for_human"]
+
+
+def test_board_page_shows_agents_that_are_switched_off(gateway):
+    report = redteam.run(gateway)
+    assert "| How many are switched off right now? | 1 |" in board.page(report, stopped=["sd-triage"])
+    assert "| How many are switched off right now? | all |" in board.page(report, stopped=["all"])

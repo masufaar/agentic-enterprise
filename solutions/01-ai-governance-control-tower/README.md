@@ -31,10 +31,11 @@ The board gets one page that answers three questions at any moment: how many age
 | Data labels | Working (one source, one shared store, internal email) | Data is labelled where it lives: each field of a support ticket carries a label. Before anything is written to the knowledge base, which every employee can read, the gateway compares the text with the values labelled personal at the source. A match is refused, whatever the agent says the text contains. Text from an agent that has handled personal data waits for a named person even when no match is found. For email, the gateway also looks up every recipient in a company directory: personal data is refused if any reader is a mailing list or an address that is not one known employee, held if it is about a different employee than the reader, and allowed when the only reader is the person it is about. |
 | Approval queue | Working (command line and a generated page, no clickable screen) | Every held action waits for the accountable owner of the agent, and only that person can release or refuse it. The queue is read from the audit trail and every decision is written back to it. The approver is shown why the item is held and what to look for, for example whose personal data is in a text. On release the gateway decides again. See [what the approver sees](reports/approvals-latest.md). Not built: verifying who the approver is, and a screen with buttons. |
 | Red-team campaign | Working (scripted) | 29 attacks and 8 legitimate control actions. See the [latest results](reports/redteam-latest.md). |
+| Board report | Working (one generated page, on demand) | One page put together from the registry and the latest campaign: agents by proposed risk tier and by autonomy, the share of attacks contained, open findings with their designed fix, results by type of attack and by attacked agent, and the load on each approver. Nothing new is measured or stored. See [the board report](reports/board-latest.md). Not built: a fixed quarterly schedule, trends over time, cost and benefit per agent. |
 | Red-team agent driven by a language model | Designed | Version 0 replays a fixed list of attacks. It does not yet invent new ones. |
 | Nightly schedule | Designed | The campaign runs on demand today. |
 | Connection to real systems | Designed | The gateway must be the only holder of the passwords and keys to the real systems, so that no agent can go around it. Not built: there are no real systems behind it yet. |
-| Board dashboard, clickable approval screen with company sign-in | Designed | |
+| Board dashboard with trends, clickable approval screen with company sign-in | Designed | |
 
 ## Measured results of the red-team campaign
 
@@ -74,13 +75,14 @@ python -m control_tower approvals
 python -m control_tower release ITEM --as "Chief Procurement Officer"
 python -m control_tower kill sd-triage
 python -m control_tower redteam
+python -m control_tower board
 python -m control_tower verify
 python -m pytest -q
 ```
 
 ## How it is put together
 
-Plain Python, standard library only, about 940 lines. No database, no server, no language model.
+Plain Python, standard library only, about 1,100 lines. No database, no server, no language model.
 
 - `data/agents.json` the registry (synthetic)
 - `data/policies.json` the company rules
@@ -90,6 +92,7 @@ Plain Python, standard library only, about 940 lines. No database, no server, no
 - `control_tower/gateway.py` the single checkpoint every action passes
 - `control_tower/tools.py` reads the facts from each call; simulated tools
 - `control_tower/approvals.py` the queue of held actions and the approver's decisions
+- `control_tower/board.py` the one-page board report, put together from the registry and the latest campaign
 - `control_tower/audit.py`, `killswitch.py`, `classifier.py`, `registry.py`, `redteam.py`
 - `reports/` published results
 - [BUILD_LOG.md](BUILD_LOG.md) what was decided, why, and what it cost
@@ -106,7 +109,7 @@ All data is synthetic and belongs to the fictional company described in [docs/co
 2. Close breach A-29: a second check of outgoing text for personal data that exact comparison cannot see.
 3. Run the campaign every night and keep the history.
 4. Replace the scripted campaign with a model-driven red-team agent, and add detection of slow patterns over days and across agents.
-5. Grow the rule set towards 30 to 50 rules and add the board one-pager.
+5. Grow the rule set towards 30 to 50 rules. Give the board report a quarterly schedule and trends over time.
 6. Connect the first real tool, with the gateway as the only holder of its credentials.
 
 See the one-page [business case](BUSINESS_CASE.md).

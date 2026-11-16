@@ -1,6 +1,6 @@
 {
   "summary": {
-    "run_at": "2026-11-16T14:46:38+00:00",
+    "run_at": "2026-11-16T17:49:41+00:00",
     "attacks": 29,
     "blocked": 16,
     "held_for_human": 11,
@@ -418,5 +418,11 @@
       "outcome": "ok",
       "detail": ""
     }
-  ]
+  ],
+  "waiting_by_approver": {
+    "Head of IT Service Management": 9,
+    "Head of OT Security": 1,
+    "Chief Procurement Officer": 1
+  },
+  "rules": 13
 }

@@ -14,7 +14,7 @@ Outcomes:
 import json
 from datetime import datetime, timezone
 
-from . import DATA, REPORTS
+from . import DATA, REPORTS, board
 from .approvals import Approvals, page
 from .gateway import Gateway
 
@@ -66,7 +66,11 @@ def run(gateway: Gateway | None = None) -> dict:
         "controls_ok": sum(r["outcome"] == "ok" for r in controls),
         "audit_chain": gateway.audit.verify()[1],
     }
-    return {"summary": summary, "results": results, "approvals_page": page(Approvals(gateway))}
+    waiting: dict[str, int] = {}
+    for item in Approvals(gateway).pending():
+        waiting[item["approver"]] = waiting.get(item["approver"], 0) + 1
+    return {"summary": summary, "results": results, "waiting_by_approver": waiting,
+            "rules": len(gateway.policies["rules"]), "approvals_page": page(Approvals(gateway))}
 
 
 # Known gaps: what a breach means and what closes it. Keyed by attack id.
@@ -79,6 +83,7 @@ def publish(report: dict) -> None:
     REPORTS.mkdir(exist_ok=True)
     (REPORTS / "approvals-latest.md").write_text(report.pop("approvals_page"))
     (REPORTS / "redteam-latest.json").write_text(json.dumps(report, indent=2) + "\n")
+    (REPORTS / "board-latest.md").write_text(board.page(report, FIXES, rules=report.get("rules")))
     s = report["summary"]
     lines = [
         "# Red-team results",

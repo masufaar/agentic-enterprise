@@ -37,3 +37,8 @@ class KillSwitch:
     def is_killed(self, agent_id: str) -> bool:
         state = self._read()
         return state["all"] or agent_id in state["agents"]
+
+    def stopped(self) -> list[str]:
+        """Who is switched off right now: ["all"] or a list of agent ids."""
+        state = self._read()
+        return ["all"] if state["all"] else list(state["agents"])

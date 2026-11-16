@@ -365,7 +365,64 @@ Estimates cover text written, not reading and reasoning.
 - A board deck of 30 slides was drafted from the elevator pitch and this repository. It is not part of the repository; a copy is in the Desktop folder under `board-deck`. It adds up the ten business cases (EUR 7,644,400 per year plus EUR 9M one-off, all illustrative assumptions) and the build estimates (595 to 835 hours).
 - Published: M gave his go on 16 November 2026 and the roadmap and this log were pushed to the public repository.
 
-## Running totals after session 7
+## Session 8, 16 November 2026
+
+### What was done
+
+The last of the eight original features with nothing to show, the board dashboard, got a first working form: one generated page, `reports/board-latest.md`.
+
+### Where the eight original features stand
+
+| # | Feature | Status | Missing |
+|---|---|---|---|
+| 1 | Agent registry | Working | The card names a model class, not a specific model. |
+| 2 | Policy gateway | Working, on own code | Not built on an open-source enforcement layer (D2); rules are a JSON file. |
+| 3 | Human approval workflow | Working in part | Sign-in, a screen, expiry, deputies. |
+| 4 | Tamper-evident audit trail | Working | A command that replays one decision for an auditor. |
+| 5 | Risk classification | Working in part | Fixed rules, not an agent; human sign-off is an empty field; legal references unverified. |
+| 6 | Red-team agent | Working in part | A script on demand, not an agent that invents attacks every night. |
+| 7 | Kill switch and circuit breakers | Working in part | Nothing trips the switch automatically: no cost budget, no anomaly detection. |
+| 8 | Board dashboard | Working in part (this session) | Quarterly schedule, trends, cost and benefit per agent. |
+
+### Decisions
+
+| # | Decision | Why | Rejected alternative |
+|---|---|---|---|
+| D62 | The board report is a generated text page in `reports/`, like the approver page. | The repository shows formatted text pages to a visitor without anything running (D47). | A web dashboard, which needs a server (against D1). |
+| D63 | The report measures and stores nothing new. It is put together from the registry, the classifier and the latest campaign results. | One source for every figure: the report cannot disagree with the pages it summarises. | A separate set of board figures. |
+| D64 | "Contained" is defined on the page: refused outright, held for a named person, or stopped at the daily allowance. The share is shown as a count first (28 of 29), then a percentage. | A bare pass rate hides what counts as a pass. Held is not the same as refused, and the breakdown tables show the difference. | A single percentage. |
+| D65 | The "points for the board's attention" are derived from the data: open breaches, more than half of the waiting actions on one role (threshold is an assumption), high-risk agents, tiers without sign-off, agents registered but not approved. | A fixed list would go stale. If a point no longer applies, it disappears from the page by itself; a test checks that a campaign without breaches reports no open finding. | Hand-written findings. |
+| D66 | The campaign results file now also carries the waiting actions per approver and the number of rules. | The board report needs both, and the campaign already knows them. | Parsing the approver page. |
+| D67 | The report's time stamp is the campaign's. | Running `board` twice gives the same page. | A second time stamp. |
+| D68 | The page says what it does not cover: scripted attacks, simulated tools, no trend, no cost and benefit, no detection of unregistered AI use. | A board page that looks complete would overstate version 0. | Leaving the limits to the other pages. |
+| D69 | No delegation. | About 120 lines that summarise security results; the wording of the findings is the control. | |
+
+### Steps and cost
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Read the command line, registry, campaign and approvals code | Main (Fable 5.2) | Input only, about 9,000 estimated |
+| 2 | `board.py`, link into the campaign and the command line, `KillSwitch.stopped` | Main | About 2,400 estimated output |
+| 3 | 6 new tests; ran tests and the campaign | Main | About 800 estimated output |
+| 4 | README, roadmap, this log | Main | About 1,600 estimated output |
+
+### Measured results
+
+- 73 of 73 tests pass (67 before).
+- Campaign figures unchanged: 29 attacks, 16 blocked, 11 held, 1 capped, 1 breach (A-29), 8 of 8 legitimate actions allowed. Contained: 28 of 29.
+- Agents by proposed tier: 0 prohibited, 1 high, 10 limited, 5 minimal. By autonomy: 7 advise, 3 act with approval, 6 act. 15 of 16 approved.
+- Size: about 1,100 lines of Python.
+
+### Open points
+
+- The report is generated on demand; "quarterly" is a schedule nobody has built.
+- No trend, because the campaign keeps no history.
+- The share of attacks contained depends on which attacks are in the list. It is a measure of this campaign, not of safety.
+- Agents appear by technical id in the per-agent table and by name elsewhere.
+- Three points M was shown before publishing and that were left as they are: open finding A-29 starts with "The same, but disguised", taken from the campaign list; agents appear by technical id in the per-agent table; the 97% is prominent in the first table.
+- Published: M read the final text of the board report and gave his go on 16 November 2026; this session's changes were pushed to the public repository.
+
+## Running totals after session 8
 
 | | Value | Kind |
 |---|---|---|
@@ -376,12 +433,13 @@ Estimates cover text written, not reading and reasoning.
 | Text written by the main model, session 4 | about 5,100 tokens | Estimated from file size |
 | Text written by the main model, session 5 | about 4,600 tokens | Estimated from file size |
 | Text written by the main model, session 6 | about 5,600 tokens | Estimated from file size |
+| Text written by the main model, session 8 | about 4,800 tokens | Estimated from file size |
 | Text written by the main model, session 7 | about 1,300 tokens for the repository, about 9,000 for the deck | Estimated from file size |
 | Total tokens of the main model including reading and reasoning | Not known from inside the session | Take it from the usage screen |
-| Python code | about 940 lines | Measured |
-| Tests | 67 of 67 passing | Measured |
+| Python code | about 1,100 lines | Measured |
+| Tests | 73 of 73 passing | Measured |
 | Red-team attacks | 29: 16 blocked, 11 held, 1 capped, 1 open breach (A-29) | Measured |
-| Commits to the public repository | 9 | Measured |
+| Commits to the public repository | 10 | Measured |
 
 ## Where to continue
 
