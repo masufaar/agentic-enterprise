@@ -1,0 +1,9 @@
+{
+  "_note": "Synthetic company directory for the fictional company Halden Industrial. It tells the gateway who reads an internal address: one known employee, or a list with many readers. An address that is not listed is treated as having an unknown audience. Employees appear by invented employee number only.",
+  "addresses": {
+    "all-staff@halden-industrial.example": {"type": "list", "audience": "every employee"},
+    "plant-03-office@halden-industrial.example": {"type": "list", "audience": "office staff of plant 03"},
+    "employee@halden-industrial.example": {"type": "person", "employee_number": "HI-EMP-20417"},
+    "colleague@halden-industrial.example": {"type": "person", "employee_number": "HI-EMP-31188"}
+  }
+}

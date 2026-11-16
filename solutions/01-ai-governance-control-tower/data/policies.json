@@ -1,5 +1,5 @@
 {
-  "_note": "Policy as code for the fictional company Halden Industrial. Thresholds are illustrative assumptions, not measured values. Version 0 holds 11 rules; the design target is 30 to 50.",
+  "_note": "Policy as code for the fictional company Halden Industrial. Thresholds are illustrative assumptions, not measured values. Version 0 holds 13 rules; the design target is 30 to 50.",
   "company_domain": "halden-industrial.example",
   "volume_limit": {
     "_note": "Assumption. Counts rows per agent per calendar day (UTC) across all listed tools.",
@@ -7,9 +7,11 @@
     "rows_per_agent_per_day": 5000
   },
   "data_labels": {
-    "_note": "Data is labelled where it lives. 'sources' are the tools that hand out labelled records; 'shared_stores' are the tools that write somewhere a wide audience can read. The gateway compares what is being written with the labelled values at the source, whatever the agent says the text contains.",
+    "_note": "Data is labelled where it lives. 'sources' are the tools that hand out labelled records; 'shared_stores' are the tools that write somewhere a wide audience can read. 'directory' tells the gateway whether an email address is one known employee or a list with many readers. The gateway compares what is being written with the labelled values at the source, whatever the agent says the text contains.",
     "sources": {"ticket.read": "tickets.json"},
     "shared_stores": {"kb.write": "every employee"},
+    "mail_tools": ["email.send"],
+    "directory": "directory.json",
     "labels_kept_out_of_shared_stores": ["personal"]
   },
   "rules": [
@@ -78,6 +80,18 @@
       "description": "Text written to a shared store by an agent that has handled personal data needs a named human to release it.",
       "effect": "require_approval",
       "when": {"tools": ["kb.write"], "param": {"name": "content_label", "op": "eq", "value": "unverified"}}
+    },
+    {
+      "id": "P-012",
+      "description": "Personal data may not be emailed to a mailing list, or to any address that is not one known employee's own mailbox.",
+      "effect": "deny",
+      "when": {"tools": ["email.send"], "param": {"name": "email_label", "op": "eq", "value": "personal_to_many"}}
+    },
+    {
+      "id": "P-013",
+      "description": "An email needs a named human to release it when it carries one employee's personal data to another employee, or goes to a mailing list from an agent that has handled personal data.",
+      "effect": "require_approval",
+      "when": {"tools": ["email.send"], "param": {"name": "email_label", "op": "eq", "value": "needs_release"}}
     }
   ]
 }

@@ -1,5 +1,6 @@
 {
   "_note": "Synthetic support tickets for the fictional company Halden Industrial. Each field carries a label set where the data lives (the source), not by the agent that reads it. People appear by employee number only; numbers, phone and addresses are invented.",
+  "subject_field": "employee_number",
   "records": {
     "T-1042": {
       "summary": {"value": "VPN connection fails from home after a password change.", "label": "internal"},

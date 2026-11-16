@@ -69,7 +69,8 @@ def test_agent_cannot_approve_itself(gateway):
 
 def test_missing_value_fails_closed(gateway):
     assert gateway.check("sourcing-options", "erp.po.create", {})["decision"] == "deny"
-    assert gateway.check("sd-resolution", "email.send", {})["decision"] == "require_approval"
+    assert gateway.execute("sd-resolution", "email.send", {})["decision"] == "require_approval"
+    assert gateway.check("sd-resolution", "email.send", {})["decision"] == "deny"  # dry run with nothing stated
 
 
 def test_kill_switch_single_and_all(gateway):
@@ -226,3 +227,52 @@ def test_dry_runs_and_refused_reads_do_not_mark_an_agent(gateway):
     gateway.execute("sd-resolution", "ticket.read", {"record": "T-1042"})
     gateway.killswitch.revive("sd-resolution")
     assert gateway.execute("sd-resolution", "kb.write", {"content": CLEAN})["decision"] == "allow"
+
+
+# -- data labels in email: who would read it ---------------------------------
+
+LIST = "all-staff@halden-industrial.example"
+SUBJECT = "employee@halden-industrial.example"       # HI-EMP-20417, the person the data is about
+OTHER = "colleague@halden-industrial.example"        # a different employee
+OWNER = "Head of IT Service Management"
+
+
+@pytest.mark.parametrize("call", [
+    {"to": LIST, "body": LEAK},
+    {"to": SUBJECT, "bcc": LIST, "body": LEAK},                       # list hidden in blind copy
+    {"to": [SUBJECT, "plant-03-office@halden-industrial.example"], "body": LEAK},
+    {"to": LIST, "subject": "about HI-EMP-20417", "body": CLEAN},     # hidden in the subject line
+    {"to": LIST, "body": CLEAN, "attachment": {"name": "hi-emp-20417.txt"}},
+    {"to": "somebody-else@halden-industrial.example", "body": LEAK},  # internal, but not in the directory
+    {"to": "inbox@mail-collector.example", "body": LEAK},             # outside the company
+    {"body": LEAK},                                                   # no recipient stated
+    {"to": LIST, "body": LEAK, "email_label": "ok"},                  # agent states its own label
+])
+def test_personal_data_is_never_emailed_to_many_or_unknown_readers(gateway, call):
+    verdict = gateway.execute("sd-resolution", "email.send", call)
+    assert verdict["rule"] == "P-012" and not verdict["executed"]
+    assert gateway.execute("sd-resolution", "email.send", call, approved_by=OWNER)["decision"] == "deny"
+    assert "HI-EMP-20417" not in gateway.audit.path.read_text().replace("hi-emp-20417.txt", "")
+    assert gateway.tools.executed == []
+
+
+def test_employee_may_be_sent_their_own_data_but_not_somebody_elses(gateway):
+    own = gateway.execute("sd-resolution", "email.send", {"to": SUBJECT, "body": LEAK})
+    assert own["decision"] == "allow" and own["executed"]
+    other = gateway.execute("sd-resolution", "email.send", {"to": OTHER, "body": LEAK})
+    assert other["rule"] == "P-013" and other["decision"] == "require_approval" and not other["executed"]
+    both = gateway.execute("sd-resolution", "email.send", {"to": SUBJECT, "cc": OTHER, "body": LEAK})
+    assert both["rule"] == "P-013"
+    mixed = "HI-EMP-20417 and HI-EMP-31188 had the same fault."       # two people's data, one reader
+    assert gateway.execute("sd-resolution", "email.send", {"to": SUBJECT, "body": mixed})["rule"] == "P-013"
+
+
+def test_mail_to_a_list_from_an_agent_that_handled_personal_data_waits_for_a_human(gateway):
+    notice = {"to": LIST, "body": CLEAN}
+    assert gateway.execute("sd-resolution", "email.send", notice)["decision"] == "allow"
+    gateway.execute("sd-resolution", "ticket.read", {"record": "T-1042"})
+    held = gateway.execute("sd-resolution", "email.send", notice)
+    assert held["rule"] == "P-013" and not held["executed"]
+    assert gateway.execute("sd-resolution", "email.send", notice, approved_by=OWNER)["executed"]
+    # an ordinary reply to one known employee is not held
+    assert gateway.execute("sd-resolution", "email.send", {"to": OTHER, "body": CLEAN})["decision"] == "allow"

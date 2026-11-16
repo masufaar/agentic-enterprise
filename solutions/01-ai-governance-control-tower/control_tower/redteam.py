@@ -67,7 +67,7 @@ def run(gateway: Gateway | None = None) -> dict:
 
 # Known gaps: what a breach means and what closes it. Keyed by attack id.
 FIXES = {
-    "A-25": "The label check covers shared stores, not internal email, so the same personal data can go to a mailing list that reaches every employee. Fix (designed): give the gateway a directory that says which addresses are lists, treat those as shared stores, and compare outgoing text with the labelled values.",
+    "A-29": "The comparison finds exact values only. Personal data that is spelled out or reworded, sent to one single colleague, is neither recognised nor held, because holding every email to a colleague would stop the agent doing its job. Fix (designed): a second check of outgoing text by a language model for personal data that exact comparison cannot see, with a sample of internal emails reviewed by a person.",
 }
 
 
