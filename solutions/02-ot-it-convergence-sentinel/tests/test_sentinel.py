@@ -104,14 +104,14 @@ def test_each_response_is_priced_in_lost_output(result):
     assert option(result)["cost_eur"] == 0
     assert option(result, "cut-cell-b2")["cost_eur"] == 120_000            # Line B, 8 h
     assert option(result, "cut-link-dmz-ot")["cost_eur"] == 0              # 4 h closed, 6 h of orders loaded
-    assert option(result, "cut-plant-ot")["cost_eur"] == 465_500           # A 8 h + 12 h restart, B 8 h, C 3 h 02 min
+    assert option(result, "cut-plant-ot")["cost_eur"] == 285_500           # A 8 h, B 8 h, C 3 h 02 min
     assert option(result, "cut-cell-b2", "cut-link-dmz-ot")["cost_eur"] == 120_000
     assert len(result["assessments"][0]["options"]) == 5
 
 
 def test_whole_plant_price_adds_up_line_by_line(result):
     lines = {l["line"]: l for l in option(result, "cut-plant-ot")["lines_stopped"]}
-    assert lines["line-a"]["cost_eur"] == (8 + 12) * 15_000
+    assert lines["line-a"]["cost_eur"] == 8 * 15_000
     assert lines["line-b"]["cost_eur"] == 8 * 15_000
     assert lines["line-c"]["hours_stopped"] == 3.03 and lines["line-c"]["cost_eur"] == 45_500
 
@@ -122,7 +122,7 @@ def test_each_response_states_what_it_leaves_within_reach(result):
     assert option(result, "cut-link-dmz-ot")["lines_still_reachable"] == ["line-b", "line-c"]
     assert option(result, "cut-plant-ot")["lines_still_reachable"] == []
     assert option(result, "cut-cell-b2", "cut-link-dmz-ot")["lines_still_reachable"] == []
-    assert option(result)["still_at_stake_eur"] == (3 * 48 + 12) * 15_000
+    assert option(result)["still_at_stake_eur"] == 3 * 48 * 15_000
 
 
 def test_recommendation_is_the_cheapest_response_that_closes_every_path(result):
@@ -133,7 +133,7 @@ def test_the_same_response_costs_more_once_line_c_is_running_again(result):
     incident = dict(result["incidents"][0], last_seen="2026-11-10T09:00:00Z")
     priced = response.price([p for p in load("plant.json")["isolation_points"] if p["id"] == "cut-plant-ot"],
                             incident, load("plant.json"), load("production.json"))
-    assert priced["cost_eur"] == (8 + 12 + 8 + 8) * 15_000
+    assert priced["cost_eur"] == (8 + 8 + 8) * 15_000
 
 
 def test_closing_the_link_longer_than_the_loaded_orders_last_stops_the_lines(result):
@@ -142,7 +142,12 @@ def test_closing_the_link_longer_than_the_loaded_orders_last_stops_the_lines(res
     point["hold_hours"] = 8
     priced = response.price([point], result["incidents"][0], plant, load("production.json"))
     hours = {l["line"]: (l["hours_stopped"], l["restart_hours"]) for l in priced["lines_stopped"]}
-    assert hours == {"line-a": (2, 12), "line-b": (2, 0), "line-c": (2, 0)}
+    assert hours == {"line-a": (2, 0), "line-b": (2, 0), "line-c": (2, 0)}
+    assert priced["cost_eur"] == (2 + 2 + 2) * 15_000
+    # No line in the data is slow to restart. The pricing still supports one: 12 further hours on Line A.
+    production = copy.deepcopy(load("production.json"))
+    production["lines"][0]["restart_extra_hours"] = 12
+    priced = response.price([point], result["incidents"][0], plant, production)
     assert priced["cost_eur"] == (2 + 12 + 2 + 2) * 15_000
 
 
@@ -202,7 +207,7 @@ def test_every_step_is_in_the_audit_record_and_the_record_is_intact(gateway, res
 def test_the_page_states_the_decision_in_production_terms(result):
     page = result["pages"][0]
     assert "The recommended response costs EUR 120,000 in lost output" in page
-    assert "would cost EUR 465,500" in page and "EUR 345,500 less" in page
+    assert "would cost EUR 285,500" in page and "EUR 165,500 less" in page
     assert "waiting for the Head of OT Security" in page and "**(recommended)**" in page
     assert page.count("| Head of OT Security |") == 2
 

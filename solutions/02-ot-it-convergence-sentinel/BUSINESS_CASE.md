@@ -25,7 +25,7 @@ Further benefits, not quantified here:
 
 ## What the first working slice adds to this case
 
-In one scripted incident, the response the agents recommend costs EUR 120,000 in lost output and the "disconnect the whole plant floor" reflex costs EUR 465,500. The difference of EUR 345,500 for a single incident is calculated by the code from stated assumptions (EUR 15,000 per stopped line-hour, hold times, a casting line that is slow to restart). It is an illustration of the first lever, not evidence for it: no real incident has been measured. See [the page for the crisis team](reports/incident-latest.md).
+In one scripted incident, the response the agents recommend costs EUR 120,000 in lost output and the "disconnect the whole plant floor" reflex costs EUR 285,500. The difference of EUR 165,500 for a single incident is calculated by the code from stated assumptions (EUR 15,000 per stopped line-hour and the hold times). It is an illustration of the first lever, not evidence for it: no real incident has been measured. See [the page for the crisis team](reports/incident-latest.md).
 
 ## Cost
 

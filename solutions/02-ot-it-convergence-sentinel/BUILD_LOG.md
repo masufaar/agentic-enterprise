@@ -28,7 +28,7 @@ Goal given by M: start the next solution after the Control Tower was paused as v
 | D10 | Every euro figure is calculated from stated assumptions and labelled so. The EUR 15,000 per stopped line-hour comes from the company profile. | Repository rule: measured or labelled as an assumption. | Different values per line, which would add assumptions without adding insight. |
 | D11 | People appear by role or by a numbered account only. | Synthetic data rule, as in solution 01. | Invented names. |
 
-| D12 | Line A is a casting line: any unplanned stop costs 12 further hours before good output returns (assumption). | M's plant experience: some machines, casting for example, cannot be stopped without large cost and long waiting. It makes the "disconnect everything" reflex visibly expensive. | Treating all lines alike. |
+| D12 | **Withdrawn by M on 17 November 2026, see D22.** Line A is a casting line: any unplanned stop costs 12 further hours before good output returns (assumption). | M's plant experience: some machines, casting for example, cannot be stopped without large cost and long waiting. It makes the "disconnect everything" reflex visibly expensive. | Treating all lines alike. |
 | D13 | Each isolation point has its own hold time (cell 8 h, office link 4 h, whole plant floor 8 h; assumptions). | Closing the office link is only needed until the gateway is cleaned, which is shorter than the 6 hours of orders already loaded. So that step costs no output, which is what a plant would expect. | One hold time for all, which made closing the link cost output for no reason. |
 | D14 | The existing discovery card was renamed "Plant Asset and Alert Collector", its purpose extended and one tool added (`security.alerts.read`). Its id is unchanged. | A registry card must describe what the agent does. Keeping the id keeps the Control Tower's attack list valid. | A card whose purpose no longer matched the agent, or a fifth card. |
 | D15 | The response agent got two read tools (`incident.read`, `production.read`). It writes no report itself. | It is classified high-risk, so the Control Tower lets it read on its own and nothing else. The briefing agent, classified limited, writes the page. Found while building: my first design had the response agent write the report, which the gateway would have held. | Loosening the rule for this agent. |
@@ -57,6 +57,8 @@ Goal given by M: start the next solution after the Control Tower was paused as v
 | 10 | Ran the incident and both test suites | Shell | Main | Small |
 | 11 | Regenerated the Control Tower reports from a clean state (inventory, campaign, board page) so they show 18 agents | Its own commands | Main | Small |
 | 12 | Rewrote this solution's README and business case; updated the main README, the roadmap and one line of the Control Tower README | Written directly | Main | About 2,900 estimated output |
+| 13 | Push to GitHub and browser check of two pages | git, built-in browser | Main | Small |
+| 14 | Board deck: generator edited (slides 5, 6, 9, 16, 18, 19, 29, 31 and their notes), two overflows fixed, PowerPoint rebuilt and rendered for a visual check | Deck build scripts | Main | About 2,300 estimated output; input about 20,000 for reading the generator |
 
 ### Measured results, session 1
 
@@ -82,10 +84,55 @@ Goal given by M: start the next solution after the Control Tower was paused as v
 
 ### Open after this session
 
-- Nothing is pushed. M has to see the final texts and say go.
-- Board deck not yet updated.
+- Pushed on M's go as commit 9f60412 (main). The solution page and the front page were checked in a browser after the push; the roadmap, the business case and the regenerated Control Tower reports were not looked at rendered.
+- Board deck (local only, not in the repository) updated after the push: 8 of 31 slides changed, PowerPoint rebuilt with 31 notes, no slide over its limit. Not opened in Microsoft PowerPoint itself.
+- This entry was corrected after the push, so the published copy of this log still says "Nothing is pushed" until the next push.
 - Campaign figures of the Control Tower are unchanged (29 attacks, 28 contained, 1 open breach); only the agent counts moved.
 
 ### Lighter model
 
 The synthetic data and this log could have been written by a lighter model with an exact brief. They were small enough that briefing and checking would have cost more than writing them.
+
+## Session 2, 17 November 2026: the casting assumption is withdrawn
+
+M's instruction: there is no casting at Halden Industrial, only direct manufacturing. Forget the 12 hours for restarting a casting line.
+
+### Decision
+
+| # | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D22 | D12 is withdrawn. Line A is a normal line: no further hours after a stop. The name "Line A (casting)" becomes "Line A". The pricing code keeps its optional "further hours after a stop" per line, unused by the data and covered by one test. | The company profile is M's to set, and the 12 hours was my figure, never confirmed by him. Keeping the mechanism costs nothing and a later scenario may need it. | Replacing casting with another slow-to-restart process to keep the larger difference: that would be choosing an assumption for the size of the result. |
+
+### What changed
+
+- `data/production.json`: the name, the 12 hours and their basis removed from Line A.
+- `tests/test_sentinel.py`: six expected figures changed; one check added inside an existing test so the unused mechanism stays tested. Still 25 tests.
+- `README.md`, `BUSINESS_CASE.md`: figures and the sentence that named casting as a driver.
+- `reports/incident-latest.md`: regenerated by `python -m sentinel run`.
+- Session 1 above is left as written. Where it says EUR 465,500, EUR 345,500 or EUR 2,340,000, the figures below replace them.
+
+### Measured results, session 2
+
+- 25 of 25 tests pass in this solution; 77 of 77 in the Control Tower.
+- Recommended response: EUR 120,000 (unchanged). Whole plant floor: EUR 285,500 (was 465,500). Difference: EUR 165,500 (was 345,500). At stake if all three lines are encrypted: EUR 2,160,000 (was 2,340,000). All calculated from assumptions, not measured losses.
+- The recommendation itself did not change. Alerts, incident and gateway decisions are unchanged: 13 alerts, 8 joined, 5 set aside; 11 allowed, 2 held.
+- The difference is now close to my hand estimate of session 1 (about EUR 285,000 for the whole plant floor), which was made before D12.
+
+### Steps
+
+| Step | What | How | Model | Tokens |
+|---|---|---|---|---|
+| 1 | Read the latest handover | Project document | Main (Fable 5.2) | Input, about 2,300 estimated |
+| 2 | Cloned the repository at 9f60412; searched every file for the casting assumption; dry run in a scratch copy | git, search, test run | Main | Input, about 5,000 estimated |
+| 3 | Changed data, tests, README and business case in the Desktop folder; regenerated the incident page in a scratch copy so the Control Tower state folder stays clean | Script on M's computer | Main | About 1,500 estimated output |
+| 4 | Ran both test suites on the changed files | Workspace copy | Main | Small |
+| 5 | Push to GitHub and browser check of the solution page | git, built-in browser | Main | Small |
+
+### Open after session 2
+
+- Pushed to main on M's go on 17 November 2026, as the commit that follows 9f60412. This push also publishes the correction to session 1 noted above.
+- Board deck not yet updated: slide 19 and its note still carry EUR 465,500.
+
+### Lighter model
+
+All of session 2 is small data and wording work that a lighter model could have done with an exact brief.

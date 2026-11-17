@@ -21,12 +21,10 @@
   "lines": [
     {
       "id": "line-a",
-      "name": "Line A (casting)",
+      "name": "Line A",
       "cells": [
         "cell-a1"
-      ],
-      "restart_extra_hours": 12,
-      "restart_basis": "Assumption, from the author's plant experience: a casting line cannot be stopped and restarted like other lines. An unplanned stop costs this many further hours before good output returns."
+      ]
     },
     {
       "id": "line-b",

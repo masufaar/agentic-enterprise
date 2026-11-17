@@ -24,7 +24,7 @@ We did not find a product that prices containment options in lost output during 
 
 ## What the first slice shows
 
-Measured on 16 November 2026 by running `python -m sentinel run` in this folder. All data is synthetic. Every euro figure is calculated from stated assumptions; none is a measured loss.
+Measured on 17 November 2026 by running `python -m sentinel run` in this folder. All data is synthetic. Every euro figure is calculated from stated assumptions; none is a measured loss.
 
 The scenario: at 02:10 a finance employee at Halden Plant 04 opens a malicious attachment. Within an hour the intruder uses a stolen maintenance account to reach an engineering workstation on Line B, copies two controller programs and starts looking for a way into Line C.
 
@@ -33,10 +33,10 @@ The scenario: at 02:10 a finance employee at Halden Plant 04 opens a malicious a
 | Do nothing and keep watching | EUR 0 | Line A, Line B, Line C |
 | Disconnect Line B, cell 2 | EUR 120,000 | Line A, Line B, Line C |
 | Close the link between office side and plant floor | EUR 0 | Line B, Line C |
-| Disconnect the whole plant floor | EUR 465,500 | none |
+| Disconnect the whole plant floor | EUR 285,500 | none |
 | **Disconnect Line B, cell 2 and close the link (recommended)** | **EUR 120,000** | **none** |
 
-The recommended response closes every known path for EUR 345,500 less than disconnecting everything. Two things drive that difference: Line A is a casting line that cannot be stopped and restarted like the others, and Line C is in planned maintenance until 08:00, so the hour of the decision changes the price.
+The recommended response closes every known path for EUR 165,500 less than disconnecting everything. The difference is the output of Line A and Line C, which the recommended response leaves running. Line C is in planned maintenance until 08:00, so the hour of the decision changes the price.
 
 The full page as the crisis team would see it: [reports/incident-latest.md](reports/incident-latest.md).
 
