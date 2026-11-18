@@ -127,12 +127,60 @@ M's instruction: there is no casting at Halden Industrial, only direct manufactu
 | 3 | Changed data, tests, README and business case in the Desktop folder; regenerated the incident page in a scratch copy so the Control Tower state folder stays clean | Script on M's computer | Main | About 1,500 estimated output |
 | 4 | Ran both test suites on the changed files | Workspace copy | Main | Small |
 | 5 | Push to GitHub and browser check of the solution page | git, built-in browser | Main | Small |
+| 6 | Board deck: slide 19 and its note changed in the generator, the slide file, the speaker notes, the browser file and the PowerPoint | Script on M's computer | Main | About 600 estimated output; input about 6,000 for reading the notes |
+| 7 | Ran the incident again in a scratch copy to answer M's questions on data, rule, pricing and escalation, including both release attempts | Command line | Main | Input, about 9,000 estimated for reading code and data |
+| 8 | Board deck: new Backup section, first two slides, then on M's request four slides in plain language for non-technical board members; PowerPoint rebuilt from the generator (35 slides) | Deck build scripts | Main | About 9,000 estimated output |
 
 ### Open after session 2
 
 - Pushed to main on M's go on 17 November 2026, as the commit that follows 9f60412. This push also publishes the correction to session 1 noted above.
-- Board deck not yet updated: slide 19 and its note still carry EUR 465,500.
+- Published as commit 1053dc9; the solution page was checked in a browser after the push. The business case, the incident page and this log were not looked at rendered.
+- Board deck (local only) updated after the push: slide 19 and its note now carry EUR 285,500 and no longer mention casting. The PowerPoint was patched in place, not rebuilt, and rendered once for a visual check of slide 19. Not opened in Microsoft PowerPoint itself.
+- Board deck (local only): a Backup section of four slides explains one incident run in plain language (the steps, the intruder's path, the price of each response, who decides and what is not built). M's instruction: backup slides must be detailed and simple enough for non-technical board members. 35 slides, 35 notes. Rendered once for a visual check; not opened in Microsoft PowerPoint itself.
+- Stated to M and on the slides as not built: a deputy or time limit when the approver does not answer; recognition of an intruder slower than one hour per step or changing accounts; any probability of spread.
+- This entry was written after the push, so the published copy still says the deck is not updated until the next push.
 
 ### Lighter model
 
 All of session 2 is small data and wording work that a lighter model could have done with an exact brief.
+
+## Session 3, 18 November 2026: the solution is redefined as agentic; public pages rewritten
+
+Nothing in the code changed in this session. The pages changed.
+
+### Why
+
+On 17 November M stated the principle the whole project rests on: an agent is a language model working in a loop inside a harness, which evaluates, corrects and adapts; anything else is traditional software. Measured against it, sessions 1 and 2 built no agent. The four "agents" of this solution are fixed code. I had kept the word, which was wrong; the cause is recorded in the project's review of 17 November (a limit of my workspace was turned into a product decision without asking M).
+
+### Decisions
+
+| # | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D23 | The word agent is used only for a model in a loop with tools. The four steps of the first version are called fixed code or tools. | M's principle. | Keeping "agent" with a footnote. |
+| D24 | Position: "It runs the decision, not the detection, in addition to your existing tools." | Research on 18 November found that joining office and plant alarms with AI agents is a shipped commercial capability, so it is not where this solution adds anything. | Competing on detection or investigation. |
+| D25 | The offer has three stages: prepare, rehearse, decide. | Agreed with M while drafting the LinkedIn article, which is written before the build and serves as its specification. | A live incident tool only. |
+| D26 | Reversible office-side steps are taken by the agents at once; everything touching the plant floor is decided by a named person. | It makes "act at once" true without an agent disconnecting production. | Recommend-only agents. |
+| D27 | The business case loses the lever "analyst time saved" (EUR 180,000). | It is a benefit of detection tools, which the solution no longer claims. The yearly value falls from EUR 980,000 to EUR 800,000, both assumptions. | Keeping a figure that contradicts the position. |
+| D28 | The collection and joining steps of the first version stay as a basic module for companies without such tools. | Not every company has them. | Deleting them. |
+| D29 | The solution page lists ten things that must exist before the status becomes "Working". | The article commits the build; the list makes the commitment checkable. | An open-ended roadmap. |
+
+### Steps
+
+| Step | What | How | Model | Tokens |
+|---|---|---|---|---|
+| 1 | Review of all work against M's principle; two external toolkits read | Project documents, web | Main (Fable 5.2) | Input about 30,000, output about 6,000, estimated |
+| 2 | Project charter written with M (three versions) | Project documents | Main | Output about 5,000 estimated |
+| 3 | Research brief for this solution: five searches, three pages read | Web | Main | Input about 25,000, output about 2,500, estimated |
+| 4 | LinkedIn article, four drafts, kept as documents outside the repository | Written directly | Main | Output about 9,000 estimated |
+| 5 | Solution page, business case, front page row and roadmap rewritten to match draft 4 of the article | Written directly | Main | Output about 4,500 estimated |
+
+### State after session 3
+
+- 25 of 25 tests still pass; the code is unchanged.
+- Model involved: no. Agents: designed.
+- The board deck (local only) still describes the first version as four agents and gives EUR 980,000 for this solution. It is to be rewritten after the build.
+
+### Lighter model
+
+The page rewrite could go to a lighter model once the article text is fixed. The review and the article drafts could not.
+

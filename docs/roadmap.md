@@ -8,15 +8,18 @@ Status words used in this repository: "Designed", "In build", "Working".
 - Fictional company and shared assumptions defined.
 - AI Governance Control Tower, version 0, working: agent registry, policy gateway, audit trail, kill switch, daily volume limit, data labels at the source, an approval queue for the accountable owner of each agent and a one-page board report. What works and what is still a design is listed in [the Control Tower page](../solutions/01-ai-governance-control-tower/README.md).
 - First red-team campaign run and published, including the attacks that got through. It has been repeated after each fix; one breach is open and published with its designed fix. See [the latest results](../solutions/01-ai-governance-control-tower/reports/redteam-latest.md).
-- OT/IT Convergence Sentinel, first slice, working: four registered agents join the alerts of two simulated security tools into one incident, price each response in lost output and ask for the chosen one through the Control Tower, which holds it for the accountable owner. One scripted incident, fixed rules, no language model. See [the solution page](../solutions/02-ot-it-convergence-sentinel/README.md) and [the page for the crisis team](../solutions/02-ot-it-convergence-sentinel/reports/incident-latest.md).
+- OT/IT Convergence Sentinel, rule-based first version, working: fixed code reads the alarms of two simulated security tools, prices each response in lost production and asks for the chosen one through the Control Tower, which holds it for the accountable owner. One scripted incident, no AI agent, no language model. See [the solution page](../solutions/02-ot-it-convergence-sentinel/README.md).
 
 ## In build
 
-**The OT/IT Convergence Sentinel**, the first business solution on top of the Control Tower. Next for it, in order:
+**The OT/IT Convergence Sentinel**, the first business solution on top of the Control Tower, now being rebuilt with AI agents: it runs the decision, not the detection, in addition to a company's existing security tools. Next for it, in order:
 
-1. Two further attack scenarios, published with the cases the correlation misses.
-2. A production schedule that changes by shift, to show how the recommendation moves with the hour.
-3. The notification to the regulator, after its deadlines are checked against the official text.
+1. A company briefing the agents read, and a planner agent and a challenger agent that build and attack a response plan in a loop.
+2. A decision page for a named person, with options, prices, the counter-argument and the blind spots; reversible office-side steps taken by the agents, everything else held.
+3. A case memory, and rehearsals: nights invented by a scenario agent from the briefing.
+4. Results published as rates over many runs, with date and model.
+
+The full list is on [the solution page](../solutions/02-ot-it-convergence-sentinel/README.md) under "What has to exist before this solution is called working".
 
 **The AI Governance Control Tower**, paused at version 0 while the first business solution is built. Next for it, in order:
 

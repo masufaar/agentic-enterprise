@@ -1,67 +1,103 @@
 # OT/IT Convergence Sentinel
 
-**Status: In build. A first slice is working: one scripted incident at one plant, on fixed rules, with simulated tools and no language model.**
+**Status: In build. No AI agent runs yet, and no language model is involved so far.** What exists is a tested, rule-based first version of three building blocks the agents will use: the pricing of a response, the model of the plant, and the hold for a named person. The agents described below are designed.
 
-The decision layer above the security tools you already own.
+It runs the decision, not the detection, in addition to your existing tools.
 
-## What it is
+## The management issue
 
-A team of four agents that takes the alerts of the office and plant-floor security tools a company already runs, joins them into one incident, prices every possible response in lost output, and asks a named person to release the chosen one. It does not replace those tools and does not try to detect better than they do.
+In September 2025, Jaguar Land Rover shut down its systems to contain a cyber attack. No car left its three UK plants for more than five weeks, and the Cyber Monitoring Centre put the cost to the British economy at GBP 1.9 billion, across more than 5,000 organisations ([report coverage](https://www.computerweekly.com/news/366633395/Jaguar-Land-Rover-attack-to-cost-UK-19bn-say-cyber-monitors)). The attackers did not stop those plants; the company did, to protect itself. The moment worth studying is the one before: a few people, at night, deciding how much of their company to switch off.
 
-## The management issue it solves
+Take that moment to Halden Industrial, the fictional manufacturer of this repository. At 02:10 someone in finance opens an infected attachment. By 02:44 the intruder sits at the computer that programs Line B. At 03:02 he is looking for a way into Line C. The security tools did their job: every step raised an alarm. The plant manager asks the only question that matters: "If we disconnect, what do we lose?" Nobody knows.
 
-Ransomware that stops production is the top cyber risk for a manufacturer, and the IT and plant security teams rarely share one picture. When an incident reaches the plant floor at night, the safe reflex is to disconnect everything. Nobody in the room can say what that costs, or whether a smaller step would do.
+## The gap
 
-## "We already have AI network management tools"
+Manufacturers have invested for years in seeing attacks, and it works. But no security tool is built to hold the production plan, the open orders or the cost of an hour of standstill. So the most expensive decision of the year is improvised, and the safe reflex wins: everything off.
 
-Yes, and they stay. Security and network vendors now ship their own agents that collect, correlate, diagnose and remediate. This solution sits above them and adds three things they are not built for:
+## What it is: three stages
 
-- **The price of each response in lost output.** That needs the production schedule and the cost of a stopped line, which live in business systems outside a security product.
-- **One set of rules for every agent, whichever vendor it comes from.** Every action passes the [AI Governance Control Tower](../01-ai-governance-control-tower/README.md): it is checked, held for the accountable owner where the rules say so, and recorded.
-- **A page for the crisis team, not for the analyst.**
+AI agents under the company's control run that decision.
 
-We did not find a product that prices containment options in lost output during an incident. That is a statement about what we found on 16 November 2026, not a claim that none exists.
+- **Prepare.** The agents are briefed on the company as it is: its tools, plant layout, production plan and rules. Every possible response gets a price, per line and per shift.
+- **Rehearse.** Simulated nights against the company's own landscape. The crisis team practises the decision before it is real.
+- **Decide.** In a real incident, one agent builds the response, a second attacks it, and one page reaches a named person within minutes: the options, their prices, the strongest counter-argument, and what the agents could not see.
 
-## What the first slice shows
+## In addition to your existing tools
+
+| Layer | What it does | Whose job |
+|---|---|---|
+| Plant-floor monitoring | Knows the machines and controllers; raises alarms on the plant network | Your existing tools |
+| Office security | Watches computers, accounts and email | Your existing tools |
+| Investigation across both | Joins the alarms and traces the intruder's path, often with AI agents | Your existing tools |
+| Network separation | Carries out a disconnection | Your existing tools |
+| **The decision** | What each response costs in lost production, which one to take, who decides, and the record of it | **This solution** |
+
+The solution takes the findings of those tools as its input. It does not replace them and does not try to detect better than they do.
+
+## Why agents, and not one more piece of software
+
+- **Customized.** The agents are briefed on a company, not programmed for it. A new tool, a new line or a new rule changes the briefing, not the code. They say what they were not given.
+- **Adapting.** When the night changes (a new alarm, a line starting its shift, a step that fails) they plan again from the new facts.
+- **Learning.** Every incident, decision and outcome is kept. The next incident, real or rehearsed, starts from what the last one taught. Changes to the standing playbook are proposed by an agent and approved by a person.
+- **Controlled.** Agents can be wrong. So one challenges the other, a person decides, and every step passes the [AI Governance Control Tower](../01-ai-governance-control-tower/README.md): checked against the company's rules and recorded.
+
+## The responses, and who may take them
+
+The options go far beyond "stop the line".
+
+| Kind of step | Examples | Who acts |
+|---|---|---|
+| Office side, reversible | Suspend an account, end a remote session, withdraw one supplier's remote access | The agents, at once, under the company's rules |
+| Between office and plant | Close the remote gateway; run the plant as an island on the orders already loaded | A named person |
+| Plant floor | Isolate one cell; stop one line; disconnect the whole plant floor | A named person |
+| Production measures | Move an urgent order to another line; bring planned maintenance forward into the stop | A named person |
+
+No agent disconnects anything on the plant floor. This list is a design and will be corrected against plant practice.
+
+## What exists today
+
+| Building block | Status | Model involved |
+|---|---|---|
+| Model of one plant and its production plan (synthetic files) | Working | No |
+| Price of a response in lost production, from the plan | Working, fixed code | No |
+| Hold of every isolation for the Head of OT Security, through the Control Tower | Working, fixed code | No |
+| Joining the alarms of two simulated tools into one incident | Working as a basic fixed rule | No |
+| Company briefing that the agents read | Designed | |
+| Planner agent and challenger agent | Designed | Yes |
+| Rehearsal: a scenario agent that invents nights from the briefing | Designed | Yes |
+| Decision page with options, prices, counter-argument and blind spots | Designed (a simpler generated page exists) | Yes |
+| Case memory and review agent | Designed | Yes |
+| Reversible office-side steps taken by the agents | Designed | Yes |
+
+The four steps of the first version are registered in the Control Tower as agent cards. They are fixed code. In this project the word agent is reserved for a language model working in a loop with tools, checking and correcting its own result; none exists here yet.
+
+## What the rule-based first version shows
 
 Measured on 17 November 2026 by running `python -m sentinel run` in this folder. All data is synthetic. Every euro figure is calculated from stated assumptions; none is a measured loss.
 
-The scenario: at 02:10 a finance employee at Halden Plant 04 opens a malicious attachment. Within an hour the intruder uses a stolen maintenance account to reach an engineering workstation on Line B, copies two controller programs and starts looking for a way into Line C.
+The night described above, priced at 03:02:
 
-| Response | Lost output | Lines still within the intruder's reach |
+| Response | Lost production | Lines still within the intruder's reach |
 |---|---|---|
 | Do nothing and keep watching | EUR 0 | Line A, Line B, Line C |
 | Disconnect Line B, cell 2 | EUR 120,000 | Line A, Line B, Line C |
 | Close the link between office side and plant floor | EUR 0 | Line B, Line C |
 | Disconnect the whole plant floor | EUR 285,500 | none |
-| **Disconnect Line B, cell 2 and close the link (recommended)** | **EUR 120,000** | **none** |
+| **Disconnect Line B, cell 2 and close the link** | **EUR 120,000** | **none** |
 
-The recommended response closes every known path for EUR 165,500 less than disconnecting everything. The difference is the output of Line A and Line C, which the recommended response leaves running. Line C is in planned maintenance until 08:00, so the hour of the decision changes the price.
-
-The full page as the crisis team would see it: [reports/incident-latest.md](reports/incident-latest.md).
+"Everything off" costs EUR 285,500. A targeted response shuts the intruder out just as well for EUR 120,000. At 03:02 nobody in the room had either figure.
 
 | Measure | Result |
 |---|---|
-| Alerts collected from two tools with different formats | 13 |
-| Joined into one incident | 8 |
+| Alarms read from two simulated tools with different formats | 13 |
+| Joined into one incident by the fixed rule | 8 |
 | Set aside as unrelated, and listed | 5 |
 | Responses priced | 5 |
 | Decisions by the Control Tower in one run | 13: 11 allowed, 2 held for the Head of OT Security |
 | Isolation carried out without a human release | 0 |
 | Tests | 25 of 25 pass |
 
-## The four agents
-
-| Agent | What it does | Status | Limits of the first slice |
-|---|---|---|---|
-| Collection | Reads the plant layout and the alerts of the office and plant-floor tools, and puts them in one format. | Working | Reads two prepared files. Connection to real tools is designed. |
-| Correlation | Joins alerts that share a device or an account within one hour into one incident, with the intruder's path and the lines within reach. | Working | One fixed rule. It has seen one scenario; two more are designed. |
-| Impact and response | Prices each response in lost output from the production schedule, states what each leaves within reach, recommends the cheapest one that closes every known path, and asks for it. | Working | Prices follow from assumptions. No probability of spread is estimated. |
-| Briefing | Writes one page for the crisis team. | Working | One generated page. The notification to the regulator (NIS2) is designed, not built. |
-
-All four are registered in the Control Tower with an accountable owner and a named approver. The impact and response agent is classified high-risk there, so it may read on its own and nothing else: its isolation requests wait for the Head of OT Security, and a release attempt by any other role is refused.
-
-No language model runs in this slice. Each agent is a fixed rule, which makes every result repeatable and its running cost zero. "State of the art" describes the design, not this slice.
+The full page as generated: [reports/incident-latest.md](reports/incident-latest.md).
 
 ## Run it
 
@@ -78,26 +114,35 @@ python -m pytest -q
 
 ## What is in this folder
 
-- `sentinel/` the four agents, the workflow and the command line (about 500 lines)
+- `sentinel/` the rule-based first version: four fixed steps, the workflow and the command line (about 500 lines)
 - `data/plant.json` zones, devices, connections and isolation points of the plant (synthetic)
 - `data/production.json` lines, schedule and every assumption behind the prices (synthetic)
-- `data/events_office.json`, `data/events_plant.json` the alerts of the two simulated tools
-- `reports/incident-latest.md` the page for the crisis team, generated
+- `data/events_office.json`, `data/events_plant.json` the alarms of the two simulated tools
+- `reports/incident-latest.md` the generated page
 - `tests/` 25 tests
 - `BUILD_LOG.md` decisions, alternatives set aside, corrections and estimated tokens per step
 
-## Not built yet
+## What has to exist before this solution is called working
 
-- Two further attack scenarios, including one that the single correlation rule should miss.
-- Connection to real security tools and to a real production schedule.
-- A language model for the investigation and for wording the briefing.
-- The notification to the regulator. Its legal deadlines must be checked against the official text first.
-- Mapping of agent permissions to IEC 62443 zones, a tabletop exercise generator and supplier remote-access monitoring.
+1. A company briefing the agents read; changing it changes their behaviour without changing code.
+2. A planner agent and a challenger agent in a recorded loop of plan, objection and revision, including a night in which no response closes every path and the agents say so.
+3. A run with one security tool missing, in which the decision page names the blind spot.
+4. A new alarm arriving mid-run, and a visibly changed plan.
+5. A decision page on which a named person chooses among options and sees the counter-argument; the choice recorded.
+6. Reversible office-side steps taken by the agents through the Control Tower; every other step held for a person.
+7. A case memory written after a run and read at the next.
+8. A rehearsal: nights invented by a scenario agent from the briefing, and a report of what each would have cost.
+9. The time from the last alarm to the decision page, measured and published.
+10. Results published as rates over many runs, with date and model, including the cases that went wrong.
 
-## Next steps
+The solution is model-agnostic: whoever runs it enters their own model and key.
 
-1. Add the two further scenarios and publish where the correlation fails.
-2. Read the assumptions from a production schedule that changes by shift, and show how the recommendation moves.
-3. Report the cost and benefit of each run to the AI Value Ledger once it exists.
+## Limits
+
+- Everything runs on simulated systems and synthetic data for a fictional company.
+- The recommendation is only as good as the briefing: a wrong cost per hour or an undocumented network connection leads to a wrong answer.
+- No probability that the intruder spreads or encrypts is estimated. Lost production is the only cost counted.
+- A deputy and a time limit for the named person are not built.
+- Connection to real security tools, real production systems and real network equipment is designed, not built.
 
 See the one-page [business case](BUSINESS_CASE.md).

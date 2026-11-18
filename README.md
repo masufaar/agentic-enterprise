@@ -2,7 +2,7 @@
 
 A blueprint for company-wide AI transformation in a manufacturer: ten multi-agent solutions for IT and the business, run on one fictional company and governed by one control layer.
 
-**Status: two solutions are in build, each with a first working version: the AI Governance Control Tower and the OT/IT Convergence Sentinel. The other eight are designs.** Each one moves from "Designed" to "In build" to "Working" in this table as the work progresses. All figures in the business cases are illustrative assumptions for a fictional company.
+**Status: two solutions are in build, each with a first working version: the AI Governance Control Tower and the OT/IT Convergence Sentinel. Both first versions are rule-based: no AI agent runs in this repository yet, and no language model is involved so far. The agents are the next thing to be built. The other eight solutions are designs.** Each one moves from "Designed" to "In build" to "Working" in this table as the work progresses. All figures in the business cases are illustrative assumptions for a fictional company.
 
 ## Why this repository exists
 
@@ -15,7 +15,7 @@ Background article: [Who approved that AI agent?](https://www.linkedin.com/pulse
 | # | Solution | Management issue | Business case | Status |
 |---|---|---|---|---|
 | 1 | [AI Governance Control Tower](solutions/01-ai-governance-control-tower/README.md) | Agents are deployed faster than anyone counts them. When one misbehaves, nobody can say who approved it, what it may touch, or how many others exist. Accountability stays with management and the board. | [Business case](solutions/01-ai-governance-control-tower/BUSINESS_CASE.md) | In build |
-| 2 | [OT/IT Convergence Sentinel](solutions/02-ot-it-convergence-sentinel/README.md) | Ransomware that stops production is the top cyber risk for a manufacturer, and the IT and plant security teams rarely share one picture. In an incident nobody can say what each response costs in lost output. | [Business case](solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md) | In build |
+| 2 | [OT/IT Convergence Sentinel](solutions/02-ot-it-convergence-sentinel/README.md) | When an attack reaches the plant floor, the security tools say what is happening. Nobody can say what each response costs in lost production, and the decision to disconnect is improvised at night. This solution runs the decision, not the detection, in addition to the existing tools. | [Business case](solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md) | In build |
 | 3 | [Supply Chain Disruption War Room](solutions/03-supply-chain-disruption-war-room/README.md) | Disruptions are discovered late and the response is improvised over email and spreadsheets. | [Business case](solutions/03-supply-chain-disruption-war-room/BUSINESS_CASE.md) | Designed |
 | 4 | [S&OP Negotiation Arena](solutions/04-sop-negotiation-arena/README.md) | Excess inventory ties up working capital while stock-outs still happen, and the monthly planning meeting is driven by positions more than by numbers. | [Business case](solutions/04-sop-negotiation-arena/BUSINESS_CASE.md) | Designed |
 | 5 | [Maintenance Closed Loop](solutions/05-maintenance-closed-loop/README.md) | Unplanned downtime, and expertise leaving the company with every retirement. | [Business case](solutions/05-maintenance-closed-loop/BUSINESS_CASE.md) | Designed |
