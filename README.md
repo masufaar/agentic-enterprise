@@ -8,7 +8,10 @@ A blueprint for company-wide AI transformation in a manufacturer: ten multi-agen
 
 Most companies run AI as a set of unconnected experiments. A board needs something different: a programme in which every agent has an owner, a business case and a set of rules it cannot break. This repository shows what that programme looks like for a manufacturer with 5,000 employees and plants worldwide.
 
-Background article: [Who approved that AI agent?](https://www.linkedin.com/pulse/who-approved-ai-agent-mario-gracia-rohrf/)
+Background articles:
+
+- [Who approved that AI agent?](https://www.linkedin.com/pulse/who-approved-ai-agent-mario-gracia-rohrf/) on the control layer
+- [Who decides to stop the plant?](https://www.linkedin.com/pulse/who-decides-stop-plant-mario-gracia-blhnf/) on the OT/IT Convergence Sentinel
 
 ## The ten solutions
 
