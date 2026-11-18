@@ -8,6 +8,7 @@
       "purpose": "Scores every proposed AI use case against the EU AI Act risk tiers before any build work starts.",
       "model_class": "mid",
       "autonomy": "advise",
+      "today": "fixed code",
       "approval": {"status": "approved", "approved_by": "AI Governance Board", "approved_on": "2026-09-14"},
       "use_case_flags": {
         "social_scoring": false,
@@ -34,6 +35,7 @@
       "purpose": "Tests each agent in a sandbox for prompt injection and unsafe actions before it is allowed into production.",
       "model_class": "top",
       "autonomy": "act",
+      "today": "fixed code",
       "approval": {"status": "approved", "approved_by": "AI Governance Board", "approved_on": "2026-09-22"},
       "use_case_flags": {
         "social_scoring": false,
@@ -60,6 +62,7 @@
       "purpose": "Compiles the quarterly evidence pack showing which agents ran, what they accessed and who approved them.",
       "model_class": "mid",
       "autonomy": "advise",
+      "today": "fixed code",
       "approval": {"status": "approved", "approved_by": "Audit Committee", "approved_on": "2026-10-06"},
       "use_case_flags": {
         "social_scoring": false,
@@ -86,6 +89,7 @@
       "purpose": "Keeps one list of the shop-floor assets of all 12 plants and collects the alerts of the office and plant-floor security tools the company already owns, in one common format.",
       "model_class": "mid",
       "autonomy": "act",
+      "today": "fixed code",
       "approval": {"status": "approved", "approved_by": "Chief Information Security Officer", "approved_on": "2026-09-30"},
       "use_case_flags": {
         "social_scoring": false,
@@ -112,6 +116,7 @@
       "purpose": "Recommends and, after human approval, applies network isolation of a compromised plant segment while keeping production safe.",
       "model_class": "top",
       "autonomy": "act_with_approval",
+      "today": "agent in build",
       "approval": {"status": "approved", "approved_by": "VP Operations", "approved_on": "2026-10-14"},
       "use_case_flags": {
         "social_scoring": false,
@@ -138,6 +143,7 @@
       "purpose": "Joins alerts from the office network and the plant floor into one incident, with the path the intruder took and the production lines within reach.",
       "model_class": "mid",
       "autonomy": "advise",
+      "today": "fixed code",
       "approval": {
         "status": "approved",
         "approved_by": "Chief Information Security Officer",
@@ -175,6 +181,7 @@
       "purpose": "Writes the one-page picture of a security incident for the crisis team: what happened, what each response costs in lost output, and who must decide.",
       "model_class": "small",
       "autonomy": "advise",
+      "today": "fixed code",
       "approval": {
         "status": "approved",
         "approved_by": "VP Operations",
@@ -203,6 +210,83 @@
       }
     },
     {
+      "id": "ot-first-response",
+      "name": "Office-side First Response Agent",
+      "solution": "02-ot-it-convergence-sentinel",
+      "owner": "Head of Security Operations",
+      "purpose": "Takes the few steps on the office side that can be undone in minutes (suspend a stolen account, quarantine an office workstation, close a remote session) while the plant-floor decision is prepared for a person. It has no permission on the plant floor.",
+      "model_class": "mid",
+      "autonomy": "act",
+      "today": "agent in build",
+      "approval": {
+        "status": "approved",
+        "approved_by": "Chief Information Security Officer",
+        "approved_on": "2026-11-18"
+      },
+      "use_case_flags": {
+        "social_scoring": false,
+        "biometric_identification": false,
+        "employment_decisions": false,
+        "critical_infrastructure": false,
+        "safety_component": false,
+        "essential_services_access": false,
+        "interacts_with_people": false,
+        "generates_content": false
+      },
+      "permissions": {
+        "tools": [
+          "incident.read",
+          "network.read",
+          "identity.account.suspend",
+          "endpoint.quarantine",
+          "remote_access.session.close"
+        ],
+        "data_classes": [
+          "internal"
+        ],
+        "spend_limit_eur": 0,
+        "ot_write": false
+      }
+    },
+    {
+      "id": "ot-challenger",
+      "name": "Response Challenger",
+      "solution": "02-ot-it-convergence-sentinel",
+      "owner": "Chief Information Security Officer",
+      "purpose": "Argues against the response the planner recommends: checks its prices, looks for what it leaves open and for a better option, and writes the counter-argument the deciding person sees. It can read and price; it can change nothing.",
+      "model_class": "top",
+      "autonomy": "advise",
+      "today": "agent in build",
+      "approval": {
+        "status": "approved",
+        "approved_by": "VP Operations",
+        "approved_on": "2026-11-18"
+      },
+      "use_case_flags": {
+        "social_scoring": false,
+        "biometric_identification": false,
+        "employment_decisions": false,
+        "critical_infrastructure": false,
+        "safety_component": false,
+        "essential_services_access": false,
+        "interacts_with_people": false,
+        "generates_content": true
+      },
+      "permissions": {
+        "tools": [
+          "incident.read",
+          "network.read",
+          "production.read"
+        ],
+        "data_classes": [
+          "ot_telemetry",
+          "internal"
+        ],
+        "spend_limit_eur": 0,
+        "ot_write": false
+      }
+    },
+    {
       "id": "disruption-monitor",
       "name": "Supplier Disruption Monitor",
       "solution": "03-supply-chain-disruption-war-room",
@@ -210,6 +294,7 @@
       "purpose": "Watches news and supplier signals and raises an early alert when a supplier risk could stop a plant line.",
       "model_class": "small",
       "autonomy": "act",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "VP Operations", "approved_on": "2026-09-08"},
       "use_case_flags": {
         "social_scoring": false,
@@ -236,6 +321,7 @@
       "purpose": "Finds alternative qualified suppliers for an at-risk part and drafts purchase orders and supplier emails for buyer approval, within a fixed spend limit.",
       "model_class": "mid",
       "autonomy": "act_with_approval",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "Chief Financial Officer", "approved_on": "2026-10-02"},
       "use_case_flags": {
         "social_scoring": false,
@@ -262,6 +348,7 @@
       "purpose": "Compares sales, operations and finance plan scenarios side by side and proposes a balanced monthly production plan for leaders to choose from.",
       "model_class": "mid",
       "autonomy": "advise",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "VP Operations", "approved_on": "2026-09-18"},
       "use_case_flags": {
         "social_scoring": false,
@@ -288,6 +375,7 @@
       "purpose": "Matches machine fault signals to known causes and drafts a work order that a maintenance planner approves before work begins.",
       "model_class": "mid",
       "autonomy": "act_with_approval",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "VP Operations", "approved_on": "2026-10-20"},
       "use_case_flags": {
         "social_scoring": false,
@@ -314,6 +402,7 @@
       "purpose": "Interviews experienced technicians before they retire and records their repair know-how in the maintenance knowledge base.",
       "model_class": "mid",
       "autonomy": "act",
+      "today": "designed",
       "approval": {"status": "pending", "approved_by": null, "approved_on": null},
       "use_case_flags": {
         "social_scoring": false,
@@ -340,6 +429,7 @@
       "purpose": "Compares reported project status with project plans and finance records and flags where the portfolio report overstates progress.",
       "model_class": "mid",
       "autonomy": "advise",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "Chief Financial Officer", "approved_on": "2026-09-29"},
       "use_case_flags": {
         "social_scoring": false,
@@ -366,6 +456,7 @@
       "purpose": "Reads each new IT ticket, sets its category and priority, and routes it to the right support group.",
       "model_class": "small",
       "autonomy": "act",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "Chief Information Officer", "approved_on": "2026-09-11"},
       "use_case_flags": {
         "social_scoring": false,
@@ -392,6 +483,7 @@
       "purpose": "Applies known fixes to routine tickets and writes the reply to the employee, and proposes new knowledge articles when a fix is new.",
       "model_class": "mid",
       "autonomy": "act",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "Chief Information Officer", "approved_on": "2026-10-09"},
       "use_case_flags": {
         "social_scoring": false,
@@ -418,6 +510,7 @@
       "purpose": "Tests proposed network changes on the digital twin of the plant network and reports the expected effects before any engineer applies them.",
       "model_class": "mid",
       "autonomy": "advise",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "Chief Information Security Officer", "approved_on": "2026-10-27"},
       "use_case_flags": {
         "social_scoring": false,
@@ -444,6 +537,7 @@
       "purpose": "Links a customer complaint to the production batch, machine and shift it came from and proposes the likely root cause for quality engineers to review.",
       "model_class": "mid",
       "autonomy": "advise",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "VP Operations", "approved_on": "2026-10-30"},
       "use_case_flags": {
         "social_scoring": false,
@@ -470,6 +564,7 @@
       "purpose": "Records the measured cost and benefit of each AI agent in one ledger so the board can see returns by use case.",
       "model_class": "small",
       "autonomy": "advise",
+      "today": "designed",
       "approval": {"status": "approved", "approved_by": "Chief Financial Officer", "approved_on": "2026-11-10"},
       "use_case_flags": {
         "social_scoring": false,

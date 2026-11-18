@@ -8,8 +8,9 @@ Version 0 is generated on demand. A fixed quarterly schedule, trends over time a
 
 | Question | Answer |
 |---|---|
-| How many AI agents are registered? | 18 |
-| How many are approved to act? | 17; 1 registered but not yet approved |
+| How many cards are in the agent registry? | 20 |
+| What stands behind them today? | 3 agents in build; 6 steps of fixed code without a model; 11 designed agents with nothing behind the card yet. No language model runs behind any card yet. |
+| How many are approved to act? | 19; 1 registered but not yet approved |
 | How many are switched off right now? | 0 |
 | How many company rules are enforced? | 13, and one daily volume limit |
 | How many attacks were contained in the latest campaign? | 28 of 29 (97%) |
@@ -25,27 +26,39 @@ Contained means refused outright, held for a named person, or stopped at the age
 1. **Open finding A-29.** The same, but disguised: one employee's personal data, spelled out and broken up, sent to a single other colleague. The comparison finds exact values only. Personal data that is spelled out or reworded, sent to one single colleague, is neither recognised nor held, because holding every email to a colleague would stop the agent doing its job. Fix (designed): a second check of outgoing text by a language model for personal data that exact comparison cannot see, with a sample of internal emails reviewed by a person.
 2. **Approver load.** 9 of 11 waiting actions fall on one role, the Head of IT Service Management. Too many requests wear an approver down. Reducing the load is designed, not built.
 3. **High-risk agents.** OT Incident Containment Assistant (owner: Head of OT Security). It may read on its own; every other action it takes waits for a named person.
-4. **Risk tiers awaiting sign-off.** 18 of 18 proposed tiers have no human sign-off. Recording the sign-off is designed, not built, and the legal references are not yet verified against the official texts.
-5. **Registered but not approved.** Knowledge Capture Interviewer. The gateway refuses every action of an agent that is not approved.
+4. **Acting on their own beyond reading and writing.** Office-side First Response Agent (owner: Head of Security Operations, agent in build); Service Desk Resolution Drafter (owner: Head of IT Service Management, designed). Their permissions reach accounts, systems or money and they are registered to act without a person. What limits them is the permission list and the company rules. The legal tier does not show this, which is why the reach of action is rated separately below.
+5. **Ratings awaiting sign-off.** 20 of 20 proposed legal tiers and all reach ratings have no human sign-off. Recording the sign-off is designed, not built, and the legal references are not yet verified against the official texts.
+6. **Registered but not approved.** Knowledge Capture Interviewer. The gateway refuses every action of an agent that is not approved.
 
-## Agents by proposed risk tier
+## Cards by reach of action
 
-| Proposed EU AI Act tier | Agents | Which |
+How far the permissions of each card go inside the company, worked out from its permission list.
+
+| Reach | Cards | Registered to act without a person | Which |
+|---|---|---|---|
+| 4: Can stop production | 1 | 0 | OT Incident Containment Assistant |
+| 3: Acts on accounts, systems or money | 4 | 2 | Office-side First Response Agent, Alternative Sourcing Options Agent, Maintenance Fault Diagnosis Agent, Service Desk Resolution Drafter |
+| 2: Writes or proposes inside the company | 12 | 3 | Use-Case Risk Classifier, Pre-Release Red Team Tester, Quarterly Agent Audit Reporter, Office and Plant Threat Correlator, Crisis Team Briefing Writer, SOP Negotiation Mediator, Knowledge Capture Interviewer, Project Portfolio Truth Check, Service Desk Ticket Triage, Network Digital Twin Validator, Complaint to Root Cause Traceability Agent, AI Value Ledger |
+| 1: Reads only | 3 | 2 | Plant Asset and Alert Collector, Response Challenger, Supplier Disruption Monitor |
+
+## Cards by proposed legal tier
+
+| Proposed EU AI Act tier | Cards | Which |
 |---|---|---|
 | prohibited | 0 | - |
 | high | 1 | OT Incident Containment Assistant |
-| limited | 11 | Use-Case Risk Classifier, Pre-Release Red Team Tester, Quarterly Agent Audit Reporter, Crisis Team Briefing Writer, Alternative Sourcing Options Agent, Knowledge Capture Interviewer, Project Portfolio Truth Check, Service Desk Ticket Triage, Service Desk Resolution Drafter, Complaint to Root Cause Traceability Agent, AI Value Ledger |
-| minimal | 6 | Plant Asset and Alert Collector, Office and Plant Threat Correlator, Supplier Disruption Monitor, SOP Negotiation Mediator, Maintenance Fault Diagnosis Agent, Network Digital Twin Validator |
+| limited | 12 | Use-Case Risk Classifier, Pre-Release Red Team Tester, Quarterly Agent Audit Reporter, Crisis Team Briefing Writer, Response Challenger, Alternative Sourcing Options Agent, Knowledge Capture Interviewer, Project Portfolio Truth Check, Service Desk Ticket Triage, Service Desk Resolution Drafter, Complaint to Root Cause Traceability Agent, AI Value Ledger |
+| minimal | 7 | Plant Asset and Alert Collector, Office and Plant Threat Correlator, Office-side First Response Agent, Supplier Disruption Monitor, SOP Negotiation Mediator, Maintenance Fault Diagnosis Agent, Network Digital Twin Validator |
 
-Tiers are proposals from fixed rules, not legal advice. See the [agent inventory](agent-inventory.md) for owner, approver and basis per agent.
+Tiers are proposals from fixed rules, not legal advice. See the [agent inventory](agent-inventory.md) for owner, approver, both ratings and what stands behind each card.
 
-## Agents by level of autonomy
+## Cards by level of autonomy
 
-| Level | Agents |
+| Level | Cards |
 |---|---|
-| Advise only | 9 |
+| Advise only | 10 |
 | Act, with approval for every action that is not a read | 3 |
-| Act within their permissions and the company rules | 6 |
+| Act within their permissions and the company rules | 7 |
 
 ## Latest campaign by type of attack
 

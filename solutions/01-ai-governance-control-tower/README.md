@@ -4,9 +4,11 @@
 
 The foundation every other agent in this repository plugs into.
 
+**How the word "agent" is used here.** An agent is a language model working in a loop inside a harness: it plans, uses tools, checks its own result and corrects itself, and a person is the last step. Fixed code is a tool or a control, never an agent. The registry holds one card per identity that may act through the gateway, and each card says what stands behind it today. On 18 November 2026 that is 3 agents in build (solution 02), 6 steps of fixed code without a model, and 11 designed agents with nothing behind the card yet. No language model runs behind any card yet.
+
 ## What it is
 
-A registry and control layer for AI agents. Every agent is registered with an owner, a purpose and a list of permitted systems. Every action is checked against company rules before it happens. Every decision is recorded in a tamper-evident trail. A red-team campaign attacks the agents and the results are published, including the attacks that got through.
+A registry and control layer for AI agents. Every agent is registered with an owner, a purpose and a list of permitted systems. Every action is checked against company rules before it happens. Every decision is recorded in a tamper-evident trail. A red-team campaign attacks the control layer under the identities of the registered agents, and the results are published, including the attacks that got through.
 
 ## The management issue it solves
 
@@ -20,8 +22,9 @@ The board gets one page that answers three questions at any moment: how many age
 
 | Feature | Status | What it does in version 0 |
 |---|---|---|
-| Agent registry | Working | 18 agents from the ten solutions, each with an accountable owner, a named approver, an autonomy level and a permission list. See the [agent inventory](reports/agent-inventory.md). |
-| Risk classification | Working (rule-based) | Proposes an EU AI Act tier and the ISO/IEC 42001 control areas for each agent. A proposal for human sign-off, not legal advice. |
+| Agent registry | Working | 20 cards from the ten solutions, each with an accountable owner, a named approver, an autonomy level, a permission list and what stands behind it today (agent working, agent in build, fixed code, or designed). See the [agent inventory](reports/agent-inventory.md). |
+| Risk classification | Working (rule-based) | Proposes an EU AI Act tier and the ISO/IEC 42001 control areas for each card. A proposal for human sign-off, not legal advice. |
+| Reach of action | Working (rule-based) | A second rating beside the legal tier: how far a card's permissions go inside the company, in four levels from "reads only" to "can stop production", worked out from the permission list. The two ratings can disagree: an agent that suspends accounts on its own is "minimal" in the legal reading and level 3 of 4 in reach. The board report lists every card that reaches level 3 or more and is registered to act without a person. A tool nobody has classified counts as an action. A proposal for human sign-off. |
 | Policy as code | Working | 13 company rules and one volume limit in [data/policies.json](data/policies.json). Design target: 30 to 50. |
 | Policy gateway | Working | Allows, denies or holds every action for a named human approver. Fails closed. An agent cannot approve itself. |
 | Gateway carries out the action itself | Working (simulated tools) | The agent hands over the call; the gateway reads the facts from the call, decides, and only then carries it out. For email it reads the real recipients, including copies and blind copies. The tools behind it are simulated: nothing is really sent. |
@@ -31,7 +34,7 @@ The board gets one page that answers three questions at any moment: how many age
 | Data labels | Working (one source, one shared store, internal email) | Data is labelled where it lives: each field of a support ticket carries a label. Before anything is written to the knowledge base, which every employee can read, the gateway compares the text with the values labelled personal at the source. A match is refused, whatever the agent says the text contains. Text from an agent that has handled personal data waits for a named person even when no match is found. For email, the gateway also looks up every recipient in a company directory: personal data is refused if any reader is a mailing list or an address that is not one known employee, held if it is about a different employee than the reader, and allowed when the only reader is the person it is about. |
 | Approval queue | Working (command line and a generated page, no clickable screen) | Every held action waits for the accountable owner of the agent, and only that person can release or refuse it. The queue is read from the audit trail and every decision is written back to it. The approver is shown why the item is held and what to look for, for example whose personal data is in a text. On release the gateway decides again. See [what the approver sees](reports/approvals-latest.md). Not built: verifying who the approver is, and a screen with buttons. |
 | Red-team campaign | Working (scripted) | 29 attacks and 8 legitimate control actions. See the [latest results](reports/redteam-latest.md). |
-| Board report | Working (one generated page, on demand) | One page put together from the registry and the latest campaign: agents by proposed risk tier and by autonomy, the share of attacks contained, open findings with their designed fix, results by type of attack and by attacked agent, and the load on each approver. Nothing new is measured or stored. See [the board report](reports/board-latest.md). Not built: a fixed quarterly schedule, trends over time, cost and benefit per agent. |
+| Board report | Working (one generated page, on demand) | One page put together from the registry and the latest campaign: what stands behind the cards today, cards by reach of action, by proposed legal tier and by autonomy, the share of attacks contained, open findings with their designed fix, results by type of attack and by attacked agent, and the load on each approver. Nothing new is measured or stored. See [the board report](reports/board-latest.md). Not built: a fixed quarterly schedule, trends over time, cost and benefit per agent. |
 | Red-team agent driven by a language model | Designed | Version 0 replays a fixed list of attacks. It does not yet invent new ones. |
 | Nightly schedule | Designed | The campaign runs on demand today. |
 | Connection to real systems | Designed | The gateway must be the only holder of the passwords and keys to the real systems, so that no agent can go around it. Not built: there are no real systems behind it yet. |
@@ -82,7 +85,7 @@ python -m pytest -q
 
 ## How it is put together
 
-Plain Python, standard library only, about 1,100 lines. No database, no server, no language model.
+Plain Python, standard library only, about 1,200 lines. No database, no server, no language model.
 
 - `data/agents.json` the registry (synthetic)
 - `data/policies.json` the company rules
@@ -93,6 +96,7 @@ Plain Python, standard library only, about 1,100 lines. No database, no server, 
 - `control_tower/tools.py` reads the facts from each call; simulated tools
 - `control_tower/approvals.py` the queue of held actions and the approver's decisions
 - `control_tower/board.py` the one-page board report, put together from the registry and the latest campaign
+- `control_tower/reach.py` the reach-of-action rating, from the permission list
 - `control_tower/audit.py`, `killswitch.py`, `classifier.py`, `registry.py`, `redteam.py`
 - `reports/` published results
 - [BUILD_LOG.md](BUILD_LOG.md) what was decided, why, and what it cost

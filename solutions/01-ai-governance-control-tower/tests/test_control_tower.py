@@ -19,7 +19,7 @@ def gateway(tmp_path):
 
 def test_registry_loads_and_every_agent_has_an_owner():
     cards = registry.load()
-    assert len(cards) == 18
+    assert len(cards) == 20
     assert all(card["owner"] for card in cards.values())
 
 
@@ -414,9 +414,9 @@ def test_board_page_answers_in_plain_words(gateway):
 
 def test_board_figures_count_every_agent_once_by_tier(gateway):
     f = board.figures(redteam.run(gateway))
-    assert sum(len(cards) for cards in f["by_tier"].values()) == f["agents"] == 18
-    assert sum(f["by_autonomy"].values()) == 18
-    assert len(f["approved"]) + len(f["not_approved"]) == 18
+    assert sum(len(cards) for cards in f["by_tier"].values()) == f["agents"] == 20
+    assert sum(f["by_autonomy"].values()) == 20
+    assert len(f["approved"]) + len(f["not_approved"]) == 20
 
 
 def test_board_pass_rate_counts_refused_held_and_capped_as_contained(gateway):
@@ -453,3 +453,52 @@ def test_board_page_shows_agents_that_are_switched_off(gateway):
     report = redteam.run(gateway)
     assert "| How many are switched off right now? | 1 |" in board.page(report, stopped=["sd-triage"])
     assert "| How many are switched off right now? | all |" in board.page(report, stopped=["all"])
+
+
+# -- reach of action and what stands behind a card ------------------------------
+def test_reach_is_rated_from_the_permission_list_highest_level_first():
+    from control_tower.reach import level_of, reach
+    cards = registry.load()
+    assert [level_of(t) for t in ("erp.read", "twin.simulate", "report.write", "erp.plan.propose", "ticket.update",
+                                  "email.send", "identity.account.suspend", "erp.po.create",
+                                  "network.isolate", "plc.write")] == [1, 1, 2, 2, 2, 3, 3, 3, 4, 4]
+    assert reach(cards["ot-response"])["level"] == 4 and reach(cards["ot-response"])["because"] == ["network.isolate"]
+    assert reach(cards["ot-challenger"]) == {"agent_id": "ot-challenger", "level": 1, "name": "Reads only",
+                                             "because": [], "on_its_own": False, "signed_off_by": None}
+
+
+def test_a_tool_nobody_has_classified_counts_as_an_action():
+    from control_tower.reach import level_of
+    assert level_of("payroll.adjust") == 3
+
+
+def test_the_legal_tier_and_the_reach_can_disagree_and_the_board_page_says_so(gateway):
+    from control_tower.reach import reach
+    card = registry.load()["ot-first-response"]
+    assert classify(card)["tier"] == "minimal"
+    assert reach(card)["level"] == 3 and reach(card)["on_its_own"]
+    report = redteam.run(gateway)
+    f = board.figures(report)
+    assert "ot-first-response" in [c["id"] for c in f["far_on_their_own"]]
+    assert "ot-response" not in [c["id"] for c in f["far_on_their_own"]]  # level 4, but never without a person
+    text = board.page(report)
+    assert "**Acting on their own beyond reading and writing.** Office-side First Response Agent" in text
+    assert "| 4: Can stop production | 1 | 0 | OT Incident Containment Assistant |" in text
+
+
+def test_board_figures_count_every_card_once_by_reach_and_by_what_stands_behind_it(gateway):
+    f = board.figures(redteam.run(gateway))
+    assert sum(len(cards) for cards in f["by_reach"].values()) == 20
+    assert f["today"] == {"designed": 11, "fixed code": 6, "agent in build": 3, "agent working": 0}
+    text = board.page(redteam.run(gateway))
+    assert "3 agents in build; 6 steps of fixed code without a model; 11 designed agents" in text
+    assert "No language model runs behind any card yet." in text
+
+
+def test_a_card_must_say_what_stands_behind_it(tmp_path):
+    cards = json.loads((registry.DATA / "agents.json").read_text(encoding="utf-8"))["agents"][:1]
+    cards[0]["today"] = "almost done"
+    bad = tmp_path / "agents.json"
+    bad.write_text(json.dumps({"agents": cards}))
+    with pytest.raises(registry.RegistryError, match="unknown state today"):
+        registry.load(bad)

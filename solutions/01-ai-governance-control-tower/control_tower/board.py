@@ -9,6 +9,7 @@ cost and benefit per agent are designed, not built.
 """
 from . import registry as registry_module
 from .classifier import ORDER, classify
+from .reach import LEVELS, reach
 
 CONTAINED = ("blocked", "held", "capped")
 CONCENTRATION = 0.5  # assumption: more than half of the waiting items on one role is worth a line
@@ -19,6 +20,7 @@ def figures(report: dict, registry: dict | None = None, stopped: list[str] | Non
     registry = registry or registry_module.load()
     cards = list(registry.values())
     tiers = {card["id"]: classify(card) for card in cards}
+    far = {card["id"]: reach(card) for card in cards}
     attacks = [r for r in report["results"] if r["category"] != "control"]
     controls = [r for r in report["results"] if r["category"] == "control"]
     waiting = report.get("waiting_by_approver", {})
@@ -27,6 +29,9 @@ def figures(report: dict, registry: dict | None = None, stopped: list[str] | Non
         "approved": [c["id"] for c in cards if c["approval"].get("status") == "approved"],
         "not_approved": [c["id"] for c in cards if c["approval"].get("status") != "approved"],
         "stopped": stopped or [],
+        "today": {state: sum(c["today"] == state for c in cards) for state in registry_module.TODAY},
+        "by_reach": {level: [c for c in cards if far[c["id"]]["level"] == level] for level in LEVELS},
+        "far_on_their_own": [c for c in cards if far[c["id"]]["level"] >= 3 and far[c["id"]]["on_its_own"]],
         "by_tier": {t: [c for c in cards if tiers[c["id"]]["tier"] == t] for t in reversed(ORDER)},
         "signed_off": sum(1 for t in tiers.values() if t["signed_off_by"]),
         "by_autonomy": {a: sum(c["autonomy"] == a for c in cards) for a in ("advise", "act_with_approval", "act")},
@@ -38,6 +43,15 @@ def figures(report: dict, registry: dict | None = None, stopped: list[str] | Non
         "attack_rows": attacks,
         "waiting": dict(sorted(waiting.items(), key=lambda x: -x[1])),
     }
+
+
+def _today(counts: dict) -> str:
+    """What stands behind the cards, in the words of the registry. An agent is a language model in a loop."""
+    words = {"agent working": "agents working", "agent in build": "agents in build",
+             "fixed code": "steps of fixed code without a model", "designed": "designed agents with nothing behind the card yet"}
+    parts = [f"{counts[state]} {words[state]}" for state in words if counts.get(state)]
+    running = "" if counts.get("agent working") else " No language model runs behind any card yet."
+    return "; ".join(parts) + "." + running
 
 
 def _share(part: int, whole: int) -> str:
@@ -75,7 +89,8 @@ def page(report: dict, fixes: dict | None = None, registry: dict | None = None,
         "benefit per agent are designed, not built.", "",
         "## At a glance", "",
         "| Question | Answer |", "|---|---|",
-        f"| How many AI agents are registered? | {f['agents']} |",
+        f"| How many cards are in the agent registry? | {f['agents']} |",
+        f"| What stands behind them today? | {_today(f['today'])} |",
         f"| How many are approved to act? | {len(f['approved'])}; {len(f['not_approved'])} registered but not yet approved |",
         f"| How many are switched off right now? | {'all' if 'all' in f['stopped'] else len(f['stopped'])} |",
         *([f"| How many company rules are enforced? | {rules}, and one daily volume limit |"] if rules else []),
@@ -99,21 +114,34 @@ def page(report: dict, fixes: dict | None = None, registry: dict | None = None,
                       + (". They may read on their own; every other action waits for a named person."
                          if len(high) > 1 else
                          ". It may read on its own; every other action it takes waits for a named person."))
+    if f["far_on_their_own"]:
+        points.append("**Acting on their own beyond reading and writing.** "
+                      + "; ".join(f"{c['name']} (owner: {c['owner']}, {registry_module.TODAY[c['today']].lower()})"
+                                  for c in f["far_on_their_own"])
+                      + ". Their permissions reach accounts, systems or money and they are registered to act without "
+                      "a person. What limits them is the permission list and the company rules. The legal tier does "
+                      "not show this, which is why the reach of action is rated separately below.")
     if f["signed_off"] < f["agents"]:
-        points.append(f"**Risk tiers awaiting sign-off.** {f['agents'] - f['signed_off']} of {f['agents']} "
-                      "proposed tiers have no human sign-off. Recording the sign-off is designed, not built, "
-                      "and the legal references are not yet verified against the official texts.")
+        points.append(f"**Ratings awaiting sign-off.** {f['agents'] - f['signed_off']} of {f['agents']} "
+                      "proposed legal tiers and all reach ratings have no human sign-off. Recording the sign-off is "
+                      "designed, not built, and the legal references are not yet verified against the official texts.")
     if f["not_approved"]:
         points.append("**Registered but not approved.** " + ", ".join(registry_name(f, i) for i in f["not_approved"])
                       + ". The gateway refuses every action of an agent that is not approved.")
     lines += [f"{n}. {p}" for n, p in enumerate(points, 1)] or ["None."]
-    lines += ["", "## Agents by proposed risk tier", "",
-              "| Proposed EU AI Act tier | Agents | Which |", "|---|---|---|"]
+    lines += ["", "## Cards by reach of action", "",
+              "How far the permissions of each card go inside the company, worked out from its permission list.", "",
+              "| Reach | Cards | Registered to act without a person | Which |", "|---|---|---|---|"]
+    for level, cards in sorted(f["by_reach"].items(), reverse=True):
+        alone = sum(c["autonomy"] == "act" for c in cards)
+        lines.append(f"| {level}: {LEVELS[level]} | {len(cards)} | {alone} | {', '.join(c['name'] for c in cards) or '-'} |")
+    lines += ["", "## Cards by proposed legal tier", "",
+              "| Proposed EU AI Act tier | Cards | Which |", "|---|---|---|"]
     for tier, cards in f["by_tier"].items():
         lines.append(f"| {tier} | {len(cards)} | {', '.join(c['name'] for c in cards) or '-'} |")
     lines += ["", "Tiers are proposals from fixed rules, not legal advice. See the "
-              "[agent inventory](agent-inventory.md) for owner, approver and basis per agent.", "",
-              "## Agents by level of autonomy", "", "| Level | Agents |", "|---|---|",
+              "[agent inventory](agent-inventory.md) for owner, approver, both ratings and what stands behind each card.", "",
+              "## Cards by level of autonomy", "", "| Level | Cards |", "|---|---|",
               f"| Advise only | {f['by_autonomy']['advise']} |",
               f"| Act, with approval for every action that is not a read | {f['by_autonomy']['act_with_approval']} |",
               f"| Act within their permissions and the company rules | {f['by_autonomy']['act']} |", "",
