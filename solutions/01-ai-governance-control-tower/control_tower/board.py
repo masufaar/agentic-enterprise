@@ -50,7 +50,7 @@ def _today(counts: dict) -> str:
     words = {"agent working": "agents working", "agent in build": "agents in build",
              "fixed code": "steps of fixed code without a model", "designed": "designed agents with nothing behind the card yet"}
     parts = [f"{counts[state]} {words[state]}" for state in words if counts.get(state)]
-    running = "" if counts.get("agent working") else " No language model runs behind any card yet."
+    running = "" if counts.get("agent working") else " No agent is rated working yet."
     return "; ".join(parts) + "." + running
 
 

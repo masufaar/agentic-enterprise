@@ -77,7 +77,7 @@ class Claude:
              "max_tokens": "limit", "model_context_window_exceeded": "limit", "refusal": "refused"}
 
     def __init__(self, model: str = "claude-fable-5-2", effort: str = "medium",
-                 max_tokens: int = 4000, key_file: str | None = None,
+                 max_tokens: int = 16000, key_file: str | None = None,
                  url: str = "https://api.anthropic.com/v1/messages",
                  version: str = "2026-10-21", auth: str = "bearer",
                  timeout: int = 300, post=_post):
@@ -90,7 +90,7 @@ class Claude:
     def _headers(self) -> dict:
         if not self.key_file or not Path(self.key_file).is_file():
             raise ModelError(f"No key file. Put the key in a file and set {KEY_FILE_VARIABLE} to its path")
-        key = Path(self.key_file).read_text(encoding="utf-8").strip()
+        key = Path(self.key_file).read_text(encoding="utf-8-sig").strip()  # utf-8-sig: Notepad may put a marker first
         credential = {"Authorization": f"Bearer {key}"} if self.auth == "bearer" else {"x-api-key": key}
         return {**credential, "anthropic-version": self.version, "content-type": "application/json"}
 

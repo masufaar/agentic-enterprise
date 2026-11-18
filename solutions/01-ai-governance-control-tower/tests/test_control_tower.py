@@ -492,7 +492,7 @@ def test_board_figures_count_every_card_once_by_reach_and_by_what_stands_behind_
     assert f["today"] == {"designed": 11, "fixed code": 6, "agent in build": 3, "agent working": 0}
     text = board.page(redteam.run(gateway))
     assert "3 agents in build; 6 steps of fixed code without a model; 11 designed agents" in text
-    assert "No language model runs behind any card yet." in text
+    assert "No agent is rated working yet." in text
 
 
 def test_a_card_must_say_what_stands_behind_it(tmp_path):

@@ -140,3 +140,11 @@ def test_the_key_never_appears_in_a_reply(key_file):
     wire = Wire(answer([{"type": "text", "text": "ok"}]))
     reply = Claude(key_file=key_file, post=wire).ask("s", [{"role": "user", "text": "go"}], [])
     assert "test-key-not-real" not in json.dumps(reply)
+
+
+def test_a_key_file_saved_by_notepad_with_its_marker_is_read_correctly(tmp_path):
+    path = tmp_path / "key.txt"
+    path.write_bytes(b"\xef\xbb\xbftest-key-not-real\r\n")
+    wire = Wire(answer([{"type": "text", "text": "ok"}]))
+    Claude(key_file=str(path), post=wire).ask("s", [{"role": "user", "text": "go"}], [])
+    assert wire.sent[0]["headers"]["Authorization"] == "Bearer test-key-not-real"

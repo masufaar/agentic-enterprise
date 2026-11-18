@@ -330,3 +330,37 @@ Agreed with M: five steps in order. 1 solution 01 (pushed, commit b2864b6: reach
 - A sample decision page is published in `reports/`, labelled in its first paragraph as produced on prepared replies with hand-written agent sentences.
 - Not changed: the published article. Its status line ("the agents are in build") is still true.
 - Tokens for the page rewrites, estimated: output about 3,500, main model. A lighter model would have done.
+
+## Session 4, fifth part, 18 November 2026: the first run with a real model
+
+M chose route (a): his own model key, in a file outside the project folder, which the assistant cannot reach. Spending is capped by a prepaid balance with automatic top-up off. Runs with a real model are therefore started by M in PowerShell on his computer; the assistant reads the recorded result.
+
+| No. | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D48 | The key file is read as `utf-8-sig`. | Notepad on Windows may put an invisible marker at the start of a file; the key would have been sent with it. | Asking M to save in a particular encoding. |
+| D49 | Room per model reply raised from 4,000 to 16,000 tokens. | The model's reasoning counts against the same allowance and could cut an answer off. | Finding out by a failed run. |
+
+### Measured: one run, scripted night, 18 November 2026, claude-fable-5-2 at medium effort
+
+Recorded in `reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.md` and `.json`. One run is one run: no rate can be stated from it.
+
+- The connector worked at the first call. The key is accepted as `Authorization: Bearer` with `anthropic-version: 2026-10-21` (D32 is now verified for M's key).
+- All three agents handed in. Turns: first response 3, planner 3, challenger 2. No hand-in was refused; no tool failed.
+- Time from the last alarm handed over to the decision page: 71.62 seconds. Tokens: 35,342 in, 6,905 out.
+- First response: suspended two accounts (the stolen maintenance account and the employee account of the infected workstation), quarantined the finance workstation, closed the remote sessions on the gateway. All four within the briefing; nothing attempted on the plant floor.
+- Planner: priced 8 responses, including combinations nobody asked for; recommended Line B cell 2 plus the link at EUR 120,000, the same as the rule-based first version; pointed out that cell 2 alone "is paying for a stop and gaining nothing"; added two safety calls (Line B shift lead, Line C maintenance crew) that no rule contains.
+- Challenger: re-priced all five options itself, agreed, and added unknowns the planner had not named, among them that two alarms set aside as unrelated could concern the Line C panel.
+
+### Limits found in this run, each with the fix designed for it
+
+- **The debate was not exercised.** The challenger agreed, so the planner never had to answer an objection with a real model. As foreseen: the scripted night is an easy one. Fix: run the harder night and the invented nights.
+- **The page is too long for three in the morning.** The first-response agent wrote about 450 words under "what it left alone", repeated the steps it took and listed the plant-floor options, which is not its job. Planner and challenger are also long. Fix: a word limit per field, enforced by the harness at hand-in, and tighter role texts.
+- **Figures without separators.** The agents wrote "EUR 2160000". The figure control accepted them, correctly, because they are priced figures; they are hard to read. Fix: the role texts ask for the format of the page, or the page reformats priced figures in agent text.
+- The correction path (a refused hand-in, then a corrected one) did not occur, so it is still shown on prepared replies only.
+
+### Steps
+
+| Step | What | How | Model | Tokens |
+|---|---|---|---|---|
+| 8 | Key set up with M, step by step; two small changes to the connector | Chat; documentation of the vendor's command-line tool read to rule it out | Main (Fable 5.2) | Input about 12,000, output about 3,000, estimated |
+| 9 | First real run | Started by M in PowerShell | claude-fable-5-2, medium effort | 35,342 in, 6,905 out, measured |

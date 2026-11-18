@@ -14,13 +14,13 @@ Status words used in this repository: "Designed", "In build", "Working".
 
 **The OT/IT Convergence Sentinel**, the first business solution on top of the Control Tower, now being rebuilt with AI agents: it runs the decision, not the detection, in addition to a company's existing security tools.
 
-Built and tested on prepared replies (18 November 2026), not yet run with a model: the agent loop, the company briefing, a first-response agent for reversible office-side steps, a planner and a challenger, the decision page and the recorded choice of the named person.
+Built and tested on prepared replies (18 November 2026), with one recorded run on a real model: the agent loop, the company briefing, a first-response agent for reversible office-side steps, a planner and a challenger, the decision page and the recorded choice of the named person.
 
 Next for it, in order:
 
 1. A run with one security tool missing, a new alarm arriving mid-run, and a case memory.
 2. Rehearsals: nights invented by a scenario agent from the briefing.
-3. Recorded runs with a real model.
+3. More recorded runs with a real model, including the harder night and an objection the planner has to answer.
 4. Results published as rates over many runs, with date and model.
 
 The full list is on [the solution page](../solutions/02-ot-it-convergence-sentinel/README.md) under "What has to exist before this solution is called working".

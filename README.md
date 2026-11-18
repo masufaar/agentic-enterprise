@@ -2,7 +2,7 @@
 
 A blueprint for company-wide AI transformation in a manufacturer: ten multi-agent solutions for IT and the business, run on one fictional company and governed by one control layer.
 
-**Status: two solutions are in build, each with a first working version: the AI Governance Control Tower and the OT/IT Convergence Sentinel. Both first versions are rule-based. For the Sentinel, three AI agents are now built and tested on prepared replies; no language model has run in this repository yet, so there is no result from a real model to report. The other eight solutions are designs.** Each one moves from "Designed" to "In build" to "Working" in this table as the work progresses. All figures in the business cases are illustrative assumptions for a fictional company.
+**Status: two solutions are in build, each with a first working version: the AI Governance Control Tower and the OT/IT Convergence Sentinel. Both first versions are rule-based. For the Sentinel, three AI agents are now built and tested on prepared replies, with one recorded run on a real model (18 November 2026); one run shows the path works and is not yet a result. The other eight solutions are designs.** Each one moves from "Designed" to "In build" to "Working" in this table as the work progresses. All figures in the business cases are illustrative assumptions for a fictional company.
 
 ## Why this repository exists
 
