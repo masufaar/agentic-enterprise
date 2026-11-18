@@ -23,13 +23,15 @@ def _from_plant(event: dict, tool: str) -> dict:
             "kind": event["category"], "severity": event["level"], "text": event["description"]}
 
 
-def collect(gateway) -> dict:
+def collect(gateway, night: dict | None = None) -> dict:
+    """'night' replaces the scripted data files with another night (see sentinel/night.py)."""
+    night = night or {}
     act(gateway, AGENT, "network.read", {"what": "plant layout", "plant": "plant-04"})
-    plant = load("plant.json")
+    plant = night.get("plant") or load("plant.json")
     act(gateway, AGENT, "security.alerts.read", {"from": "office-security-monitoring"})
-    office = load("events_office.json")
+    office = night.get("office") or load("events_office.json")
     act(gateway, AGENT, "security.alerts.read", {"from": "plant-floor-monitoring"})
-    floor = load("events_plant.json")
+    floor = night.get("floor") or load("events_plant.json")
     alerts = ([_from_office(a, office["source_tool"]) for a in office["alerts"]]
               + [_from_plant(e, floor["sensor"]) for e in floor["events"]])
     return {"plant": plant, "alerts": sorted(alerts, key=lambda a: (a["time"], a["id"]))}

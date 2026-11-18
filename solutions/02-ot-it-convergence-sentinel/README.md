@@ -1,6 +1,6 @@
 # OT/IT Convergence Sentinel
 
-**Status: In build. No AI agent runs yet, and no language model is involved so far.** What exists is a tested, rule-based first version of three building blocks the agents will use: the pricing of a response, the model of the plant, and the hold for a named person. The agents described below are designed.
+**Status: In build. Three agents are built and tested on prepared replies. No language model has run yet, so there is no recorded real run and no result to report on how well the agents reason.** What exists and is tested: the loop the agents work in, the company briefing they read, the controls around them, the decision page, and the rule-based first version whose pricing and plant model are now the agents' tools.
 
 It runs the decision, not the detection, in addition to your existing tools.
 
@@ -58,20 +58,40 @@ No agent disconnects anything on the plant floor. This list is a design and will
 
 ## What exists today
 
+Stated on 18 November 2026. "Tested on prepared replies" means: the code around the model is tested with a stand-in that replays replies written by hand. That proves the loop and the controls. It does not prove that a model reasons well; only recorded real runs can, and none exists yet.
+
 | Building block | Status | Model involved |
 |---|---|---|
 | Model of one plant and its production plan (synthetic files) | Working | No |
-| Price of a response in lost production, from the plan | Working, fixed code | No |
-| Hold of every isolation for the Head of OT Security, through the Control Tower | Working, fixed code | No |
+| Price of a response in lost production, from the plan | Working, fixed code; now a tool the agents call | No |
+| Hold of every plant-floor step for the Head of OT Security, through the Control Tower | Working, fixed code | No |
 | Joining the alarms of two simulated tools into one incident | Working as a basic fixed rule | No |
-| Company briefing that the agents read | Designed | |
-| Planner agent and challenger agent | Designed | Yes |
-| Rehearsal: a scenario agent that invents nights from the briefing | Designed | Yes |
-| Decision page with options, prices, counter-argument and blind spots | Designed (a simpler generated page exists) | Yes |
-| Case memory and review agent | Designed | Yes |
-| Reversible office-side steps taken by the agents | Designed | Yes |
+| Agent loop: the model asks for tools, a failed or refused step is handed back to it, and it is finished only when the harness accepts its result | In build: tested on prepared replies | Not yet run |
+| Model connector: one neutral format, a connector for Claude | In build: tested without network; never called the service | Not yet run |
+| Company briefing that the agents read | In build: tested on prepared replies | Not yet run |
+| First-response agent: reversible office-side steps on its own | In build: tested on prepared replies | Not yet run |
+| Planner agent and challenger agent, with objection and answer | In build: tested on prepared replies | Not yet run |
+| A night on which no response closes every path | In build: tested on prepared replies | Not yet run |
+| Decision page with options, prices and counter-argument; the named person's choice recorded | In build: tested on prepared replies | Not yet run |
+| Blind spots on the page when a security tool is missing | Designed | |
+| A new alarm arriving mid-run | Designed | |
+| Case memory and review agent | Designed | |
+| Rehearsal: a scenario agent that invents nights from the briefing | Designed | |
 
-The four steps of the first version are registered in the Control Tower as agent cards. They are fixed code. In this project the word agent is reserved for a language model working in a loop with tools, checking and correcting its own result; none exists here yet.
+A sample of the decision page, produced on prepared replies and labelled as such: [reports/decision-page-sample-scripted.md](reports/decision-page-sample-scripted.md).
+
+In this project the word agent is reserved for a language model working in a loop with tools, checking and correcting its own result. Three such agents are in build here: first response, planner, challenger. The joining of alarms and the writing of the page are fixed code; they hold registry cards in the Control Tower because they act through its gateway, and the registry says of each card what stands behind it.
+
+## The controls around the agents
+
+Fixed code, tested, and not open to persuasion by a model:
+
+- **Every step goes through the Control Tower** under the agent's own identity, and is recorded. The planner can read and price; it cannot disconnect anything. The first-response agent can act on the office side; it has no permission on the plant floor. The challenger can read and price; it can change nothing.
+- **No invented figures.** Every euro figure an agent writes must be one the pricing tool produced that night. Any other figure, and the harness hands the result back to be corrected. The decision page takes its figures from the pricing tool, never from an agent's text.
+- **No hidden gaps.** A plan that leaves a line within the intruder's reach is accepted only if it says so.
+- **Office-side steps are narrow.** Only the steps the briefing allows, only on the office side, only against a device or account that is part of the incident. Each can be undone and says how.
+- **Only the named person decides.** The Head of OT Security chooses a response by its number. Any other role is refused and the attempt is recorded. The choice is recorded with its price, whether it was the recommended one, and what the challenger said.
+- **A failed agent is visible.** If the planner does not deliver, the page says so and shows what the pricing tool alone knows. If the challenger does not deliver, the page says the recommendation was not challenged.
 
 ## What the rule-based first version shows
 
@@ -97,7 +117,7 @@ The night described above, priced at 03:02:
 | Responses priced | 5 |
 | Decisions by the Control Tower in one run | 13: 11 allowed, 2 held for the Head of OT Security |
 | Isolation carried out without a human release | 0 |
-| Tests | 25 of 25 pass |
+| Tests of the first version | 25 of 25 pass |
 
 The full page as generated: [reports/incident-latest.md](reports/incident-latest.md).
 
@@ -106,42 +126,62 @@ The full page as generated: [reports/incident-latest.md](reports/incident-latest
 Python 3.10 or later, nothing to install. From this folder:
 
 ```
+python -m pytest -q
 python -m sentinel run
 python -m sentinel waiting
 python -m sentinel release --as "Head of OT Security"
-python -m pytest -q
 ```
 
-`release` acts on a simulated network: it records that the isolation ran and touches nothing.
+These need no model and no key. `run` is the rule-based first version; `release` acts on a simulated network: it records that the isolation ran and touches nothing. The tests are 75: 25 for the first version, 14 for the model connector, 36 for the loop, the agents, the page and the decision.
+
+The agents need a model. The solution is model-agnostic; the connector provided is for Claude. Put the key in a file outside this repository and point to it:
+
+```
+SENTINEL_MODEL_KEY_FILE=/path/to/keyfile python -m sentinel night
+SENTINEL_MODEL_KEY_FILE=/path/to/keyfile python -m sentinel night no-safe-response
+python -m sentinel decide 1 --as "Head of OT Security"
+```
+
+This path has not been run against the model service yet. Expect corrections after the first real run.
 
 ## What is in this folder
 
-- `sentinel/` the rule-based first version: four fixed steps, the workflow and the command line (about 500 lines)
+- `sentinel/loop.py` the agent loop (80 lines)
+- `sentinel/agents.py` the three agents: what each is told, its tools, and what the harness checks
+- `sentinel/night.py` one night from the last alarm to the decision page; `sentinel/decision.py` the page and the decision
+- `sentinel/model.py` the model connector
+- `sentinel/` also holds the rule-based first version: four fixed steps and their workflow (about 500 lines)
+- `data/briefing.json` the company briefing the agents read (synthetic)
+- `data/nights/` other nights, each as a small file of changes to the scripted night
 - `data/plant.json` zones, devices, connections and isolation points of the plant (synthetic)
 - `data/production.json` lines, schedule and every assumption behind the prices (synthetic)
 - `data/events_office.json`, `data/events_plant.json` the alarms of the two simulated tools
-- `reports/incident-latest.md` the generated page
-- `tests/` 25 tests
+- `reports/incident-latest.md` the page of the first version; `reports/decision-page-sample-scripted.md` a sample decision page on prepared replies
+- `tests/` 75 tests
 - `BUILD_LOG.md` decisions, alternatives set aside, corrections and estimated tokens per step
 
 ## What has to exist before this solution is called working
 
-1. A company briefing the agents read; changing it changes their behaviour without changing code.
-2. A planner agent and a challenger agent in a recorded loop of plan, objection and revision, including a night in which no response closes every path and the agents say so.
-3. A run with one security tool missing, in which the decision page names the blind spot.
-4. A new alarm arriving mid-run, and a visibly changed plan.
-5. A decision page on which a named person chooses among options and sees the counter-argument; the choice recorded.
-6. Reversible office-side steps taken by the agents through the Control Tower; every other step held for a person.
-7. A case memory written after a run and read at the next.
-8. A rehearsal: nights invented by a scenario agent from the briefing, and a report of what each would have cost.
-9. The time from the last alarm to the decision page, measured and published.
-10. Results published as rates over many runs, with date and model, including the cases that went wrong.
+| | What | State on 18 November 2026 |
+|---|---|---|
+| 1 | A company briefing the agents read; changing it changes their behaviour without changing code. | Built. Tested on prepared replies for the part the harness enforces. Not yet shown with a model. |
+| 2 | A planner agent and a challenger agent in a recorded loop of plan, objection and revision, including a night in which no response closes every path and the agents say so. | Built, tested on prepared replies. No recorded real run. |
+| 3 | A run with one security tool missing, in which the decision page names the blind spot. | Not built. |
+| 4 | A new alarm arriving mid-run, and a visibly changed plan. | Not built. |
+| 5 | A decision page on which a named person chooses among options and sees the counter-argument; the choice recorded. | Built, tested on prepared replies. |
+| 6 | Reversible office-side steps taken by the agents through the Control Tower; every other step held for a person. | Built, tested on prepared replies. |
+| 7 | A case memory written after a run and read at the next. | Not built. |
+| 8 | A rehearsal: nights invented by a scenario agent from the briefing, and a report of what each would have cost. | Not built. |
+| 9 | The time from the last alarm to the decision page, measured and published. | Measured by the code; no real figure yet. |
+| 10 | Results published as rates over many runs, with date and model, including the cases that went wrong. | Needs real runs. |
 
 The solution is model-agnostic: whoever runs it enters their own model and key.
 
 ## Limits
 
 - Everything runs on simulated systems and synthetic data for a fictional company.
+- The instructions given to the three agents have never been read by a model. They will probably change after the first real runs.
+- The office-side steps do not change the prices: a device the intruder already controls on the plant floor is assumed to stay under its control.
 - The recommendation is only as good as the briefing: a wrong cost per hour or an undocumented network connection leads to a wrong answer.
 - No probability that the intruder spreads or encrypts is estimated. Lost production is the only cost counted.
 - A deputy and a time limit for the named person are not built.

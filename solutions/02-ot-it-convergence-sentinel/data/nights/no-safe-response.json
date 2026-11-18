@@ -1,0 +1,11 @@
+{
+  "_note": "Synthetic. A harder night at Plant 04: the same intrusion, eleven minutes later. The intruder has moved over the forgotten file share into Line C, and the plant-wide disconnection is not available. No response on the list closes every path.",
+  "title": "The same night, eleven minutes later, with the plant-wide disconnection unavailable",
+  "plant_events_extra": [
+    {"event_id": "OT-5", "ts": "2026-11-10T03:09:00Z", "src": "ews-b2-01", "dst": "hmi-c1", "category": "remote_session_over_file_share", "level": 4, "description": "Program started on the operator panel of Line C, cell 1, over the file share."},
+    {"event_id": "OT-6", "ts": "2026-11-10T03:13:00Z", "src": "hmi-c1", "dst": "plc-c1-01", "category": "controller_program_read", "level": 4, "description": "Full controller program copied outside a change window."}
+  ],
+  "unavailable_steps": {
+    "cut-plant-ot": "Assumption for this night: the central plant-floor switch is being replaced and the plant-wide disconnection cannot be triggered before 07:00."
+  }
+}

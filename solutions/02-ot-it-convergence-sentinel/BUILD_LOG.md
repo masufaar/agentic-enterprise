@@ -184,3 +184,149 @@ On 17 November M stated the principle the whole project rests on: an agent is a 
 
 The page rewrite could go to a lighter model once the article text is fixed. The review and the article drafts could not.
 
+
+## Session 4, 18 November 2026: the build of the agents starts; the model connector
+
+Documents read at the start: project charter (version 3), project handover of 18 November, handover for this solution of 18 November.
+
+### Why
+
+The handover sets the order of the build. Its first step: check the current Claude API documentation before writing the model connector, and do not build it from memory.
+
+### Decisions
+
+| No. | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D30 | One neutral format between the agents and any model: `ask(system, turns, tools)` returns text, tool requests, a stop reason and the tokens used. | The repository is model-agnostic (charter, section 3). An agent written against one provider's format would have to be rewritten for another. | Letting the agents speak Anthropic's format directly. |
+| D31 | The connector uses plain HTTPS from the standard library. | Nothing to install, as agreed; package installs are also off in the workspace. | The vendor's Python package. |
+| D32 | The key is sent as `Authorization: Bearer` with `anthropic-version: 2026-10-21`, because that is what the example on the API reference page shows today. The older way (`x-api-key`) is kept as a setting. | Written from the page, not from memory. From memory the assistant would have written `x-api-key` and version `2023-06-01`. **Not verified**: which of the two a key created by M needs is known only after the first real call. | Hard-coding either one. |
+| D33 | The reply of the service is handed back unchanged on the next call ("opaque"). | The API reference requires reasoning blocks to be returned exactly as received when tools are used. | Rebuilding the reply from text and tool requests only. |
+| D34 | Effort is sent as `output_config.effort`, default `medium`. No `thinking` and no `temperature` setting is sent. | Effort is documented that way. The page says the accepted thinking settings depend on the model and the part read does not say what Fable 5.2 accepts; sending nothing leaves the service's default. | Guessing a thinking setting. |
+| D35 | The key is read from a file named by the variable `SENTINEL_MODEL_KEY_FILE`, at the moment of the call. It is never logged or stored; a test checks it does not appear in a reply. | M creates the key; the assistant never opens it (handover). | A key in the settings or in the environment. |
+| D36 | The OpenAI-style connector is not written in this step. | Its documentation has not been checked yet, and the rule of this build is: no connector from memory. | Writing it now from memory. |
+
+### What was found in the documentation (read on 18 November 2026)
+
+- Source: https://platform.claude.com/docs/en/api/messages/create.md, read in two parts.
+- Model name `claude-fable-5-2` is listed. Effort values: low, medium, high, xhigh, max.
+- Stop reasons: end_turn, max_tokens, stop_sequence, tool_use, pause_turn, refusal, model_context_window_exceeded. All seven are handled.
+- Tokens used: the input is the sum of three counters (plain, cache written, cache read). The connector adds them.
+
+### What changed
+
+- New: `sentinel/model.py` (139 lines): the neutral format, the scripted stand-in for tests, the Claude connector.
+- New: `tests/test_model.py`: 14 tests, without network and without key.
+- Nothing else changed. No agent exists yet. No model has run.
+
+### Measured results, session 4
+
+- 39 of 39 tests pass in the workspace (25 existing, 14 new).
+- What the new tests prove: what would be sent, and how an answer is read. What they do not prove: that the service accepts it. Only a recorded real run shows that.
+
+### Steps
+
+| Step | What | How | Model | Tokens |
+|---|---|---|---|---|
+| 1 | Charter and both handovers read; existing code of solution 02 and the Control Tower gateway read | Project documents, Desktop folder | Main (Fable 5.2) | Input about 45,000, output about 1,000, estimated |
+| 2 | Claude API reference read (one search, one page in two parts) | Web | Main, the page summary by a small model | Input about 40,000, output about 500, estimated |
+| 3 | Model connector and its tests written; all tests run | Written directly, pytest in the workspace | Main | Output about 5,000, estimated |
+
+### State after session 4
+
+- Model involved: no. Agents: in build (connector only).
+- Not pushed. The files are in the Desktop folder only.
+
+### Lighter model
+
+The connector and its tests could have been written by a lighter model once the format was decided. The agent loop and the agents' briefing, next, should not.
+
+## Session 4, second part, 18 November 2026: the loop, the three agents, the decision page
+
+M confirmed: reversible office-side steps are taken by the agents on their own through the Control Tower; everything touching the plant floor is held for the Head of OT Security.
+
+### Decisions
+
+| No. | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D37 | Three agents, not two: a first-response agent beside the planner and the challenger. | The planner's registry card is high-risk (it prepares plant-floor steps), so the Control Tower lets it read and nothing else. Letting that same identity act alone on the office side would need an exception to rule P-008. A separate identity with office-side permissions only is the cleaner answer: the agent that can ask for a line to be disconnected can do nothing alone, and the agent that can act alone cannot touch the plant floor. | One planner with two sets of rights; weakening P-008. |
+| D38 | The two new registry cards (first response, challenger) are kept in this solution's `data/agents.json` and given to the gateway together with the Control Tower's registry. | Entering them in the Control Tower changes its published count of 18 in tests, generated pages, two README pages and the deck. That is a change to a paused solution and to public text. **Open: for M to decide.** | Changing solution 01 without asking. |
+| D39 | An agent is finished only when it hands in through one tool, and the harness accepts the result. A result that fails a check is handed back with the reasons. | This is the "evaluates and corrects" of the charter's definition, made checkable: the record shows each refusal and the corrected attempt. | Taking the model's last message as the result. |
+| D40 | Every euro figure in an agent's text must be one the pricing tool produced tonight (or the difference of two such prices). Any other figure makes the harness hand the result back. | "Every figure is measured or labelled" must hold for agent text too. A model that invents a figure at 03:00 is the failure a board fears most. | Trusting the prompt. |
+| D41 | The decision page is put together by fixed code. Its figures come from the pricing tool's results; the agents' words are shown as quotations, marked as theirs. | The reader can tell what was calculated from what was argued. | A page written by a model. |
+| D42 | The planner has no tool that disconnects anything. After the debate the harness files the plant-floor steps of the final recommendation with the Control Tower, which holds them. | Filing during the debate would leave stale requests when the planner changes its mind. | A disconnect tool that is always held. |
+| D43 | The named person chooses a response by its number. The choice is written to the Control Tower record with the price, whether it was the recommended one, and the challenger's verdict. Held steps are released if chosen and refused if not; steps of another choice are carried out with the person's approval. Another role is refused and the attempt is recorded. | Item 5 of the "Working" list. It reuses the approval workflow of solution 01 as it is. | A separate approval mechanism. |
+| D44 | If the planner does not hand in, the page says so and shows each single step priced by the tool alone; nothing is filed. If the challenger does not hand in, the page says the recommendation was not challenged. | A failed agent must not look like a quiet night. | Stopping without a page. |
+| D45 | A harder night is a small file of changes to the scripted night (`data/nights/no-safe-response.json`): the intruder reaches Line C and the plant-wide disconnection is unavailable (assumption). On it, no response closes every path. | Item 2 of the "Working" list. The same mechanism will carry the invented rehearsal nights. | A second full data set. |
+| D46 | The briefing (`data/briefing.json`) holds what the agents are told about the company and four settings the harness enforces: which office-side steps are allowed, accounts never suspended, how many responses fit on the page, how often the challenger speaks. The night stops if the briefing names another decider than the registry. | Item 1 of the "Working" list. Part of the briefing changes what a model is told, part changes what the harness allows; tests can prove only the second. | Role instructions and limits in code. |
+
+### Limits found, each with the fix designed for it
+
+- **No model has run.** All 36 new tests use prepared replies. They prove the harness, not the reasoning. The instructions to the three agents have never been read by a model and will probably need changes after the first real runs. Fix: the recorded real runs (next but one step).
+- The office-side steps do not change the prices: the model of the plant assumes a device already controlled on the plant floor stays controlled. Stated on the page. Fix: none planned; it is the cautious assumption.
+- Disconnecting cell 2 alone and disconnecting it together with closing the link cost the same (EUR 120,000) in the scripted night, because the link is closed for 4 hours and the lines run 6 hours on loaded orders. Correct by the assumptions, but it makes the scripted night an easy one for the planner. Fix: the invented rehearsal nights.
+- `decide` looks for held steps by incident number. Two nights in the same Control Tower record both carry INC-001. Fix: a night identifier in the request (with the case memory).
+- The page is written under the registry identity `ot-briefing`, which is fixed code on a card the registry calls an agent. Part of the open point on the Control Tower's wording.
+
+### What changed
+
+- New: `sentinel/loop.py` (80 lines), `sentinel/agents.py`, `sentinel/night.py`, `sentinel/decision.py`, `data/briefing.json`, `data/agents.json`, `data/nights/no-safe-response.json`, `tests/test_agents.py` (36 tests).
+- Changed: `sentinel/collection.py` accepts the data of another night; `sentinel/__main__.py` has `night` and `decide`; `.gitignore` leaves out `state/`.
+- The first version (`python -m sentinel run`) is unchanged and its page is still what the code produces.
+
+### Measured results
+
+- 75 of 75 tests pass in the workspace (25 first version, 14 connector, 36 agents).
+- Against the list of ten on the solution page: items 1, 2, 5 and 6 are built and tested on the scripted stand-in only. Items 3, 4, 7, 8 are not built. Item 9 is measured by the code but has no real figure yet. Item 10 needs real runs.
+
+### Steps
+
+| Step | What | How | Model | Tokens |
+|---|---|---|---|---|
+| 4 | Remaining code of the first version, registry, rules and approval workflow of the Control Tower read | Desktop folder | Main (Fable 5.2) | Input about 30,000, estimated |
+| 5 | Loop, three agents, night, decision page, briefing, harder night, command line | Written directly | Main | Output about 14,000, estimated |
+| 6 | 36 tests written; two failures found and fixed (order of responses on the page; a wrong call in a test) | pytest in the workspace | Main | Output about 7,000, estimated |
+
+### State
+
+- Model involved: no. Agents: in build. Status on the public pages unchanged and still true.
+- Not pushed. Desktop folder only.
+
+### Lighter model
+
+Not for this step: the design of the controls and the wording of the agents' instructions are the substance of the solution.
+
+## Session 4, third part, 18 November 2026: the two new cards enter the Control Tower registry
+
+| No. | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D47 | M decided the open point of D38: the cards of the first-response agent and the challenger are entered in the Control Tower's registry (`solutions/01-ai-governance-control-tower/data/agents.json`). The separate list in this solution is removed; the gateway is the Control Tower's own again. | One registry is the single place agents are listed. A second list beside it is the pattern the Control Tower exists to prevent. | Keeping the cards in this solution until solution 01 is reopened. |
+
+### What changed
+
+- Solution 01: registry 18 to 20 cards; four counts in its tests; `reports/agent-inventory.md` and `reports/board-latest.md` regenerated by their commands (the red-team campaign pages are unchanged, byte for byte); one figure in its README (18 to 20 agents).
+- Solution 02: `data/agents.json` removed; `sentinel/night.py` uses the Control Tower gateway as it is; one test rewritten.
+
+### Measured results
+
+- Solution 01: 77 of 77 tests pass. Solution 02: 75 of 75.
+- Board page of the Control Tower, generated: 20 registered, 19 approved to act, 1 not yet approved; limited tier 11 to 12, minimal 6 to 7; advise only 9 to 10; acting within permissions 6 to 7.
+
+### Limits found
+
+- The classifier proposes the tier **minimal** for the first-response agent, although it suspends accounts on its own. The classifier follows the use-case flags of the EU AI Act reading (no safety component, no contact with people); it does not weigh what an agent can do inside the company. The tier is a proposal awaiting human sign-off, and the board page says so. Fix designed: a second, internal risk rating by reach of action, next to the legal tier. Not built.
+- The board deck (local only) still says 18 agents on slides 9 and 16. To be corrected when the slides are redone.
+
+### Steps
+
+| Step | What | How | Model | Tokens |
+|---|---|---|---|---|
+| 7 | Cards moved, counts and pages of solution 01 updated, both test suites run | Script and the Control Tower's own commands | Main (Fable 5.2) | Output about 2,500, estimated. A lighter model would have done. |
+
+## Session 4, fourth part, 18 November 2026: interim publication, status unchanged
+
+Agreed with M: five steps in order. 1 solution 01 (pushed, commit b2864b6: reach of action, what stands behind each card, the two cards). 2 this interim push of solution 02. 3 slides for solution 01. 4 remaining items and recorded real runs of solution 02. 5 slides for solution 02.
+
+- Published with M's go: the code of session 4, 75 tests, and the solution page, front page and roadmap rewritten to say what is built, what is tested on prepared replies only, and what is not built. Status stays "In build".
+- A sample decision page is published in `reports/`, labelled in its first paragraph as produced on prepared replies with hand-written agent sentences.
+- Not changed: the published article. Its status line ("the agents are in build") is still true.
+- Tokens for the page rewrites, estimated: output about 3,500, main model. A lighter model would have done.

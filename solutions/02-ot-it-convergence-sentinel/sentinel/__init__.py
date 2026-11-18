@@ -5,8 +5,13 @@ alerts into one incident, prices each possible response in lost output, asks for
 the chosen response through the AI Governance Control Tower and writes one page
 for the crisis team.
 
-Standard library only. No language model: every step is a fixed rule. All data is
-synthetic (fictional company Halden Industrial) and every tool is simulated.
+Two things live here. The first version (python -m sentinel run) is fixed rules
+and no language model. The agents (python -m sentinel night) are language models
+working in a loop: see loop.py, agents.py, night.py and decision.py. The rule-based
+steps of the first version are the tools the agents call.
+
+Standard library only. All data is synthetic (fictional company Halden Industrial)
+and every tool is simulated.
 """
 import json
 import sys

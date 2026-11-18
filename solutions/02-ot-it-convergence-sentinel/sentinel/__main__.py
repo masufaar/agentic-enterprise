@@ -1,6 +1,12 @@
 """Run from this solution folder:
 
-  python -m sentinel run        the four agents on the scripted incident; writes reports/incident-latest.md
+  python -m sentinel run        the rule-based first version on the scripted incident (no model); writes reports/incident-latest.md
+  python -m sentinel night [NAME] [--record]
+                                the agents on one night, with a real model; writes the decision page.
+                                Needs SENTINEL_MODEL_KEY_FILE (path of a file holding the model key).
+                                Optional: SENTINEL_MODEL, SENTINEL_EFFORT. --record keeps the run in reports/.
+  python -m sentinel decide NUMBER --as "Head of OT Security"
+                                the named person chooses a response of the last night
   python -m sentinel waiting    isolation requests waiting for a named person
   python -m sentinel release --as "Head of OT Security"
                                 release the waiting isolation requests in that role (simulated network)
@@ -32,6 +38,8 @@ def main(argv: list[str]) -> int:
             print(f"  {held['decision']}: {held['what']} (rules {held['rule']})")
         print("Written: reports/incident-latest.md")
         return 0
+    if command in ("night", "decide"):
+        return _agents(command, argv[1:])
     if command in ("waiting", "release"):
         approvals = Approvals(Gateway())
         mine = [i for i in approvals.pending() if i["agent_id"] == "ot-response"]
@@ -53,6 +61,52 @@ def main(argv: list[str]) -> int:
         return 0
     print(__doc__)
     return 1
+
+
+def _agents(command: str, argv: list[str]) -> int:
+    import json
+    import os
+    from datetime import date
+    from control_tower.approvals import ApprovalError
+    from . import REPORTS, ROOT, decision, night
+    from .model import Claude, ModelError
+    last = ROOT / "state" / "last-night.json"
+    if command == "night":
+        name = next((a for a in argv if not a.startswith("--")), night.DEFAULT_NIGHT)
+        model = Claude(model=os.environ.get("SENTINEL_MODEL", "claude-fable-5-2"),
+                       effort=os.environ.get("SENTINEL_EFFORT", "medium"))
+        try:
+            result = night.run_night(model, night=name)
+        except (ModelError, Refused) as stopped:
+            print(f"Stopped: {stopped}")
+            return 2
+        if result["incident"] is None:
+            print("No incident tonight: no group of alarms reached from the office side to the plant floor.")
+            return 0
+        last.parent.mkdir(exist_ok=True)
+        last.write_text(json.dumps(result), encoding="utf-8")
+        print(result["page"])
+        if "--record" in argv:
+            runs = REPORTS / "runs"
+            runs.mkdir(parents=True, exist_ok=True)
+            stem = f"{name}-{date.today().isoformat()}-{model.model}"
+            (runs / f"{stem}.json").write_text(json.dumps(result, indent=1), encoding="utf-8")
+            (runs / f"{stem}.md").write_text(result["page"], encoding="utf-8")
+            print(f"Recorded: reports/runs/{stem}.md and .json")
+        return 0
+    if "--as" not in argv or not argv or not argv[0].isdigit() or not last.exists():
+        print('After a night: python -m sentinel decide NUMBER --as "Head of OT Security"')
+        return 1
+    try:
+        outcome = decision.decide(night.gateway(), json.loads(last.read_text(encoding="utf-8")),
+                                  int(argv[0]), argv[argv.index("--as") + 1])
+    except ApprovalError as error:
+        print(f"Not decided. {error}")
+        return 1
+    print(f"Chosen: {outcome['chosen']['name']} ({eur(outcome['chosen']['cost_eur'])} in lost output).")
+    for step in outcome["carried_out"]:
+        print(f"  {step['what']}: {step['decision']}, carried out (simulated): {step['executed']}")
+    return 0
 
 
 if __name__ == "__main__":
