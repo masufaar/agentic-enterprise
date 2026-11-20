@@ -15,7 +15,7 @@ nothing else. Its isolation request is held for its accountable owner.
 from datetime import timedelta
 from itertools import combinations
 
-from . import act, load, when
+from . import act, load, tool_call_request, when
 
 AGENT = "ot-response"
 
@@ -146,9 +146,9 @@ def request(gateway, assessment: dict, plant: dict) -> list[dict]:
     names = {p["id"]: p for p in plant["isolation_points"]}
     verdicts = []
     for point in best["points"]:
-        verdict = gateway.execute(AGENT, "network.isolate", {
+        verdict = tool_call_request(gateway, {"agent_id": AGENT, "tool": "network.isolate", "input": {
             "isolation_point": point, "what": names[point]["name"], "plant": plant["plant"]["id"],
             "hold_hours": names[point]["hold_hours"], "incident": assessment["incident"],
-            "expected_cost_of_whole_response_eur": best["cost_eur"]})
+            "expected_cost_of_whole_response_eur": best["cost_eur"]}})["verdict"]  # held: the answer is "ask"
         verdicts.append({"isolation_point": point, "what": names[point]["name"], **verdict})
     return verdicts

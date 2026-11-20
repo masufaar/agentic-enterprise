@@ -1,5 +1,7 @@
 # Portfolio Truth Agent
 
+> Being redesigned to the project template (prepare, rehearse, decide; two or three agents, everything else tools). The agent list below will change.
+
 **Status: Designed. Not built yet.**
 
 Finds the projects that are green outside and red inside.

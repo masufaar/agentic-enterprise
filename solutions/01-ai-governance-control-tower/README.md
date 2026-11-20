@@ -124,7 +124,7 @@ All data is synthetic and belongs to the fictional company described in [docs/co
 
 ## Next steps
 
-0. Next, designed: one shared agent harness for every solution, taken out of solution 02, whose tool calls reach this gateway through the ACS tool-call hooks. Then run the ACS conformance test against the gateway and publish the result, including what fails.
+0. Working since 20 November 2026: one [shared agent harness](../../shared/harness) for every solution, taken out of solution 02. Every tool call reaches this gateway through one hook shaped like the ACS tool-call request: allow stays `allow`, a refusal is `deny`, a step held for a named person is `ask`, and the spent daily volume limit is `deny` (15 tests in `shared/tests`). It runs in process. Status: shared harness: working; ACS wire format and conformance test: designed. Designed next: the ACS wire format and signature, then the ACS conformance test run against the gateway, with its result published, including what fails.
 1. Turn the approval queue into a screen with buttons and company sign-in, and reduce the load on one approver (9 of 11 items). Then label more sources than tickets.
 2. Close breach A-29: a second check of outgoing text for personal data that exact comparison cannot see.
 3. Run the campaign every night and keep the history.

@@ -1,5 +1,7 @@
 # Complaint-to-Root-Cause Quality Agent
 
+> Being redesigned to the project template (prepare, rehearse, decide; two or three agents, everything else tools). The agent list below will change.
+
 **Status: Designed. Not built yet.**
 
 From a customer photo to a drafted 8D report.

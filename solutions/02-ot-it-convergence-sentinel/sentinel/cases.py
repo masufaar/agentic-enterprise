@@ -15,37 +15,16 @@ Who writes what:
 
 Writing and reading cases go through the Control Tower like every other step.
 """
-import json
 from datetime import datetime, timezone
-from pathlib import Path
 
-from . import act
+import harness.cases
 
 WRITER = "ot-briefing"  # fixed code; the registry card says so
 
 
-class CaseBook:
-    def __init__(self, folder: Path):
-        self.folder = Path(folder)
-
-    def _files(self) -> list[Path]:
-        return sorted(self.folder.glob("CASE-*.json")) if self.folder.exists() else []
-
-    def all(self) -> list[dict]:
-        return [json.loads(f.read_text(encoding="utf-8")) for f in self._files()]
-
-    def next_id(self) -> str:
-        return f"CASE-{len(self._files()) + 1:03d}"
-
-    def get(self, case_id: str) -> dict | None:
-        path = self.folder / f"{case_id}.json"
-        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
-
-    def write(self, gateway, case: dict) -> dict:
-        act(gateway, WRITER, "cases.write", {"case": case["case"], "status": case["status"]})
-        self.folder.mkdir(parents=True, exist_ok=True)
-        (self.folder / f"{case['case']}.json").write_text(json.dumps(case, indent=1), encoding="utf-8")
-        return case
+class CaseBook(harness.cases.CaseBook):
+    """The shared case book, with the Sentinel's own question: which earlier nights matter tonight."""
+    writer = WRITER
 
     def matching(self, incident: dict, before: str) -> list[dict]:
         """Earlier cases that share a device or an account with this incident, newest first."""

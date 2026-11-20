@@ -137,7 +137,7 @@ What this run does not show, and what was wrong with it:
 
 Fixed code, tested, and not open to persuasion by a model:
 
-- **Every step goes through the Control Tower** under the agent's own identity, and is recorded. Designed next: these steps reach the Control Tower through the hooks of the open OWASP Agent Control Standard, in the harness shared by every solution. The planner can read and price; it cannot disconnect anything. The first-response agent can act on the office side; it has no permission on the plant floor. The challenger can read and price; it can change nothing.
+- **Every step goes through the Control Tower** under the agent's own identity, and is recorded. Since 20 November 2026 these steps reach the Control Tower through one hook shaped like the tool-call request of the open OWASP Agent Control Standard (allow, deny, ask), in the harness shared by every solution; the standard's wire format and conformance test are designed. The planner can read and price; it cannot disconnect anything. The first-response agent can act on the office side; it has no permission on the plant floor. The challenger can read and price; it can change nothing.
 - **No invented figures.** Every euro figure an agent writes must be one the pricing tool produced that night. Any other figure, and the harness hands the result back to be corrected. The decision page takes its figures from the pricing tool, never from an agent's text.
 - **No hidden gaps.** A plan that leaves a line within the intruder's reach is accepted only if it says so.
 - **Office-side steps are narrow.** Only the steps the briefing allows, only on the office side, only against a device or account that is part of the incident. Each can be undone and says how.
@@ -204,10 +204,10 @@ This path has run five times against the model service. On Windows, set `PYTHONU
 
 ## What is in this folder
 
-- `sentinel/loop.py` the agent loop (80 lines)
+- `../../shared/harness/` the harness shared by every solution since 20 November 2026: the agent loop (80 lines), the model connector, the hook to the Control Tower, the hand-in checks, the case book and the page frame. `sentinel/loop.py` and `sentinel/model.py` now only point to it
 - `sentinel/agents.py` the three agents: what each is told, its tools, and what the harness checks
 - `sentinel/night.py` one night from the last alarm to the decision page; `sentinel/decision.py` the page and the decision
-- `sentinel/model.py` the model connector; `sentinel/cases.py` the case memory
+- `sentinel/cases.py` the case memory of a night, on the shared case book
 - `sentinel/` also holds the rule-based first version: four fixed steps and their workflow (about 500 lines)
 - `data/briefing.json` the company briefing the agents read (synthetic)
 - `data/nights/` other nights, each as a small file of changes to the scripted night

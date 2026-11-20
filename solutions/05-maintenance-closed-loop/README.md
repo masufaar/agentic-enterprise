@@ -1,5 +1,7 @@
 # Maintenance Closed Loop
 
+> Being redesigned to the project template (prepare, rehearse, decide; two or three agents, everything else tools). The agent list below will change.
+
 **Status: Designed. Not built yet.**
 
 From a sensor anomaly to a scheduled work order.

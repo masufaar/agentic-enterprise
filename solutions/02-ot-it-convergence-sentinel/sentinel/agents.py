@@ -5,7 +5,7 @@ what the harness checks before it accepts a result.
   planner          prices responses and recommends one for the plant floor
   challenger       argues against the planner's recommendation
 
-Each is a language model in the loop of sentinel/loop.py. What they are told about
+Each is a language model in the loop of the shared harness (shared/harness/loop.py). What they are told about
 the company comes from data/briefing.json, not from this file.
 
 The controls live here, in fixed code, and no agent can talk its way round them:
@@ -18,7 +18,7 @@ The controls live here, in fixed code, and no agent can talk its way round them:
     never priced as safe, and the planner must say what that means;
   - when a new alarm arrives, every earlier price is out of date and must be redone.
 """
-import re
+from harness import checks
 
 from . import act
 from .loop import Tool, ToolProblem
@@ -104,9 +104,7 @@ class Desk:
 
     # -- word limits -----------------------------------------------------------
     def too_long(self, **texts: str) -> list[str]:
-        limits = self.briefing["word_limits"]
-        return [f"'{k}' has {len(t.split())} words; the limit is {limits[k]}. Shorten it."
-                for k, t in texts.items() if k in limits and len((t or "").split()) > limits[k]]
+        return checks.too_long(self.briefing["word_limits"], **texts)
 
     # -- pricing -------------------------------------------------------------
     def key(self, steps) -> str:
@@ -134,13 +132,7 @@ class Desk:
 
     def foreign_amounts(self, *texts: str) -> list[str]:
         """Euro figures in an agent's text that the pricing tool did not produce."""
-        foreign = []
-        for found in re.findall(r"(?:EUR|€)\s?(\d[\d.,]*)", " ".join(t or "" for t in texts)):
-            digits = found.rstrip(".,")
-            whole = re.fullmatch(r"\d{1,3}([.,]\d{3})*|\d+", digits)
-            if not whole or int(re.sub(r"[.,]", "", digits)) not in self.known_amounts():
-                foreign.append(f"EUR {digits}")
-        return foreign
+        return checks.foreign_amounts(self.known_amounts(), *texts)
 
     # -- tools every agent may ask for ---------------------------------------
     def reading_tools(self, agent: str, with_pricing: bool = True) -> list[Tool]:

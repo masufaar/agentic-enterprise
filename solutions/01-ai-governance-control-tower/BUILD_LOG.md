@@ -608,3 +608,33 @@ Tokens, estimated (no tool reports them in this session): research about 60,000 
 ### Where to continue
 
 Step 7, second part: take the agent loop, the model connector and the case memory out of solution 02 into one shared harness whose tool calls reach the gateway through the ACS tool-call hooks (D83, D84); solution 02 keeps passing its 92 tests on it. Then run the ACS conformance harness against the gateway and publish the result, including what fails.
+
+## Session 12, 20 November 2026: the shared agent harness (step 7 of the project, second part, fast version)
+
+Mario's instruction: finish this step as fast as possible, then solution 10. Scope taken from the project handover of 20 November (c).
+
+### Decisions
+
+| No. | Decision | Why | Set aside |
+|---|---|---|---|
+| D93 | The harness lives in `shared/harness/` at the top of the repository, as a package named `harness`, and does not import the Control Tower: a solution hands it a gateway. | It belongs to no single solution, and a company can put its own control layer behind the same hook. | Keeping it inside solution 01 (it would tie every agent to our gateway's code); a pip-installable package (not needed for a blueprint). |
+| D94 | Moved: the agent loop and the model connector (whole files), the word-limit and figure checks, the generic part of the case book, and three small pieces of the decision page (quotation, agent turns, tokens). Solution 02 keeps `sentinel/loop.py` and `sentinel/model.py` as two-line pointers. | The 92 tests import from those names and had to pass unchanged. | Changing the tests' imports. |
+| D95 | What stays in solution 02: which earlier cases matter tonight, what a case records, and the body of the page. | They speak of devices, accounts and production lines; a ledger or a war room will ask different questions. Moving them would have been a shared name over Sentinel code. | A generic "decision page" class, before a second solution shows what is really common. |
+| D96 | One function, `tool_call_request(gateway, announcement)`, is the only place in the harness and in solution 02 that calls `Gateway.execute`. It answers `allow`, `deny` or `ask` and carries the gateway's own verdict unchanged. `act` is built on it. The two direct calls that filed held steps (`response.py`, `decision.py`) now go through it too. | D83, D84. One door is what makes the later wire format a change in one file. | Leaving the two direct calls (they would bypass the hook). |
+| D97 | An answer the harness does not know is treated as `deny`. | Closed by default. | |
+| D98 | Not built, and said so on every page: the ACS wire format, the signature, the result hook, the conformance test (D85, D86 unchanged). | Fast version; the charter's rule on status. | |
+| D99 | The key file variable gets a neutral name, `HALDEN_MODEL_KEY_FILE`; `SENTINEL_MODEL_KEY_FILE` still works. | Solution 10 should not need a variable named after solution 02; Mario's PowerShell line keeps working. | |
+| D100 | No run with a real model. | Behaviour did not change: 92 of 92 unchanged tests, and the rule-based run gives the same result. | |
+| D101 | Pages 03 to 09 get one line saying their agent list will change; they are rewritten when each is built. | Removes the contradiction with the definition of an agent at little cost. | Rewriting eight pages now. |
+
+### Measured
+
+In the assistant's workspace (Python 3.13): Control Tower 82 of 82, solution 02 92 of 92 with no test file changed, shared harness 15 of 15. The hook tests cover: allow to `allow`; a tool not on the permission list, an unregistered agent and a stopped agent to `deny`; a held step to `ask`, allowed when the accountable person makes it; the daily volume limit to `deny` (V-002, and V-001 for a request without a row count).
+
+### Steps and cost
+
+Tokens, estimated (no tool reports them in this session): about 150,000 in and 22,000 out, main model. The file moves and test runs would suit a lighter model; the hook and what to leave in solution 02 would not.
+
+### Where to continue
+
+Solution 10, the AI Value Ledger, on this harness. For the finish: the ACS wire format and signature in `shared/harness/hooks.py`, then the conformance test.

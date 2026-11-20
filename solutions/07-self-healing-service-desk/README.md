@@ -1,5 +1,7 @@
 # Self-Healing Service Desk
 
+> Being redesigned to the project template (prepare, rehearse, decide; two or three agents, everything else tools). The agent list below will change.
+
 **Status: Designed. Not built yet.**
 
 Tickets resolved, and every resolution becomes knowledge.

@@ -31,7 +31,7 @@ Background articles:
 ## How the solutions fit together
 
 - **One company.** Every solution runs on the same fictional manufacturer, described in [docs/company-profile.md](docs/company-profile.md).
-- **One control layer, owned and open.** Every agent registers with the AI Governance Control Tower before it may act. The Control Tower is the company's own code, designed to follow the open OWASP Agent Control Standard (published 1 September 2026), so agents built with any framework can be checked by the same company rules. Designed, not yet built: see [the Control Tower page](solutions/01-ai-governance-control-tower/README.md).
+- **One control layer, owned and open.** Every agent registers with the AI Governance Control Tower before it may act. The Control Tower is the company's own code, designed to follow the open OWASP Agent Control Standard (published 1 September 2026), so agents built with any framework can be checked by the same company rules. Working since 20 November 2026: every tool call of every agent reaches the Control Tower through one hook shaped like the standard's tool-call request (allow, deny, ask), in the [shared agent harness](shared/harness). The standard's wire format, its signature and the conformance test are designed, not yet built: see [the Control Tower page](solutions/01-ai-governance-control-tower/README.md).
 - **One ledger.** Every agent reports its cost and benefit to the AI Value Ledger.
 - **One architecture.** Shared building blocks are described in [docs/architecture.md](docs/architecture.md).
 

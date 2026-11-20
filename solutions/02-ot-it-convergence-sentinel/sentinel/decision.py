@@ -7,6 +7,8 @@ the role the Control Tower registry names, carries anything out on the plant flo
 and it is written to the Control Tower's record.
 """
 from control_tower.approvals import ApprovalError, Approvals
+from harness import tool_call_request
+from harness.page import agent_turns, quote as _quote, tokens
 
 from .agents import CHALLENGER, FIRST, PLANNER
 from .briefing import _clock, _stopped, eur
@@ -14,10 +16,6 @@ from .response import open_lines
 
 STEP_WORDS = {"suspend_account": "Account suspended", "quarantine_workstation": "Device cut off the network",
               "close_remote_session": "Remote sessions closed"}
-
-
-def _quote(text: str) -> list[str]:
-    return [f"> {line}" for line in (text or "").splitlines() if line.strip()] or ["> (nothing written)"]
 
 
 def page(result: dict) -> str:
@@ -168,10 +166,10 @@ def page(result: dict) -> str:
         f"- Alarms read: {result['alerts']}; joined into this incident: {len(incident['alerts'])}; set aside: "
         f"{len(result['unrelated'])}. Joining is done by fixed rules, not by an agent.",
         f"- Responses priced tonight by the agents: {result['priced_tonight']}.",
-        "- Agent turns: " + ", ".join(f"{r['agent']} {r['turns']} ({r['ended']})" for r in result["runs"]) + ".",
+        agent_turns(result["runs"]),
         *([f"- Time from the new alarm to this page: {news['seconds_from_new_alarm']} seconds."] if news else []),
         f"- Time from the last alarm handed over to this page: {result['seconds_to_page']} seconds. "
-        f"Tokens: {result['tokens']['input']:,} in, {result['tokens']['output']:,} out.",
+        + tokens(result["tokens"]),
         "",
         "## What this page is not", "",
         "- Not a detection result: the alarms were written by hand for this night.",
@@ -212,10 +210,10 @@ def decide(gateway, result: dict, number: int, role: str, note: str = "", cases=
     filed = {i["request"]["isolation_point"] for i in waiting}
     for point in chosen["points"]:
         if point not in filed:
-            verdict = gateway.execute(PLANNER, "network.isolate", {
+            verdict = tool_call_request(gateway, {"agent_id": PLANNER, "tool": "network.isolate", "input": {
                 "isolation_point": point, "what": names[point]["name"], "plant": result["plant"]["plant"]["id"],
                 "hold_hours": names[point]["hold_hours"], "incident": incident,
-                "expected_cost_of_whole_response_eur": chosen["cost_eur"]}, approved_by=role, source="approver")
+                "expected_cost_of_whole_response_eur": chosen["cost_eur"]}, "approved_by": role, "source": "approver"})["verdict"]
             carried.append({"what": names[point]["name"], **verdict})
     case = cases.get(result["case"]) if cases is not None and result.get("case") else None
     if case is not None:
