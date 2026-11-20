@@ -10,6 +10,7 @@ from control_tower.approvals import ApprovalError, Approvals
 
 from .agents import CHALLENGER, FIRST, PLANNER
 from .briefing import _clock, _stopped, eur
+from .response import open_lines
 
 STEP_WORDS = {"suspend_account": "Account suspended", "quarantine_workstation": "Device cut off the network",
               "close_remote_session": "Remote sessions closed"}
@@ -25,7 +26,8 @@ def page(result: dict) -> str:
     names = {line["id"]: line["name"] for line in production["lines"]}
     best = next((o for o in options if o["points"] == result["recommended"]), None)
     nothing = next(o for o in options if not o["points"])
-    safe = [o for o in options if not o["lines_still_reachable"]]
+    safe = [o for o in options if not open_lines(o)]
+    blind, news = result.get("blind_spots", []), result.get("news")
     models = sorted(set(result["models"].values()))
     lines = [
         f"# Decision page: incident {incident['id']} at {plant['plant']['name']}",
@@ -41,26 +43,42 @@ def page(result: dict) -> str:
         f"{len(nothing['lines_still_reachable'])} production lines are within reach.",
         "",
     ]
+    for spot in blind:
+        lines += [f"**Blind spot tonight: the {spot['tool']} on the {spot['watches']} sent nothing.** {spot['why']} "
+                  f"Nobody can see whether the intruder is already on the {spot['watches']}. Lines there are marked "
+                  "\"not watched\" below and are never counted as safe, so the prices of the narrow responses look "
+                  "better than what is known.", ""]
+    if news:
+        before = news["plan_before"]["priced"]
+        after = (f"now recommends {best['name']}, at {eur(best['cost_eur'])}" if best else "did not plan again")
+        lines += [f"**The night changed after the first plan.** A new alarm arrived at "
+                  f"{_clock(news['alerts'][-1]['time'])} UTC. Before it, the planner recommended {before['name']}, at "
+                  f"{eur(before['cost_eur'])}; it {after}.", ""]
     if best is None:
         lines += ["**The planner agent did not hand in a plan.** The responses below were priced by the pricing tool "
                   f"alone, one step at a time. The {decides} decides without a recommendation.", ""]
     elif not safe:
         lines += [f"**No response available tonight closes every path.** The planner recommends: {best['name']}, "
                   f"at {eur(best['cost_eur'])} in lost output. It leaves "
-                  f"{', '.join(names[l] for l in best['lines_still_reachable'])} within the intruder's reach, with "
+                  f"{', '.join(names[l] for l in open_lines(best))} within the intruder's reach"
+                  f"{' or unwatched' if best.get('lines_not_watched') else ''}, with "
                   f"{eur(best['still_at_stake_eur'])} at stake if it is encrypted.", ""]
     else:
-        open_ = (" It leaves no line within reach." if not best["lines_still_reachable"] else
-                 f" **It leaves {', '.join(names[l] for l in best['lines_still_reachable'])} within reach.**")
+        open_ = (" It leaves no line within reach." if not open_lines(best) else
+                 f" **It leaves {', '.join(names[l] for l in open_lines(best))} within reach"
+                 f"{' or unwatched' if best.get('lines_not_watched') else ''}.**")
         lines += [f"The planner recommends: {best['name']}, at {eur(best['cost_eur'])} in lost output.{open_}", ""]
     verdict = ("The challenger did not hand in a verdict." if not challenge else
                "The challenger agrees." if challenge["verdict"] == "agree" else
                "**The challenger objects.** Its argument is below, before the choice.")
     lines += [f"{verdict} Nothing has been disconnected on the plant floor: the choice is with the {decides}.", ""]
 
+    late = {a["id"] for a in news["alerts"]} if news else set()
     lines += ["## What happened", "", "| Time (UTC) | Seen by | From | To | What |", "|---|---|---|---|---|"]
-    lines += [f"| {_clock(s['time'])} | {s['side']} tool | {s['origin']} | {s['target']} | {s['text']} |"
-              for s in incident["timeline"]]
+    lines += [f"| {_clock(s['time'])} | {s['side']} tool | {s['origin']} | {s['target']} | {s['text']}"
+              f"{' (new alarm, after the first plan)' if s['id'] in late else ''} |" for s in incident["timeline"]]
+    for spot in blind:
+        lines.append(f"| - | {spot['watches']} | - | - | Nothing: the {spot['tool']} sent no alarm tonight. |")
 
     first = result["first_response"]
     lines += ["", "## Already done on the office side", "",
@@ -78,12 +96,18 @@ def page(result: dict) -> str:
               "|---|---|---|---|---|---|"]
     for number, option in enumerate(options, 1):
         mark = " **(recommended)**" if option is best else ""
-        reach = ", ".join(names[l] for l in option["lines_still_reachable"]) or "none"
+        reach = ", ".join([names[l] for l in option["lines_still_reachable"]]
+                          + [f"{names[l]} (not watched)" for l in option.get("lines_not_watched", [])]) or "none"
         lines.append(f"| {number} | {option['name']}{mark} | {eur(option['cost_eur'])} | {_stopped(option)} | {reach} | "
                      f"{eur(option['still_at_stake_eur'])} |")
     for name, why in plant.get("unavailable_steps", {}).items():
         lines += ["", f"Not available tonight: {name}. {why}"]
 
+    if news:
+        before = news["plan_before"]
+        lines += ["", "## The plan before the new alarm", "",
+                  f"Recommended then: {before['priced']['name']}, at {eur(before['priced']['cost_eur'])} (priced before "
+                  "the new alarm; out of date). The planner's reasoning then:", "", *_quote(before["why"])]
     if plan:
         lines += ["", "## The planner's reasoning", "", *_quote(plan["why"])]
         if plan["what_remains_open"]:
@@ -108,9 +132,20 @@ def page(result: dict) -> str:
             else:
                 lines += ["", "The planner did not answer the objection. Its first plan stands unanswered."]
 
+    if plan and plan.get("proposed_briefing_change"):
+        lines += ["", "## A change to the company briefing, proposed by the planner", "",
+                  *_quote(plan["proposed_briefing_change"]), "",
+                  "Recorded with the case. Not applied: a person decides whether the briefing changes."]
+    if result.get("case") and result["case"] != "no-case-memory":
+        read = result.get("cases_read", [])
+        lines += ["", "## Case memory", "",
+                  f"This night is recorded as {result['case']}. "
+                  + (f"Earlier cases read by the agents: {', '.join(read)}." if read else
+                     "No earlier case was read: none shares a device or an account, or the agents did not ask.")]
+
     lines += ["", "## The decision", "",
               f"The {decides} chooses one response by its number: "
-              f"`python -m sentinel decide NUMBER --as \"{decides}\"`. "
+              f"`python -m sentinel decide NUMBER --as \"{decides}\" --note \"what the next night should know\"`. "
               "No other role can choose, and no agent can. The choice is written to the Control Tower's record."]
     waiting = [h for h in result["held"] if h["decision"] == "require_approval"]
     if waiting:
@@ -134,6 +169,7 @@ def page(result: dict) -> str:
         f"{len(result['unrelated'])}. Joining is done by fixed rules, not by an agent.",
         f"- Responses priced tonight by the agents: {result['priced_tonight']}.",
         "- Agent turns: " + ", ".join(f"{r['agent']} {r['turns']} ({r['ended']})" for r in result["runs"]) + ".",
+        *([f"- Time from the new alarm to this page: {news['seconds_from_new_alarm']} seconds."] if news else []),
         f"- Time from the last alarm handed over to this page: {result['seconds_to_page']} seconds. "
         f"Tokens: {result['tokens']['input']:,} in, {result['tokens']['output']:,} out.",
         "",
@@ -146,9 +182,11 @@ def page(result: dict) -> str:
     return "\n".join(lines)
 
 
-def decide(gateway, result: dict, number: int, role: str) -> dict:
-    """The named person chooses response 'number'. Returns what was carried out."""
-    owner, incident = gateway.registry[PLANNER]["owner"], result["incident"]["id"]
+def decide(gateway, result: dict, number: int, role: str, note: str = "", cases=None) -> dict:
+    """The named person chooses response 'number'. Returns what was carried out.
+    The note is that person's lesson for the next night; it is written to the case memory."""
+    owner = gateway.registry[PLANNER]["owner"]
+    incident = f"{result.get('case', 'no-case-memory')}/{result['incident']['id']}"  # held steps are filed per case
     if not 1 <= number <= len(result["options"]):
         raise ApprovalError(f"There is no response {number} on the page")
     chosen = result["options"][number - 1]
@@ -179,4 +217,10 @@ def decide(gateway, result: dict, number: int, role: str) -> dict:
                 "hold_hours": names[point]["hold_hours"], "incident": incident,
                 "expected_cost_of_whole_response_eur": chosen["cost_eur"]}, approved_by=role, source="approver")
             carried.append({"what": names[point]["name"], **verdict})
+    case = cases.get(result["case"]) if cases is not None and result.get("case") else None
+    if case is not None:
+        case.update({"status": "decided", "note_by_decider": note.strip() or None,
+                     "decision": {"response": chosen["name"], "lost_output_eur": chosen["cost_eur"],
+                                  "recommended": chosen["points"] == result["recommended"], "by": role}})
+        cases.write(gateway, case)
     return {"chosen": chosen, "carried_out": carried}

@@ -489,10 +489,10 @@ def test_the_legal_tier_and_the_reach_can_disagree_and_the_board_page_says_so(ga
 def test_board_figures_count_every_card_once_by_reach_and_by_what_stands_behind_it(gateway):
     f = board.figures(redteam.run(gateway))
     assert sum(len(cards) for cards in f["by_reach"].values()) == 20
-    assert f["today"] == {"designed": 11, "fixed code": 6, "agent in build": 3, "agent working": 0}
+    assert f["today"] == {"designed": 11, "fixed code": 6, "agent in build": 0, "agent working": 3}
     text = board.page(redteam.run(gateway))
-    assert "3 agents in build; 6 steps of fixed code without a model; 11 designed agents" in text
-    assert "No agent is rated working yet." in text
+    assert "3 agents working; 6 steps of fixed code without a model; 11 designed agents" in text
+    assert "No agent is rated working yet." not in text
 
 
 def test_a_card_must_say_what_stands_behind_it(tmp_path):

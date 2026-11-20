@@ -5,7 +5,10 @@
                                 the agents on one night, with a real model; writes the decision page.
                                 Needs SENTINEL_MODEL_KEY_FILE (path of a file holding the model key).
                                 Optional: SENTINEL_MODEL, SENTINEL_EFFORT. --record keeps the run in reports/.
-  python -m sentinel decide NUMBER --as "Head of OT Security"
+                                Every night is written to the case memory (state/cases) and reads the earlier cases.
+  python -m sentinel nights [--record]
+                                the scripted night, then every night in data/nights, one after the other
+  python -m sentinel decide NUMBER --as "Head of OT Security" [--note "lesson for the next night"]
                                 the named person chooses a response of the last night
   python -m sentinel waiting    isolation requests waiting for a named person
   python -m sentinel release --as "Head of OT Security"
@@ -38,7 +41,7 @@ def main(argv: list[str]) -> int:
             print(f"  {held['decision']}: {held['what']} (rules {held['rule']})")
         print("Written: reports/incident-latest.md")
         return 0
-    if command in ("night", "decide"):
+    if command in ("night", "nights", "decide"):
         return _agents(command, argv[1:])
     if command in ("waiting", "release"):
         approvals = Approvals(Gateway())
@@ -68,38 +71,49 @@ def _agents(command: str, argv: list[str]) -> int:
     import os
     from datetime import date
     from control_tower.approvals import ApprovalError
-    from . import REPORTS, ROOT, decision, night
+    from . import DATA, REPORTS, ROOT, decision, night
+    from .cases import CaseBook
     from .model import Claude, ModelError
     last = ROOT / "state" / "last-night.json"
-    if command == "night":
-        name = next((a for a in argv if not a.startswith("--")), night.DEFAULT_NIGHT)
+    book = CaseBook(ROOT / "state" / "cases")
+    if command in ("night", "nights"):
+        if command == "night":
+            names = [next((a for a in argv if not a.startswith("--")), night.DEFAULT_NIGHT)]
+        else:
+            names = [night.DEFAULT_NIGHT] + sorted(f.stem for f in (DATA / "nights").glob("*.json"))
         model = Claude(model=os.environ.get("SENTINEL_MODEL", "claude-fable-5-2"),
                        effort=os.environ.get("SENTINEL_EFFORT", "medium"))
-        try:
-            result = night.run_night(model, night=name)
-        except (ModelError, Refused) as stopped:
-            print(f"Stopped: {stopped}")
-            return 2
-        if result["incident"] is None:
-            print("No incident tonight: no group of alarms reached from the office side to the plant floor.")
-            return 0
-        last.parent.mkdir(exist_ok=True)
-        last.write_text(json.dumps(result), encoding="utf-8")
-        print(result["page"])
-        if "--record" in argv:
-            runs = REPORTS / "runs"
-            runs.mkdir(parents=True, exist_ok=True)
-            stem = f"{name}-{date.today().isoformat()}-{model.model}"
-            (runs / f"{stem}.json").write_text(json.dumps(result, indent=1), encoding="utf-8")
-            (runs / f"{stem}.md").write_text(result["page"], encoding="utf-8")
-            print(f"Recorded: reports/runs/{stem}.md and .json")
+        for name in names:
+            print(f"Night: {name}. About a minute; nothing is printed until it ends.", flush=True)
+            try:
+                result = night.run_night(model, night=name, cases=book)
+            except (ModelError, Refused) as stopped:
+                print(f"Stopped: {stopped}")
+                return 2
+            if result["incident"] is None:
+                print("No incident tonight: no group of alarms reached the threshold of an incident.")
+                continue
+            last.parent.mkdir(exist_ok=True)
+            last.write_text(json.dumps(result), encoding="utf-8")
+            if command == "night":
+                print(result["page"])
+            else:
+                print(f"  Done in {result['seconds_to_page']} seconds, recorded as {result['case']}.")
+            if "--record" in argv:
+                runs = REPORTS / "runs"
+                runs.mkdir(parents=True, exist_ok=True)
+                stem = f"{name}-{date.today().isoformat()}-{model.model}"
+                (runs / f"{stem}.json").write_text(json.dumps(result, indent=1), encoding="utf-8")
+                (runs / f"{stem}.md").write_text(result["page"], encoding="utf-8")
+                print(f"  Recorded: reports/runs/{stem}.md and .json")
         return 0
     if "--as" not in argv or not argv or not argv[0].isdigit() or not last.exists():
         print('After a night: python -m sentinel decide NUMBER --as "Head of OT Security"')
         return 1
     try:
+        note = argv[argv.index("--note") + 1] if "--note" in argv else ""
         outcome = decision.decide(night.gateway(), json.loads(last.read_text(encoding="utf-8")),
-                                  int(argv[0]), argv[argv.index("--as") + 1])
+                                  int(argv[0]), argv[argv.index("--as") + 1], note=note, cases=book)
     except ApprovalError as error:
         print(f"Not decided. {error}")
         return 1

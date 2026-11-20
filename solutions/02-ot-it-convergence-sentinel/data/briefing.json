@@ -18,12 +18,25 @@
       "quarantine_workstation": "Undone by the Head of Security Operations releasing the workstation from quarantine.",
       "close_remote_session": "Undone by opening a new remote session through the normal request."
     },
-    "allowed_sides": ["IT", "IT/OT"],
+    "allowed_sides": [
+      "IT",
+      "IT/OT"
+    ],
     "never_suspend": []
   },
   "debate": {
     "challenge_rounds": 1,
     "options_on_the_page": 5
   },
-  "how_to_write": "Write for a crisis team at three in the morning: short sentences, production language, no security jargon. Name lines and cells, not addresses. Say what you do not know."
+  "how_to_write": "Write for a crisis team at three in the morning: short sentences, production language, no security jargon. Name lines and cells, not addresses. Say what you do not know.",
+  "word_limits": {
+    "_note": "Words per field an agent hands in. The harness refuses a longer text and the agent shortens it.",
+    "left_alone": 60,
+    "why": 120,
+    "what_remains_open": 80,
+    "answer_to_challenger": 80,
+    "proposed_briefing_change": 50,
+    "argument": 120,
+    "what_nobody_knows": 80
+  }
 }

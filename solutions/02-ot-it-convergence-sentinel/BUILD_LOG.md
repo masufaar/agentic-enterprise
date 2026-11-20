@@ -364,3 +364,76 @@ Recorded in `reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.md` and `.js
 |---|---|---|---|---|
 | 8 | Key set up with M, step by step; two small changes to the connector | Chat; documentation of the vendor's command-line tool read to rule it out | Main (Fable 5.2) | Input about 12,000, output about 3,000, estimated |
 | 9 | First real run | Started by M in PowerShell | claude-fable-5-2, medium effort | 35,342 in, 6,905 out, measured |
+
+## Session 5, 19 November 2026: items 3, 4 and 7 on prepared replies (step 4 of the project sequence)
+
+Read at the start: the charter (version 3), the project handover of 19 November, the solution 02 handover of 18 November evening. They agree; nothing to report. The deck stays local and is not touched in this session.
+
+### Step 1: design proposed to Mario, not yet built
+
+Read before designing: `loop.py`, `night.py`, `decision.py`, `agents.py`, `collection.py`, `correlation.py`, `model.py`, the night file, the briefing, the alarm files.
+
+Finding that shapes item 3: with the plant-floor monitoring missing, the office alarms alone (IT-1 to IT-4) still form an incident, with the finance workstation as the only foothold. The pricing tool would then report that closing the office link leaves no line within reach. That is false: on this night the intruder is already on the Line B engineering workstation; nobody sees it. A missing tool does not only shorten the timeline, it makes the prices look safer than they are.
+
+| No. | Proposed decision | Why | Alternative set aside |
+|---|---|---|---|
+| D50 (proposed) | Item 3: a night file can declare a monitoring feed missing. The pricing tool then reports, for every response, the lines in zones nobody watches tonight as "cannot be ruled out", and never as safe. The page states the blind spot in fixed code at the top; the planner's hand-in is refused if 'what_remains_open' is empty on such a night. | The danger of a missing tool is false safety, not a shorter timeline. Fixed code must say it, whatever the agents write. | Only telling the agents that a feed is missing and trusting them to say so. |
+| D51 (proposed) | Item 4: the new alarm arrives after the planner's first hand-in. The harness re-joins the alarms (same incident), marks every earlier price as out of date, and sends the planner back; a plan citing an out-of-date price is refused. The page shows the plan before and after the alarm. The escalation used is the one of the harder night (Line C reached at 03:09), on the scripted plant where the plant-wide disconnection is available. | Gives a visible change of plan, reuses the existing re-submission path, and needs no change to the loop or to the model connector. | Injecting the alarm inside an agent's turn (a note beside the tool results): truer to "mid-run", but needs a hook in the loop and in each connector. Question put to Mario. |
+| D52 (proposed) | Item 7: after `decide`, fixed code writes a case record (devices, accounts, zones, the first-response steps, the plan, the challenger's verdict, the choice, and an optional note by the decider). At the next night a tool `read_cases` gives planner and challenger the earlier cases that share a device or an account; the page lists the cases read. A planner may propose a briefing change; it is recorded, never applied; a person edits the briefing. Each night gets a case id, and `decide` finds held steps by case id, which removes the INC-001 limit. | Learning stays controlled: facts by fixed code, lessons by a person, proposals by an agent. Three agents remain three. | A fourth agent that writes lessons: more model calls and a card more in the registry, for little gain at this stage. |
+| D53 (proposed) | `read_cases` goes through the Control Tower as a new permission (`cases.read`) on the planner and the challenger cards. | Every tool goes through the Control Tower; reading earlier decisions is a permission like any other. Touches the registry of solution 01; its tests are run again. | Reading the case files directly, outside the Control Tower. |
+
+Tokens, step 1: input about 50,000 (charter, handovers, code), output about 4,000. Estimated, main model (Opus 5.5 in this chat). A lighter model would not do for this step: it is agent design.
+
+### Step 2: built on Mario's instruction to finish quickly
+
+Mario, 19 November: "finish this solution quickly so we can move to the next solutions... it does not have to be perfect, this is a template, a blueprint." The assistant therefore took the open choices itself, recorded here. D50 to D53 above are taken as proposed.
+
+| No. | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D54 | Item 4: the new alarm arrives between the planner's first plan and the challenge (as in D51). The README says so in the list of ten and under the limits. | No change to the loop or the connectors; the change of plan is visible on the page. | An alarm inside an agent's turn. |
+| D55 | Item 8 (scenario agent) stays "Designed". Three nights are written by hand in `data/nights/` and serve the rehearsal for now. | A fourth agent needs a registry card: "20 cards" would change on every page, in the pitch and in the deck. Not worth it for a blueprint today. | Building it now. |
+| D56 | The OpenAI-style connector stays "Designed". | Not in the list of ten; the neutral format already shows the solution is model-agnostic. | Writing it now from the provider's documentation. |
+| D57 | Word limits per field live in the briefing (`word_limits`) and are enforced at hand-in; role texts ask for figures written with a comma between thousands and tell the first-response agent not to list plant-floor options. | The three findings of the first real run. | A page that shortens agent text: it would change their words. |
+| D58 | Held steps are filed with the case id (`CASE-002/INC-001`); `decide` finds them by that. Without case memory the id is `no-case-memory/INC-001`. | Removes the limit that two nights in one Control Tower record both carried INC-001. | A separate night counter. |
+| D59 | New command `python -m sentinel nights [--record]`: the scripted night, then every night file, one after the other, with case memory. | Mario starts real runs himself; one command instead of four. | Four separate commands. |
+| D60 | In the registry of solution 01: `cases.read` added to the planner and the challenger cards, `cases.write` to `ot-briefing`. Reach of action unchanged for all three (checked: inventory and board pages regenerate identical). | Every step through the Control Tower. | — |
+
+What was built:
+- `sentinel/cases.py` (new): the case memory.
+- `sentinel/response.py`: lines in zones whose monitoring sent nothing are reported as `lines_not_watched` and counted in what is at stake; `open_lines()` is used wherever "closes every path" is decided.
+- `sentinel/collection.py`: a missing feed is not read; alarms that arrive after the first plan.
+- `sentinel/agents.py`: blind spots shown to every agent; prices set aside after a new alarm; `read_cases`; word limits; proposed briefing change; tighter role texts.
+- `sentinel/night.py`, `sentinel/decision.py`, `sentinel/__main__.py`: the night, the page and the commands for the above.
+- `data/nights/plant-monitoring-down.json`, `data/nights/new-alarm-after-plan.json`; `data/briefing.json` gains `word_limits`.
+- `tests/test_items_3_4_7.py`: 16 tests. Solution 02: 92 of 92. Solution 01: 82 of 82.
+
+Figures of the two new nights on the pricing tool (calculated from assumptions):
+- Plant-floor monitoring down: closing the office link costs EUR 0 and, from the office alarms alone, would leave no line within reach. With the rule, all three lines are "not watched". Only the whole plant floor (EUR 279,500) rules anything out.
+- New alarm at 03:09 (Line C controller): cell 2 plus the link (EUR 120,000) now leaves Line C within reach, EUR 720,000 at stake; the whole plant floor costs EUR 287,250 and closes every path.
+
+Tokens, step 2: input about 180,000 (code read back between edits, test runs), output about 22,000. Estimated, main model. Writing the code around a fixed design and the README updates could have been done by a lighter model; the design of the blind-spot rule could not.
+
+### Step 3: recorded runs with a real model, 19 November 2026
+
+Mario started `python -m sentinel nights --record` in PowerShell. Four nights, one run each, claude-fable-5-2 at medium effort, case memory on. Recorded in `reports/runs/*-2026-11-19-*`. The case files stay in `state/cases/` and are not published.
+
+Measured:
+
+| Night | Recommended | Challenger | Seconds to page | Tokens in / out | Hand-ins refused and corrected |
+|---|---|---|---|---|---|
+| Scripted | Cell 2 + link, EUR 120,000 | Agrees | 61.40 | 77,969 / 5,635 | 5 |
+| New alarm after plan | EUR 120,000 before, whole plant floor EUR 287,250 after (43.01 s from the new alarm) | Agrees | 77.79 | 85,851 / 7,460 | 4 |
+| No safe response | Cell 2 + link, EUR 120,000, Line C left in reach, EUR 720,000 at stake | Objects; planner keeps its steps and answers | 77.48 | 88,316 / 7,451 | 3 |
+| Plant-floor monitoring down | Close the link, EUR 0; all three lines not watched, EUR 2,160,000 at stake; "not a safe one" | Agrees | 49.73 | 44,530 / 4,561 | 1 |
+
+Totals: 296,666 tokens in, 25,107 out. 14 agent runs, all handed in. 13 hand-ins refused, all for the word limit, all corrected. No figure refused; no step refused by the Control Tower. First response: the same four office-side steps each night, nothing on the plant floor. Earlier cases read in three nights (none carried a decision). Three briefing changes proposed, none applied.
+
+| No. | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D61 | Status of solution 02: "Working as a blueprint", with five recorded runs, subject to Mario's go at the push. The three cards move to "agent working" in the registry of solution 01; its board page and inventory regenerate ("3 agents working; 6 steps of fixed code; 11 designed"); two expectations in its tests updated. | The charter's definition of Working is met: runs on synthetic data with a real model, recorded runs in the repository, not connected to real systems. Item 8 and a second connector stay designed and say so. | Keeping "In build" until item 8 and a rate exist. |
+| D62 | The blind-night result is published as a finding, not hidden: the agents chose the EUR 0 response and stated it is not safe; the harness makes the risk visible and does not choose. | Charter: limits are published with their fix. The fix is the planner's own proposed briefing change, decided by a person. | Forcing the plant-wide response on blind nights in code. |
+| D63 | Article check against the build (draft 4, the published text): two changes proposed to Mario. The status sentence, and the list of example responses: moving an urgent order and bringing maintenance forward are not options in the build. | Charter: every claim true in the repository or changed. | Building the two options now. |
+
+Consequences for step 5 (deck, local): the registry is now "3 agents working", not "3 in build"; the interim footer on the Sentinel backup slides is out of date.
+
+Tokens, step 3: input about 120,000, output about 12,000. Estimated, main model. The README and page updates could have been done by a lighter model; reading the runs and the article check not.

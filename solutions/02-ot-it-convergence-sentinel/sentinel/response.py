@@ -67,7 +67,22 @@ def _name(points: list[dict]) -> str:
     return " and ".join(names[:1] + [n[0].lower() + n[1:] for n in names[1:]]) or "Do nothing and keep watching"
 
 
-def price(points: list[dict], incident: dict, plant: dict, production: dict) -> dict:
+def open_lines(option: dict) -> list[str]:
+    """Lines not ruled out: within reach of a known foothold, or in a zone nobody watched tonight."""
+    return sorted(set(option["lines_still_reachable"]) | set(option.get("lines_not_watched", [])))
+
+
+def _not_watched(plant: dict, cut_zones: dict, unwatched_sides) -> list[str]:
+    """Lines with a zone on a side whose monitoring sent nothing tonight, and that this response does not cut.
+    Nobody can say whether the intruder is already there, so these lines are never counted as safe."""
+    lines = {}
+    for zone in plant["zones"]:
+        if zone.get("line") and zone["side"] in unwatched_sides and zone["id"] not in cut_zones:
+            lines[zone["line"]] = True
+    return sorted(lines)
+
+
+def price(points: list[dict], incident: dict, plant: dict, production: dict, unwatched_sides=()) -> dict:
     rate = production["cost_per_stopped_line_hour_eur"]
     buffer = production["assumptions"]["order_buffer_hours"]["value"]
     recovery = production["assumptions"]["recovery_hours_if_encrypted"]["value"]
@@ -92,12 +107,13 @@ def price(points: list[dict], incident: dict, plant: dict, production: dict) -> 
                           "restart_hours": restart, "cost_eur": round((hours + restart) * rate)})
             total += (hours + restart) * rate
     reachable = _reachable_lines(incident, plant, cut_zones, cut_links)
+    unseen = [l for l in _not_watched(plant, cut_zones, unwatched_sides) if l not in reachable]
     at_stake = sum((recovery + line.get("restart_extra_hours", 0)) * rate
-                   for line in production["lines"] if line["id"] in reachable)
+                   for line in production["lines"] if line["id"] in reachable or line["id"] in unseen)
     return {"points": [p["id"] for p in points],
             "name": _name(points),
             "cost_eur": round(total), "lines_stopped": lines,
-            "lines_still_reachable": reachable, "still_at_stake_eur": round(at_stake)}
+            "lines_still_reachable": reachable, "lines_not_watched": unseen, "still_at_stake_eur": round(at_stake)}
 
 
 def _options(plant: dict) -> list[list[dict]]:

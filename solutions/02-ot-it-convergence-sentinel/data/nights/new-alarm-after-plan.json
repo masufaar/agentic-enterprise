@@ -1,0 +1,9 @@
+{
+  "_note": "Synthetic. The scripted night at Plant 04. After the planner has handed in its first plan, a new alarm arrives: the intruder has moved from the Line C operator panel to its controller. Item 4 of the list of ten: a new alarm mid-run and a visibly changed plan.",
+  "title": "The scripted night, with a new alarm after the first plan",
+  "arrives_after_plan": {
+    "plant_events": [
+      {"event_id": "OT-5", "ts": "2026-11-10T03:09:00Z", "src": "hmi-c1", "dst": "plc-c1-01", "category": "controller_program_read", "level": 4, "description": "Full controller program of Line C, cell 1, copied from the operator panel outside a change window."}
+    ]
+  }
+}

@@ -4,7 +4,7 @@
 
 The foundation every other agent in this repository plugs into.
 
-**How the word "agent" is used here.** An agent is a language model working in a loop inside a harness: it plans, uses tools, checks its own result and corrects itself, and a person is the last step. Fixed code is a tool or a control, never an agent. The registry holds one card per identity that may act through the gateway, and each card says what stands behind it today. On 18 November 2026 that is 3 agents in build (solution 02), 6 steps of fixed code without a model, and 11 designed agents with nothing behind the card yet. No agent is working yet; the three in build have one recorded run with a real model, described on the solution 02 page.
+**How the word "agent" is used here.** An agent is a language model working in a loop inside a harness: it plans, uses tools, checks its own result and corrects itself, and a person is the last step. Fixed code is a tool or a control, never an agent. The registry holds one card per identity that may act through the gateway, and each card says what stands behind it today. On 19 November 2026 that is 3 agents working (solution 02, working as a blueprint on synthetic data, with five recorded runs on a real model), 6 steps of fixed code without a model, and 11 designed agents with nothing behind the card yet.
 
 ## What it is
 

@@ -1,0 +1,7 @@
+{
+  "_note": "Synthetic. The scripted night at Plant 04, but the plant-floor monitoring sends nothing. The intruder does exactly what it does on the scripted night; only the office side is seen. Item 3 of the list of ten: a run with one security tool missing.",
+  "title": "The scripted night, with the plant-floor monitoring down",
+  "missing_feeds": {
+    "plant": "Assumption for this night: the plant-floor monitoring is down after a failed update and sends nothing before 08:00. Many plants have no such tool at all."
+  }
+}

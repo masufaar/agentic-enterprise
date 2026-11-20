@@ -10,6 +10,14 @@ AGENT = "ot-asset-discovery"
 OFFICE_SEVERITY = {"info": 1, "low": 2, "medium": 3, "high": 4}
 
 
+def late(night: dict) -> list[dict]:
+    """The alarms that arrive after the planner's first plan, in the same format."""
+    extra = night.get("arrives_after_plan", {})
+    return sorted([_from_office(a, night["office"]["source_tool"]) for a in extra.get("office_alerts", [])]
+                  + [_from_plant(e, night["floor"]["sensor"]) for e in extra.get("plant_events", [])],
+                  key=lambda a: (a["time"], a["id"]))
+
+
 def _from_office(alert: dict, tool: str) -> dict:
     return {"id": alert["id"], "time": alert["time"], "tool": tool, "side": "office",
             "origin": alert.get("source_host", alert["host"]), "target": alert["host"],
@@ -26,12 +34,16 @@ def _from_plant(event: dict, tool: str) -> dict:
 def collect(gateway, night: dict | None = None) -> dict:
     """'night' replaces the scripted data files with another night (see sentinel/night.py)."""
     night = night or {}
+    missing = night.get("missing_feeds", {})  # a monitoring tool that sends nothing tonight is not read
     act(gateway, AGENT, "network.read", {"what": "plant layout", "plant": "plant-04"})
     plant = night.get("plant") or load("plant.json")
-    act(gateway, AGENT, "security.alerts.read", {"from": "office-security-monitoring"})
     office = night.get("office") or load("events_office.json")
-    act(gateway, AGENT, "security.alerts.read", {"from": "plant-floor-monitoring"})
     floor = night.get("floor") or load("events_plant.json")
-    alerts = ([_from_office(a, office["source_tool"]) for a in office["alerts"]]
-              + [_from_plant(e, floor["sensor"]) for e in floor["events"]])
+    alerts = []
+    if "office" not in missing:
+        act(gateway, AGENT, "security.alerts.read", {"from": "office-security-monitoring"})
+        alerts += [_from_office(a, office["source_tool"]) for a in office["alerts"]]
+    if "plant" not in missing:
+        act(gateway, AGENT, "security.alerts.read", {"from": "plant-floor-monitoring"})
+        alerts += [_from_plant(e, floor["sensor"]) for e in floor["events"]]
     return {"plant": plant, "alerts": sorted(alerts, key=lambda a: (a["time"], a["id"]))}

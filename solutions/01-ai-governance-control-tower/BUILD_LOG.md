@@ -557,3 +557,7 @@ Agreed with M as step 1 of five: update solution 01, then solution 02, then the 
 - Measured: 82 of 82 tests pass in the assistant's workspace; solution 02 still 75 of 75.
 - Limits: the reach rating looks at permissions only, not at how often or how widely a tool is used; like the legal tier it has no recorded human sign-off. The elevator pitch and the board deck (both outside the repository) still use the old wording.
 - Tokens, estimated: input about 25,000, output about 6,000, main model (Fable 5.2). A lighter model could have done the page regeneration, not the rating design.
+
+## 19 November 2026: registry changes made from solution 02
+
+Recorded in solution 02's BUILD_LOG, session 5 (D60, D61). In `data/agents.json`: `cases.read` added to `ot-response` and `ot-challenger`, `cases.write` to `ot-briefing` (reach of action unchanged); the three solution 02 agents move from "agent in build" to "agent working" after five recorded runs with a real model. `reports/agent-inventory.md` and `reports/board-latest.md` regenerated; two expectations in `tests/test_control_tower.py` updated. 82 of 82 tests.

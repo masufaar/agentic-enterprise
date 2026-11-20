@@ -383,7 +383,7 @@ def test_choosing_the_recommended_response_releases_what_was_held(gate):
     assert isolated == [B2, LINK]
     chosen = next(r for r in gate.audit.records() if r["tool"] == "decision.choose")
     assert chosen["decision"] == "chosen" and chosen["approved_by"] == OWNER
-    assert chosen["params"] == {"incident": "INC-001", "response": 1, "lost_output_eur": 120000, "recommended": True,
+    assert chosen["params"] == {"incident": "no-case-memory/INC-001", "response": 1, "lost_output_eur": 120000, "recommended": True,
                                 "challenger": "agree", "what": outcome["chosen"]["name"]}
     assert gate.audit.verify()[0]
 

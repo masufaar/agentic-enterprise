@@ -1,6 +1,6 @@
 # OT/IT Convergence Sentinel
 
-**Status: In build. Three agents are built and tested on prepared replies, and there is one recorded run with a real model (18 November 2026). One run shows that the path works; it is not a result on how well the agents reason, and the debate between planner and challenger is not yet shown with a model.** What exists and is tested: the loop the agents work in, the company briefing they read, the controls around them, the decision page, and the rule-based first version whose pricing and plant model are now the agents' tools.
+**Status: Working as a blueprint. Three agents run on a real model, on synthetic data, with five recorded runs (18 and 19 November 2026); not connected to real systems.** The runs cover the scripted night, a night on which no response closes every path, a night with the plant-floor monitoring down, and a night in which a new alarm arrives after the first plan. Five runs are five runs: each night has run once, so no rate can be stated. Still designed: a scenario agent that invents rehearsal nights, and a connector for a second model provider.
 
 It runs the decision, not the detection, in addition to your existing tools.
 
@@ -58,7 +58,7 @@ No agent disconnects anything on the plant floor. This list is a design and will
 
 ## What exists today
 
-Stated on 18 November 2026. "Tested on prepared replies" means: the code around the model is tested with a stand-in that replays replies written by hand. That proves the loop and the controls. It does not prove that a model reasons well; only recorded real runs can. One exists so far; it is described in the next section.
+Stated on 19 November 2026. "Tested on prepared replies" means: the code around the model is tested with a stand-in that replays replies written by hand. That proves the loop and the controls. It does not prove that a model reasons well; only recorded real runs can. Five exist; they are described in the next sections.
 
 | Building block | Status | Model involved |
 |---|---|---|
@@ -66,23 +66,51 @@ Stated on 18 November 2026. "Tested on prepared replies" means: the code around 
 | Price of a response in lost production, from the plan | Working, fixed code; now a tool the agents call | No |
 | Hold of every plant-floor step for the Head of OT Security, through the Control Tower | Working, fixed code | No |
 | Joining the alarms of two simulated tools into one incident | Working as a basic fixed rule | No |
-| Agent loop: the model asks for tools, a failed or refused step is handed back to it, and it is finished only when the harness accepts its result | In build: tested on prepared replies; one real run, in which nothing had to be handed back | Yes, once |
-| Model connector: one neutral format, a connector for Claude | In build: tested without network; worked in one real run | Yes, once |
-| Company briefing that the agents read | In build: tested on prepared replies; read by a model in one run. Not yet shown: a changed briefing changing a model's behaviour | Yes, once |
-| First-response agent: reversible office-side steps on its own | In build: tested on prepared replies; one real run | Yes, once |
-| Planner agent and challenger agent, with objection and answer | In build: tested on prepared replies; one real run, in which the challenger agreed. Objection and answer not yet shown with a model | Yes, once |
-| A night on which no response closes every path | In build: tested on prepared replies | Not yet run |
-| Decision page with options, prices and counter-argument; the named person's choice recorded | In build: tested on prepared replies; one page from a real run. The choice was not made in that run | Yes, once |
-| Blind spots on the page when a security tool is missing | Designed | |
-| A new alarm arriving mid-run | Designed | |
-| Case memory and review agent | Designed | |
-| Rehearsal: a scenario agent that invents nights from the briefing | Designed | |
+| Agent loop: the model asks for tools, a failed or refused step is handed back to it, and it is finished only when the harness accepts its result | Working: 13 hand-ins handed back and corrected by the model in the runs of 19 November | Yes, 5 runs |
+| Model connector: one neutral format, a connector for Claude | Working for Claude. A connector for a second provider is designed | Yes, 5 runs |
+| Company briefing that the agents read | Working: read by a model in 5 runs. Not yet shown with a model: a changed briefing changing behaviour (tested on prepared replies) | Yes, 5 runs |
+| First-response agent: reversible office-side steps on its own | Working: 5 runs, every step within the briefing, none attempted on the plant floor | Yes, 5 runs |
+| Planner agent and challenger agent, with objection and answer | Working: the challenger objected in 1 of 5 runs and the planner answered; it agreed in 4 | Yes, 5 runs |
+| A night on which no response closes every path | Working: one run; the page says so in plain words | Yes, once |
+| Decision page with options, prices and counter-argument; the named person's choice recorded | Working: 5 pages from real runs. The choice is tested on prepared replies; it was not made after the real runs | Yes, 5 runs |
+| Blind spots when a security tool is missing: the page names the tool, and the lines it would have watched are never priced as safe | Working: one run | Yes, once |
+| A new alarm after the first plan: every price is out of date, the planner plans again, the page shows the plan before and after | Working: one run; the plan changed | Yes, once |
+| Case memory: each night recorded as a case, the named person's decision and note added, earlier cases read by planner and challenger through the Control Tower | Working: read by the agents in 3 runs. Those cases carried no decision yet; a decision and note are tested on prepared replies. Lessons are written by the named person, not by an agent; an agent may propose a change to the briefing, which a person applies or not | Yes, 3 runs |
+| Word limit per field, enforced at hand-in | Working: every text on the 19 November pages is within its limit, after correction | Yes, 4 runs |
+| Rehearsal: a scenario agent that invents nights from the briefing | Designed. For now, the nights in `data/nights/` are written by hand | |
 
 A sample of the decision page, produced on prepared replies and labelled as such: [reports/decision-page-sample-scripted.md](reports/decision-page-sample-scripted.md).
 
 In this project the word agent is reserved for a language model working in a loop with tools, checking and correcting its own result. Three such agents are in build here: first response, planner, challenger. The joining of alarms and the writing of the page are fixed code; they hold registry cards in the Control Tower because they act through its gateway, and the registry says of each card what stands behind it.
 
-## The first run with a real model
+## The recorded runs of 19 November 2026
+
+Measured on 19 November 2026: four nights, one run each, Claude Fable 5.2 at medium effort, started with `python -m sentinel nights --record`, one after the other, with the case memory on. Each page and the full record of every turn are in [reports/runs/](reports/runs/). Each night ran once: these are observations, not rates.
+
+| Night | Page | Recommended | Challenger | Seconds to page | Tokens in / out |
+|---|---|---|---|---|---|
+| Scripted night | [page](reports/runs/plant-04-0302-2026-11-19-claude-fable-5-2.md) | Line B, cell 2 and the office link, EUR 120,000; no line left within reach | Agrees | 61.40 | 77,969 / 5,635 |
+| New alarm after the first plan | [page](reports/runs/new-alarm-after-plan-2026-11-19-claude-fable-5-2.md) | Before the alarm: EUR 120,000. After it: the whole plant floor, EUR 287,250 | Agrees | 77.79 (43.01 from the new alarm) | 85,851 / 7,460 |
+| No response closes every path | [page](reports/runs/no-safe-response-2026-11-19-claude-fable-5-2.md) | Line B, cell 2 and the office link, EUR 120,000; Line C stays within reach, EUR 720,000 at stake, said in plain words | **Objects**; the planner keeps its steps and answers | 77.48 | 88,316 / 7,451 |
+| Plant-floor monitoring down | [page](reports/runs/plant-monitoring-down-2026-11-19-claude-fable-5-2.md) | Close the office link, EUR 0; Lines A, B and C not watched, EUR 2,160,000 at stake; the planner writes "This recommendation is not a safe one" | Agrees | 49.73 | 44,530 / 4,561 |
+
+Over the four nights:
+
+- Every one of the 14 agent runs ended with a result the harness accepted.
+- 13 hand-ins were handed back and corrected by the model, all for a text over its word limit. None was handed back for a figure the pricing tool had not produced. The Control Tower refused no step.
+- The first-response agent took the same four office-side steps every night, all within the briefing; it attempted nothing on the plant floor.
+- The debate: on the night with no safe response, the challenger agreed with the steps and objected to two gaps on the page: the EUR 0 of the link closure holds only if the link reopens within the six-hour order buffer, and nobody had set a decision on whether Line C restarts at 08:00. The planner checked both, kept its steps and added both to the page.
+- The new alarm: 43.01 seconds after it arrived, the page showed the plan before (EUR 120,000) and the changed plan (EUR 287,250), with the reason.
+- The case memory: from the second night on, planner and challenger read the earlier cases through the Control Tower and said whether they changed their view. None did; those cases carried no decision yet.
+- Three proposed changes to the company briefing, recorded and not applied. Twice: add a step that disconnects Line C, cell 1 alone, and close the old file share between Line B and Line C, so that a narrow stop is possible next time. Once, on the blind night: when the plant-floor monitoring is down, a person on site checks the cells by hand before a narrow response is treated as enough.
+
+What these runs show that a board should know, and the fix designed for each:
+
+- **The harness makes a risk visible; it does not choose for the decider.** On the blind night the agents recommended the EUR 0 response and stated that it is not safe, with EUR 2,160,000 unwatched. The only response that rules anything out costs EUR 279,500. That choice belongs to the Head of OT Security, and the page puts it in front of that person. The briefing change proposed by the planner is the designed fix: a check by hand on site, decided by a person.
+- **The agents write up to the word limit.** The texts are shorter than on 18 November but still dense for three in the morning. Fix designed: lower limits in the briefing, a change to one file.
+- **Each night ran once.** No rate can be stated. Fix designed: the same four nights run again, and a changed briefing run once to show that it changes behaviour.
+
+## The first run with a real model, 18 November 2026
 
 Measured on 18 November 2026: one run of the scripted night, Claude Fable 5.2 at medium effort, started with `python -m sentinel night --record`. The page as produced: [reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.md](reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.md); the full record of every turn is the `.json` file beside it. One run is one run: no rate can be stated from it.
 
@@ -101,8 +129,8 @@ What the agents did that fixed rules did not: the planner priced combinations of
 What this run does not show, and what was wrong with it:
 
 - The challenger agreed, so the planner never had to answer an objection. The scripted night is an easy one. The harder night has not been run with a model.
-- The page is too long for three in the morning. The first-response agent wrote about 450 words and listed plant-floor options, which is not its job. A word limit enforced by the harness is designed, not built.
-- The agents wrote figures without separators ("EUR 2160000"). The figures are priced ones; the format is to be fixed.
+- The page is too long for three in the morning. The first-response agent wrote about 450 words and listed plant-floor options, which is not its job. Fixed on 19 November: a word limit per field enforced by the harness, and a narrower role text; in the runs of that day it wrote 52 to 59 words and listed no plant-floor option.
+- The agents wrote figures without separators ("EUR 2160000"). Fixed on 19 November in the role texts; the pages of that day show "EUR 2,160,000".
 - No hand-in was refused, so the correction path is still shown on prepared replies only.
 
 ## The controls around the agents
@@ -114,6 +142,10 @@ Fixed code, tested, and not open to persuasion by a model:
 - **No hidden gaps.** A plan that leaves a line within the intruder's reach is accepted only if it says so.
 - **Office-side steps are narrow.** Only the steps the briefing allows, only on the office side, only against a device or account that is part of the incident. Each can be undone and says how.
 - **Only the named person decides.** The Head of OT Security chooses a response by its number. Any other role is refused and the attempt is recorded. The choice is recorded with its price, whether it was the recommended one, and what the challenger said.
+- **No false safety from a missing tool.** When a monitoring tool sends nothing, the page says so at the top, and every line it would have watched is marked "not watched" for every response that does not disconnect it. Without this rule, on the night with the plant-floor monitoring down, closing the office link would cost nothing and look as if it closed every path; the intruder is in fact already on Line B.
+- **No out-of-date prices.** When a new alarm arrives, every earlier price is set aside, and a plan that offers a response priced before the alarm is handed back.
+- **Short texts.** Every text an agent hands in has a word limit set in the briefing; a longer one is handed back to be shortened.
+- **Memory under control.** Cases are written by fixed code and read through the Control Tower; the first-response agent cannot read them and no agent can write them. A change an agent proposes to the briefing is recorded and shown, never applied.
 - **A failed agent is visible.** If the planner does not deliver, the page says so and shows what the pricing tool alone knows. If the challenger does not deliver, the page says the recommendation was not challenged.
 
 ## What the rule-based first version shows
@@ -155,24 +187,27 @@ python -m sentinel waiting
 python -m sentinel release --as "Head of OT Security"
 ```
 
-These need no model and no key. `run` is the rule-based first version; `release` acts on a simulated network: it records that the isolation ran and touches nothing. The tests are 76: 25 for the first version, 15 for the model connector, 36 for the loop, the agents, the page and the decision.
+These need no model and no key. `run` is the rule-based first version; `release` acts on a simulated network: it records that the isolation ran and touches nothing. The tests are 92: 25 for the first version, 15 for the model connector, 36 for the loop, the agents, the page and the decision, 16 for the blind spot, the new alarm, the case memory and the word limits.
 
 The agents need a model. The solution is model-agnostic; the connector provided is for Claude. Put the key in a file outside this repository and point to it:
 
 ```
 SENTINEL_MODEL_KEY_FILE=/path/to/keyfile python -m sentinel night
 SENTINEL_MODEL_KEY_FILE=/path/to/keyfile python -m sentinel night no-safe-response
-python -m sentinel decide 1 --as "Head of OT Security"
+SENTINEL_MODEL_KEY_FILE=/path/to/keyfile python -m sentinel nights --record
+python -m sentinel decide 1 --as "Head of OT Security" --note "what the next night should know"
 ```
 
-This path has run once against the model service (see "The first run with a real model"). On Windows, set `PYTHONUTF8=1` first. A run costs tokens on the key's account: the recorded run used 35,342 in and 6,905 out.
+`nights` runs the scripted night and then every night in `data/nights/`, one after the other: the harder night, the night with the plant-floor monitoring down, and the night with a new alarm after the first plan. Every night is written to the case memory in `state/cases/` and can read the earlier ones.
+
+This path has run five times against the model service. On Windows, set `PYTHONUTF8=1` first. A run costs tokens on the key's account: the four nights of 19 November used 296,666 in and 25,107 out together.
 
 ## What is in this folder
 
 - `sentinel/loop.py` the agent loop (80 lines)
 - `sentinel/agents.py` the three agents: what each is told, its tools, and what the harness checks
 - `sentinel/night.py` one night from the last alarm to the decision page; `sentinel/decision.py` the page and the decision
-- `sentinel/model.py` the model connector
+- `sentinel/model.py` the model connector; `sentinel/cases.py` the case memory
 - `sentinel/` also holds the rule-based first version: four fixed steps and their workflow (about 500 lines)
 - `data/briefing.json` the company briefing the agents read (synthetic)
 - `data/nights/` other nights, each as a small file of changes to the scripted night
@@ -181,30 +216,31 @@ This path has run once against the model service (see "The first run with a real
 - `data/events_office.json`, `data/events_plant.json` the alarms of the two simulated tools
 - `reports/incident-latest.md` the page of the first version; `reports/decision-page-sample-scripted.md` a sample decision page on prepared replies
 - `reports/runs/` recorded runs with a real model, each as the page and the full record
-- `tests/` 76 tests
+- `tests/` 92 tests
 - `BUILD_LOG.md` decisions, alternatives set aside, corrections and estimated tokens per step
 
 ## What has to exist before this solution is called working
 
-| | What | State on 18 November 2026 |
+| | What | State on 19 November 2026, after the recorded runs |
 |---|---|---|
-| 1 | A company briefing the agents read; changing it changes their behaviour without changing code. | Built. Tested on prepared replies for the part the harness enforces. Read by a model in one run; a changed briefing not yet shown with a model. |
-| 2 | A planner agent and a challenger agent in a recorded loop of plan, objection and revision, including a night in which no response closes every path and the agents say so. | Built, tested on prepared replies. One recorded real run, in which the challenger agreed; objection, revision and the harder night not yet run with a model. |
-| 3 | A run with one security tool missing, in which the decision page names the blind spot. | Not built. |
-| 4 | A new alarm arriving mid-run, and a visibly changed plan. | Not built. |
-| 5 | A decision page on which a named person chooses among options and sees the counter-argument; the choice recorded. | Built, tested on prepared replies. One page from a real run. |
-| 6 | Reversible office-side steps taken by the agents through the Control Tower; every other step held for a person. | Built, tested on prepared replies. Shown in one real run. |
-| 7 | A case memory written after a run and read at the next. | Not built. |
-| 8 | A rehearsal: nights invented by a scenario agent from the briefing, and a report of what each would have cost. | Not built. |
-| 9 | The time from the last alarm to the decision page, measured and published. | One figure: 71.62 seconds, one run, 18 November 2026. |
-| 10 | Results published as rates over many runs, with date and model, including the cases that went wrong. | One run so far. A rate needs more. |
+| 1 | A company briefing the agents read; changing it changes their behaviour without changing code. | Working for the part the harness enforces (tested on prepared replies). Read by a model in 5 runs; a changed briefing not yet shown with a model. |
+| 2 | A planner agent and a challenger agent in a recorded loop of plan, objection and revision, including a night in which no response closes every path and the agents say so. | Working: recorded with a real model on 19 November, including an objection the planner answered and the night with no safe response. |
+| 3 | A run with one security tool missing, in which the decision page names the blind spot. | Working: one recorded run (night `plant-monitoring-down`). |
+| 4 | A new alarm arriving mid-run, and a visibly changed plan. | Working: one recorded run (night `new-alarm-after-plan`); the plan changed. The alarm arrives between the planner's first plan and the challenge, not inside an agent's turn. |
+| 5 | A decision page on which a named person chooses among options and sees the counter-argument; the choice recorded. | Working: five pages from real runs. The choice is tested on prepared replies. |
+| 6 | Reversible office-side steps taken by the agents through the Control Tower; every other step held for a person. | Working: five real runs. |
+| 7 | A case memory written after a run and read at the next. | Working: written after every run, read by the agents in three. A case with a decision and a note is tested on prepared replies. |
+| 8 | A rehearsal: nights invented by a scenario agent from the briefing, and a report of what each would have cost. | Designed. Three nights are written by hand in `data/nights/`. |
+| 9 | The time from the last alarm to the decision page, measured and published. | Five figures, from 49.73 to 77.79 seconds (18 and 19 November 2026). |
+| 10 | Results published as rates over many runs, with date and model, including the cases that went wrong. | Five runs, each night once, published with date and model. Not yet a rate. |
 
 The solution is model-agnostic: whoever runs it enters their own model and key.
 
 ## Limits
 
 - Everything runs on simulated systems and synthetic data for a fictional company.
-- The instructions given to the three agents have been read by a model in one run. That run showed they need tightening (length, format, the first-response agent staying within its job).
+- Each night has run once with a model. What a model does on one run, it may not do on the next.
+- The new alarm reaches the planner only between its plan and the challenge. An alarm that arrives while an agent is working waits until it hands in.
 - The office-side steps do not change the prices: a device the intruder already controls on the plant floor is assumed to stay under its control.
 - The recommendation is only as good as the briefing: a wrong cost per hour or an undocumented network connection leads to a wrong answer.
 - No probability that the intruder spreads or encrypts is estimated. Lost production is the only cost counted.

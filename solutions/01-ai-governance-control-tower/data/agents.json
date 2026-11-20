@@ -116,7 +116,7 @@
       "purpose": "Recommends and, after human approval, applies network isolation of a compromised plant segment while keeping production safe.",
       "model_class": "top",
       "autonomy": "act_with_approval",
-      "today": "agent in build",
+      "today": "agent working",
       "approval": {"status": "approved", "approved_by": "VP Operations", "approved_on": "2026-10-14"},
       "use_case_flags": {
         "social_scoring": false,
@@ -129,7 +129,7 @@
         "generates_content": true
       },
       "permissions": {
-        "tools": ["network.read", "network.isolate", "scada.read", "report.write", "incident.read", "production.read"],
+        "tools": ["network.read", "network.isolate", "scada.read", "report.write", "incident.read", "production.read", "cases.read"],
         "data_classes": ["ot_telemetry", "internal"],
         "spend_limit_eur": 0,
         "ot_write": false
@@ -200,7 +200,8 @@
       "permissions": {
         "tools": [
           "incident.read",
-          "report.write"
+          "report.write",
+          "cases.write"
         ],
         "data_classes": [
           "internal"
@@ -217,7 +218,7 @@
       "purpose": "Takes the few steps on the office side that can be undone in minutes (suspend a stolen account, quarantine an office workstation, close a remote session) while the plant-floor decision is prepared for a person. It has no permission on the plant floor.",
       "model_class": "mid",
       "autonomy": "act",
-      "today": "agent in build",
+      "today": "agent working",
       "approval": {
         "status": "approved",
         "approved_by": "Chief Information Security Officer",
@@ -256,7 +257,7 @@
       "purpose": "Argues against the response the planner recommends: checks its prices, looks for what it leaves open and for a better option, and writes the counter-argument the deciding person sees. It can read and price; it can change nothing.",
       "model_class": "top",
       "autonomy": "advise",
-      "today": "agent in build",
+      "today": "agent working",
       "approval": {
         "status": "approved",
         "approved_by": "VP Operations",
@@ -276,7 +277,8 @@
         "tools": [
           "incident.read",
           "network.read",
-          "production.read"
+          "production.read",
+          "cases.read"
         ],
         "data_classes": [
           "ot_telemetry",

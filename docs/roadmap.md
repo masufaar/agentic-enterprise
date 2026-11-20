@@ -9,19 +9,15 @@ Status words used in this repository: "Designed", "In build", "Working".
 - AI Governance Control Tower, version 0, working: agent registry, policy gateway, audit trail, kill switch, daily volume limit, data labels at the source, an approval queue for the accountable owner of each agent and a one-page board report. What works and what is still a design is listed in [the Control Tower page](../solutions/01-ai-governance-control-tower/README.md).
 - First red-team campaign run and published, including the attacks that got through. It has been repeated after each fix; one breach is open and published with its designed fix. See [the latest results](../solutions/01-ai-governance-control-tower/reports/redteam-latest.md).
 - OT/IT Convergence Sentinel, rule-based first version, working: fixed code reads the alarms of two simulated security tools, prices each response in lost production and asks for the chosen one through the Control Tower, which holds it for the accountable owner. One scripted incident, no AI agent, no language model. See [the solution page](../solutions/02-ot-it-convergence-sentinel/README.md).
+- OT/IT Convergence Sentinel with AI agents, working as a blueprint (19 November 2026): a first-response agent, a planner and a challenger run on a real model, on synthetic data, under the Control Tower. Five recorded runs cover the scripted night, a night with no safe response, a night with the plant-floor monitoring down and a night in which a new alarm changes the plan. Each night ran once, so no rate is stated. Not connected to real systems.
 
-## In build
+## In build, and what comes next
 
-**The OT/IT Convergence Sentinel**, the first business solution on top of the Control Tower, now being rebuilt with AI agents: it runs the decision, not the detection, in addition to a company's existing security tools.
+**The OT/IT Convergence Sentinel** is working as a blueprint. What is still designed for it, in order:
 
-Built and tested on prepared replies (18 November 2026), with one recorded run on a real model: the agent loop, the company briefing, a first-response agent for reversible office-side steps, a planner and a challenger, the decision page and the recorded choice of the named person.
-
-Next for it, in order:
-
-1. A run with one security tool missing, a new alarm arriving mid-run, and a case memory.
+1. The same nights run several times, so that results can be stated as rates, and a changed briefing run once to show that it changes behaviour.
 2. Rehearsals: nights invented by a scenario agent from the briefing.
-3. More recorded runs with a real model, including the harder night and an objection the planner has to answer.
-4. Results published as rates over many runs, with date and model.
+3. A connector for a second model provider.
 
 The full list is on [the solution page](../solutions/02-ot-it-convergence-sentinel/README.md) under "What has to exist before this solution is called working".
 

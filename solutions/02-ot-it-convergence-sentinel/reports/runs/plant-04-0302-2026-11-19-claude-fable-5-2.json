@@ -1,0 +1,2657 @@
+{
+ "night": "plant-04-0302",
+ "title": "Plant 04, the scripted night: last alarm at 03:02",
+ "decides": "Head of OT Security",
+ "plant": {
+  "_note": "Synthetic. Plant 04 of the fictional company Halden Industrial. No real network, device or person is described. Device names are invented.",
+  "plant": {
+   "id": "plant-04",
+   "name": "Halden Plant 04 (fictional)",
+   "region": "Region 2"
+  },
+  "zones": [
+   {
+    "id": "office",
+    "name": "Office network",
+    "side": "IT"
+   },
+   {
+    "id": "dmz",
+    "name": "Buffer zone between office and plant floor",
+    "side": "IT/OT"
+   },
+   {
+    "id": "supervisory",
+    "name": "Plant supervision",
+    "side": "OT"
+   },
+   {
+    "id": "cell-a1",
+    "name": "Line A, cell 1",
+    "side": "OT",
+    "line": "line-a"
+   },
+   {
+    "id": "cell-b1",
+    "name": "Line B, cell 1",
+    "side": "OT",
+    "line": "line-b"
+   },
+   {
+    "id": "cell-b2",
+    "name": "Line B, cell 2",
+    "side": "OT",
+    "line": "line-b"
+   },
+   {
+    "id": "cell-c1",
+    "name": "Line C, cell 1",
+    "side": "OT",
+    "line": "line-c"
+   }
+  ],
+  "assets": [
+   {
+    "id": "ws-fin-117",
+    "kind": "office workstation",
+    "zone": "office"
+   },
+   {
+    "id": "ws-hr-044",
+    "kind": "office workstation",
+    "zone": "office"
+   },
+   {
+    "id": "srv-print-02",
+    "kind": "print server",
+    "zone": "office"
+   },
+   {
+    "id": "dc-01",
+    "kind": "sign-in server",
+    "zone": "office"
+   },
+   {
+    "id": "jump-p04-01",
+    "kind": "remote access gateway to the plant floor",
+    "zone": "dmz"
+   },
+   {
+    "id": "hist-p04",
+    "kind": "production data recorder",
+    "zone": "dmz"
+   },
+   {
+    "id": "scada-p04",
+    "kind": "plant supervision server",
+    "zone": "supervisory"
+   },
+   {
+    "id": "plc-a1-01",
+    "kind": "machine controller",
+    "zone": "cell-a1"
+   },
+   {
+    "id": "hmi-a1",
+    "kind": "operator panel",
+    "zone": "cell-a1"
+   },
+   {
+    "id": "plc-b1-01",
+    "kind": "machine controller",
+    "zone": "cell-b1"
+   },
+   {
+    "id": "ews-b2-01",
+    "kind": "engineering workstation",
+    "zone": "cell-b2"
+   },
+   {
+    "id": "plc-b2-01",
+    "kind": "machine controller",
+    "zone": "cell-b2"
+   },
+   {
+    "id": "plc-b2-02",
+    "kind": "machine controller",
+    "zone": "cell-b2"
+   },
+   {
+    "id": "plc-c1-01",
+    "kind": "machine controller",
+    "zone": "cell-c1"
+   },
+   {
+    "id": "hmi-c1",
+    "kind": "operator panel",
+    "zone": "cell-c1"
+   }
+  ],
+  "connections": [
+   {
+    "id": "link-office-dmz",
+    "from": "office",
+    "to": "dmz"
+   },
+   {
+    "id": "link-dmz-ot",
+    "from": "dmz",
+    "to": [
+     "supervisory",
+     "cell-a1",
+     "cell-b1",
+     "cell-b2",
+     "cell-c1"
+    ],
+    "_note": "The only way from the office side to the plant floor."
+   },
+   {
+    "id": "link-b2-c1",
+    "from": "cell-b2",
+    "to": "cell-c1",
+    "_note": "File share between two cells, left open after a past project."
+   }
+  ],
+  "isolation_points": [
+   {
+    "id": "cut-cell-b2",
+    "name": "Disconnect Line B, cell 2",
+    "cuts_zones": [
+     "cell-b2"
+    ],
+    "hold_hours": 8,
+    "hold_basis": "Assumption: time to check and clean the devices of one cell."
+   },
+   {
+    "id": "cut-link-dmz-ot",
+    "name": "Close the link between office side and plant floor",
+    "cuts_connections": [
+     "link-dmz-ot"
+    ],
+    "hold_hours": 4,
+    "hold_basis": "Assumption: time to clean the remote access gateway and replace the stolen account."
+   },
+   {
+    "id": "cut-plant-ot",
+    "name": "Disconnect the whole plant floor",
+    "cuts_zones": [
+     "supervisory",
+     "cell-a1",
+     "cell-b1",
+     "cell-b2",
+     "cell-c1"
+    ],
+    "cuts_connections": [
+     "link-dmz-ot"
+    ],
+    "hold_hours": 8,
+    "hold_basis": "Assumption: time to check and clean the devices of the plant floor."
+   }
+  ]
+ },
+ "production": {
+  "_note": "Synthetic. Every value here is an assumption. The cost of a stopped line-hour comes from docs/company-profile.md; the others are set for this scenario.",
+  "cost_per_stopped_line_hour_eur": 15000,
+  "assumptions": {
+   "order_buffer_hours": {
+    "value": 6,
+    "basis": "Assumption: a line keeps running this long on orders already loaded when the link to the office side is closed.",
+    "unit": "hours"
+   },
+   "recovery_hours_if_encrypted": {
+    "value": 48,
+    "basis": "Assumption: time to restore a line whose controllers and workstations were encrypted.",
+    "unit": "hours"
+   },
+   "cell_stops_line": {
+    "value": true,
+    "basis": "Assumption: a disconnected cell stops its whole line.",
+    "unit": ""
+   }
+  },
+  "lines": [
+   {
+    "id": "line-a",
+    "name": "Line A",
+    "cells": [
+     "cell-a1"
+    ]
+   },
+   {
+    "id": "line-b",
+    "name": "Line B",
+    "cells": [
+     "cell-b1",
+     "cell-b2"
+    ]
+   },
+   {
+    "id": "line-c",
+    "name": "Line C",
+    "cells": [
+     "cell-c1"
+    ]
+   }
+  ],
+  "schedule": [
+   {
+    "line": "line-a",
+    "from": "2026-11-10T00:00:00Z",
+    "to": "2026-11-11T00:00:00Z",
+    "state": "running"
+   },
+   {
+    "line": "line-b",
+    "from": "2026-11-10T00:00:00Z",
+    "to": "2026-11-11T00:00:00Z",
+    "state": "running"
+   },
+   {
+    "line": "line-c",
+    "from": "2026-11-10T00:00:00Z",
+    "to": "2026-11-10T08:00:00Z",
+    "state": "planned maintenance"
+   },
+   {
+    "line": "line-c",
+    "from": "2026-11-10T08:00:00Z",
+    "to": "2026-11-11T00:00:00Z",
+    "state": "running"
+   }
+  ],
+  "orders_arrive_over": "link-dmz-ot"
+ },
+ "alerts": 13,
+ "case": "CASE-001",
+ "unrelated": [
+  {
+   "id": "IT-N1",
+   "text": "Three failed sign-ins, then a correct one."
+  },
+  {
+   "id": "OT-N1",
+   "text": "Supervision server reads values from the controller, as every minute."
+  },
+  {
+   "id": "IT-N2",
+   "text": "Planned restart after a software update."
+  },
+  {
+   "id": "OT-N2",
+   "text": "Operator signed in at the panel."
+  },
+  {
+   "id": "OT-N3",
+   "text": "Clock differs from the time server by two seconds."
+  }
+ ],
+ "incident": {
+  "id": "INC-001",
+  "alerts": [
+   "IT-1",
+   "IT-2",
+   "IT-3",
+   "IT-4",
+   "OT-1",
+   "OT-2",
+   "OT-3",
+   "OT-4"
+  ],
+  "first_seen": "2026-11-10T02:10:00Z",
+  "last_seen": "2026-11-10T03:02:00Z",
+  "sides": [
+   "office",
+   "plant"
+  ],
+  "path": [
+   "ws-fin-117",
+   "dc-01",
+   "jump-p04-01",
+   "ews-b2-01",
+   "plc-b2-01",
+   "plc-b2-02",
+   "hmi-c1"
+  ],
+  "footholds": [
+   "ws-fin-117",
+   "jump-p04-01",
+   "ews-b2-01"
+  ],
+  "foothold_zones": [
+   "office",
+   "dmz",
+   "cell-b2"
+  ],
+  "zones": [
+   "office",
+   "dmz",
+   "cell-b2",
+   "cell-c1"
+  ],
+  "lines_touched": [
+   "line-b",
+   "line-c"
+  ],
+  "accounts": [
+   "employee-0733",
+   "svc-maint-p04"
+  ],
+  "accounts_moved": [
+   "svc-maint-p04"
+  ],
+  "timeline": [
+   {
+    "id": "IT-1",
+    "time": "2026-11-10T02:10:00Z",
+    "side": "office",
+    "text": "Email attachment flagged after it was opened.",
+    "origin": "ws-fin-117",
+    "target": "ws-fin-117"
+   },
+   {
+    "id": "IT-2",
+    "time": "2026-11-10T02:14:00Z",
+    "side": "office",
+    "text": "A program read stored passwords from memory.",
+    "origin": "ws-fin-117",
+    "target": "ws-fin-117"
+   },
+   {
+    "id": "IT-3",
+    "time": "2026-11-10T02:31:00Z",
+    "side": "office",
+    "text": "Plant maintenance account signed in from a finance workstation.",
+    "origin": "ws-fin-117",
+    "target": "dc-01"
+   },
+   {
+    "id": "IT-4",
+    "time": "2026-11-10T02:38:00Z",
+    "side": "office",
+    "text": "Remote access to the plant floor opened outside the agreed maintenance window.",
+    "origin": "ws-fin-117",
+    "target": "jump-p04-01"
+   },
+   {
+    "id": "OT-1",
+    "time": "2026-11-10T02:44:00Z",
+    "side": "plant",
+    "text": "Remote screen session to the engineering workstation.",
+    "origin": "jump-p04-01",
+    "target": "ews-b2-01"
+   },
+   {
+    "id": "OT-2",
+    "time": "2026-11-10T02:52:00Z",
+    "side": "plant",
+    "text": "Full controller program copied outside a change window.",
+    "origin": "ews-b2-01",
+    "target": "plc-b2-01"
+   },
+   {
+    "id": "OT-3",
+    "time": "2026-11-10T02:55:00Z",
+    "side": "plant",
+    "text": "Full controller program copied outside a change window.",
+    "origin": "ews-b2-01",
+    "target": "plc-b2-02"
+   },
+   {
+    "id": "OT-4",
+    "time": "2026-11-10T03:02:00Z",
+    "side": "plant",
+    "text": "Search for open file shares in Line C, cell 1.",
+    "origin": "ews-b2-01",
+    "target": "hmi-c1"
+   }
+  ]
+ },
+ "runs": [
+  {
+   "agent": "ot-first-response",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "left_alone": "Sign-in server: no sign of takeover, and cutting it stops all office sign-ins. Other office devices and the data recorder: no alarm. Engineering workstation in Line B cell 2 and the plant floor: not mine. The intruder may still sit there and reach Line C through the open file share. Office steps do not close that. OT Security decides."
+   },
+   "turns": 5,
+   "tokens": {
+    "input": 21673,
+    "output": 1072
+   },
+   "seconds": 15.19,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_incident",
+       "input": {},
+       "result": {
+        "incident": {
+         "id": "INC-001",
+         "alerts": [
+          "IT-1",
+          "IT-2",
+          "IT-3",
+          "IT-4",
+          "OT-1",
+          "OT-2",
+          "OT-3",
+          "OT-4"
+         ],
+         "first_seen": "2026-11-10T02:10:00Z",
+         "last_seen": "2026-11-10T03:02:00Z",
+         "sides": [
+          "office",
+          "plant"
+         ],
+         "path": [
+          "ws-fin-117",
+          "dc-01",
+          "jump-p04-01",
+          "ews-b2-01",
+          "plc-b2-01",
+          "plc-b2-02",
+          "hmi-c1"
+         ],
+         "footholds": [
+          "ws-fin-117",
+          "jump-p04-01",
+          "ews-b2-01"
+         ],
+         "foothold_zones": [
+          "office",
+          "dmz",
+          "cell-b2"
+         ],
+         "zones": [
+          "office",
+          "dmz",
+          "cell-b2",
+          "cell-c1"
+         ],
+         "lines_touched": [
+          "line-b",
+          "line-c"
+         ],
+         "accounts": [
+          "employee-0733",
+          "svc-maint-p04"
+         ],
+         "accounts_moved": [
+          "svc-maint-p04"
+         ],
+         "timeline": [
+          {
+           "id": "IT-1",
+           "time": "2026-11-10T02:10:00Z",
+           "side": "office",
+           "text": "Email attachment flagged after it was opened.",
+           "origin": "ws-fin-117",
+           "target": "ws-fin-117"
+          },
+          {
+           "id": "IT-2",
+           "time": "2026-11-10T02:14:00Z",
+           "side": "office",
+           "text": "A program read stored passwords from memory.",
+           "origin": "ws-fin-117",
+           "target": "ws-fin-117"
+          },
+          {
+           "id": "IT-3",
+           "time": "2026-11-10T02:31:00Z",
+           "side": "office",
+           "text": "Plant maintenance account signed in from a finance workstation.",
+           "origin": "ws-fin-117",
+           "target": "dc-01"
+          },
+          {
+           "id": "IT-4",
+           "time": "2026-11-10T02:38:00Z",
+           "side": "office",
+           "text": "Remote access to the plant floor opened outside the agreed maintenance window.",
+           "origin": "ws-fin-117",
+           "target": "jump-p04-01"
+          },
+          {
+           "id": "OT-1",
+           "time": "2026-11-10T02:44:00Z",
+           "side": "plant",
+           "text": "Remote screen session to the engineering workstation.",
+           "origin": "jump-p04-01",
+           "target": "ews-b2-01"
+          },
+          {
+           "id": "OT-2",
+           "time": "2026-11-10T02:52:00Z",
+           "side": "plant",
+           "text": "Full controller program copied outside a change window.",
+           "origin": "ews-b2-01",
+           "target": "plc-b2-01"
+          },
+          {
+           "id": "OT-3",
+           "time": "2026-11-10T02:55:00Z",
+           "side": "plant",
+           "text": "Full controller program copied outside a change window.",
+           "origin": "ews-b2-01",
+           "target": "plc-b2-02"
+          },
+          {
+           "id": "OT-4",
+           "time": "2026-11-10T03:02:00Z",
+           "side": "plant",
+           "text": "Search for open file shares in Line C, cell 1.",
+           "origin": "ews-b2-01",
+           "target": "hmi-c1"
+          }
+         ]
+        },
+        "alerts_set_aside_as_unrelated": [
+         {
+          "id": "IT-N1",
+          "text": "Three failed sign-ins, then a correct one."
+         },
+         {
+          "id": "OT-N1",
+          "text": "Supervision server reads values from the controller, as every minute."
+         },
+         {
+          "id": "IT-N2",
+          "text": "Planned restart after a software update."
+         },
+         {
+          "id": "OT-N2",
+          "text": "Operator signed in at the panel."
+         },
+         {
+          "id": "OT-N3",
+          "text": "Clock differs from the time server by two seconds."
+         }
+        ],
+        "office_side_steps_already_taken": [
+         {
+          "step": "suspend_account",
+          "target": "svc-maint-p04",
+          "undo": "Undone by the Head of Security Operations re-enabling the account.",
+          "audit_record": 43
+         },
+         {
+          "step": "suspend_account",
+          "target": "employee-0733",
+          "undo": "Undone by the Head of Security Operations re-enabling the account.",
+          "audit_record": 44
+         },
+         {
+          "step": "quarantine_workstation",
+          "target": "ws-fin-117",
+          "undo": "Undone by the Head of Security Operations releasing the workstation from quarantine.",
+          "audit_record": 45
+         },
+         {
+          "step": "close_remote_session",
+          "target": "jump-p04-01",
+          "undo": "Undone by opening a new remote session through the normal request.",
+          "audit_record": 46
+         }
+        ],
+        "monitoring_that_sent_nothing_tonight": [],
+        "new_alarm_after_the_first_plan": null
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_plant",
+       "input": {},
+       "result": {
+        "plant": {
+         "id": "plant-04",
+         "name": "Halden Plant 04 (fictional)",
+         "region": "Region 2"
+        },
+        "zones": [
+         {
+          "id": "office",
+          "name": "Office network",
+          "side": "IT"
+         },
+         {
+          "id": "dmz",
+          "name": "Buffer zone between office and plant floor",
+          "side": "IT/OT"
+         },
+         {
+          "id": "supervisory",
+          "name": "Plant supervision",
+          "side": "OT"
+         },
+         {
+          "id": "cell-a1",
+          "name": "Line A, cell 1",
+          "side": "OT",
+          "line": "line-a"
+         },
+         {
+          "id": "cell-b1",
+          "name": "Line B, cell 1",
+          "side": "OT",
+          "line": "line-b"
+         },
+         {
+          "id": "cell-b2",
+          "name": "Line B, cell 2",
+          "side": "OT",
+          "line": "line-b"
+         },
+         {
+          "id": "cell-c1",
+          "name": "Line C, cell 1",
+          "side": "OT",
+          "line": "line-c"
+         }
+        ],
+        "assets": [
+         {
+          "id": "ws-fin-117",
+          "kind": "office workstation",
+          "zone": "office"
+         },
+         {
+          "id": "ws-hr-044",
+          "kind": "office workstation",
+          "zone": "office"
+         },
+         {
+          "id": "srv-print-02",
+          "kind": "print server",
+          "zone": "office"
+         },
+         {
+          "id": "dc-01",
+          "kind": "sign-in server",
+          "zone": "office"
+         },
+         {
+          "id": "jump-p04-01",
+          "kind": "remote access gateway to the plant floor",
+          "zone": "dmz"
+         },
+         {
+          "id": "hist-p04",
+          "kind": "production data recorder",
+          "zone": "dmz"
+         },
+         {
+          "id": "scada-p04",
+          "kind": "plant supervision server",
+          "zone": "supervisory"
+         },
+         {
+          "id": "plc-a1-01",
+          "kind": "machine controller",
+          "zone": "cell-a1"
+         },
+         {
+          "id": "hmi-a1",
+          "kind": "operator panel",
+          "zone": "cell-a1"
+         },
+         {
+          "id": "plc-b1-01",
+          "kind": "machine controller",
+          "zone": "cell-b1"
+         },
+         {
+          "id": "ews-b2-01",
+          "kind": "engineering workstation",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-b2-01",
+          "kind": "machine controller",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-b2-02",
+          "kind": "machine controller",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-c1-01",
+          "kind": "machine controller",
+          "zone": "cell-c1"
+         },
+         {
+          "id": "hmi-c1",
+          "kind": "operator panel",
+          "zone": "cell-c1"
+         }
+        ],
+        "connections": [
+         {
+          "id": "link-office-dmz",
+          "from": "office",
+          "to": "dmz"
+         },
+         {
+          "id": "link-dmz-ot",
+          "from": "dmz",
+          "to": [
+           "supervisory",
+           "cell-a1",
+           "cell-b1",
+           "cell-b2",
+           "cell-c1"
+          ],
+          "_note": "The only way from the office side to the plant floor."
+         },
+         {
+          "id": "link-b2-c1",
+          "from": "cell-b2",
+          "to": "cell-c1",
+          "_note": "File share between two cells, left open after a past project."
+         }
+        ],
+        "response_steps_available": [
+         {
+          "id": "cut-cell-b2",
+          "name": "Disconnect Line B, cell 2",
+          "cuts_zones": [
+           "cell-b2"
+          ],
+          "hold_hours": 8,
+          "hold_basis": "Assumption: time to check and clean the devices of one cell."
+         },
+         {
+          "id": "cut-link-dmz-ot",
+          "name": "Close the link between office side and plant floor",
+          "cuts_connections": [
+           "link-dmz-ot"
+          ],
+          "hold_hours": 4,
+          "hold_basis": "Assumption: time to clean the remote access gateway and replace the stolen account."
+         },
+         {
+          "id": "cut-plant-ot",
+          "name": "Disconnect the whole plant floor",
+          "cuts_zones": [
+           "supervisory",
+           "cell-a1",
+           "cell-b1",
+           "cell-b2",
+           "cell-c1"
+          ],
+          "cuts_connections": [
+           "link-dmz-ot"
+          ],
+          "hold_hours": 8,
+          "hold_basis": "Assumption: time to check and clean the devices of the plant floor."
+         }
+        ],
+        "response_steps_not_available_tonight": {},
+        "monitoring_that_sent_nothing_tonight": []
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "suspend_account",
+       "input": {
+        "account": "svc-maint-p04"
+       },
+       "result": {
+        "step": "suspend_account",
+        "target": "svc-maint-p04",
+        "undo": "Undone by the Head of Security Operations re-enabling the account.",
+        "audit_record": 43
+       },
+       "failed": false
+      },
+      {
+       "tool": "suspend_account",
+       "input": {
+        "account": "employee-0733"
+       },
+       "result": {
+        "step": "suspend_account",
+        "target": "employee-0733",
+        "undo": "Undone by the Head of Security Operations re-enabling the account.",
+        "audit_record": 44
+       },
+       "failed": false
+      },
+      {
+       "tool": "quarantine_workstation",
+       "input": {
+        "device": "ws-fin-117"
+       },
+       "result": {
+        "step": "quarantine_workstation",
+        "target": "ws-fin-117",
+        "undo": "Undone by the Head of Security Operations releasing the workstation from quarantine.",
+        "audit_record": 45
+       },
+       "failed": false
+      },
+      {
+       "tool": "close_remote_session",
+       "input": {
+        "device": "jump-p04-01"
+       },
+       "result": {
+        "step": "close_remote_session",
+        "target": "jump-p04-01",
+        "undo": "Undone by opening a new remote session through the normal request.",
+        "audit_record": 46
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "said": "",
+     "asked": [
+      {
+       "tool": "report_first_response",
+       "input": {
+        "left_alone": "Sign-in server: no sign of takeover, and cutting it stops all office sign-ins. Other office devices and the data recorder: no alarm. Engineering workstation in Line B cell 2 and everything on the floor: not mine. The intruder may still sit there and reach Line C through the open file share. Office steps do not close that. Head of OT Security decides."
+       },
+       "result": "Not accepted. 'left_alone' has 62 words; the limit is 60. Shorten it.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 4,
+     "said": "",
+     "asked": [
+      {
+       "tool": "report_first_response",
+       "input": {
+        "left_alone": "Sign-in server: no sign of takeover, and cutting it stops all office sign-ins. Other office devices and the data recorder: no alarm. Engineering workstation in Line B cell 2 and the plant floor: not mine. The intruder may still sit there and reach Line C through the open file share. Office steps do not close that. Head of OT Security decides."
+       },
+       "result": "Not accepted. 'left_alone' has 61 words; the limit is 60. Shorten it.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 5,
+     "said": "",
+     "asked": [
+      {
+       "tool": "report_first_response",
+       "input": {
+        "left_alone": "Sign-in server: no sign of takeover, and cutting it stops all office sign-ins. Other office devices and the data recorder: no alarm. Engineering workstation in Line B cell 2 and the plant floor: not mine. The intruder may still sit there and reach Line C through the open file share. Office steps do not close that. OT Security decides."
+       },
+       "result": {
+        "left_alone": "Sign-in server: no sign of takeover, and cutting it stops all office sign-ins. Other office devices and the data recorder: no alarm. Engineering workstation in Line B cell 2 and the plant floor: not mine. The intruder may still sit there and reach Line C through the open file share. Office steps do not close that. OT Security decides."
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "agent": "ot-response",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "recommended": "cut-cell-b2+cut-link-dmz-ot",
+    "options": [
+     "cut-cell-b2+cut-link-dmz-ot",
+     "",
+     "cut-link-dmz-ot",
+     "cut-cell-b2",
+     "cut-plant-ot"
+    ],
+    "why": "Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.",
+    "what_remains_open": "Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; a longer link closure starves Lines A and C of orders.",
+    "answer_to_challenger": "",
+    "closes_every_path": true,
+    "proposed_briefing_change": ""
+   },
+   "turns": 5,
+   "tokens": {
+    "input": 32786,
+    "output": 2676
+   },
+   "seconds": 24.95,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_incident",
+       "input": {},
+       "result": {
+        "incident": {
+         "id": "INC-001",
+         "alerts": [
+          "IT-1",
+          "IT-2",
+          "IT-3",
+          "IT-4",
+          "OT-1",
+          "OT-2",
+          "OT-3",
+          "OT-4"
+         ],
+         "first_seen": "2026-11-10T02:10:00Z",
+         "last_seen": "2026-11-10T03:02:00Z",
+         "sides": [
+          "office",
+          "plant"
+         ],
+         "path": [
+          "ws-fin-117",
+          "dc-01",
+          "jump-p04-01",
+          "ews-b2-01",
+          "plc-b2-01",
+          "plc-b2-02",
+          "hmi-c1"
+         ],
+         "footholds": [
+          "ws-fin-117",
+          "jump-p04-01",
+          "ews-b2-01"
+         ],
+         "foothold_zones": [
+          "office",
+          "dmz",
+          "cell-b2"
+         ],
+         "zones": [
+          "office",
+          "dmz",
+          "cell-b2",
+          "cell-c1"
+         ],
+         "lines_touched": [
+          "line-b",
+          "line-c"
+         ],
+         "accounts": [
+          "employee-0733",
+          "svc-maint-p04"
+         ],
+         "accounts_moved": [
+          "svc-maint-p04"
+         ],
+         "timeline": [
+          {
+           "id": "IT-1",
+           "time": "2026-11-10T02:10:00Z",
+           "side": "office",
+           "text": "Email attachment flagged after it was opened.",
+           "origin": "ws-fin-117",
+           "target": "ws-fin-117"
+          },
+          {
+           "id": "IT-2",
+           "time": "2026-11-10T02:14:00Z",
+           "side": "office",
+           "text": "A program read stored passwords from memory.",
+           "origin": "ws-fin-117",
+           "target": "ws-fin-117"
+          },
+          {
+           "id": "IT-3",
+           "time": "2026-11-10T02:31:00Z",
+           "side": "office",
+           "text": "Plant maintenance account signed in from a finance workstation.",
+           "origin": "ws-fin-117",
+           "target": "dc-01"
+          },
+          {
+           "id": "IT-4",
+           "time": "2026-11-10T02:38:00Z",
+           "side": "office",
+           "text": "Remote access to the plant floor opened outside the agreed maintenance window.",
+           "origin": "ws-fin-117",
+           "target": "jump-p04-01"
+          },
+          {
+           "id": "OT-1",
+           "time": "2026-11-10T02:44:00Z",
+           "side": "plant",
+           "text": "Remote screen session to the engineering workstation.",
+           "origin": "jump-p04-01",
+           "target": "ews-b2-01"
+          },
+          {
+           "id": "OT-2",
+           "time": "2026-11-10T02:52:00Z",
+           "side": "plant",
+           "text": "Full controller program copied outside a change window.",
+           "origin": "ews-b2-01",
+           "target": "plc-b2-01"
+          },
+          {
+           "id": "OT-3",
+           "time": "2026-11-10T02:55:00Z",
+           "side": "plant",
+           "text": "Full controller program copied outside a change window.",
+           "origin": "ews-b2-01",
+           "target": "plc-b2-02"
+          },
+          {
+           "id": "OT-4",
+           "time": "2026-11-10T03:02:00Z",
+           "side": "plant",
+           "text": "Search for open file shares in Line C, cell 1.",
+           "origin": "ews-b2-01",
+           "target": "hmi-c1"
+          }
+         ]
+        },
+        "alerts_set_aside_as_unrelated": [
+         {
+          "id": "IT-N1",
+          "text": "Three failed sign-ins, then a correct one."
+         },
+         {
+          "id": "OT-N1",
+          "text": "Supervision server reads values from the controller, as every minute."
+         },
+         {
+          "id": "IT-N2",
+          "text": "Planned restart after a software update."
+         },
+         {
+          "id": "OT-N2",
+          "text": "Operator signed in at the panel."
+         },
+         {
+          "id": "OT-N3",
+          "text": "Clock differs from the time server by two seconds."
+         }
+        ],
+        "office_side_steps_already_taken": [
+         {
+          "step": "suspend_account",
+          "target": "svc-maint-p04",
+          "undo": "Undone by the Head of Security Operations re-enabling the account.",
+          "audit_record": 43
+         },
+         {
+          "step": "suspend_account",
+          "target": "employee-0733",
+          "undo": "Undone by the Head of Security Operations re-enabling the account.",
+          "audit_record": 44
+         },
+         {
+          "step": "quarantine_workstation",
+          "target": "ws-fin-117",
+          "undo": "Undone by the Head of Security Operations releasing the workstation from quarantine.",
+          "audit_record": 45
+         },
+         {
+          "step": "close_remote_session",
+          "target": "jump-p04-01",
+          "undo": "Undone by opening a new remote session through the normal request.",
+          "audit_record": 46
+         }
+        ],
+        "monitoring_that_sent_nothing_tonight": [],
+        "new_alarm_after_the_first_plan": null
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_plant",
+       "input": {},
+       "result": {
+        "plant": {
+         "id": "plant-04",
+         "name": "Halden Plant 04 (fictional)",
+         "region": "Region 2"
+        },
+        "zones": [
+         {
+          "id": "office",
+          "name": "Office network",
+          "side": "IT"
+         },
+         {
+          "id": "dmz",
+          "name": "Buffer zone between office and plant floor",
+          "side": "IT/OT"
+         },
+         {
+          "id": "supervisory",
+          "name": "Plant supervision",
+          "side": "OT"
+         },
+         {
+          "id": "cell-a1",
+          "name": "Line A, cell 1",
+          "side": "OT",
+          "line": "line-a"
+         },
+         {
+          "id": "cell-b1",
+          "name": "Line B, cell 1",
+          "side": "OT",
+          "line": "line-b"
+         },
+         {
+          "id": "cell-b2",
+          "name": "Line B, cell 2",
+          "side": "OT",
+          "line": "line-b"
+         },
+         {
+          "id": "cell-c1",
+          "name": "Line C, cell 1",
+          "side": "OT",
+          "line": "line-c"
+         }
+        ],
+        "assets": [
+         {
+          "id": "ws-fin-117",
+          "kind": "office workstation",
+          "zone": "office"
+         },
+         {
+          "id": "ws-hr-044",
+          "kind": "office workstation",
+          "zone": "office"
+         },
+         {
+          "id": "srv-print-02",
+          "kind": "print server",
+          "zone": "office"
+         },
+         {
+          "id": "dc-01",
+          "kind": "sign-in server",
+          "zone": "office"
+         },
+         {
+          "id": "jump-p04-01",
+          "kind": "remote access gateway to the plant floor",
+          "zone": "dmz"
+         },
+         {
+          "id": "hist-p04",
+          "kind": "production data recorder",
+          "zone": "dmz"
+         },
+         {
+          "id": "scada-p04",
+          "kind": "plant supervision server",
+          "zone": "supervisory"
+         },
+         {
+          "id": "plc-a1-01",
+          "kind": "machine controller",
+          "zone": "cell-a1"
+         },
+         {
+          "id": "hmi-a1",
+          "kind": "operator panel",
+          "zone": "cell-a1"
+         },
+         {
+          "id": "plc-b1-01",
+          "kind": "machine controller",
+          "zone": "cell-b1"
+         },
+         {
+          "id": "ews-b2-01",
+          "kind": "engineering workstation",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-b2-01",
+          "kind": "machine controller",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-b2-02",
+          "kind": "machine controller",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-c1-01",
+          "kind": "machine controller",
+          "zone": "cell-c1"
+         },
+         {
+          "id": "hmi-c1",
+          "kind": "operator panel",
+          "zone": "cell-c1"
+         }
+        ],
+        "connections": [
+         {
+          "id": "link-office-dmz",
+          "from": "office",
+          "to": "dmz"
+         },
+         {
+          "id": "link-dmz-ot",
+          "from": "dmz",
+          "to": [
+           "supervisory",
+           "cell-a1",
+           "cell-b1",
+           "cell-b2",
+           "cell-c1"
+          ],
+          "_note": "The only way from the office side to the plant floor."
+         },
+         {
+          "id": "link-b2-c1",
+          "from": "cell-b2",
+          "to": "cell-c1",
+          "_note": "File share between two cells, left open after a past project."
+         }
+        ],
+        "response_steps_available": [
+         {
+          "id": "cut-cell-b2",
+          "name": "Disconnect Line B, cell 2",
+          "cuts_zones": [
+           "cell-b2"
+          ],
+          "hold_hours": 8,
+          "hold_basis": "Assumption: time to check and clean the devices of one cell."
+         },
+         {
+          "id": "cut-link-dmz-ot",
+          "name": "Close the link between office side and plant floor",
+          "cuts_connections": [
+           "link-dmz-ot"
+          ],
+          "hold_hours": 4,
+          "hold_basis": "Assumption: time to clean the remote access gateway and replace the stolen account."
+         },
+         {
+          "id": "cut-plant-ot",
+          "name": "Disconnect the whole plant floor",
+          "cuts_zones": [
+           "supervisory",
+           "cell-a1",
+           "cell-b1",
+           "cell-b2",
+           "cell-c1"
+          ],
+          "cuts_connections": [
+           "link-dmz-ot"
+          ],
+          "hold_hours": 8,
+          "hold_basis": "Assumption: time to check and clean the devices of the plant floor."
+         }
+        ],
+        "response_steps_not_available_tonight": {},
+        "monitoring_that_sent_nothing_tonight": []
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_production",
+       "input": {},
+       "result": {
+        "cost_per_stopped_line_hour_eur": 15000,
+        "assumptions": {
+         "order_buffer_hours": {
+          "value": 6,
+          "basis": "Assumption: a line keeps running this long on orders already loaded when the link to the office side is closed.",
+          "unit": "hours"
+         },
+         "recovery_hours_if_encrypted": {
+          "value": 48,
+          "basis": "Assumption: time to restore a line whose controllers and workstations were encrypted.",
+          "unit": "hours"
+         },
+         "cell_stops_line": {
+          "value": true,
+          "basis": "Assumption: a disconnected cell stops its whole line.",
+          "unit": ""
+         }
+        },
+        "lines": [
+         {
+          "id": "line-a",
+          "name": "Line A",
+          "cells": [
+           "cell-a1"
+          ]
+         },
+         {
+          "id": "line-b",
+          "name": "Line B",
+          "cells": [
+           "cell-b1",
+           "cell-b2"
+          ]
+         },
+         {
+          "id": "line-c",
+          "name": "Line C",
+          "cells": [
+           "cell-c1"
+          ]
+         }
+        ],
+        "schedule": [
+         {
+          "line": "line-a",
+          "from": "2026-11-10T00:00:00Z",
+          "to": "2026-11-11T00:00:00Z",
+          "state": "running"
+         },
+         {
+          "line": "line-b",
+          "from": "2026-11-10T00:00:00Z",
+          "to": "2026-11-11T00:00:00Z",
+          "state": "running"
+         },
+         {
+          "line": "line-c",
+          "from": "2026-11-10T00:00:00Z",
+          "to": "2026-11-10T08:00:00Z",
+          "state": "planned maintenance"
+         },
+         {
+          "line": "line-c",
+          "from": "2026-11-10T08:00:00Z",
+          "to": "2026-11-11T00:00:00Z",
+          "state": "running"
+         }
+        ],
+        "orders_arrive_over": "link-dmz-ot"
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cases",
+       "input": {},
+       "result": {
+        "earlier_cases_sharing_a_device_or_account": [],
+        "note": "No earlier case shares a device or an account."
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": []
+       },
+       "result": {
+        "points": [],
+        "name": "Do nothing and keep watching",
+        "cost_eur": 0,
+        "lines_stopped": [],
+        "lines_still_reachable": [
+         "line-a",
+         "line-b",
+         "line-c"
+        ],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 2160000
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-cell-b2"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-cell-b2"
+        ],
+        "name": "Disconnect Line B, cell 2",
+        "cost_eur": 120000,
+        "lines_stopped": [
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         }
+        ],
+        "lines_still_reachable": [
+         "line-a",
+         "line-b",
+         "line-c"
+        ],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 2160000
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-link-dmz-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-link-dmz-ot"
+        ],
+        "name": "Close the link between office side and plant floor",
+        "cost_eur": 0,
+        "lines_stopped": [],
+        "lines_still_reachable": [
+         "line-b",
+         "line-c"
+        ],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 1440000
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-plant-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-plant-ot"
+        ],
+        "name": "Disconnect the whole plant floor",
+        "cost_eur": 285500,
+        "lines_stopped": [
+         {
+          "line": "line-a",
+          "name": "Line A",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-c",
+          "name": "Line C",
+          "why": "disconnected",
+          "hours_stopped": 3.03,
+          "restart_hours": 0,
+          "cost_eur": 45500
+         }
+        ],
+        "lines_still_reachable": [],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 0
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-cell-b2",
+         "cut-link-dmz-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-cell-b2",
+         "cut-link-dmz-ot"
+        ],
+        "name": "Disconnect Line B, cell 2 and close the link between office side and plant floor",
+        "cost_eur": 120000,
+        "lines_stopped": [
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         }
+        ],
+        "lines_still_reachable": [],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 0
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-cell-b2",
+         "cut-plant-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-cell-b2",
+         "cut-plant-ot"
+        ],
+        "name": "Disconnect Line B, cell 2 and disconnect the whole plant floor",
+        "cost_eur": 285500,
+        "lines_stopped": [
+         {
+          "line": "line-a",
+          "name": "Line A",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-c",
+          "name": "Line C",
+          "why": "disconnected",
+          "hours_stopped": 3.03,
+          "restart_hours": 0,
+          "cost_eur": 45500
+         }
+        ],
+        "lines_still_reachable": [],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 0
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-link-dmz-ot",
+         "cut-plant-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-link-dmz-ot",
+         "cut-plant-ot"
+        ],
+        "name": "Close the link between office side and plant floor and disconnect the whole plant floor",
+        "cost_eur": 285500,
+        "lines_stopped": [
+         {
+          "line": "line-a",
+          "name": "Line A",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-c",
+          "name": "Line C",
+          "why": "disconnected",
+          "hours_stopped": 3.03,
+          "restart_hours": 0,
+          "cost_eur": 45500
+         }
+        ],
+        "lines_still_reachable": [],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 0
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_plan",
+       "input": {
+        "options": [
+         [],
+         [
+          "cut-link-dmz-ot"
+         ],
+         [
+          "cut-cell-b2"
+         ],
+         [
+          "cut-cell-b2",
+          "cut-link-dmz-ot"
+         ],
+         [
+          "cut-plant-ot"
+         ]
+        ],
+        "recommended": [
+         "cut-cell-b2",
+         "cut-link-dmz-ot"
+        ],
+        "why": "Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.",
+        "what_remains_open": "Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; the link must reopen within that buffer or Lines A and C run out of orders."
+       },
+       "result": "Not accepted. 'what_remains_open' has 83 words; the limit is 80. Shorten it.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 4,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_plan",
+       "input": {
+        "options": [
+         [],
+         [
+          "cut-link-dmz-ot"
+         ],
+         [
+          "cut-cell-b2"
+         ],
+         [
+          "cut-cell-b2",
+          "cut-link-dmz-ot"
+         ],
+         [
+          "cut-plant-ot"
+         ]
+        ],
+        "recommended": [
+         "cut-cell-b2",
+         "cut-link-dmz-ot"
+        ],
+        "why": "Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.",
+        "what_remains_open": "Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; if the link stays closed longer, Lines A and C run out of orders."
+       },
+       "result": "Not accepted. 'what_remains_open' has 81 words; the limit is 80. Shorten it.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 5,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_plan",
+       "input": {
+        "options": [
+         [],
+         [
+          "cut-link-dmz-ot"
+         ],
+         [
+          "cut-cell-b2"
+         ],
+         [
+          "cut-cell-b2",
+          "cut-link-dmz-ot"
+         ],
+         [
+          "cut-plant-ot"
+         ]
+        ],
+        "recommended": [
+         "cut-cell-b2",
+         "cut-link-dmz-ot"
+        ],
+        "why": "Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.",
+        "what_remains_open": "Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; a longer link closure starves Lines A and C of orders."
+       },
+       "result": {
+        "recommended": "cut-cell-b2+cut-link-dmz-ot",
+        "options": [
+         "cut-cell-b2+cut-link-dmz-ot",
+         "",
+         "cut-link-dmz-ot",
+         "cut-cell-b2",
+         "cut-plant-ot"
+        ],
+        "why": "Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.",
+        "what_remains_open": "Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; a longer link closure starves Lines A and C of orders.",
+        "answer_to_challenger": "",
+        "closes_every_path": true,
+        "proposed_briefing_change": ""
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "agent": "ot-challenger",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "verdict": "agree",
+    "argument": "I re-priced all five responses. Every planner figure matches. Recommended: EUR 120,000, Line B stops 8 hours, no line left in known reach. No cheaper response is as safe: the link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, through the old file share from Line B, cell 2 to Line C. Cell 2 alone costs EUR 120,000 and leaves all three lines reachable, EUR 2,160,000 at stake. The whole plant floor costs EUR 285,500 and closes no further known path. No earlier case applies. All monitoring reported. One caution: \"closes nothing more\" holds only if the Line C panel was not entered.",
+    "alternative": null,
+    "what_nobody_knows": "Whether the Line C operator panel was entered or only searched. If entered, the recommended response does not isolate Line C; only the whole-floor stop does. Line C is in maintenance until 08:00, so people may be at the machines: check the panel before restart. Whether the two Line B, cell 2 controllers were changed or only copied. Whether 8 hours, 4 hours and the 6-hour order buffer hold; all are assumptions."
+   },
+   "turns": 4,
+   "tokens": {
+    "input": 23510,
+    "output": 1887
+   },
+   "seconds": 21.13,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_incident",
+       "input": {},
+       "result": {
+        "incident": {
+         "id": "INC-001",
+         "alerts": [
+          "IT-1",
+          "IT-2",
+          "IT-3",
+          "IT-4",
+          "OT-1",
+          "OT-2",
+          "OT-3",
+          "OT-4"
+         ],
+         "first_seen": "2026-11-10T02:10:00Z",
+         "last_seen": "2026-11-10T03:02:00Z",
+         "sides": [
+          "office",
+          "plant"
+         ],
+         "path": [
+          "ws-fin-117",
+          "dc-01",
+          "jump-p04-01",
+          "ews-b2-01",
+          "plc-b2-01",
+          "plc-b2-02",
+          "hmi-c1"
+         ],
+         "footholds": [
+          "ws-fin-117",
+          "jump-p04-01",
+          "ews-b2-01"
+         ],
+         "foothold_zones": [
+          "office",
+          "dmz",
+          "cell-b2"
+         ],
+         "zones": [
+          "office",
+          "dmz",
+          "cell-b2",
+          "cell-c1"
+         ],
+         "lines_touched": [
+          "line-b",
+          "line-c"
+         ],
+         "accounts": [
+          "employee-0733",
+          "svc-maint-p04"
+         ],
+         "accounts_moved": [
+          "svc-maint-p04"
+         ],
+         "timeline": [
+          {
+           "id": "IT-1",
+           "time": "2026-11-10T02:10:00Z",
+           "side": "office",
+           "text": "Email attachment flagged after it was opened.",
+           "origin": "ws-fin-117",
+           "target": "ws-fin-117"
+          },
+          {
+           "id": "IT-2",
+           "time": "2026-11-10T02:14:00Z",
+           "side": "office",
+           "text": "A program read stored passwords from memory.",
+           "origin": "ws-fin-117",
+           "target": "ws-fin-117"
+          },
+          {
+           "id": "IT-3",
+           "time": "2026-11-10T02:31:00Z",
+           "side": "office",
+           "text": "Plant maintenance account signed in from a finance workstation.",
+           "origin": "ws-fin-117",
+           "target": "dc-01"
+          },
+          {
+           "id": "IT-4",
+           "time": "2026-11-10T02:38:00Z",
+           "side": "office",
+           "text": "Remote access to the plant floor opened outside the agreed maintenance window.",
+           "origin": "ws-fin-117",
+           "target": "jump-p04-01"
+          },
+          {
+           "id": "OT-1",
+           "time": "2026-11-10T02:44:00Z",
+           "side": "plant",
+           "text": "Remote screen session to the engineering workstation.",
+           "origin": "jump-p04-01",
+           "target": "ews-b2-01"
+          },
+          {
+           "id": "OT-2",
+           "time": "2026-11-10T02:52:00Z",
+           "side": "plant",
+           "text": "Full controller program copied outside a change window.",
+           "origin": "ews-b2-01",
+           "target": "plc-b2-01"
+          },
+          {
+           "id": "OT-3",
+           "time": "2026-11-10T02:55:00Z",
+           "side": "plant",
+           "text": "Full controller program copied outside a change window.",
+           "origin": "ews-b2-01",
+           "target": "plc-b2-02"
+          },
+          {
+           "id": "OT-4",
+           "time": "2026-11-10T03:02:00Z",
+           "side": "plant",
+           "text": "Search for open file shares in Line C, cell 1.",
+           "origin": "ews-b2-01",
+           "target": "hmi-c1"
+          }
+         ]
+        },
+        "alerts_set_aside_as_unrelated": [
+         {
+          "id": "IT-N1",
+          "text": "Three failed sign-ins, then a correct one."
+         },
+         {
+          "id": "OT-N1",
+          "text": "Supervision server reads values from the controller, as every minute."
+         },
+         {
+          "id": "IT-N2",
+          "text": "Planned restart after a software update."
+         },
+         {
+          "id": "OT-N2",
+          "text": "Operator signed in at the panel."
+         },
+         {
+          "id": "OT-N3",
+          "text": "Clock differs from the time server by two seconds."
+         }
+        ],
+        "office_side_steps_already_taken": [
+         {
+          "step": "suspend_account",
+          "target": "svc-maint-p04",
+          "undo": "Undone by the Head of Security Operations re-enabling the account.",
+          "audit_record": 43
+         },
+         {
+          "step": "suspend_account",
+          "target": "employee-0733",
+          "undo": "Undone by the Head of Security Operations re-enabling the account.",
+          "audit_record": 44
+         },
+         {
+          "step": "quarantine_workstation",
+          "target": "ws-fin-117",
+          "undo": "Undone by the Head of Security Operations releasing the workstation from quarantine.",
+          "audit_record": 45
+         },
+         {
+          "step": "close_remote_session",
+          "target": "jump-p04-01",
+          "undo": "Undone by opening a new remote session through the normal request.",
+          "audit_record": 46
+         }
+        ],
+        "monitoring_that_sent_nothing_tonight": [],
+        "new_alarm_after_the_first_plan": null
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_plant",
+       "input": {},
+       "result": {
+        "plant": {
+         "id": "plant-04",
+         "name": "Halden Plant 04 (fictional)",
+         "region": "Region 2"
+        },
+        "zones": [
+         {
+          "id": "office",
+          "name": "Office network",
+          "side": "IT"
+         },
+         {
+          "id": "dmz",
+          "name": "Buffer zone between office and plant floor",
+          "side": "IT/OT"
+         },
+         {
+          "id": "supervisory",
+          "name": "Plant supervision",
+          "side": "OT"
+         },
+         {
+          "id": "cell-a1",
+          "name": "Line A, cell 1",
+          "side": "OT",
+          "line": "line-a"
+         },
+         {
+          "id": "cell-b1",
+          "name": "Line B, cell 1",
+          "side": "OT",
+          "line": "line-b"
+         },
+         {
+          "id": "cell-b2",
+          "name": "Line B, cell 2",
+          "side": "OT",
+          "line": "line-b"
+         },
+         {
+          "id": "cell-c1",
+          "name": "Line C, cell 1",
+          "side": "OT",
+          "line": "line-c"
+         }
+        ],
+        "assets": [
+         {
+          "id": "ws-fin-117",
+          "kind": "office workstation",
+          "zone": "office"
+         },
+         {
+          "id": "ws-hr-044",
+          "kind": "office workstation",
+          "zone": "office"
+         },
+         {
+          "id": "srv-print-02",
+          "kind": "print server",
+          "zone": "office"
+         },
+         {
+          "id": "dc-01",
+          "kind": "sign-in server",
+          "zone": "office"
+         },
+         {
+          "id": "jump-p04-01",
+          "kind": "remote access gateway to the plant floor",
+          "zone": "dmz"
+         },
+         {
+          "id": "hist-p04",
+          "kind": "production data recorder",
+          "zone": "dmz"
+         },
+         {
+          "id": "scada-p04",
+          "kind": "plant supervision server",
+          "zone": "supervisory"
+         },
+         {
+          "id": "plc-a1-01",
+          "kind": "machine controller",
+          "zone": "cell-a1"
+         },
+         {
+          "id": "hmi-a1",
+          "kind": "operator panel",
+          "zone": "cell-a1"
+         },
+         {
+          "id": "plc-b1-01",
+          "kind": "machine controller",
+          "zone": "cell-b1"
+         },
+         {
+          "id": "ews-b2-01",
+          "kind": "engineering workstation",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-b2-01",
+          "kind": "machine controller",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-b2-02",
+          "kind": "machine controller",
+          "zone": "cell-b2"
+         },
+         {
+          "id": "plc-c1-01",
+          "kind": "machine controller",
+          "zone": "cell-c1"
+         },
+         {
+          "id": "hmi-c1",
+          "kind": "operator panel",
+          "zone": "cell-c1"
+         }
+        ],
+        "connections": [
+         {
+          "id": "link-office-dmz",
+          "from": "office",
+          "to": "dmz"
+         },
+         {
+          "id": "link-dmz-ot",
+          "from": "dmz",
+          "to": [
+           "supervisory",
+           "cell-a1",
+           "cell-b1",
+           "cell-b2",
+           "cell-c1"
+          ],
+          "_note": "The only way from the office side to the plant floor."
+         },
+         {
+          "id": "link-b2-c1",
+          "from": "cell-b2",
+          "to": "cell-c1",
+          "_note": "File share between two cells, left open after a past project."
+         }
+        ],
+        "response_steps_available": [
+         {
+          "id": "cut-cell-b2",
+          "name": "Disconnect Line B, cell 2",
+          "cuts_zones": [
+           "cell-b2"
+          ],
+          "hold_hours": 8,
+          "hold_basis": "Assumption: time to check and clean the devices of one cell."
+         },
+         {
+          "id": "cut-link-dmz-ot",
+          "name": "Close the link between office side and plant floor",
+          "cuts_connections": [
+           "link-dmz-ot"
+          ],
+          "hold_hours": 4,
+          "hold_basis": "Assumption: time to clean the remote access gateway and replace the stolen account."
+         },
+         {
+          "id": "cut-plant-ot",
+          "name": "Disconnect the whole plant floor",
+          "cuts_zones": [
+           "supervisory",
+           "cell-a1",
+           "cell-b1",
+           "cell-b2",
+           "cell-c1"
+          ],
+          "cuts_connections": [
+           "link-dmz-ot"
+          ],
+          "hold_hours": 8,
+          "hold_basis": "Assumption: time to check and clean the devices of the plant floor."
+         }
+        ],
+        "response_steps_not_available_tonight": {},
+        "monitoring_that_sent_nothing_tonight": []
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_production",
+       "input": {},
+       "result": {
+        "cost_per_stopped_line_hour_eur": 15000,
+        "assumptions": {
+         "order_buffer_hours": {
+          "value": 6,
+          "basis": "Assumption: a line keeps running this long on orders already loaded when the link to the office side is closed.",
+          "unit": "hours"
+         },
+         "recovery_hours_if_encrypted": {
+          "value": 48,
+          "basis": "Assumption: time to restore a line whose controllers and workstations were encrypted.",
+          "unit": "hours"
+         },
+         "cell_stops_line": {
+          "value": true,
+          "basis": "Assumption: a disconnected cell stops its whole line.",
+          "unit": ""
+         }
+        },
+        "lines": [
+         {
+          "id": "line-a",
+          "name": "Line A",
+          "cells": [
+           "cell-a1"
+          ]
+         },
+         {
+          "id": "line-b",
+          "name": "Line B",
+          "cells": [
+           "cell-b1",
+           "cell-b2"
+          ]
+         },
+         {
+          "id": "line-c",
+          "name": "Line C",
+          "cells": [
+           "cell-c1"
+          ]
+         }
+        ],
+        "schedule": [
+         {
+          "line": "line-a",
+          "from": "2026-11-10T00:00:00Z",
+          "to": "2026-11-11T00:00:00Z",
+          "state": "running"
+         },
+         {
+          "line": "line-b",
+          "from": "2026-11-10T00:00:00Z",
+          "to": "2026-11-11T00:00:00Z",
+          "state": "running"
+         },
+         {
+          "line": "line-c",
+          "from": "2026-11-10T00:00:00Z",
+          "to": "2026-11-10T08:00:00Z",
+          "state": "planned maintenance"
+         },
+         {
+          "line": "line-c",
+          "from": "2026-11-10T08:00:00Z",
+          "to": "2026-11-11T00:00:00Z",
+          "state": "running"
+         }
+        ],
+        "orders_arrive_over": "link-dmz-ot"
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cases",
+       "input": {},
+       "result": {
+        "earlier_cases_sharing_a_device_or_account": [],
+        "note": "No earlier case shares a device or an account."
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-cell-b2",
+         "cut-link-dmz-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-cell-b2",
+         "cut-link-dmz-ot"
+        ],
+        "name": "Disconnect Line B, cell 2 and close the link between office side and plant floor",
+        "cost_eur": 120000,
+        "lines_stopped": [
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         }
+        ],
+        "lines_still_reachable": [],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 0
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": []
+       },
+       "result": {
+        "points": [],
+        "name": "Do nothing and keep watching",
+        "cost_eur": 0,
+        "lines_stopped": [],
+        "lines_still_reachable": [
+         "line-a",
+         "line-b",
+         "line-c"
+        ],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 2160000
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-link-dmz-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-link-dmz-ot"
+        ],
+        "name": "Close the link between office side and plant floor",
+        "cost_eur": 0,
+        "lines_stopped": [],
+        "lines_still_reachable": [
+         "line-b",
+         "line-c"
+        ],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 1440000
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-cell-b2"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-cell-b2"
+        ],
+        "name": "Disconnect Line B, cell 2",
+        "cost_eur": 120000,
+        "lines_stopped": [
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         }
+        ],
+        "lines_still_reachable": [
+         "line-a",
+         "line-b",
+         "line-c"
+        ],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 2160000
+       },
+       "failed": false
+      },
+      {
+       "tool": "price_response",
+       "input": {
+        "steps": [
+         "cut-plant-ot"
+        ]
+       },
+       "result": {
+        "points": [
+         "cut-plant-ot"
+        ],
+        "name": "Disconnect the whole plant floor",
+        "cost_eur": 285500,
+        "lines_stopped": [
+         {
+          "line": "line-a",
+          "name": "Line A",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-b",
+          "name": "Line B",
+          "why": "disconnected",
+          "hours_stopped": 8.0,
+          "restart_hours": 0,
+          "cost_eur": 120000
+         },
+         {
+          "line": "line-c",
+          "name": "Line C",
+          "why": "disconnected",
+          "hours_stopped": 3.03,
+          "restart_hours": 0,
+          "cost_eur": 45500
+         }
+        ],
+        "lines_still_reachable": [],
+        "lines_not_watched": [],
+        "still_at_stake_eur": 0
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_challenge",
+       "input": {
+        "verdict": "agree",
+        "argument": "I re-priced all five responses. Every planner figure matches. Recommended: EUR 120,000, Line B stops 8 hours, no line left in known reach. No cheaper response is as safe: the link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, through the old file share from Line B, cell 2 to Line C. Cell 2 alone costs EUR 120,000 and leaves all three lines reachable, EUR 2,160,000 at stake. The whole plant floor costs EUR 285,500 and closes no further known path. No earlier case shares a device or account. All monitoring reported. The planner already names the open points. One caution: \"closes nothing more\" holds only if the Line C panel was not entered.",
+        "what_nobody_knows": "Whether the Line C operator panel was entered or only searched. If entered, the recommended response does not isolate Line C; only the whole-floor stop does. Line C is in maintenance until 08:00, so people may be at the machines: check the panel before restart. Whether the two Line B, cell 2 controllers were changed or only copied. Whether 8 hours, 4 hours and the 6-hour order buffer hold; all are assumptions."
+       },
+       "result": "Not accepted. 'argument' has 121 words; the limit is 120. Shorten it.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 4,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_challenge",
+       "input": {
+        "verdict": "agree",
+        "argument": "I re-priced all five responses. Every planner figure matches. Recommended: EUR 120,000, Line B stops 8 hours, no line left in known reach. No cheaper response is as safe: the link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, through the old file share from Line B, cell 2 to Line C. Cell 2 alone costs EUR 120,000 and leaves all three lines reachable, EUR 2,160,000 at stake. The whole plant floor costs EUR 285,500 and closes no further known path. No earlier case applies. All monitoring reported. One caution: \"closes nothing more\" holds only if the Line C panel was not entered.",
+        "what_nobody_knows": "Whether the Line C operator panel was entered or only searched. If entered, the recommended response does not isolate Line C; only the whole-floor stop does. Line C is in maintenance until 08:00, so people may be at the machines: check the panel before restart. Whether the two Line B, cell 2 controllers were changed or only copied. Whether 8 hours, 4 hours and the 6-hour order buffer hold; all are assumptions."
+       },
+       "result": {
+        "verdict": "agree",
+        "argument": "I re-priced all five responses. Every planner figure matches. Recommended: EUR 120,000, Line B stops 8 hours, no line left in known reach. No cheaper response is as safe: the link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, through the old file share from Line B, cell 2 to Line C. Cell 2 alone costs EUR 120,000 and leaves all three lines reachable, EUR 2,160,000 at stake. The whole plant floor costs EUR 285,500 and closes no further known path. No earlier case applies. All monitoring reported. One caution: \"closes nothing more\" holds only if the Line C panel was not entered.",
+        "alternative": null,
+        "what_nobody_knows": "Whether the Line C operator panel was entered or only searched. If entered, the recommended response does not isolate Line C; only the whole-floor stop does. Line C is in maintenance until 08:00, so people may be at the machines: check the panel before restart. Whether the two Line B, cell 2 controllers were changed or only copied. Whether 8 hours, 4 hours and the 6-hour order buffer hold; all are assumptions."
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "models": {
+  "ot-first-response": "claude-fable-5-2, effort medium",
+  "ot-response": "claude-fable-5-2, effort medium",
+  "ot-challenger": "claude-fable-5-2, effort medium"
+ },
+ "blind_spots": [],
+ "news": null,
+ "cases_read": [],
+ "first_response": {
+  "steps": [
+   {
+    "step": "suspend_account",
+    "target": "svc-maint-p04",
+    "undo": "Undone by the Head of Security Operations re-enabling the account.",
+    "audit_record": 43
+   },
+   {
+    "step": "suspend_account",
+    "target": "employee-0733",
+    "undo": "Undone by the Head of Security Operations re-enabling the account.",
+    "audit_record": 44
+   },
+   {
+    "step": "quarantine_workstation",
+    "target": "ws-fin-117",
+    "undo": "Undone by the Head of Security Operations releasing the workstation from quarantine.",
+    "audit_record": 45
+   },
+   {
+    "step": "close_remote_session",
+    "target": "jump-p04-01",
+    "undo": "Undone by opening a new remote session through the normal request.",
+    "audit_record": 46
+   }
+  ],
+  "left_alone": "Sign-in server: no sign of takeover, and cutting it stops all office sign-ins. Other office devices and the data recorder: no alarm. Engineering workstation in Line B cell 2 and the plant floor: not mine. The intruder may still sit there and reach Line C through the open file share. Office steps do not close that. OT Security decides."
+ },
+ "first_plan": {
+  "recommended": "cut-cell-b2+cut-link-dmz-ot",
+  "options": [
+   "cut-cell-b2+cut-link-dmz-ot",
+   "",
+   "cut-link-dmz-ot",
+   "cut-cell-b2",
+   "cut-plant-ot"
+  ],
+  "why": "Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.",
+  "what_remains_open": "Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; a longer link closure starves Lines A and C of orders.",
+  "answer_to_challenger": "",
+  "closes_every_path": true,
+  "proposed_briefing_change": ""
+ },
+ "plan": {
+  "recommended": "cut-cell-b2+cut-link-dmz-ot",
+  "options": [
+   "cut-cell-b2+cut-link-dmz-ot",
+   "",
+   "cut-link-dmz-ot",
+   "cut-cell-b2",
+   "cut-plant-ot"
+  ],
+  "why": "Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.",
+  "what_remains_open": "Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; a longer link closure starves Lines A and C of orders.",
+  "answer_to_challenger": "",
+  "closes_every_path": true,
+  "proposed_briefing_change": ""
+ },
+ "challenge": {
+  "verdict": "agree",
+  "argument": "I re-priced all five responses. Every planner figure matches. Recommended: EUR 120,000, Line B stops 8 hours, no line left in known reach. No cheaper response is as safe: the link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, through the old file share from Line B, cell 2 to Line C. Cell 2 alone costs EUR 120,000 and leaves all three lines reachable, EUR 2,160,000 at stake. The whole plant floor costs EUR 285,500 and closes no further known path. No earlier case applies. All monitoring reported. One caution: \"closes nothing more\" holds only if the Line C panel was not entered.",
+  "alternative": null,
+  "what_nobody_knows": "Whether the Line C operator panel was entered or only searched. If entered, the recommended response does not isolate Line C; only the whole-floor stop does. Line C is in maintenance until 08:00, so people may be at the machines: check the panel before restart. Whether the two Line B, cell 2 controllers were changed or only copied. Whether 8 hours, 4 hours and the 6-hour order buffer hold; all are assumptions."
+ },
+ "options": [
+  {
+   "points": [
+    "cut-cell-b2",
+    "cut-link-dmz-ot"
+   ],
+   "name": "Disconnect Line B, cell 2 and close the link between office side and plant floor",
+   "cost_eur": 120000,
+   "lines_stopped": [
+    {
+     "line": "line-b",
+     "name": "Line B",
+     "why": "disconnected",
+     "hours_stopped": 8.0,
+     "restart_hours": 0,
+     "cost_eur": 120000
+    }
+   ],
+   "lines_still_reachable": [],
+   "lines_not_watched": [],
+   "still_at_stake_eur": 0
+  },
+  {
+   "points": [
+    "cut-plant-ot"
+   ],
+   "name": "Disconnect the whole plant floor",
+   "cost_eur": 285500,
+   "lines_stopped": [
+    {
+     "line": "line-a",
+     "name": "Line A",
+     "why": "disconnected",
+     "hours_stopped": 8.0,
+     "restart_hours": 0,
+     "cost_eur": 120000
+    },
+    {
+     "line": "line-b",
+     "name": "Line B",
+     "why": "disconnected",
+     "hours_stopped": 8.0,
+     "restart_hours": 0,
+     "cost_eur": 120000
+    },
+    {
+     "line": "line-c",
+     "name": "Line C",
+     "why": "disconnected",
+     "hours_stopped": 3.03,
+     "restart_hours": 0,
+     "cost_eur": 45500
+    }
+   ],
+   "lines_still_reachable": [],
+   "lines_not_watched": [],
+   "still_at_stake_eur": 0
+  },
+  {
+   "points": [
+    "cut-link-dmz-ot"
+   ],
+   "name": "Close the link between office side and plant floor",
+   "cost_eur": 0,
+   "lines_stopped": [],
+   "lines_still_reachable": [
+    "line-b",
+    "line-c"
+   ],
+   "lines_not_watched": [],
+   "still_at_stake_eur": 1440000
+  },
+  {
+   "points": [
+    "cut-cell-b2"
+   ],
+   "name": "Disconnect Line B, cell 2",
+   "cost_eur": 120000,
+   "lines_stopped": [
+    {
+     "line": "line-b",
+     "name": "Line B",
+     "why": "disconnected",
+     "hours_stopped": 8.0,
+     "restart_hours": 0,
+     "cost_eur": 120000
+    }
+   ],
+   "lines_still_reachable": [
+    "line-a",
+    "line-b",
+    "line-c"
+   ],
+   "lines_not_watched": [],
+   "still_at_stake_eur": 2160000
+  },
+  {
+   "points": [],
+   "name": "Do nothing and keep watching",
+   "cost_eur": 0,
+   "lines_stopped": [],
+   "lines_still_reachable": [
+    "line-a",
+    "line-b",
+    "line-c"
+   ],
+   "lines_not_watched": [],
+   "still_at_stake_eur": 2160000
+  }
+ ],
+ "recommended": [
+  "cut-cell-b2",
+  "cut-link-dmz-ot"
+ ],
+ "priced_tonight": 7,
+ "held": [
+  {
+   "isolation_point": "cut-cell-b2",
+   "what": "Disconnect Line B, cell 2",
+   "decision": "require_approval",
+   "rule": "P-007,P-008,P-009",
+   "reason": "Isolating a network segment can stop production and needs a named human approver.",
+   "audit_seq": 67,
+   "executed": false
+  },
+  {
+   "isolation_point": "cut-link-dmz-ot",
+   "what": "Close the link between office side and plant floor",
+   "decision": "require_approval",
+   "rule": "P-007,P-008,P-009",
+   "reason": "Isolating a network segment can stop production and needs a named human approver.",
+   "audit_seq": 68,
+   "executed": false
+  }
+ ],
+ "tokens": {
+  "input": 77969,
+  "output": 5635
+ },
+ "seconds_to_page": 61.4,
+ "page": "# Decision page: incident INC-001 at Halden Plant 04 (fictional)\n\nNight: Plant 04, the scripted night: last alarm at 03:02. Synthetic data, simulated tools. Agents run on: claude-fable-5-2, effort medium. Every euro figure is calculated by the pricing tool from the assumptions listed at the end; none is a measured loss and none was written by an agent.\n\n## In short\n\nAn intruder moved from the office network to the plant floor between 02:10 and 03:02 UTC and controls 3 devices. 3 production lines are within reach.\n\nThe planner recommends: Disconnect Line B, cell 2 and close the link between office side and plant floor, at EUR 120,000 in lost output. It leaves no line within reach.\n\nThe challenger agrees. Nothing has been disconnected on the plant floor: the choice is with the Head of OT Security.\n\n## What happened\n\n| Time (UTC) | Seen by | From | To | What |\n|---|---|---|---|---|\n| 02:10 | office tool | ws-fin-117 | ws-fin-117 | Email attachment flagged after it was opened. |\n| 02:14 | office tool | ws-fin-117 | ws-fin-117 | A program read stored passwords from memory. |\n| 02:31 | office tool | ws-fin-117 | dc-01 | Plant maintenance account signed in from a finance workstation. |\n| 02:38 | office tool | ws-fin-117 | jump-p04-01 | Remote access to the plant floor opened outside the agreed maintenance window. |\n| 02:44 | plant tool | jump-p04-01 | ews-b2-01 | Remote screen session to the engineering workstation. |\n| 02:52 | plant tool | ews-b2-01 | plc-b2-01 | Full controller program copied outside a change window. |\n| 02:55 | plant tool | ews-b2-01 | plc-b2-02 | Full controller program copied outside a change window. |\n| 03:02 | plant tool | ews-b2-01 | hmi-c1 | Search for open file shares in Line C, cell 1. |\n\n## Already done on the office side\n\nTaken by the first-response agent on its own. Each step can be undone and is in the Control Tower's record.\n\n| Step | On | How it is undone | Record |\n|---|---|---|---|\n| Account suspended | svc-maint-p04 | Undone by the Head of Security Operations re-enabling the account. | 43 |\n| Account suspended | employee-0733 | Undone by the Head of Security Operations re-enabling the account. | 44 |\n| Device cut off the network | ws-fin-117 | Undone by the Head of Security Operations releasing the workstation from quarantine. | 45 |\n| Remote sessions closed | jump-p04-01 | Undone by opening a new remote session through the normal request. | 46 |\n\nWhat it left alone, in its own words:\n\n> Sign-in server: no sign of takeover, and cutting it stops all office sign-ins. Other office devices and the data recorder: no alarm. Engineering workstation in Line B cell 2 and the plant floor: not mine. The intruder may still sit there and reach Line C through the open file share. Office steps do not close that. OT Security decides.\n\n## The responses to choose from\n\n| No. | Response | Lost output | Lines stopped | Lines the intruder can still reach | Still at stake if those are encrypted |\n|---|---|---|---|---|---|\n| 1 | Disconnect Line B, cell 2 and close the link between office side and plant floor **(recommended)** | EUR 120,000 | Line B: 8 h | none | EUR 0 |\n| 2 | Disconnect the whole plant floor | EUR 285,500 | Line A: 8 h; Line B: 8 h; Line C: 3.03 h | none | EUR 0 |\n| 3 | Close the link between office side and plant floor | EUR 0 | none | Line B, Line C | EUR 1,440,000 |\n| 4 | Disconnect Line B, cell 2 | EUR 120,000 | Line B: 8 h | Line A, Line B, Line C | EUR 2,160,000 |\n| 5 | Do nothing and keep watching | EUR 0 | none | Line A, Line B, Line C | EUR 2,160,000 |\n\n## The planner's reasoning\n\n> Disconnect Line B, cell 2 and close the link between office side and plant floor. Cost EUR 120,000: Line B stops 8 hours. Lines A and C are not stopped. No line stays within the intruder's known reach. Cell 2 alone costs the same EUR 120,000 but leaves all three lines reachable. The link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, because the intruder already sits on the engineering workstation in cell 2. The whole plant floor costs EUR 285,500 and closes nothing more. Doing nothing leaves EUR 2,160,000 at stake. All monitoring reported tonight. No earlier case applies.\n\nWhat remains open, in the planner's words:\n\n> Nobody knows whether the intruder changed the two controllers in Line B, cell 2, or only copied their programs. Check before restart; tell floor staff now. Nobody knows whether the Line C operator panel was entered; we saw only a search. Line C is in maintenance: people may be at the machines. \"Nothing reachable\" covers known paths only. Hold times and the 6-hour order buffer are assumptions; a longer link closure starves Lines A and C of orders.\n\n## The counter-argument\n\nThe challenger agrees:\n\n> I re-priced all five responses. Every planner figure matches. Recommended: EUR 120,000, Line B stops 8 hours, no line left in known reach. No cheaper response is as safe: the link alone costs EUR 0 but leaves Lines B and C reachable, EUR 1,440,000 at stake, through the old file share from Line B, cell 2 to Line C. Cell 2 alone costs EUR 120,000 and leaves all three lines reachable, EUR 2,160,000 at stake. The whole plant floor costs EUR 285,500 and closes no further known path. No earlier case applies. All monitoring reported. One caution: \"closes nothing more\" holds only if the Line C panel was not entered.\n\nWhat nobody knows, in the challenger's words:\n\n> Whether the Line C operator panel was entered or only searched. If entered, the recommended response does not isolate Line C; only the whole-floor stop does. Line C is in maintenance until 08:00, so people may be at the machines: check the panel before restart. Whether the two Line B, cell 2 controllers were changed or only copied. Whether 8 hours, 4 hours and the 6-hour order buffer hold; all are assumptions.\n\n## Case memory\n\nThis night is recorded as CASE-001. No earlier case was read: none shares a device or an account, or the agents did not ask.\n\n## The decision\n\nThe Head of OT Security chooses one response by its number: `python -m sentinel decide NUMBER --as \"Head of OT Security\" --note \"what the next night should know\"`. No other role can choose, and no agent can. The choice is written to the Control Tower's record.\n\nFiled with the Control Tower for the recommended response and held there:\n\n| Step | Waiting for | Rules that hold it |\n|---|---|---|\n| Disconnect Line B, cell 2 | Head of OT Security | P-007, P-008, P-009 |\n| Close the link between office side and plant floor | Head of OT Security | P-007, P-008, P-009 |\n\n## Assumptions behind the figures\n\n- Cost of one stopped line-hour: EUR 15,000 (company profile).\n- Assumption: a line keeps running this long on orders already loaded when the link to the office side is closed. Value used: 6 hours.\n- Assumption: time to restore a line whose controllers and workstations were encrypted. Value used: 48 hours.\n- Assumption: a disconnected cell stops its whole line. Value used: yes.\n- Disconnect Line B, cell 2: held for 8 hours. Assumption: time to check and clean the devices of one cell.\n- Close the link between office side and plant floor: held for 4 hours. Assumption: time to clean the remote access gateway and replace the stolen account.\n- Disconnect the whole plant floor: held for 8 hours. Assumption: time to check and clean the devices of the plant floor.\n- Lost output is counted only for hours in which the schedule says the line would have run.\n- The office-side steps do not change the prices: a device the intruder already controls on the plant floor is assumed to stay under its control.\n\n## How this page was made\n\n- Alarms read: 13; joined into this incident: 8; set aside: 5. Joining is done by fixed rules, not by an agent.\n- Responses priced tonight by the agents: 7.\n- Agent turns: ot-first-response 5 (handed in), ot-response 5 (handed in), ot-challenger 4 (handed in).\n- Time from the last alarm handed over to this page: 61.4 seconds. Tokens: 77,969 in, 5,635 out.\n\n## What this page is not\n\n- Not a detection result: the alarms were written by hand for this night.\n- Not a forecast: the figures follow from the assumptions above and change with them.\n- Not proof that the agents are right. They can be wrong; that is why one challenges the other and a person decides.\n"
+}
