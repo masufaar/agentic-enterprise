@@ -113,6 +113,7 @@ def line(entry: dict, prices: Prices, portfolio: dict) -> dict:
     benefit = graded["value_eur"]
     return {
         "agent": entry["id"], "name": entry["name"], "solution": entry["solution"], "owner": entry["owner"],
+        "state_in_the_company": entry.get("state_in_the_company", "not stated"),
         "cost": {"model": model, "basis": basis, "tokens_per_run": per_run_tokens, "eur_per_run": per_run_eur,
                  "runs_per_year": runs_a_year, "runs_per_year_basis": cost.get("runs_per_year_basis", "assumption"),
                  "model_eur_per_year": model_cost, "build_hours": cost["build_hours"], "build_eur": build_cost,

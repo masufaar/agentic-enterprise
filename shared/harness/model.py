@@ -90,8 +90,12 @@ class Claude:
         self.name = f"{model}, effort {effort}"
 
     def _headers(self) -> dict:
-        if not self.key_file or not Path(self.key_file).is_file():
-            raise ModelError(f"No key file. Put the key in a file and set {KEY_FILE_VARIABLE} to its path")
+        if not self.key_file:
+            raise ModelError("No model key file. Put the key in a file and set "
+                             f"{SHARED_KEY_FILE_VARIABLE} to its path (the older {KEY_FILE_VARIABLE} also works).")
+        if not Path(self.key_file).is_file():
+            raise ModelError(f"No model key file at '{self.key_file}'. That is the path in "
+                             f"{SHARED_KEY_FILE_VARIABLE} or {KEY_FILE_VARIABLE}; check the file name.")
         key = Path(self.key_file).read_text(encoding="utf-8-sig").strip()  # utf-8-sig: Notepad may put a marker first
         credential = {"Authorization": f"Bearer {key}"} if self.auth == "bearer" else {"x-api-key": key}
         return {**credential, "anthropic-version": self.version, "content-type": "application/json"}

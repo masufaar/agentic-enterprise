@@ -35,7 +35,10 @@ class Prices:
     def usd(self, tokens: dict, model: str) -> float:
         """List-price cost of one run, in USD."""
         price = self.models[self.model_name(model)]
-        return round(tokens["input"] / 1e6 * price["input"] + tokens["output"] / 1e6 * price["output"], 4)
+        return tokens["input"] / 1e6 * price["input"] + tokens["output"] / 1e6 * price["output"]
 
     def eur(self, tokens: dict, model: str) -> float:
-        return round(self.usd(tokens, model) * self.eur_per_usd, 2)
+        """Full precision on purpose. A cheap model at high volume costs a fraction of a cent a
+        run; rounding here and multiplying afterwards prices a whole year at zero. Rounding
+        belongs to the yearly figure and to the page, not to the unit cost."""
+        return self.usd(tokens, model) * self.eur_per_usd

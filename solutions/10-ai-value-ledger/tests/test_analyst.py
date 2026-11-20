@@ -108,7 +108,9 @@ def test_the_tools_read_only_and_go_through_the_control_tower():
     assert set(tools) == {"read_portfolio", "read_cost", "read_claim", "read_trend", "submit_note"}
     out = tools["read_portfolio"].run({})
     assert out["totals_by_grade_eur"]["claimed"] > 0
-    assert out["agents"][0]["state_in_the_control_tower"]
+    assert out["agents"][0]["what_the_company_says_it_does_today"]
+    assert out["agents"][0]["what_this_repository_has_behind_its_card"]
+    assert "an agent can be running at the company while the card" in out["note"]
 
 
 def test_asking_for_an_agent_outside_the_ledger_is_a_tool_problem_not_a_crash():

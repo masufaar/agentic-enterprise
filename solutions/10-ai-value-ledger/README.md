@@ -46,9 +46,9 @@ Run `python -m ledger ledger pays-back`:
 
 | Agent | First-year cost | Benefit | Evidence |
 |---|---|---|---|
-| Service desk resolution agent | EUR 20,900 (assumed) | EUR 611,000 | measured: tickets closed without a person, 13 weeks against the 13 weeks before |
-| Portfolio truth agent | EUR 11,525 (assumed) | EUR 180,000 | calculated: 2,000 hours x EUR 90 |
-| Sentinel planner (solution 02) | EUR 15,286 (**measured**) | EUR 800,000 | calculated: 2 plant-days x EUR 400,000 |
+| Service desk resolution agent | EUR 20,953 (assumed) | EUR 611,000 | measured: tickets closed without a person, 13 weeks against the 13 weeks before |
+| Portfolio truth agent | EUR 11,521 (assumed) | EUR 180,000 | calculated: 2,000 hours x EUR 90 |
+| Sentinel planner (solution 02) | EUR 15,287 (**measured**) | EUR 800,000 | calculated: 2 plant-days x EUR 400,000 |
 
 The three benefits are never added together. On this blueprint, almost every benefit is graded `calculated` or `claimed`, and that is the point: the ledger shows a board exactly where the evidence is thin and what to measure first.
 
@@ -92,8 +92,17 @@ A review needs a model key: put it in a file and set `HALDEN_MODEL_KEY_FILE` to 
 | `data/prices.json` | Model list prices, with the date they were read and their source |
 | `data/portfolio.json` | The synthetic AI portfolio of Halden Industrial, and the measurements the company holds |
 | `data/scenarios/` | The three scenarios |
-| `tests/` | 33 tests, on the scripted stand-in: no key, no cost |
+| `tests/` | 34 tests, on the scripted stand-in: no key, no cost |
 | `BUILD_LOG.md` | Decisions, alternatives set aside, and tokens per step |
+
+## What the first real runs found, 20 November 2026
+
+Three reviews ran on Claude Fable 5.2, one per scenario, and the analyst agent found two faults in the ledger it was given. Both are fixed, and both are the reason to run an agent over your own numbers rather than only a report:
+
+1. **A line priced at zero.** The service desk agent costs a tenth of a cent a run. The ledger rounded that to zero before multiplying it by 46,000 runs, so a whole year of running cost came out as EUR 0. The agent wrote that the running cost "is recorded as zero; that must be corrected". The unit cost is now kept at full precision and only the yearly figure is rounded.
+2. **Two different states confused.** The agent read the Control Tower card for the service desk agent, saw "designed", and refused to recommend funding a benefit measured in July to September: a measurement cannot belong to an agent that never ran. It was right to ask, and the ledger was wrong to show it that way. The card's state is what this repository has behind the blueprint; whether the agent runs at Halden is a property of the company. The portfolio now states both and the tool names them apart.
+
+The runs that found this are in `reports/runs/`.
 
 ## What has to exist before this solution is called working
 

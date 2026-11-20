@@ -54,5 +54,10 @@ def usd(amount) -> str:
 
 
 def cents(amount) -> str:
-    """A cost per run is often well under a euro, so it is written out in full."""
-    return f"EUR {amount:,.2f}"
+    """A cost per run can be a fraction of a cent, so it is written with enough digits to be true."""
+    if amount >= 1:
+        return f"EUR {amount:,.2f}"
+    digits = 2
+    while round(amount, digits) == 0 and digits < 8:
+        digits += 1
+    return f"EUR {amount:,.{digits}f}"

@@ -43,6 +43,26 @@ Built from the plan in the project handover of 20 November 2026 (d): the ledger 
 
 A lighter model would have done step 1's reading and parts of step 4. The design decisions (D1 to D15) and the controls in `analyst.py` are the work that needed the main model.
 
+## Session 2, 20 November 2026: the first real runs
+
+Three reviews on Claude Fable 5.2 at medium effort, one per scenario, started by Mario with his own key. All three handed in a note the harness accepted: 3, 3 and 4 turns; 29.35, 33.08 and 41.78 seconds; 46,312 tokens in and 10,903 out together, EUR 0.74 at the list prices in `data/prices.json`.
+
+The agent found two faults in the ledger it was given. Both are corrected here, and the corrected runs replace the first ones.
+
+| | Decision | Why | Set aside |
+|---|---|---|---|
+| D16 | The cost of a run is kept at full precision; only the yearly figure and the page round it. | The analyst wrote that the service desk agent's running cost "is recorded as zero; that must be corrected". It was: EUR 0.00115 a run was rounded to EUR 0.00 and then multiplied by 46,000 runs. The cheapest models at the highest volumes are exactly where this matters. | Rounding at the unit and accepting the error as small. It was not small; it was the whole line. |
+| D17 | The portfolio states what the agent does at the company; the registry card states what this repository has behind the blueprint. The tool shows both, named so they cannot be confused. | The analyst read the card's "designed" as "this agent never ran" and refused to recommend funding a benefit measured in the ticket system over 13 weeks. The question was right and the ledger's answer was ambiguous: a company can run an agent that this repository has only designed. | Changing the cards to say "working", which would have made this repository claim something it has not built. |
+
+The first three runs are not kept: their figures came from the ledger before D16, so publishing them would publish the wrong numbers with the right reasoning. What the agent said about them is written down here and in the solution page.
+
+### Tokens, session 2
+
+| Step | What | How | Model | Tokens |
+|---|---|---|---|---|
+| 1 | Three real reviews | Mario's key, Fable 5.2 medium | Agent | 46,312 in, 10,903 out, measured |
+| 2 | The two faults read out of the run records, both fixed, data model changed, tests extended to 34 | Workspace | Main (Opus 5) | Input about 25,000, output about 6,000, estimated |
+
 ### Open
 
 - No run with a real model: the analyst agent is `in build` until a review is recorded in `reports/runs/`. Mario starts it with one PowerShell line.

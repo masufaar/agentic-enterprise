@@ -99,14 +99,19 @@ class Desk:
                     "first_year_cost_of_these_agents_eur": self.ledger["cost_eur"],
                     "agents": [{"agent": l["agent"], "name": l["name"], "solution": l["solution"],
                                 "owner": l["owner"],
-                                "state_in_the_control_tower": (self.registry.get(l["agent"]) or {}).get("today", "not in the registry"),
+                                "what_the_company_says_it_does_today": l["state_in_the_company"],
+                                "what_this_repository_has_behind_its_card": (self.registry.get(l["agent"]) or {}).get("today", "not in the registry"),
                                 "first_year_cost_eur": l["cost"]["total_first_year_eur"],
                                 "cost_basis": l["cost"]["basis"],
                                 "claimed_benefit_eur": l["benefit"]["as_claimed_eur"],
                                 "evidence_grade": l["benefit"]["grade"],
                                 "cost_over_months_available": bool(l["trend"])} for l in self.ledger["lines"]],
                     "totals_by_grade_eur": {g: t["benefit_eur"] for g, t in self.ledger["totals_by_grade"].items()},
-                    "note": "Benefits of different grades are never added together."}
+                    "note": "Benefits of different grades are never added together. Two different things are "
+                            "shown per agent: what the company says the agent does today, and what this "
+                            "repository has behind its card. The second is the build state of the blueprint, not "
+                            "the company's operations: an agent can be running at the company while the card in "
+                            "this repository still says designed."}
 
         def read_cost(given):
             line = self._line(given["agent"])

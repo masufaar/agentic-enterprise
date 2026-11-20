@@ -21,7 +21,16 @@ def test_cost_of_a_run_is_the_published_price():
     prices = Prices()
     # 1m input and 100k output on Fable 5.2: 8 USD + 4 USD
     assert prices.usd({"input": 1_000_000, "output": 100_000}, "claude-fable-5-2") == 12.0
-    assert prices.eur({"input": 1_000_000, "output": 100_000}, "claude-fable-5-2") == round(12.0 * 0.92, 2)
+    assert prices.eur({"input": 1_000_000, "output": 100_000}, "claude-fable-5-2") == 12.0 * 0.92
+
+
+def test_a_cheap_model_at_high_volume_is_not_rounded_down_to_nothing():
+    """Found by the analyst agent in the first real run: a run costing a tenth of a cent was
+    rounded to zero before being multiplied by 46,000 runs, and a whole year priced at zero."""
+    prices = Prices()
+    per_run = prices.eur({"input": 9000, "output": 700}, "claude-haiku-5-5")
+    assert 0 < per_run < 0.01
+    assert round(per_run * 46000) == 53
 
 
 def test_the_effort_setting_is_not_part_of_the_price():
