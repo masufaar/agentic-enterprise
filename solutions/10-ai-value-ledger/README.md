@@ -1,6 +1,6 @@
 # AI Value Ledger
 
-**Status: the ledger is working as a blueprint (fixed code, no model, on synthetic data). The analyst agent is in build: it runs in the tests on a scripted stand-in, and no run with a real model has been recorded yet.** The cost of one line is not synthetic: it is read from the real run records of [solution 02](../02-ot-it-convergence-sentinel/) in this repository.
+**Status: working as a blueprint. The ledger is fixed code and the analyst agent runs on a real model, on synthetic data, with three recorded runs (20 November 2026); not connected to real systems.** Each scenario has run once, so these are observations, not rates. The cost of one line is not synthetic: it is read from the real run records of [solution 02](../02-ot-it-convergence-sentinel/) in this repository. Still designed: the ledger reading its own review runs, and more than one measurement record in the portfolio.
 
 One line per AI agent: what it cost, what it returned, and how good the evidence behind that number is.
 
@@ -95,6 +95,20 @@ A review needs a model key: put it in a file and set `HALDEN_MODEL_KEY_FILE` to 
 | `tests/` | 34 tests, on the scripted stand-in: no key, no cost |
 | `BUILD_LOG.md` | Decisions, alternatives set aside, and tokens per step |
 
+## The recorded runs of 20 November 2026
+
+Measured: three reviews, one per scenario, Claude Fable 5.2 at medium effort, started with `python -m ledger reviews --record`, after the two corrections above. Each page and the full record of every turn are in [reports/runs/](reports/runs/). Each scenario ran once: these are observations, not rates.
+
+| Scenario | Page | What the agent recommended | Turns | Seconds | Tokens in / out |
+|---|---|---|---|---|---|
+| pays-back | [page](reports/runs/pays-back-2026-11-20-claude-fable-5-2.md) | Fund the service desk agent (the one measured benefit); build the evidence for the other two | 3 | 25.56 | 14,178 / 2,940 |
+| cost-growing | [page](reports/runs/cost-growing-2026-11-20-claude-fable-5-2.md) | Do not leave the supply chain monitor's budget unchanged; fund the service desk agent; build the evidence for the quality agent | 4 | 28.94 | 17,429 / 3,141 |
+| benefit-without-evidence | [page](reports/runs/benefit-without-evidence-2026-11-20-claude-fable-5-2.md) | The quality agent's EUR 1,200,000 is worth nothing for this budget round: build the evidence | 4 | 43.10 | 23,931 / 4,818 |
+
+Together: 55,538 tokens in and 10,899 out, USD 0.88 at the list prices in `data/prices.json`, EUR 0.81 at the stated rate. Three reviews of a five-agent portfolio cost less than a euro; what they cost in reading time is the point, not what they cost in tokens.
+
+In the `cost-growing` run the agent named the agent whose cost is running away, as the harness requires, and did the comparison itself: 720 runs in June against 736 in October, EUR 1,104 of monthly cost against EUR 3,101, and it noticed that October alone cost about half of what was planned for the whole year.
+
 ## What the first real runs found, 20 November 2026
 
 Three reviews ran on Claude Fable 5.2, one per scenario, and the analyst agent found two faults in the ledger it was given. Both are fixed, and both are the reason to run an agent over your own numbers rather than only a report:
@@ -102,7 +116,7 @@ Three reviews ran on Claude Fable 5.2, one per scenario, and the analyst agent f
 1. **A line priced at zero.** The service desk agent costs a tenth of a cent a run. The ledger rounded that to zero before multiplying it by 46,000 runs, so a whole year of running cost came out as EUR 0. The agent wrote that the running cost "is recorded as zero; that must be corrected". The unit cost is now kept at full precision and only the yearly figure is rounded.
 2. **Two different states confused.** The agent read the Control Tower card for the service desk agent, saw "designed", and refused to recommend funding a benefit measured in July to September: a measurement cannot belong to an agent that never ran. It was right to ask, and the ledger was wrong to show it that way. The card's state is what this repository has behind the blueprint; whether the agent runs at Halden is a property of the company. The portfolio now states both and the tool names them apart.
 
-The runs that found this are in `reports/runs/`.
+The runs that found this were made before the fix and are not published: their figures came from the ledger as it was, so they would publish wrong numbers with right reasoning. The runs in `reports/runs/` are the ones made after both corrections.
 
 ## What has to exist before this solution is called working
 

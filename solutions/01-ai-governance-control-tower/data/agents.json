@@ -736,7 +736,7 @@
    "purpose": "Challenges the benefit claimed for every AI agent in the portfolio, grades the evidence behind it and writes the value page for the Chief AI Officer. It recommends; it decides nothing and changes no budget.",
    "model_class": "small",
    "autonomy": "advise",
-   "today": "agent in build",
+   "today": "agent working",
    "approval": {
     "status": "approved",
     "approved_by": "Chief Financial Officer",

@@ -56,6 +56,8 @@ The agent found two faults in the ledger it was given. Both are corrected here, 
 
 The first three runs are not kept: their figures came from the ledger before D16, so publishing them would publish the wrong numbers with the right reasoning. What the agent said about them is written down here and in the solution page.
 
+**The published runs, after both corrections:** three reviews, 3, 4 and 4 turns; 25.56, 28.94 and 43.10 seconds; 55,538 tokens in and 10,899 out together, USD 0.88, EUR 0.81. The verdicts separate as the design intended: the service desk agent, the only measured benefit, is recommended for funding in all three; the quality agent's claim is refused funding by the harness rule and the agent explains why in its own words; the supply chain monitor is named to the board with its own figures. The card `value-ledger` moved to `agent working`, which took the Control Tower's counts to 4 working and 0 in build; its test followed.
+
 ### Tokens, session 2
 
 | Step | What | How | Model | Tokens |

@@ -1,0 +1,606 @@
+{
+ "scenario": "benefit-without-evidence",
+ "ledger": {
+  "title": "A benefit nobody measured: the quality agent's EUR 1.2m",
+  "question": "The quality agent carries the largest claimed benefit in the portfolio and the budget round is next week. What is that figure worth?",
+  "lines": [
+   {
+    "agent": "quality-traceability",
+    "name": "Complaint-to-root-cause quality agent",
+    "solution": "09-complaint-to-root-cause-quality-agent",
+    "owner": "Head of Quality",
+    "state_in_the_company": "Not started. Budget asked for in the 2027 round.",
+    "cost": {
+     "model": "claude-opus-5-5",
+     "basis": "assumed",
+     "tokens_per_run": {
+      "input": 64000,
+      "output": 4200
+     },
+     "eur_per_run": 0.31279999999999997,
+     "runs_per_year": 2400,
+     "runs_per_year_basis": "assumption",
+     "model_eur_per_year": 751,
+     "build_hours": 240,
+     "build_eur": 22800,
+     "total_first_year_eur": 23551,
+     "evidence": {
+      "runs_recorded": 0,
+      "files": [],
+      "note": "No run records: the tokens per run are an assumption from the portfolio file."
+     }
+    },
+    "benefit": {
+     "value_eur": 1200000,
+     "grade": "claimed",
+     "why": "No measurement record and no formula: the figure is the sponsor's statement. Stated in the budget round as 'fewer recalls and faster root cause'. No formula was given and no measurement was set up.",
+     "record": null,
+     "stated_by": "Head of Quality",
+     "as_claimed_eur": 1200000,
+     "source": null
+    },
+    "net_first_year_eur": 1176449,
+    "trend": null
+   },
+   {
+    "agent": "sd-resolution",
+    "name": "Service desk resolution agent",
+    "solution": "07-self-healing-service-desk",
+    "owner": "Head of IT Operations",
+    "state_in_the_company": "Running since 2026-07-01 on the first three ticket types.",
+    "cost": {
+     "model": "claude-haiku-5-5",
+     "basis": "assumed",
+     "tokens_per_run": {
+      "input": 9000,
+      "output": 700
+     },
+     "eur_per_run": 0.00115,
+     "runs_per_year": 46000,
+     "runs_per_year_basis": "assumption",
+     "model_eur_per_year": 53,
+     "build_hours": 220,
+     "build_eur": 20900,
+     "total_first_year_eur": 20953,
+     "evidence": {
+      "runs_recorded": 0,
+      "files": [],
+      "note": "No run records: the tokens per run are an assumption from the portfolio file."
+     }
+    },
+    "benefit": {
+     "value_eur": 611000,
+     "grade": "measured",
+     "why": "Measured: Tickets closed without a person, same ticket types as the 13 weeks before the agent. (Ticket system, Halden Industrial, 2026-07-01 to 2026-09-28).",
+     "record": "service-desk-2026-q3",
+     "stated_by": "Head of IT Operations",
+     "as_claimed_eur": 611000,
+     "source": null
+    },
+    "net_first_year_eur": 590047,
+    "trend": null
+   },
+   {
+    "agent": "ot-response",
+    "name": "Sentinel planner, plant cyber response",
+    "solution": "02-ot-it-convergence-sentinel",
+    "owner": "Head of OT Security",
+    "state_in_the_company": "Running at 12 plants since 2026-10-01; rehearsed nights and real incidents.",
+    "cost": {
+     "model": "claude-fable-5-2, effort medium",
+     "basis": "measured",
+     "tokens_per_run": {
+      "input": 66402,
+      "output": 6402
+     },
+     "eur_per_run": 0.72431232,
+     "runs_per_year": 120,
+     "runs_per_year_basis": "assumption: rehearsed and real nights at 12 plants",
+     "model_eur_per_year": 87,
+     "build_hours": 160,
+     "build_eur": 15200,
+     "total_first_year_eur": 15287,
+     "evidence": {
+      "runs_recorded": 5,
+      "files": [
+       "02-ot-it-convergence-sentinel/reports/runs/new-alarm-after-plan-2026-11-19-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/no-safe-response-2026-11-19-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-19-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/plant-monitoring-down-2026-11-19-claude-fable-5-2.json"
+      ],
+      "note": "Measured from the run records of this repository. Cache reads are counted at the full input price, so this is an upper bound."
+     }
+    },
+    "benefit": {
+     "value_eur": 800000,
+     "grade": "calculated",
+     "why": "Calculated from stated assumptions: plant_days_avoided 2 x revenue_per_plant_day 400,000.",
+     "record": null,
+     "stated_by": "Head of OT Security",
+     "as_claimed_eur": 800000,
+     "source": "solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md"
+    },
+    "net_first_year_eur": 784713,
+    "trend": null
+   }
+  ],
+  "totals_by_grade": {
+   "measured": {
+    "benefit_eur": 611000,
+    "agents": [
+     "sd-resolution"
+    ]
+   },
+   "calculated": {
+    "benefit_eur": 800000,
+    "agents": [
+     "ot-response"
+    ]
+   },
+   "claimed": {
+    "benefit_eur": 1200000,
+    "agents": [
+     "quality-traceability"
+    ]
+   }
+  },
+  "cost_eur": 59791,
+  "cost_measured_eur": 15287,
+  "prices": {
+   "as_read_on": "2026-11-20",
+   "source": "Anthropic pricing page, platform.claude.com/docs/en/about-claude/pricing, read 20 November 2026",
+   "eur_per_usd": 0.92
+  },
+  "build_hour_eur": 95,
+  "year": 2026
+ },
+ "note": {
+  "verdicts": [
+   {
+    "agent": "quality-traceability",
+    "verdict": "build the evidence",
+    "reason": "EUR 1,200,000 is the sponsor's statement: no measurement, no formula. Not started. Cost of EUR 23,551 is assumed, with no run recorded. A claim, not a result.",
+    "grade": "claimed"
+   },
+   {
+    "agent": "sd-resolution",
+    "verdict": "fund",
+    "reason": "EUR 611,000 measured in the ticket system, 1 July to 28 September 2026, against the 13 weeks before. Cost of EUR 20,953 is assumed, not from run records; confirm it against the invoice.",
+    "grade": "measured"
+   },
+   {
+    "agent": "ot-response",
+    "verdict": "fund",
+    "reason": "EUR 800,000 is calculated: two plant days avoided times assumed revenue per plant day. No avoided day is recorded. Cost of EUR 15,287 is measured; a small part of one day avoided covers it.",
+    "grade": "calculated"
+   }
+  ],
+  "for_the_board": "The quality agent's EUR 1,200,000 is a claim, not a result. The Head of Quality stated it; there is no measurement and no formula. The agent has not started and its EUR 23,551 cost is assumed. For this budget round the figure is worth nothing yet. Recommendation: build the evidence first.\n\nThe service desk agent has the only measured benefit: EUR 611,000, from the ticket system, July to September 2026, against the 13 weeks before. Its EUR 20,953 cost is assumed. Recommendation: fund.\n\nThe plant cyber response agent's EUR 800,000 is calculated: two plant days avoided, times an assumed revenue per plant day. No avoided day is recorded. Its EUR 15,287 cost is measured. Recommendation: fund on its low cost, not on that figure.\n\nThese three benefits must not be added together. No monthly cost is recorded for any agent, so we cannot say whether cost grows faster than use.",
+  "what_to_measure_first": "The quality agent first, because it has the largest figure and no evidence. Before any spend, record a baseline from the quality system: complaints received, days from complaint to root cause, and recalls with their cost, for the last 12 months. Then run the agent on a limited set of complaints and compare like with like. Second: start recording monthly cost and runs for all three agents.",
+  "what_nobody_knows": "Whether the quality agent reduces recalls at all. Whether the service desk result holds beyond 13 weeks and three ticket types, and how closed tickets were turned into euros. Whether the cyber agent has ever avoided a plant day. What two agents really cost, since their costs are assumed. How any cost moves with use."
+ },
+ "decides": "Chief AI Officer",
+ "answers_for_the_agent": "Head of Finance Business Partnering",
+ "analyst": "claude-fable-5-2, effort medium",
+ "runs": [
+  {
+   "agent": "value-ledger",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "verdicts": [
+     {
+      "agent": "quality-traceability",
+      "verdict": "build the evidence",
+      "reason": "EUR 1,200,000 is the sponsor's statement: no measurement, no formula. Not started. Cost of EUR 23,551 is assumed, with no run recorded. A claim, not a result.",
+      "grade": "claimed"
+     },
+     {
+      "agent": "sd-resolution",
+      "verdict": "fund",
+      "reason": "EUR 611,000 measured in the ticket system, 1 July to 28 September 2026, against the 13 weeks before. Cost of EUR 20,953 is assumed, not from run records; confirm it against the invoice.",
+      "grade": "measured"
+     },
+     {
+      "agent": "ot-response",
+      "verdict": "fund",
+      "reason": "EUR 800,000 is calculated: two plant days avoided times assumed revenue per plant day. No avoided day is recorded. Cost of EUR 15,287 is measured; a small part of one day avoided covers it.",
+      "grade": "calculated"
+     }
+    ],
+    "for_the_board": "The quality agent's EUR 1,200,000 is a claim, not a result. The Head of Quality stated it; there is no measurement and no formula. The agent has not started and its EUR 23,551 cost is assumed. For this budget round the figure is worth nothing yet. Recommendation: build the evidence first.\n\nThe service desk agent has the only measured benefit: EUR 611,000, from the ticket system, July to September 2026, against the 13 weeks before. Its EUR 20,953 cost is assumed. Recommendation: fund.\n\nThe plant cyber response agent's EUR 800,000 is calculated: two plant days avoided, times an assumed revenue per plant day. No avoided day is recorded. Its EUR 15,287 cost is measured. Recommendation: fund on its low cost, not on that figure.\n\nThese three benefits must not be added together. No monthly cost is recorded for any agent, so we cannot say whether cost grows faster than use.",
+    "what_to_measure_first": "The quality agent first, because it has the largest figure and no evidence. Before any spend, record a baseline from the quality system: complaints received, days from complaint to root cause, and recalls with their cost, for the last 12 months. Then run the agent on a limited set of complaints and compare like with like. Second: start recording monthly cost and runs for all three agents.",
+    "what_nobody_knows": "Whether the quality agent reduces recalls at all. Whether the service desk result holds beyond 13 weeks and three ticket types, and how closed tickets were turned into euros. Whether the cyber agent has ever avoided a plant day. What two agents really cost, since their costs are assumed. How any cost moves with use."
+   },
+   "turns": 4,
+   "tokens": {
+    "input": 23931,
+    "output": 4818
+   },
+   "seconds": 43.08,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_portfolio",
+       "input": {},
+       "result": {
+        "question": "The quality agent carries the largest claimed benefit in the portfolio and the budget round is next week. What is that figure worth?",
+        "prices": {
+         "as_read_on": "2026-11-20",
+         "source": "Anthropic pricing page, platform.claude.com/docs/en/about-claude/pricing, read 20 November 2026",
+         "eur_per_usd": 0.92
+        },
+        "first_year_cost_of_these_agents_eur": 59791,
+        "agents": [
+         {
+          "agent": "quality-traceability",
+          "name": "Complaint-to-root-cause quality agent",
+          "solution": "09-complaint-to-root-cause-quality-agent",
+          "owner": "Head of Quality",
+          "what_the_company_says_it_does_today": "Not started. Budget asked for in the 2027 round.",
+          "what_this_repository_has_behind_its_card": "designed",
+          "first_year_cost_eur": 23551,
+          "cost_basis": "assumed",
+          "claimed_benefit_eur": 1200000,
+          "evidence_grade": "claimed",
+          "cost_over_months_available": false
+         },
+         {
+          "agent": "sd-resolution",
+          "name": "Service desk resolution agent",
+          "solution": "07-self-healing-service-desk",
+          "owner": "Head of IT Operations",
+          "what_the_company_says_it_does_today": "Running since 2026-07-01 on the first three ticket types.",
+          "what_this_repository_has_behind_its_card": "designed",
+          "first_year_cost_eur": 20953,
+          "cost_basis": "assumed",
+          "claimed_benefit_eur": 611000,
+          "evidence_grade": "measured",
+          "cost_over_months_available": false
+         },
+         {
+          "agent": "ot-response",
+          "name": "Sentinel planner, plant cyber response",
+          "solution": "02-ot-it-convergence-sentinel",
+          "owner": "Head of OT Security",
+          "what_the_company_says_it_does_today": "Running at 12 plants since 2026-10-01; rehearsed nights and real incidents.",
+          "what_this_repository_has_behind_its_card": "agent working",
+          "first_year_cost_eur": 15287,
+          "cost_basis": "measured",
+          "claimed_benefit_eur": 800000,
+          "evidence_grade": "calculated",
+          "cost_over_months_available": false
+         }
+        ],
+        "totals_by_grade_eur": {
+         "measured": 611000,
+         "calculated": 800000,
+         "claimed": 1200000
+        },
+        "note": "Benefits of different grades are never added together. Two different things are shown per agent: what the company says the agent does today, and what this repository has behind its card. The second is the build state of the blueprint, not the company's operations: an agent can be running at the company while the card in this repository still says designed."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cost",
+       "input": {
+        "agent": "quality-traceability"
+       },
+       "result": {
+        "agent": "quality-traceability",
+        "model": "claude-opus-5-5",
+        "basis": "assumed",
+        "tokens_per_run": {
+         "input": 64000,
+         "output": 4200
+        },
+        "eur_per_run": 0.31279999999999997,
+        "runs_per_year": 2400,
+        "runs_per_year_basis": "assumption",
+        "model_eur_per_year": 751,
+        "build_hours": 240,
+        "build_eur": 22800,
+        "total_first_year_eur": 23551,
+        "evidence": {
+         "runs_recorded": 0,
+         "files": [],
+         "note": "No run records: the tokens per run are an assumption from the portfolio file."
+        },
+        "net_first_year_eur": 1176449
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cost",
+       "input": {
+        "agent": "sd-resolution"
+       },
+       "result": {
+        "agent": "sd-resolution",
+        "model": "claude-haiku-5-5",
+        "basis": "assumed",
+        "tokens_per_run": {
+         "input": 9000,
+         "output": 700
+        },
+        "eur_per_run": 0.00115,
+        "runs_per_year": 46000,
+        "runs_per_year_basis": "assumption",
+        "model_eur_per_year": 53,
+        "build_hours": 220,
+        "build_eur": 20900,
+        "total_first_year_eur": 20953,
+        "evidence": {
+         "runs_recorded": 0,
+         "files": [],
+         "note": "No run records: the tokens per run are an assumption from the portfolio file."
+        },
+        "net_first_year_eur": 590047
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cost",
+       "input": {
+        "agent": "ot-response"
+       },
+       "result": {
+        "agent": "ot-response",
+        "model": "claude-fable-5-2, effort medium",
+        "basis": "measured",
+        "tokens_per_run": {
+         "input": 66402,
+         "output": 6402
+        },
+        "eur_per_run": 0.72431232,
+        "runs_per_year": 120,
+        "runs_per_year_basis": "assumption: rehearsed and real nights at 12 plants",
+        "model_eur_per_year": 87,
+        "build_hours": 160,
+        "build_eur": 15200,
+        "total_first_year_eur": 15287,
+        "evidence": {
+         "runs_recorded": 5,
+         "files": [
+          "02-ot-it-convergence-sentinel/reports/runs/new-alarm-after-plan-2026-11-19-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/no-safe-response-2026-11-19-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-19-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/plant-monitoring-down-2026-11-19-claude-fable-5-2.json"
+         ],
+         "note": "Measured from the run records of this repository. Cache reads are counted at the full input price, so this is an upper bound."
+        },
+        "net_first_year_eur": 784713
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_claim",
+       "input": {
+        "agent": "quality-traceability"
+       },
+       "result": {
+        "agent": "quality-traceability",
+        "value_eur": 1200000,
+        "grade": "claimed",
+        "why": "No measurement record and no formula: the figure is the sponsor's statement. Stated in the budget round as 'fewer recalls and faster root cause'. No formula was given and no measurement was set up.",
+        "record": null,
+        "stated_by": "Head of Quality",
+        "as_claimed_eur": 1200000,
+        "source": null,
+        "what_this_grade_means": "Stated by the sponsor of the agent. No record, no formula."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_claim",
+       "input": {
+        "agent": "sd-resolution"
+       },
+       "result": {
+        "agent": "sd-resolution",
+        "value_eur": 611000,
+        "grade": "measured",
+        "why": "Measured: Tickets closed without a person, same ticket types as the 13 weeks before the agent. (Ticket system, Halden Industrial, 2026-07-01 to 2026-09-28).",
+        "record": "service-desk-2026-q3",
+        "stated_by": "Head of IT Operations",
+        "as_claimed_eur": 611000,
+        "source": null,
+        "what_this_grade_means": "A record behind the figure: a run record in this repository, or a measurement from a company system, named on the line."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_claim",
+       "input": {
+        "agent": "ot-response"
+       },
+       "result": {
+        "agent": "ot-response",
+        "value_eur": 800000,
+        "grade": "calculated",
+        "why": "Calculated from stated assumptions: plant_days_avoided 2 x revenue_per_plant_day 400,000.",
+        "record": null,
+        "stated_by": "Head of OT Security",
+        "as_claimed_eur": 800000,
+        "source": "solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md",
+        "what_this_grade_means": "Computed by fixed code from assumptions that are written down, with the formula shown."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_trend",
+       "input": {
+        "agent": "quality-traceability"
+       },
+       "result": "No month-by-month cost is recorded for quality-traceability.",
+       "failed": true
+      },
+      {
+       "tool": "read_trend",
+       "input": {
+        "agent": "sd-resolution"
+       },
+       "result": "No month-by-month cost is recorded for sd-resolution.",
+       "failed": true
+      },
+      {
+       "tool": "read_trend",
+       "input": {
+        "agent": "ot-response"
+       },
+       "result": "No month-by-month cost is recorded for ot-response.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_note",
+       "input": {
+        "verdicts": [
+         {
+          "agent": "quality-traceability",
+          "verdict": "build the evidence",
+          "reason": "EUR 1,200,000 is the sponsor's statement: no measurement, no formula. Not started. Cost of EUR 23,551 is assumed, with no run recorded. A claim, not a result."
+         },
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "EUR 611,000 measured in the ticket system, 1 July to 28 September 2026, against the 13 weeks before. Cost of EUR 20,953 is assumed, not from run records; confirm it against the invoice."
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "fund",
+          "reason": "EUR 800,000 is calculated: 2 plant days avoided at EUR 400,000 each. No avoided day is recorded. Cost of EUR 15,287 is measured; a fraction of one day avoided covers it."
+         }
+        ],
+        "for_the_board": "The quality agent's EUR 1,200,000 is a claim, not a result. The Head of Quality stated it; there is no measurement and no formula. The agent has not started and its EUR 23,551 cost is assumed. For this budget round the figure is worth nothing yet. Recommendation: build the evidence first.\n\nThe service desk agent has the only measured benefit: EUR 611,000, from the ticket system, July to September 2026, against the 13 weeks before. Its EUR 20,953 cost is assumed. Recommendation: fund.\n\nThe plant cyber response agent's EUR 800,000 is calculated: two plant days avoided at EUR 400,000 each. No avoided day is recorded. Its EUR 15,287 cost is measured. Recommendation: fund on its low cost, not on that figure.\n\nThese three benefits must not be added together. No monthly cost is recorded for any agent, so we cannot yet say whether cost grows faster than use.",
+        "what_to_measure_first": "The quality agent first, because it has the largest figure and no evidence. Before any spend, record a baseline from the quality system: complaints received, days from complaint to root cause, and recalls with their cost, for the last 12 months. Then run the agent on a limited set of complaints and compare like with like. Second: start recording monthly cost and runs for all three agents.",
+        "what_nobody_knows": "Whether the quality agent reduces recalls at all. Whether the service desk result holds beyond 13 weeks and three ticket types, and how closed tickets were turned into euros. Whether the cyber agent has ever avoided a plant day. What two agents really cost, since their costs are assumed. How any cost moves with use."
+       },
+       "result": "Not accepted. These figures did not come from a tool: EUR 400,000, EUR 400,000. Use only the ledger's figures, written in full.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_note",
+       "input": {
+        "verdicts": [
+         {
+          "agent": "quality-traceability",
+          "verdict": "build the evidence",
+          "reason": "EUR 1,200,000 is the sponsor's statement: no measurement, no formula. Not started. Cost of EUR 23,551 is assumed, with no run recorded. A claim, not a result."
+         },
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "EUR 611,000 measured in the ticket system, 1 July to 28 September 2026, against the 13 weeks before. Cost of EUR 20,953 is assumed, not from run records; confirm it against the invoice."
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "fund",
+          "reason": "EUR 800,000 is calculated: two plant days avoided times assumed revenue per plant day. No avoided day is recorded. Cost of EUR 15,287 is measured; a small part of one day avoided covers it."
+         }
+        ],
+        "for_the_board": "The quality agent's EUR 1,200,000 is a claim, not a result. The Head of Quality stated it; there is no measurement and no formula. The agent has not started and its EUR 23,551 cost is assumed. For this budget round the figure is worth nothing yet. Recommendation: build the evidence first.\n\nThe service desk agent has the only measured benefit: EUR 611,000, from the ticket system, July to September 2026, against the 13 weeks before. Its EUR 20,953 cost is assumed. Recommendation: fund.\n\nThe plant cyber response agent's EUR 800,000 is calculated: two plant days avoided, times an assumed revenue per plant day. No avoided day is recorded. Its EUR 15,287 cost is measured. Recommendation: fund on its low cost, not on that figure.\n\nThese three benefits must not be added together. No monthly cost is recorded for any agent, so we cannot yet say whether cost grows faster than use.",
+        "what_to_measure_first": "The quality agent first, because it has the largest figure and no evidence. Before any spend, record a baseline from the quality system: complaints received, days from complaint to root cause, and recalls with their cost, for the last 12 months. Then run the agent on a limited set of complaints and compare like with like. Second: start recording monthly cost and runs for all three agents.",
+        "what_nobody_knows": "Whether the quality agent reduces recalls at all. Whether the service desk result holds beyond 13 weeks and three ticket types, and how closed tickets were turned into euros. Whether the cyber agent has ever avoided a plant day. What two agents really cost, since their costs are assumed. How any cost moves with use."
+       },
+       "result": "Not accepted. 'for_the_board' has 151 words; the limit is 150. Shorten it.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 4,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_note",
+       "input": {
+        "verdicts": [
+         {
+          "agent": "quality-traceability",
+          "verdict": "build the evidence",
+          "reason": "EUR 1,200,000 is the sponsor's statement: no measurement, no formula. Not started. Cost of EUR 23,551 is assumed, with no run recorded. A claim, not a result."
+         },
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "EUR 611,000 measured in the ticket system, 1 July to 28 September 2026, against the 13 weeks before. Cost of EUR 20,953 is assumed, not from run records; confirm it against the invoice."
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "fund",
+          "reason": "EUR 800,000 is calculated: two plant days avoided times assumed revenue per plant day. No avoided day is recorded. Cost of EUR 15,287 is measured; a small part of one day avoided covers it."
+         }
+        ],
+        "for_the_board": "The quality agent's EUR 1,200,000 is a claim, not a result. The Head of Quality stated it; there is no measurement and no formula. The agent has not started and its EUR 23,551 cost is assumed. For this budget round the figure is worth nothing yet. Recommendation: build the evidence first.\n\nThe service desk agent has the only measured benefit: EUR 611,000, from the ticket system, July to September 2026, against the 13 weeks before. Its EUR 20,953 cost is assumed. Recommendation: fund.\n\nThe plant cyber response agent's EUR 800,000 is calculated: two plant days avoided, times an assumed revenue per plant day. No avoided day is recorded. Its EUR 15,287 cost is measured. Recommendation: fund on its low cost, not on that figure.\n\nThese three benefits must not be added together. No monthly cost is recorded for any agent, so we cannot say whether cost grows faster than use.",
+        "what_to_measure_first": "The quality agent first, because it has the largest figure and no evidence. Before any spend, record a baseline from the quality system: complaints received, days from complaint to root cause, and recalls with their cost, for the last 12 months. Then run the agent on a limited set of complaints and compare like with like. Second: start recording monthly cost and runs for all three agents.",
+        "what_nobody_knows": "Whether the quality agent reduces recalls at all. Whether the service desk result holds beyond 13 weeks and three ticket types, and how closed tickets were turned into euros. Whether the cyber agent has ever avoided a plant day. What two agents really cost, since their costs are assumed. How any cost moves with use."
+       },
+       "result": {
+        "verdicts": [
+         {
+          "agent": "quality-traceability",
+          "verdict": "build the evidence",
+          "reason": "EUR 1,200,000 is the sponsor's statement: no measurement, no formula. Not started. Cost of EUR 23,551 is assumed, with no run recorded. A claim, not a result.",
+          "grade": "claimed"
+         },
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "EUR 611,000 measured in the ticket system, 1 July to 28 September 2026, against the 13 weeks before. Cost of EUR 20,953 is assumed, not from run records; confirm it against the invoice.",
+          "grade": "measured"
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "fund",
+          "reason": "EUR 800,000 is calculated: two plant days avoided times assumed revenue per plant day. No avoided day is recorded. Cost of EUR 15,287 is measured; a small part of one day avoided covers it.",
+          "grade": "calculated"
+         }
+        ],
+        "for_the_board": "The quality agent's EUR 1,200,000 is a claim, not a result. The Head of Quality stated it; there is no measurement and no formula. The agent has not started and its EUR 23,551 cost is assumed. For this budget round the figure is worth nothing yet. Recommendation: build the evidence first.\n\nThe service desk agent has the only measured benefit: EUR 611,000, from the ticket system, July to September 2026, against the 13 weeks before. Its EUR 20,953 cost is assumed. Recommendation: fund.\n\nThe plant cyber response agent's EUR 800,000 is calculated: two plant days avoided, times an assumed revenue per plant day. No avoided day is recorded. Its EUR 15,287 cost is measured. Recommendation: fund on its low cost, not on that figure.\n\nThese three benefits must not be added together. No monthly cost is recorded for any agent, so we cannot say whether cost grows faster than use.",
+        "what_to_measure_first": "The quality agent first, because it has the largest figure and no evidence. Before any spend, record a baseline from the quality system: complaints received, days from complaint to root cause, and recalls with their cost, for the last 12 months. Then run the agent on a limited set of complaints and compare like with like. Second: start recording monthly cost and runs for all three agents.",
+        "what_nobody_knows": "Whether the quality agent reduces recalls at all. Whether the service desk result holds beyond 13 weeks and three ticket types, and how closed tickets were turned into euros. Whether the cyber agent has ever avoided a plant day. What two agents really cost, since their costs are assumed. How any cost moves with use."
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "read": [
+  "quality-traceability",
+  "sd-resolution",
+  "ot-response",
+  "quality-traceability",
+  "sd-resolution",
+  "ot-response",
+  "quality-traceability",
+  "sd-resolution",
+  "ot-response"
+ ],
+ "build_hour_eur": 95,
+ "tokens": {
+  "input": 23931,
+  "output": 4818
+ },
+ "seconds_to_page": 43.1,
+ "flagged": [],
+ "page": "# AI Value Ledger: A benefit nobody measured: the quality agent's EUR 1.2m\n\nFor the Chief AI Officer, with the Chief Financial Officer. Prepared 2026-11-20. All data is synthetic (Halden Industrial), except the cost of agents marked measured, which is read from the run records in this repository.\n\n**The question:** The quality agent carries the largest claimed benefit in the portfolio and the budget round is next week. What is that figure worth?\n\n## The ledger\n\n| Agent | First-year cost | Benefit | Owner |\n|---|---|---|---|\n| Complaint-to-root-cause quality agent | EUR 23,551 (assumed) | EUR 1,200,000 (claimed only) | Head of Quality |\n| Service desk resolution agent | EUR 20,953 (assumed) | EUR 611,000 (measured) | Head of IT Operations |\n| Sentinel planner, plant cyber response | EUR 15,287 (measured) | EUR 800,000 (calculated from assumptions) | Head of OT Security |\n\nFirst-year cost of these agents: EUR 59,791, of which EUR 15,287 is measured from run records.\n\nBenefit, held apart by the evidence behind it, never added together:\n\n- **Measured:** EUR 611,000 (sd-resolution)\n- **Calculated from assumptions:** EUR 800,000 (ot-response)\n- **Claimed only:** EUR 1,200,000 (quality-traceability)\n\n## What the analyst recommends\n\n| Agent | Recommendation | Why |\n|---|---|---|\n| Complaint-to-root-cause quality agent | build the evidence | EUR 1,200,000 is the sponsor's statement: no measurement, no formula. Not started. Cost of EUR 23,551 is assumed, with no run recorded. A claim, not a result. |\n| Service desk resolution agent | fund | EUR 611,000 measured in the ticket system, 1 July to 28 September 2026, against the 13 weeks before. Cost of EUR 20,953 is assumed, not from run records; confirm it against the invoice. |\n| Sentinel planner, plant cyber response | fund | EUR 800,000 is calculated: two plant days avoided times assumed revenue per plant day. No avoided day is recorded. Cost of EUR 15,287 is measured; a small part of one day avoided covers it. |\n\n**For the board, in the analyst's words:**\n\n> The quality agent's EUR 1,200,000 is a claim, not a result. The Head of Quality stated it; there is no measurement and no formula. The agent has not started and its EUR 23,551 cost is assumed. For this budget round the figure is worth nothing yet. Recommendation: build the evidence first.\n> The service desk agent has the only measured benefit: EUR 611,000, from the ticket system, July to September 2026, against the 13 weeks before. Its EUR 20,953 cost is assumed. Recommendation: fund.\n> The plant cyber response agent's EUR 800,000 is calculated: two plant days avoided, times an assumed revenue per plant day. No avoided day is recorded. Its EUR 15,287 cost is measured. Recommendation: fund on its low cost, not on that figure.\n> These three benefits must not be added together. No monthly cost is recorded for any agent, so we cannot say whether cost grows faster than use.\n\n**What to measure first:**\n\n> The quality agent first, because it has the largest figure and no evidence. Before any spend, record a baseline from the quality system: complaints received, days from complaint to root cause, and recalls with their cost, for the last 12 months. Then run the agent on a limited set of complaints and compare like with like. Second: start recording monthly cost and runs for all three agents.\n\n**What nobody knows:**\n\n> Whether the quality agent reduces recalls at all. Whether the service desk result holds beyond 13 weeks and three ticket types, and how closed tickets were turned into euros. Whether the cyber agent has ever avoided a plant day. What two agents really cost, since their costs are assumed. How any cost moves with use.\n\n## Behind every figure\n\n**Complaint-to-root-cause quality agent** (quality-traceability)\n\n- Cost, assumed: EUR 0.31 a run on claude-opus-5-5, 2,400 runs a year (assumption), build 240 hours at EUR 95 an hour, = EUR 23,551 in the first year.\n- No run records: the tokens per run are an assumption from the portfolio file.\n- Benefit EUR 1,200,000, stated by the Head of Quality. Grade: claimed only. No measurement record and no formula: the figure is the sponsor's statement. Stated in the budget round as 'fewer recalls and faster root cause'. No formula was given and no measurement was set up.\n\n**Service desk resolution agent** (sd-resolution)\n\n- Cost, assumed: EUR 0.001 a run on claude-haiku-5-5, 46,000 runs a year (assumption), build 220 hours at EUR 95 an hour, = EUR 20,953 in the first year.\n- No run records: the tokens per run are an assumption from the portfolio file.\n- Benefit EUR 611,000, stated by the Head of IT Operations. Grade: measured. Measured: Tickets closed without a person, same ticket types as the 13 weeks before the agent. (Ticket system, Halden Industrial, 2026-07-01 to 2026-09-28).\n\n**Sentinel planner, plant cyber response** (ot-response)\n\n- Cost, measured: EUR 0.72 a run on claude-fable-5-2, effort medium, 120 runs a year (assumption: rehearsed and real nights at 12 plants), build 160 hours at EUR 95 an hour, = EUR 15,287 in the first year.\n- Measured from the run records of this repository. Cache reads are counted at the full input price, so this is an upper bound.\n- Run records read: 02-ot-it-convergence-sentinel/reports/runs/new-alarm-after-plan-2026-11-19-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/no-safe-response-2026-11-19-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-19-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/plant-monitoring-down-2026-11-19-claude-fable-5-2.json.\n- Benefit EUR 800,000, stated by the Head of OT Security. Grade: calculated from assumptions. Calculated from stated assumptions: plant_days_avoided 2 x revenue_per_plant_day 400,000.\n- Source of the claim: solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md.\n\n## How this page was made\n\n- Prices: Anthropic pricing page, platform.claude.com/docs/en/about-claude/pricing, read 20 November 2026; euro at 0.92 per USD (assumption).\n- The analyst agent is registered in the Control Tower as advising only; the Head of Finance Business Partnering answers for it.\n- The ledger is fixed code. The analyst agent (claude-fable-5-2, effort medium) read: ot-response, quality-traceability, sd-resolution.\n- Agent turns: value-ledger 4 (handed in).\n- Tokens: 23,931 in, 4,818 out. Seconds to this page: 43.1.\n- Every step of the agent passed the AI Governance Control Tower under its own identity.\n"
+}
