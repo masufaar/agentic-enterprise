@@ -1,0 +1,5 @@
+{
+  "title": "An agent that pays back: the service desk, with a measurement behind the benefit",
+  "question": "The service desk agent is the largest line of the AI budget by number of runs. Does it pay back, and on what evidence?",
+  "agents": ["sd-resolution", "portfolio-truth", "ot-response"]
+}

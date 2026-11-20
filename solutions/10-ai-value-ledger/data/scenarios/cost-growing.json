@@ -1,0 +1,10 @@
+{
+  "title": "Cost growing faster than use: the supply chain monitor",
+  "question": "The supply chain monitor runs as often as it did in June and costs nearly three times as much. Does it keep its budget?",
+  "agents": ["disruption-monitor", "sd-resolution", "quality-traceability"],
+  "changes": {
+    "disruption-monitor": {
+      "cost": {"tokens_per_run": {"input": 86000, "output": 2400}}
+    }
+  }
+}

@@ -47,9 +47,12 @@ def figures(report: dict, registry: dict | None = None, stopped: list[str] | Non
 
 def _today(counts: dict) -> str:
     """What stands behind the cards, in the words of the registry. An agent is a language model in a loop."""
-    words = {"agent working": "agents working", "agent in build": "agents in build",
-             "fixed code": "steps of fixed code without a model", "designed": "designed agents with nothing behind the card yet"}
-    parts = [f"{counts[state]} {words[state]}" for state in words if counts.get(state)]
+    words = {"agent working": ("agent working", "agents working"),
+             "agent in build": ("agent in build", "agents in build"),
+             "fixed code": ("step of fixed code without a model", "steps of fixed code without a model"),
+             "designed": ("designed agent with nothing behind the card yet",
+                          "designed agents with nothing behind the card yet")}
+    parts = [f"{counts[state]} {words[state][counts[state] != 1]}" for state in words if counts.get(state)]
     running = "" if counts.get("agent working") else " No agent is rated working yet."
     return "; ".join(parts) + "." + running
 

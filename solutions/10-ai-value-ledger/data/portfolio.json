@@ -1,0 +1,120 @@
+{
+  "_note": "Synthetic. The AI portfolio of Halden Industrial as the ledger reads it: one entry per registered agent that costs money. All figures are the fictional company's, except the Sentinel line, whose cost is read from the real run records in this repository. People appear by role only.",
+  "year": 2026,
+  "build_hour_eur": 95,
+  "build_hour_basis": "assumption: fully loaded internal cost of one engineering hour",
+  "agents": [
+    {
+      "id": "ot-response",
+      "name": "Sentinel planner, plant cyber response",
+      "solution": "02-ot-it-convergence-sentinel",
+      "owner": "Head of OT Security",
+      "cost": {
+        "from_run_records": "02-ot-it-convergence-sentinel",
+        "runs_per_year": 120,
+        "runs_per_year_basis": "assumption: rehearsed and real nights at 12 plants",
+        "build_hours": 160
+      },
+      "claim": {
+        "value_eur": 800000,
+        "stated_by": "Head of OT Security",
+        "formula": "plant_days_avoided * revenue_per_plant_day",
+        "assumptions": {"plant_days_avoided": 2, "revenue_per_plant_day": 400000},
+        "source": "solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md"
+      }
+    },
+    {
+      "id": "sd-resolution",
+      "name": "Service desk resolution agent",
+      "solution": "07-self-healing-service-desk",
+      "owner": "Head of IT Operations",
+      "cost": {
+        "model": "claude-haiku-5-5",
+        "runs_per_year": 46000,
+        "tokens_per_run": {"input": 9000, "output": 700},
+        "build_hours": 220
+      },
+      "claim": {
+        "value_eur": 611000,
+        "stated_by": "Head of IT Operations",
+        "formula": "tickets_closed_without_a_person * minutes_saved / 60 * hour_eur",
+        "assumptions": {"tickets_closed_without_a_person": 18500, "minutes_saved": 26, "hour_eur": 76},
+        "measurement": {
+          "record": "service-desk-2026-q3",
+          "value_eur": 611000,
+          "what_was_measured": "Tickets closed without a person, counted in the ticket system over 13 weeks against the 13 weeks before the agent, same ticket types."
+        }
+      }
+    },
+    {
+      "id": "quality-traceability",
+      "name": "Complaint-to-root-cause quality agent",
+      "solution": "09-complaint-to-root-cause-quality-agent",
+      "owner": "Head of Quality",
+      "cost": {
+        "model": "claude-opus-5-5",
+        "runs_per_year": 2400,
+        "tokens_per_run": {"input": 64000, "output": 4200},
+        "build_hours": 240
+      },
+      "claim": {
+        "value_eur": 1200000,
+        "stated_by": "Head of Quality",
+        "note": "Stated in the budget round as 'fewer recalls and faster root cause'. No formula was given and no measurement was set up."
+      }
+    },
+    {
+      "id": "disruption-monitor",
+      "name": "Supply chain disruption monitor",
+      "solution": "03-supply-chain-disruption-war-room",
+      "owner": "Head of Supply Chain",
+      "cost": {
+        "model": "claude-fable-5-2",
+        "runs_per_year": 8760,
+        "tokens_per_run": {"input": 31000, "output": 1800},
+        "build_hours": 140,
+        "months": [
+          {"month": "2026-06", "runs": 720, "cost_eur": 1104},
+          {"month": "2026-07", "runs": 730, "cost_eur": 1402},
+          {"month": "2026-08", "runs": 728, "cost_eur": 1894},
+          {"month": "2026-09", "runs": 731, "cost_eur": 2460},
+          {"month": "2026-10", "runs": 736, "cost_eur": 3101}
+        ],
+        "months_note": "Synthetic. The agent reads more sources per run than it did in June; the number of runs has not changed."
+      },
+      "claim": {
+        "value_eur": 240000,
+        "stated_by": "Head of Supply Chain",
+        "formula": "disruptions_caught_early * cost_of_a_late_response",
+        "assumptions": {"disruptions_caught_early": 8, "cost_of_a_late_response": 30000}
+      }
+    },
+    {
+      "id": "portfolio-truth",
+      "name": "Portfolio truth agent",
+      "solution": "06-portfolio-truth-agent",
+      "owner": "Head of Transformation",
+      "cost": {
+        "model": "claude-sonnet-5-5",
+        "runs_per_year": 1040,
+        "tokens_per_run": {"input": 48000, "output": 3000},
+        "build_hours": 120
+      },
+      "claim": {
+        "value_eur": 180000,
+        "stated_by": "Head of Transformation",
+        "formula": "status_reporting_hours_saved * hour_eur",
+        "assumptions": {"status_reporting_hours_saved": 2000, "hour_eur": 90}
+      }
+    }
+  ],
+  "measurements": {
+    "_note": "Synthetic measurements the company says it has. The ledger grades a benefit as measured only when the record named in the claim is in this list.",
+    "service-desk-2026-q3": {
+      "system": "Ticket system, Halden Industrial",
+      "period": "2026-07-01 to 2026-09-28",
+      "method": "Tickets closed without a person, same ticket types as the 13 weeks before the agent.",
+      "value_eur": 611000
+    }
+  }
+}

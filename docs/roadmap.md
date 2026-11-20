@@ -15,7 +15,9 @@ Status words used in this repository: "Designed", "In build", "Working".
 
 **Done, 20 November 2026: one shared agent harness.** The agent loop, model connector, hand-in checks and case memory of solution 02 are now one harness for every solution ([shared/harness](../shared/harness)). Every tool call reaches the Control Tower through one hook shaped like the tool-call request of the OWASP Agent Control Standard: allow, deny, or ask a named person. Solution 02 passes its 92 tests on it, unchanged; the harness has 15 of its own. Status: shared harness: working; ACS wire format and conformance test: designed. No new run with a model was made: the behaviour did not change.
 
-**Next: solution 10, the AI Value Ledger**, built on this harness. Solutions 03 to 09 follow on the same harness, so none has to be reworked later.
+**Done, 20 November 2026: solution 10, the AI Value Ledger.** Its ledger is working as fixed code: it reads the recorded runs of the other solutions, prices them from a dated price table and grades every benefit claim as measured, calculated or claimed, with totals held apart by grade. The first measured line is the Sentinel's own cost. Its analyst agent, which challenges each claim and writes the page for the Chief AI Officer, is in build: 33 tests run it on the scripted stand-in, and no run with a real model has been recorded yet. See [the solution page](../solutions/10-ai-value-ledger/README.md).
+
+**Next: solutions 03 to 09 on the same harness**, so none has to be reworked later, and the value ledger reading its own review runs.
 
 **Designed, for the finish:** the ACS wire format and signature on the hook, then the ACS conformance test run against the gateway, with its result published, including what fails.
 
