@@ -9,7 +9,7 @@ Version 0 is generated on demand. A fixed quarterly schedule, trends over time a
 | Question | Answer |
 |---|---|
 | How many cards are in the agent registry? | 20 |
-| What stands behind them today? | 3 agents working; 6 steps of fixed code without a model; 11 designed agents with nothing behind the card yet. |
+| What stands behind them today? | 4 agents working; 6 steps of fixed code without a model; 10 designed agents with nothing behind the card yet. |
 | How many are approved to act? | 19; 1 registered but not yet approved |
 | How many are switched off right now? | 0 |
 | How many company rules are enforced? | 13, and one daily volume limit |
@@ -38,7 +38,7 @@ How far the permissions of each card go inside the company, worked out from its 
 |---|---|---|---|
 | 4: Can stop production | 1 | 0 | OT Incident Containment Assistant |
 | 3: Acts on accounts, systems or money | 4 | 2 | Office-side First Response Agent, Alternative Sourcing Options Agent, Maintenance Fault Diagnosis Agent, Service Desk Resolution Drafter |
-| 2: Writes or proposes inside the company | 12 | 3 | Use-Case Risk Classifier, Pre-Release Red Team Tester, Quarterly Agent Audit Reporter, Office and Plant Threat Correlator, Crisis Team Briefing Writer, SOP Negotiation Mediator, Knowledge Capture Interviewer, Project Portfolio Truth Check, Service Desk Ticket Triage, Network Digital Twin Validator, Complaint to Root Cause Traceability Agent, AI Value Ledger |
+| 2: Writes or proposes inside the company | 12 | 3 | Use-Case Risk Classifier, Pre-Release Red Team Tester, Quarterly Agent Audit Reporter, Office and Plant Threat Correlator, Crisis Team Briefing Writer, SOP Negotiation Mediator, Knowledge Capture Interviewer, Project Portfolio Truth Check, Service Desk Ticket Triage, Network Digital Twin Validator, Complaint to Root Cause Traceability Agent, AI Value Ledger analyst |
 | 1: Reads only | 3 | 2 | Plant Asset and Alert Collector, Response Challenger, Supplier Disruption Monitor |
 
 ## Cards by proposed legal tier
@@ -47,7 +47,7 @@ How far the permissions of each card go inside the company, worked out from its 
 |---|---|---|
 | prohibited | 0 | - |
 | high | 1 | OT Incident Containment Assistant |
-| limited | 12 | Use-Case Risk Classifier, Pre-Release Red Team Tester, Quarterly Agent Audit Reporter, Crisis Team Briefing Writer, Response Challenger, Alternative Sourcing Options Agent, Knowledge Capture Interviewer, Project Portfolio Truth Check, Service Desk Ticket Triage, Service Desk Resolution Drafter, Complaint to Root Cause Traceability Agent, AI Value Ledger |
+| limited | 12 | Use-Case Risk Classifier, Pre-Release Red Team Tester, Quarterly Agent Audit Reporter, Crisis Team Briefing Writer, Response Challenger, Alternative Sourcing Options Agent, Knowledge Capture Interviewer, Project Portfolio Truth Check, Service Desk Ticket Triage, Service Desk Resolution Drafter, Complaint to Root Cause Traceability Agent, AI Value Ledger analyst |
 | minimal | 7 | Plant Asset and Alert Collector, Office and Plant Threat Correlator, Office-side First Response Agent, Supplier Disruption Monitor, SOP Negotiation Mediator, Maintenance Fault Diagnosis Agent, Network Digital Twin Validator |
 
 Tiers are proposals from fixed rules, not legal advice. See the [agent inventory](agent-inventory.md) for owner, approver, both ratings and what stands behind each card.

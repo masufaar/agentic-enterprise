@@ -27,4 +27,4 @@ Two ratings, both proposals awaiting human sign-off. The legal tier is a reading
 | sd-resolution | 07 | Designed | Head of IT Service Management | Chief Information Officer | act | 3: Acts on accounts, systems or money | limited | EU AI Act Art. 50 (transparency towards people) |
 | network-twin-validator | 08 | Designed | Head of Network Engineering | Chief Information Security Officer | advise | 2: Writes or proposes inside the company | minimal | No Annex III use and no direct contact with people |
 | quality-traceability | 09 | Designed | Head of Quality Assurance | VP Operations | advise | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (marking of generated content) |
-| value-ledger | 10 | Designed | Head of Finance Business Partnering | Chief Financial Officer | advise | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (marking of generated content) |
+| value-ledger | 10 | Agent working | Head of Finance Business Partnering | Chief Financial Officer | advise | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (marking of generated content) |
