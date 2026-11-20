@@ -561,3 +561,50 @@ Agreed with M as step 1 of five: update solution 01, then solution 02, then the 
 ## 19 November 2026: registry changes made from solution 02
 
 Recorded in solution 02's BUILD_LOG, session 5 (D60, D61). In `data/agents.json`: `cases.read` added to `ot-response` and `ot-challenger`, `cases.write` to `ot-briefing` (reach of action unchanged); the three solution 02 agents move from "agent in build" to "agent working" after five recorded runs with a real model. `reports/agent-inventory.md` and `reports/board-latest.md` regenerated; two expectations in `tests/test_control_tower.py` updated. 82 of 82 tests.
+
+## Session 11, 20 November 2026: the Control Tower and the open standards (step 7 of the project, first part)
+
+### What was done
+
+Dated research on the current agent-governance standards and toolkits, recorded outside the repository (project research note of 20 November 2026; its sources are summarised below). Decisions taken on what the Control Tower adopts, wraps and keeps. Pages updated so that every page says the same thing. No code changed in this session: everything new below is **Designed**, and the shared agent harness is the next build.
+
+### What the research found on 20 November 2026
+
+- **OWASP Agent Control Standard (ACS)**, published by the OWASP GenAI Security Project on 1 September 2026, specification v0.1.0, next version targeted for March 2027, no 1.0 date. A wire specification: a separate "Guardian" receives what an agent is about to do and answers with one of five decisions: allow, deny, modify, ask (a human, agent or service approves) or defer. Nineteen lifecycle hooks; the reference implementation evaluates two live, the tool-call request and the tool-call result. The mandatory baseline (ACS-Core) is the hooks and decisions, a JSON-RPC 2.0 wire format with an HMAC-SHA256 signature on every message, and an audit chain. Optional: tracing as OpenTelemetry spans and OCSF events, and an Agent Bill of Materials (AgBOM). Code and schemas Apache 2.0. A conformance harness tests a running Guardian over HTTP. Conformance claims are self-declared in v0.1.0. Source: https://github.com/Agent-Control-Standard/ACS, https://genai.owasp.org/resource/agent-control-standard-acs/
+- **Microsoft Agent Governance Toolkit**, MIT, still public preview; latest release v4.1.0 of 9 June 2026 on its release page. Policy engine, kill switch, MCP gateway, adapters for 14 agent frameworks. Source: https://github.com/microsoft/agent-governance-toolkit
+- **OWASP Top 10 for Agentic Applications (2026)**, released 9 December 2025: the list vendors and auditors map agent risks to.
+- **OpenTelemetry generative-AI conventions** moved to their own repository on 12 June 2026 and were all in Development status as of July 2026.
+- **Model Context Protocol** current specification 2026-07-28 (stateless core). **A2A** v1.0 since March 2026, Linux Foundation.
+- **EU AI Act**: Regulation (EU) 2026/1744 (Digital Omnibus), in force 27 July 2026; high-risk obligations from 2 December 2027 (Annex III) and 2 August 2028 (Annex I), per several secondary sources; the Official Journal text was not read.
+
+### Decisions
+
+| | Decision | Why | Alternative set aside |
+|---|---|---|---|
+| D82 | The Control Tower stays the company's own code. | Owning the control layer is what this project sells, and the toolkits found are previews that change shape every few weeks (AGT v1.0 to v4.1 between March and June 2026). | Adopting the Microsoft toolkit as the core. |
+| D83 | The Control Tower follows the OWASP Agent Control Standard for the whole system: the gateway is to become an ACS Guardian, and every agent of every solution reaches it through the ACS tool-call request and result hooks of the shared harness. Status: **Designed**. | The gateway already sits where ACS puts its Guardian: one checkpoint before every tool call, deciding allow, deny or hold. Following the standard means a company keeps its own rules and can still put any agent framework, or a third-party Guardian, on the same wire. Board line: owned by the company, built to the open standard. | Our own interface only, which would lock each company into our harness. |
+| D84 | Our three decisions map to ACS as: allow to `allow`, refuse to `deny`, hold for a named person to `ask`. The daily volume limit answers `deny` once the allowance is spent. `modify` and `defer` are not used in version 0. | The mapping is exact for what the gateway does today. Not using `modify` keeps the rule that the gateway never rewrites what an agent asked for without a person. | Inventing a fourth decision outside the standard. |
+| D85 | What will be claimed, and when: until the ACS conformance harness has run against the gateway and its result is published, every page says "designed to follow" or "in build", never "conformant". Conformance in v0.1.0 is self-declared, so the published test result is the proof, not the claim. | Charter: nothing is described as built before it is built. | Saying "ACS-compliant" from the design alone. |
+| D86 | Known gaps to ACS-Core, published now: the JSON-RPC 2.0 wire format, the HMAC-SHA256 signature on every message, and the tool-call result hook (the gateway checks every request before the tool runs; it does not yet check what a tool returns). Our audit trail is hash-chained; whether that meets the ACS audit chain is to be checked against its schema. | Gaps are published, not hidden, each with its fix (charter section 7). | Listing them only after the build. |
+| D87 | The registry exports an AgBOM-shaped inventory (models, tools, dependencies per card). **Designed.** | Optional in ACS, cheap for us: the registry already holds the facts. | |
+| D88 | The record follows the OpenTelemetry generative-AI names, pinned to a dated commit and marked "Development status". **Designed.** | A company can send our record to the monitoring it already runs; the pin protects against names that still move. | Our own names only. |
+| D89 | Every tool is described in the shape of MCP 2026-07-28; agent-to-agent cards in A2A v1.0 shape are designed for the solutions that need them (War Room, S&OP). **Designed.** | A company can replace our simulated tools with its own MCP servers without touching the agents. | Running a real MCP server now, which no solution needs yet. |
+| D90 | The Microsoft Agent Governance Toolkit is an optional adapter, never a dependency. **Designed.** | Shows the tower can sit beside Microsoft's toolkit; no lock-in, and the blueprint stays runnable on a plain Python install. | A dependency on a preview package. |
+| D91 | Every control is to be mapped to the OWASP Top 10 for Agentic Applications (2026), and the classifier's dates to Regulation (EU) 2026/1744. **Designed.** | The language auditors and vendors already use. | |
+| D92 | No delegation. | The decisions depend on the whole project's context; the page edits are short. A lighter model could have run the searches. | |
+
+### Changed
+
+`README.md` (top), `docs/architecture.md`, `docs/roadmap.md`, this folder's `README.md`, and solution 02's `README.md` (one sentence on the standard, and the invented vendor names of the board deck's tool slide, which the page did not carry yet). No code, data or test changed.
+
+### Measured
+
+Tests run in the assistant's workspace after the page edits: Control Tower 82 of 82, solution 02 92 of 92. No figure changed.
+
+### Steps and cost
+
+Tokens, estimated (no tool reports them in this session): research about 60,000 in and 5,500 out; this session's repository work about 45,000 in and 9,000 out. Main model.
+
+### Where to continue
+
+Step 7, second part: take the agent loop, the model connector and the case memory out of solution 02 into one shared harness whose tool calls reach the gateway through the ACS tool-call hooks (D83, D84); solution 02 keeps passing its 92 tests on it. Then run the ACS conformance harness against the gateway and publish the result, including what fails.

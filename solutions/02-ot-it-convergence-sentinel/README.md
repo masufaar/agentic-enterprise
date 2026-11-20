@@ -26,15 +26,15 @@ AI agents under the company's control run that decision.
 
 ## In addition to your existing tools
 
-| Layer | What it does | Whose job |
-|---|---|---|
-| Plant-floor monitoring | Knows the machines and controllers; raises alarms on the plant network | Your existing tools |
-| Office security | Watches computers, accounts and email | Your existing tools |
-| Investigation across both | Joins the alarms and traces the intruder's path, often with AI agents | Your existing tools |
-| Network separation | Carries out a disconnection | Your existing tools |
-| **The decision** | What each response costs in lost production, which one to take, who decides, and the record of it | **This solution** |
+| Layer | What it does | Whose job | At Halden (invented names) |
+|---|---|---|---|
+| Plant-floor monitoring | Knows the machines and controllers; raises alarms on the plant network | Your existing tools | Corvane OT Watch |
+| Office security | Watches computers, accounts and email | Your existing tools | Brightmoor Endpoint |
+| Investigation across both | Joins the alarms and traces the intruder's path, often with AI agents | Your existing tools | Varrick SOC Agents |
+| Network separation | Carries out a disconnection | Your existing tools | Tessgate Firewalls |
+| **The decision** | What each response costs in lost production, which one to take, who decides, and the record of it | **This solution** | |
 
-The solution takes the findings of those tools as its input. It does not replace them and does not try to detect better than they do.
+The solution takes the findings of those tools as its input. It does not replace them and does not try to detect better than they do. The vendor names in the last column are invented for the fictional company; a web search on 20 November 2026 found no security product under these names. In the repository, the first two of these tools are simulated by alarm files (`data/events_plant.json`, `data/events_office.json`).
 
 ## Why agents, and not one more piece of software
 
@@ -137,7 +137,7 @@ What this run does not show, and what was wrong with it:
 
 Fixed code, tested, and not open to persuasion by a model:
 
-- **Every step goes through the Control Tower** under the agent's own identity, and is recorded. The planner can read and price; it cannot disconnect anything. The first-response agent can act on the office side; it has no permission on the plant floor. The challenger can read and price; it can change nothing.
+- **Every step goes through the Control Tower** under the agent's own identity, and is recorded. Designed next: these steps reach the Control Tower through the hooks of the open OWASP Agent Control Standard, in the harness shared by every solution. The planner can read and price; it cannot disconnect anything. The first-response agent can act on the office side; it has no permission on the plant floor. The challenger can read and price; it can change nothing.
 - **No invented figures.** Every euro figure an agent writes must be one the pricing tool produced that night. Any other figure, and the harness hands the result back to be corrected. The decision page takes its figures from the pricing tool, never from an agent's text.
 - **No hidden gaps.** A plan that leaves a line within the intruder's reach is accepted only if it says so.
 - **Office-side steps are narrow.** Only the steps the briefing allows, only on the office side, only against a device or account that is part of the incident. Each can be undone and says how.

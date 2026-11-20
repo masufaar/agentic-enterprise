@@ -40,6 +40,21 @@ The board gets one page that answers three questions at any moment: how many age
 | Connection to real systems | Designed | The gateway must be the only holder of the passwords and keys to the real systems, so that no agent can go around it. Not built: there are no real systems behind it yet. |
 | Board dashboard with trends, clickable approval screen with company sign-in | Designed | |
 
+## Owned by the company, built to the open standard
+
+The Control Tower is the company's own code, and it is designed to follow the open standards found on 20 November 2026. The main one is the **OWASP Agent Control Standard (ACS)**, published by the OWASP GenAI Security Project on 1 September 2026 (specification v0.1.0). ACS describes exactly what this gateway does: a separate checkpoint receives what an agent is about to do and decides before it happens. With ACS, any agent framework can reach the company's own checkpoint over the same open wire, and the company keeps its own rules.
+
+| Standard | What it covers | Status here |
+|---|---|---|
+| OWASP Agent Control Standard v0.1.0 | The checkpoint before each agent action, its decisions, its record | **Designed.** The gateway already sits where ACS puts its checkpoint, and its decisions map exactly: allow to `allow`, refuse to `deny`, hold for a named person to `ask`. Not built: the ACS message format and its signature on every message, the check of what a tool returns, and a published run of the ACS conformance test. Until that test result is published, this page says "designed to follow", not "conformant". |
+| OWASP Top 10 for Agentic Applications (2026) | The risks auditors map agents to | Designed: each control mapped to the list. |
+| OpenTelemetry generative-AI conventions | Names for the record, so any monitoring tool can read it | Designed; the conventions themselves are still in Development status. |
+| Model Context Protocol, 2026-07-28 | How agents call tools | Designed: every tool described in this shape, so a company can plug in its own. |
+| Agent2Agent (A2A) v1.0 | How agents talk to each other | Designed, for the solutions that need it. |
+| EU AI Act, as amended by Regulation (EU) 2026/1744 | High-risk obligations from 2 December 2027 and 2 August 2028 | Working as a proposal for human sign-off (risk classification above); dates to be read in the Official Journal. |
+
+The Microsoft Agent Governance Toolkit (MIT, public preview, v4.1.0 on 9 June 2026) is designed as an optional adapter, never a dependency. The reasons for each choice are in [BUILD_LOG.md](BUILD_LOG.md), session 11.
+
 ## Measured results of the red-team campaign
 
 Measured on 16 November 2026 by running the campaign in this folder. All data is synthetic.
@@ -101,7 +116,7 @@ Plain Python, standard library only, about 1,200 lines. No database, no server, 
 - `reports/` published results
 - [BUILD_LOG.md](BUILD_LOG.md) what was decided, why, and what it cost
 
-The earlier plan was to build on an existing open-source enforcement layer. Version 0 deliberately does not, to keep the first slice small enough to read in one sitting. The gateway is one small component, so it can be replaced by such a layer later without changing the agents.
+The earlier plan was to build on an existing open-source enforcement layer. Version 0 deliberately does not, to keep the first slice small enough to read in one sitting. On 20 November 2026 the choice was confirmed the other way round: the gateway stays the company's own and is designed to speak the open Agent Control Standard, so other enforcement layers and agent frameworks can connect to it rather than replace it (see above).
 
 ## Data
 
@@ -109,6 +124,7 @@ All data is synthetic and belongs to the fictional company described in [docs/co
 
 ## Next steps
 
+0. Next, designed: one shared agent harness for every solution, taken out of solution 02, whose tool calls reach this gateway through the ACS tool-call hooks. Then run the ACS conformance test against the gateway and publish the result, including what fails.
 1. Turn the approval queue into a screen with buttons and company sign-in, and reduce the load on one approver (9 of 11 items). Then label more sources than tickets.
 2. Close breach A-29: a second check of outgoing text for personal data that exact comparison cannot see.
 3. Run the campaign every night and keep the history.

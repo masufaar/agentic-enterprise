@@ -13,6 +13,8 @@ Status words used in this repository: "Designed", "In build", "Working".
 
 ## In build, and what comes next
 
+**Next: one shared agent harness, and the Control Tower built to the open standard** (designed, 20 November 2026). The agent loop, model connector and case memory of solution 02 become one harness for every solution. Every tool call reaches the Control Tower through the hooks of the OWASP Agent Control Standard. Solution 02 must keep passing its tests on it. Then the ACS conformance test is run against the gateway and its result published, including what fails. Solutions 03 to 10 are built on this harness, so none of them has to be reworked later.
+
 **The OT/IT Convergence Sentinel** is working as a blueprint. What is still designed for it, in order:
 
 1. The same nights run several times, so that results can be stated as rates, and a changed briefing run once to show that it changes behaviour.
