@@ -1,0 +1,985 @@
+{
+ "_note": "Synthetic. Who owns which account and laptop, who owns each shared folder and application, and where printers and plant-floor terminals stand. Invented employee numbers only.",
+ "people": {
+  "HI-EMP-50611": {
+   "site": "head-office",
+   "account": "acct-61242",
+   "laptop": "LT-96584"
+  },
+  "HI-EMP-44943": {
+   "site": "plant-01",
+   "account": "acct-75078",
+   "laptop": "LT-25716"
+  },
+  "HI-EMP-52937": {
+   "site": "plant-02",
+   "account": "acct-20561",
+   "laptop": "LT-60926"
+  },
+  "HI-EMP-61329": {
+   "site": "plant-03",
+   "account": "acct-31805",
+   "laptop": "LT-36125"
+  },
+  "HI-EMP-41582": {
+   "site": "plant-04",
+   "account": "acct-68875",
+   "laptop": "LT-72656"
+  },
+  "HI-EMP-42373": {
+   "site": "plant-05",
+   "account": "acct-62644",
+   "laptop": "LT-33399"
+  },
+  "HI-EMP-66911": {
+   "site": "plant-06",
+   "account": "acct-82016",
+   "laptop": "LT-66875"
+  },
+  "HI-EMP-57559": {
+   "site": "plant-07",
+   "account": "acct-46416",
+   "laptop": "LT-93341"
+  },
+  "HI-EMP-43084": {
+   "site": "plant-08",
+   "account": "acct-27947",
+   "laptop": "LT-53583"
+  },
+  "HI-EMP-51982": {
+   "site": "plant-09",
+   "account": "acct-66429",
+   "laptop": "LT-21370"
+  },
+  "HI-EMP-59096": {
+   "site": "plant-10",
+   "account": "acct-82118",
+   "laptop": "LT-61883"
+  },
+  "HI-EMP-41900": {
+   "site": "plant-11",
+   "account": "acct-46493",
+   "laptop": "LT-70707"
+  },
+  "HI-EMP-69809": {
+   "site": "plant-12",
+   "account": "acct-64433",
+   "laptop": "LT-62610"
+  },
+  "HI-EMP-56627": {
+   "site": "head-office",
+   "account": "acct-57024",
+   "laptop": "LT-21130"
+  },
+  "HI-EMP-47035": {
+   "site": "plant-01",
+   "account": "acct-99485",
+   "laptop": "LT-30821"
+  },
+  "HI-EMP-41228": {
+   "site": "plant-02",
+   "account": "acct-59865",
+   "laptop": "LT-32282"
+  },
+  "HI-EMP-42816": {
+   "site": "plant-03",
+   "account": "acct-40245",
+   "laptop": "LT-26651"
+  },
+  "HI-EMP-54209": {
+   "site": "plant-04",
+   "account": "acct-29781",
+   "laptop": "LT-13610"
+  },
+  "HI-EMP-53702": {
+   "site": "plant-05",
+   "account": "acct-20876",
+   "laptop": "LT-29811"
+  },
+  "HI-EMP-42289": {
+   "site": "plant-06",
+   "account": "acct-33097",
+   "laptop": "LT-87438"
+  },
+  "HI-EMP-47886": {
+   "site": "plant-07",
+   "account": "acct-29830",
+   "laptop": "LT-70994"
+  },
+  "HI-EMP-42972": {
+   "site": "plant-08",
+   "account": "acct-40403",
+   "laptop": "LT-95964"
+  },
+  "HI-EMP-58056": {
+   "site": "plant-09",
+   "account": "acct-96313",
+   "laptop": "LT-29159"
+  },
+  "HI-EMP-53910": {
+   "site": "plant-10",
+   "account": "acct-40583",
+   "laptop": "LT-90160"
+  },
+  "HI-EMP-41936": {
+   "site": "plant-11",
+   "account": "acct-11581",
+   "laptop": "LT-88101"
+  },
+  "HI-EMP-67094": {
+   "site": "plant-12",
+   "account": "acct-73565",
+   "laptop": "LT-72174"
+  },
+  "HI-EMP-58528": {
+   "site": "head-office",
+   "account": "acct-87217",
+   "laptop": "LT-96149"
+  },
+  "HI-EMP-44056": {
+   "site": "plant-01",
+   "account": "acct-33900",
+   "laptop": "LT-55928"
+  },
+  "HI-EMP-47315": {
+   "site": "plant-02",
+   "account": "acct-44438",
+   "laptop": "LT-30435"
+  },
+  "HI-EMP-60664": {
+   "site": "plant-03",
+   "account": "acct-46953",
+   "laptop": "LT-81913"
+  },
+  "HI-EMP-60559": {
+   "site": "plant-04",
+   "account": "acct-10536",
+   "laptop": "LT-81864"
+  },
+  "HI-EMP-59103": {
+   "site": "plant-05",
+   "account": "acct-29094",
+   "laptop": "LT-27168"
+  },
+  "HI-EMP-42027": {
+   "site": "plant-06",
+   "account": "acct-64912",
+   "laptop": "LT-12804"
+  },
+  "HI-EMP-58910": {
+   "site": "plant-07",
+   "account": "acct-80069",
+   "laptop": "LT-11866"
+  },
+  "HI-EMP-59187": {
+   "site": "plant-08",
+   "account": "acct-58398",
+   "laptop": "LT-95154"
+  },
+  "HI-EMP-52998": {
+   "site": "plant-09",
+   "account": "acct-89929",
+   "laptop": "LT-23470"
+  },
+  "HI-EMP-41624": {
+   "site": "plant-10",
+   "account": "acct-84231",
+   "laptop": "LT-79020"
+  },
+  "HI-EMP-47244": {
+   "site": "plant-11",
+   "account": "acct-51761",
+   "laptop": "LT-28251"
+  },
+  "HI-EMP-41526": {
+   "site": "plant-12",
+   "account": "acct-26448",
+   "laptop": "LT-66860"
+  },
+  "HI-EMP-58240": {
+   "site": "head-office",
+   "account": "acct-77566",
+   "laptop": "LT-35533"
+  },
+  "HI-EMP-68130": {
+   "site": "plant-01",
+   "account": "acct-90949",
+   "laptop": "LT-37661"
+  },
+  "HI-EMP-44363": {
+   "site": "plant-02",
+   "account": "acct-95847",
+   "laptop": "LT-13669"
+  },
+  "HI-EMP-49489": {
+   "site": "plant-03",
+   "account": "acct-98630",
+   "laptop": "LT-43008"
+  },
+  "HI-EMP-53734": {
+   "site": "plant-04",
+   "account": "acct-17076",
+   "laptop": "LT-37889"
+  },
+  "HI-EMP-44726": {
+   "site": "plant-05",
+   "account": "acct-69853",
+   "laptop": "LT-48399"
+  },
+  "HI-EMP-57717": {
+   "site": "plant-06",
+   "account": "acct-99204",
+   "laptop": "LT-75688"
+  },
+  "HI-EMP-43859": {
+   "site": "plant-07",
+   "account": "acct-83304",
+   "laptop": "LT-41527"
+  },
+  "HI-EMP-58707": {
+   "site": "plant-08",
+   "account": "acct-61429",
+   "laptop": "LT-86865"
+  },
+  "HI-EMP-50108": {
+   "site": "plant-09",
+   "account": "acct-62175",
+   "laptop": "LT-52728"
+  },
+  "HI-EMP-58358": {
+   "site": "plant-10",
+   "account": "acct-62294",
+   "laptop": "LT-43995"
+  },
+  "HI-EMP-66742": {
+   "site": "plant-11",
+   "account": "acct-61658",
+   "laptop": "LT-81349"
+  },
+  "HI-EMP-62347": {
+   "site": "plant-12",
+   "account": "acct-23570",
+   "laptop": "LT-64920"
+  },
+  "HI-EMP-45922": {
+   "site": "head-office",
+   "account": "acct-73114",
+   "laptop": "LT-27180"
+  },
+  "HI-EMP-43376": {
+   "site": "plant-01",
+   "account": "acct-93137",
+   "laptop": "LT-17982"
+  },
+  "HI-EMP-59057": {
+   "site": "plant-02",
+   "account": "acct-62486",
+   "laptop": "LT-56371"
+  },
+  "HI-EMP-58717": {
+   "site": "plant-03",
+   "account": "acct-18158",
+   "laptop": "LT-70052"
+  },
+  "HI-EMP-60935": {
+   "site": "plant-04",
+   "account": "acct-34983",
+   "laptop": "LT-96831"
+  },
+  "HI-EMP-46156": {
+   "site": "plant-05",
+   "account": "acct-18827",
+   "laptop": "LT-86460"
+  },
+  "HI-EMP-52202": {
+   "site": "plant-06",
+   "account": "acct-37363",
+   "laptop": "LT-77732"
+  },
+  "HI-EMP-43192": {
+   "site": "plant-07",
+   "account": "acct-67753",
+   "laptop": "LT-65132"
+  },
+  "HI-EMP-57948": {
+   "site": "plant-08",
+   "account": "acct-31273",
+   "laptop": "LT-75752"
+  },
+  "HI-EMP-63334": {
+   "site": "plant-09",
+   "account": "acct-24408",
+   "laptop": "LT-27139"
+  },
+  "HI-EMP-42057": {
+   "site": "plant-10",
+   "account": "acct-54571",
+   "laptop": "LT-79707"
+  },
+  "HI-EMP-58493": {
+   "site": "plant-11",
+   "account": "acct-88738",
+   "laptop": "LT-29901"
+  },
+  "HI-EMP-41953": {
+   "site": "plant-12",
+   "account": "acct-16891",
+   "laptop": "LT-78617"
+  },
+  "HI-EMP-60283": {
+   "site": "head-office",
+   "account": "acct-23419",
+   "laptop": "LT-76918"
+  },
+  "HI-EMP-46748": {
+   "site": "plant-01",
+   "account": "acct-10030",
+   "laptop": "LT-12451"
+  },
+  "HI-EMP-56266": {
+   "site": "plant-02",
+   "account": "acct-84289",
+   "laptop": "LT-67688"
+  },
+  "HI-EMP-62295": {
+   "site": "plant-03",
+   "account": "acct-29826",
+   "laptop": "LT-34000"
+  },
+  "HI-EMP-57423": {
+   "site": "plant-04",
+   "account": "acct-80335",
+   "laptop": "LT-89764"
+  },
+  "HI-EMP-54011": {
+   "site": "plant-05",
+   "account": "acct-23299",
+   "laptop": "LT-10515"
+  },
+  "HI-EMP-65468": {
+   "site": "plant-06",
+   "account": "acct-57659",
+   "laptop": "LT-29634"
+  },
+  "HI-EMP-50293": {
+   "site": "plant-07",
+   "account": "acct-90443",
+   "laptop": "LT-32589"
+  },
+  "HI-EMP-55256": {
+   "site": "plant-08",
+   "account": "acct-13342",
+   "laptop": "LT-28554"
+  },
+  "HI-EMP-54849": {
+   "site": "plant-09",
+   "account": "acct-19216",
+   "laptop": "LT-72061"
+  },
+  "HI-EMP-51848": {
+   "site": "plant-10",
+   "account": "acct-37256",
+   "laptop": "LT-91146"
+  },
+  "HI-EMP-49822": {
+   "site": "plant-11",
+   "account": "acct-90487",
+   "laptop": "LT-25772"
+  },
+  "HI-EMP-48140": {
+   "site": "plant-12",
+   "account": "acct-59313",
+   "laptop": "LT-82938"
+  },
+  "HI-EMP-66030": {
+   "site": "head-office",
+   "account": "acct-29470",
+   "laptop": "LT-18094"
+  },
+  "HI-EMP-45890": {
+   "site": "plant-01",
+   "account": "acct-93153",
+   "laptop": "LT-52727"
+  },
+  "HI-EMP-62904": {
+   "site": "plant-02",
+   "account": "acct-43063",
+   "laptop": "LT-99434"
+  },
+  "HI-EMP-65553": {
+   "site": "plant-03",
+   "account": "acct-55533",
+   "laptop": "LT-77941"
+  },
+  "HI-EMP-47998": {
+   "site": "plant-04",
+   "account": "acct-88941",
+   "laptop": "LT-79563"
+  },
+  "HI-EMP-42682": {
+   "site": "plant-05",
+   "account": "acct-57731",
+   "laptop": "LT-82802"
+  },
+  "HI-EMP-58822": {
+   "site": "plant-06",
+   "account": "acct-72147",
+   "laptop": "LT-73240"
+  },
+  "HI-EMP-49838": {
+   "site": "plant-07",
+   "account": "acct-26101",
+   "laptop": "LT-23907"
+  },
+  "HI-EMP-57209": {
+   "site": "plant-08",
+   "account": "acct-25119",
+   "laptop": "LT-83439"
+  },
+  "HI-EMP-56223": {
+   "site": "plant-09",
+   "account": "acct-73972",
+   "laptop": "LT-17447"
+  },
+  "HI-EMP-68676": {
+   "site": "plant-10",
+   "account": "acct-71078",
+   "laptop": "LT-42570"
+  },
+  "HI-EMP-51255": {
+   "site": "plant-11",
+   "account": "acct-72966",
+   "laptop": "LT-35074"
+  },
+  "HI-EMP-63902": {
+   "site": "plant-12",
+   "account": "acct-73417",
+   "laptop": "LT-46296"
+  },
+  "HI-EMP-54707": {
+   "site": "head-office",
+   "account": "acct-50875",
+   "laptop": "LT-15531"
+  },
+  "HI-EMP-49435": {
+   "site": "plant-01",
+   "account": "acct-21257",
+   "laptop": "LT-22811"
+  },
+  "HI-EMP-59954": {
+   "site": "plant-02",
+   "account": "acct-28889",
+   "laptop": "LT-76547"
+  },
+  "HI-EMP-42398": {
+   "site": "plant-03",
+   "account": "acct-23393",
+   "laptop": "LT-69267"
+  },
+  "HI-EMP-43868": {
+   "site": "plant-04",
+   "account": "acct-54909",
+   "laptop": "LT-83626"
+  },
+  "HI-EMP-56775": {
+   "site": "plant-05",
+   "account": "acct-44702",
+   "laptop": "LT-13652"
+  },
+  "HI-EMP-53701": {
+   "site": "plant-06",
+   "account": "acct-72733",
+   "laptop": "LT-18305"
+  },
+  "HI-EMP-45405": {
+   "site": "plant-07",
+   "account": "acct-31160",
+   "laptop": "LT-68097"
+  },
+  "HI-EMP-64809": {
+   "site": "plant-08",
+   "account": "acct-77676",
+   "laptop": "LT-52678"
+  },
+  "HI-EMP-51208": {
+   "site": "plant-09",
+   "account": "acct-13027",
+   "laptop": "LT-90285"
+  },
+  "HI-EMP-44980": {
+   "site": "plant-10",
+   "account": "acct-36897",
+   "laptop": "LT-76263"
+  },
+  "HI-EMP-56022": {
+   "site": "plant-11",
+   "account": "acct-79239",
+   "laptop": "LT-89447"
+  },
+  "HI-EMP-53818": {
+   "site": "plant-12",
+   "account": "acct-57415",
+   "laptop": "LT-77130"
+  },
+  "HI-EMP-41284": {
+   "site": "head-office",
+   "account": "acct-29215",
+   "laptop": "LT-36136"
+  },
+  "HI-EMP-61896": {
+   "site": "plant-01",
+   "account": "acct-81194",
+   "laptop": "LT-46331"
+  },
+  "HI-EMP-42543": {
+   "site": "plant-02",
+   "account": "acct-13544",
+   "laptop": "LT-69289"
+  },
+  "HI-EMP-65053": {
+   "site": "plant-03",
+   "account": "acct-79220",
+   "laptop": "LT-76605"
+  },
+  "HI-EMP-58287": {
+   "site": "plant-04",
+   "account": "acct-49071",
+   "laptop": "LT-79898"
+  },
+  "HI-EMP-58776": {
+   "site": "plant-05",
+   "account": "acct-94268",
+   "laptop": "LT-72657"
+  },
+  "HI-EMP-65857": {
+   "site": "plant-06",
+   "account": "acct-21928",
+   "laptop": "LT-76552"
+  },
+  "HI-EMP-68687": {
+   "site": "plant-07",
+   "account": "acct-44224",
+   "laptop": "LT-42460"
+  },
+  "HI-EMP-66815": {
+   "site": "plant-08",
+   "account": "acct-77947",
+   "laptop": "LT-78578"
+  },
+  "HI-EMP-50280": {
+   "site": "plant-09",
+   "account": "acct-58064",
+   "laptop": "LT-44025"
+  },
+  "HI-EMP-51145": {
+   "site": "plant-10",
+   "account": "acct-31894",
+   "laptop": "LT-83336"
+  },
+  "HI-EMP-62783": {
+   "site": "plant-11",
+   "account": "acct-56621",
+   "laptop": "LT-36553"
+  },
+  "HI-EMP-51474": {
+   "site": "plant-12",
+   "account": "acct-39201",
+   "laptop": "LT-68658"
+  },
+  "HI-EMP-59476": {
+   "site": "head-office",
+   "account": "acct-79807",
+   "laptop": "LT-27974"
+  },
+  "HI-EMP-56275": {
+   "site": "plant-01",
+   "account": "acct-80984",
+   "laptop": "LT-64609"
+  },
+  "HI-EMP-59002": {
+   "site": "plant-02",
+   "account": "acct-75889",
+   "laptop": "LT-25941"
+  },
+  "HI-EMP-66112": {
+   "site": "plant-03",
+   "account": "acct-53209",
+   "laptop": "LT-61427"
+  },
+  "HI-EMP-54948": {
+   "site": "plant-04",
+   "account": "acct-93419",
+   "laptop": "LT-67949"
+  },
+  "HI-EMP-42253": {
+   "site": "plant-05",
+   "account": "acct-39234",
+   "laptop": "LT-51416"
+  },
+  "HI-EMP-67524": {
+   "site": "plant-06",
+   "account": "acct-90377",
+   "laptop": "LT-19508"
+  },
+  "HI-EMP-43066": {
+   "site": "plant-07",
+   "account": "acct-35578",
+   "laptop": "LT-97969"
+  },
+  "HI-EMP-48845": {
+   "site": "plant-08",
+   "account": "acct-41377",
+   "laptop": "LT-41541"
+  },
+  "HI-EMP-55535": {
+   "site": "plant-09",
+   "account": "acct-62518",
+   "laptop": "LT-66143"
+  },
+  "HI-EMP-62840": {
+   "site": "plant-10",
+   "account": "acct-39719",
+   "laptop": "LT-19584"
+  },
+  "HI-EMP-61762": {
+   "site": "plant-11",
+   "account": "acct-36203",
+   "laptop": "LT-37877"
+  },
+  "HI-EMP-42129": {
+   "site": "plant-12",
+   "account": "acct-77847",
+   "laptop": "LT-97749"
+  },
+  "HI-EMP-41988": {
+   "site": "head-office",
+   "account": "acct-74589",
+   "laptop": "LT-49685"
+  },
+  "HI-EMP-63958": {
+   "site": "plant-01",
+   "account": "acct-56604",
+   "laptop": "LT-26036"
+  },
+  "HI-EMP-62986": {
+   "site": "plant-02",
+   "account": "acct-13798",
+   "laptop": "LT-30243"
+  },
+  "HI-EMP-50145": {
+   "site": "plant-03",
+   "account": "acct-13661",
+   "laptop": "LT-94339"
+  },
+  "HI-EMP-61205": {
+   "site": "plant-04",
+   "account": "acct-46623",
+   "laptop": "LT-96541"
+  },
+  "HI-EMP-58938": {
+   "site": "plant-05",
+   "account": "acct-71897",
+   "laptop": "LT-57996"
+  },
+  "HI-EMP-62322": {
+   "site": "plant-06",
+   "account": "acct-43970",
+   "laptop": "LT-28740"
+  },
+  "HI-EMP-66932": {
+   "site": "plant-07",
+   "account": "acct-35381",
+   "laptop": "LT-43175"
+  },
+  "HI-EMP-54602": {
+   "site": "plant-08",
+   "account": "acct-89316",
+   "laptop": "LT-27990"
+  },
+  "HI-EMP-49325": {
+   "site": "plant-09",
+   "account": "acct-55125",
+   "laptop": "LT-71307"
+  },
+  "HI-EMP-63482": {
+   "site": "plant-10",
+   "account": "acct-68619",
+   "laptop": "LT-38781"
+  },
+  "HI-EMP-52641": {
+   "site": "plant-11",
+   "account": "acct-55812",
+   "laptop": "LT-22337"
+  },
+  "HI-EMP-69066": {
+   "site": "plant-12",
+   "account": "acct-57793",
+   "laptop": "LT-62200"
+  },
+  "HI-EMP-61910": {
+   "site": "head-office",
+   "account": "acct-20556",
+   "laptop": "LT-73866"
+  },
+  "HI-EMP-51370": {
+   "site": "plant-01",
+   "account": "acct-38896",
+   "laptop": "LT-31337"
+  },
+  "HI-EMP-40739": {
+   "site": "plant-02",
+   "account": "acct-23389",
+   "laptop": "LT-97534"
+  },
+  "HI-EMP-55128": {
+   "site": "plant-03",
+   "account": "acct-39733",
+   "laptop": "LT-39322"
+  },
+  "HI-EMP-51647": {
+   "site": "plant-04",
+   "account": "acct-71614",
+   "laptop": "LT-31163"
+  },
+  "HI-EMP-45506": {
+   "site": "plant-05",
+   "account": "acct-35782",
+   "laptop": "LT-66560"
+  },
+  "HI-EMP-60018": {
+   "site": "plant-06",
+   "account": "acct-54267",
+   "laptop": "LT-77581"
+  },
+  "HI-EMP-43836": {
+   "site": "plant-07",
+   "account": "acct-36787",
+   "laptop": "LT-62928"
+  },
+  "HI-EMP-56177": {
+   "site": "plant-08",
+   "account": "acct-73262",
+   "laptop": "LT-54448"
+  },
+  "HI-EMP-41931": {
+   "site": "plant-09",
+   "account": "acct-91797",
+   "laptop": "LT-65217"
+  },
+  "HI-EMP-47150": {
+   "site": "plant-10",
+   "account": "acct-89988",
+   "laptop": "LT-35656"
+  },
+  "HI-EMP-65173": {
+   "site": "plant-11",
+   "account": "acct-10250",
+   "laptop": "LT-56742"
+  },
+  "HI-EMP-49418": {
+   "site": "plant-12",
+   "account": "acct-72845",
+   "laptop": "LT-51749"
+  },
+  "HI-EMP-44238": {
+   "site": "head-office",
+   "account": "acct-95587",
+   "laptop": "LT-22084"
+  },
+  "HI-EMP-64194": {
+   "site": "plant-01",
+   "account": "acct-55089",
+   "laptop": "LT-57966"
+  },
+  "HI-EMP-48113": {
+   "site": "plant-02",
+   "account": "acct-94296",
+   "laptop": "LT-12553"
+  },
+  "HI-EMP-53038": {
+   "site": "plant-03",
+   "account": "acct-21112",
+   "laptop": "LT-54299"
+  }
+ },
+ "resources": {
+  "folder:quality-reports": {
+   "name": "the quality reports folder",
+   "owner": "HI-EMP-64809"
+  },
+  "folder:supplier-contracts": {
+   "name": "the supplier contracts folder",
+   "owner": "HI-EMP-59476"
+  },
+  "app:maintenance-planner": {
+   "name": "the maintenance planner",
+   "owner": "HI-EMP-59002"
+  },
+  "app:shift-roster": {
+   "name": "the shift roster",
+   "owner": "HI-EMP-41582"
+  },
+  "folder:engineering-drawings": {
+   "name": "the engineering drawings folder",
+   "owner": "HI-EMP-57717"
+  },
+  "app:expense-tool": {
+   "name": "the expense tool",
+   "owner": "HI-EMP-54948"
+  }
+ },
+ "printers": {
+  "PRN-head-office-1": {
+   "site": "head-office"
+  },
+  "PRN-head-office-2": {
+   "site": "head-office"
+  },
+  "PRN-plant-01-1": {
+   "site": "plant-01"
+  },
+  "PRN-plant-01-2": {
+   "site": "plant-01"
+  },
+  "PRN-plant-02-1": {
+   "site": "plant-02"
+  },
+  "PRN-plant-02-2": {
+   "site": "plant-02"
+  },
+  "PRN-plant-03-1": {
+   "site": "plant-03"
+  },
+  "PRN-plant-03-2": {
+   "site": "plant-03"
+  },
+  "PRN-plant-04-1": {
+   "site": "plant-04"
+  },
+  "PRN-plant-04-2": {
+   "site": "plant-04"
+  },
+  "PRN-plant-05-1": {
+   "site": "plant-05"
+  },
+  "PRN-plant-05-2": {
+   "site": "plant-05"
+  },
+  "PRN-plant-06-1": {
+   "site": "plant-06"
+  },
+  "PRN-plant-06-2": {
+   "site": "plant-06"
+  },
+  "PRN-plant-07-1": {
+   "site": "plant-07"
+  },
+  "PRN-plant-07-2": {
+   "site": "plant-07"
+  },
+  "PRN-plant-08-1": {
+   "site": "plant-08"
+  },
+  "PRN-plant-08-2": {
+   "site": "plant-08"
+  },
+  "PRN-plant-09-1": {
+   "site": "plant-09"
+  },
+  "PRN-plant-09-2": {
+   "site": "plant-09"
+  },
+  "PRN-plant-10-1": {
+   "site": "plant-10"
+  },
+  "PRN-plant-10-2": {
+   "site": "plant-10"
+  },
+  "PRN-plant-11-1": {
+   "site": "plant-11"
+  },
+  "PRN-plant-11-2": {
+   "site": "plant-11"
+  },
+  "PRN-plant-12-1": {
+   "site": "plant-12"
+  },
+  "PRN-plant-12-2": {
+   "site": "plant-12"
+  }
+ },
+ "terminals": {
+  "HMI-plant-01-L1-01": {
+   "site": "plant-01"
+  },
+  "HMI-plant-01-L2-01": {
+   "site": "plant-01"
+  },
+  "HMI-plant-02-L1-01": {
+   "site": "plant-02"
+  },
+  "HMI-plant-02-L2-01": {
+   "site": "plant-02"
+  },
+  "HMI-plant-03-L1-01": {
+   "site": "plant-03"
+  },
+  "HMI-plant-03-L2-01": {
+   "site": "plant-03"
+  },
+  "HMI-plant-04-L1-01": {
+   "site": "plant-04"
+  },
+  "HMI-plant-04-L2-01": {
+   "site": "plant-04"
+  },
+  "HMI-plant-05-L1-01": {
+   "site": "plant-05"
+  },
+  "HMI-plant-05-L2-01": {
+   "site": "plant-05"
+  },
+  "HMI-plant-06-L1-01": {
+   "site": "plant-06"
+  },
+  "HMI-plant-06-L2-01": {
+   "site": "plant-06"
+  },
+  "HMI-plant-07-L1-01": {
+   "site": "plant-07"
+  },
+  "HMI-plant-07-L2-01": {
+   "site": "plant-07"
+  },
+  "HMI-plant-08-L1-01": {
+   "site": "plant-08"
+  },
+  "HMI-plant-08-L2-01": {
+   "site": "plant-08"
+  },
+  "HMI-plant-09-L1-01": {
+   "site": "plant-09"
+  },
+  "HMI-plant-09-L2-01": {
+   "site": "plant-09"
+  },
+  "HMI-plant-10-L1-01": {
+   "site": "plant-10"
+  },
+  "HMI-plant-10-L2-01": {
+   "site": "plant-10"
+  },
+  "HMI-plant-11-L1-01": {
+   "site": "plant-11"
+  },
+  "HMI-plant-11-L2-01": {
+   "site": "plant-11"
+  },
+  "HMI-plant-12-L1-01": {
+   "site": "plant-12"
+  },
+  "HMI-plant-12-L2-01": {
+   "site": "plant-12"
+  }
+ }
+}

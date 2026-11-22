@@ -1,0 +1,39 @@
+{
+  "_note": "Synthetic. What the agents of this solution read before they work. It describes the fictional company Halden Industrial. Changing this file changes what the agents do, without changing code. People appear by role only. The vendor name of the service desk suite is invented.",
+  "company": "Halden Industrial is a manufacturer with about 5,000 employees and 12 plants in 3 regions. Its IT service desk receives about 60,000 tickets a year. Every agent is registered in the AI Governance Control Tower, which records what each one did.",
+  "the_suite": {
+    "name": "Quillfield Service Desk",
+    "its_own_agent": "Quillfield Auto-Resolve",
+    "about": "The service desk suite Halden already runs. It stays the system of record for every ticket. Its own agent closes four ticket types without a person. Our agents work inside it through one connector and replace nothing."
+  },
+  "what_matters_in_this_order": [
+    "Who is asking comes before what is asked. A reset, a new second factor or a new recovery contact is carried out only for the owner of the account, confirmed by a signed-in session or a second factor. A plausible story is not a confirmation.",
+    "Closed is not solved. A ticket counts as resolved when the problem is gone for the person who had it, not when the ticket is closed. A ticket is never closed because nobody answered.",
+    "The record says what was done. The note on a ticket and the action taken in the system are the same thing, or the ticket is not finished.",
+    "The same incident is not solved twice. An incident that returns is a proposal for a permanent fix, for a person to approve.",
+    "A ticket about a plant-floor terminal, a controller workstation or a suspected attack is handed over at once. It is not resolved here."
+  ],
+  "who_decides": {
+    "role": "Head of IT Service Management",
+    "about": "Which ticket types may be closed without a person. This role approves every step up on the autonomy ladder and may reverse a step down. No agent moves a type up."
+  },
+  "entitlement": {
+    "_note": "Who may ask for what. The verifier checks closed tickets against these rules.",
+    "password-reset": "Only the owner of the account, confirmed by a signed-in session or a second factor.",
+    "mfa-reset": "Only the owner of the account, confirmed by a signed-in session or a second factor.",
+    "recovery-contact-change": "Only the owner of the account, confirmed by a signed-in session or a second factor.",
+    "access-request": "Any employee may ask; access is granted only after the owner of the folder or application has approved it in the suite.",
+    "confirmations_that_count": ["signed-in session", "second factor"]
+  },
+  "what_a_check_looks_at": {
+    "fix_held": "No new ticket from the same person about the same thing within 7 days, and no signal that the problem is still there.",
+    "requester_entitled": "The requester was allowed to ask, by the entitlement rules above.",
+    "record_matches": "The note on the ticket says what the suite's action log shows was done."
+  },
+  "follow_up_days": 7,
+  "word_limits": {
+    "note_on_a_ticket": 80,
+    "finding": 120,
+    "proposal_for_a_permanent_fix": 150
+  }
+}

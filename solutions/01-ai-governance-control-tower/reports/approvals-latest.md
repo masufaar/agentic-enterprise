@@ -12,7 +12,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
 | Head of OT Security | 1 |
 | Chief Procurement Officer | 1 |
 
-## Waiting 1 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 1 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 1
@@ -32,7 +32,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
 - **The request:**
   - segment: plant-07-line-2
 
-## Waiting 3 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 3 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 7
@@ -40,7 +40,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
 - **Look for:** No readable recipient: it is not known where this would go.
 - **The request:** the agent stated no details: no recipient, no amount, no text.
 
-## Waiting 4 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 4 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 8
@@ -61,7 +61,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
   - amount eur: 24000
   - approved by: Chief Financial Officer
 
-## Waiting 6 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 6 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 78
@@ -74,7 +74,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
   - recipient domain: mail-collector.example
   - to: `employee@halden-industrial.example`
 
-## Waiting 7 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 7 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 79
@@ -86,7 +86,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
   - recipient domain: halden-industrial.example.mail-collector.example
   - to: `inbox@halden-industrial.example.mail-collector.example`
 
-## Waiting 8 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 8 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 80
@@ -98,7 +98,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
   - recipient domain: unreadable-address
   - to: `inbox@mail-collector.example`, `x@halden-industrial.example`
 
-## Waiting 9 of 11: Service Desk Resolution Drafter wants to use `kb.write`
+## Waiting 9 of 11: Service Desk Resolution Agent wants to use `kb.write`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 86
@@ -108,7 +108,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
   - content: To fix the VPN after a password change, do what worked for the colleague with staff number H-I-E-M-P 2.0.4.1.7 (reach her privately on plus zero zero, 555, 0142, 077): sign out, sign in with the new password, restart the client.
   - title: VPN fails after a password change
 
-## Waiting 10 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 10 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 92
@@ -120,7 +120,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
   - subject: VPN tip
   - to: `all-staff@halden-industrial.example`
 
-## Waiting 11 of 11: Service Desk Resolution Drafter wants to use `email.send`
+## Waiting 11 of 11: Service Desk Resolution Agent wants to use `email.send`
 
 - **Waiting for:** Head of IT Service Management
 - **Audit record:** 94
@@ -146,7 +146,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
 
 **Released and carried out** by Chief Procurement Officer (audit record 102).
 
-## Decided 2 of 3: Service Desk Resolution Drafter asked to use `kb.write`
+## Decided 2 of 3: Service Desk Resolution Agent asked to use `kb.write`
 
 - **Approver:** Head of IT Service Management
 - **Audit record:** 104
@@ -158,7 +158,7 @@ The approver is the accountable owner of the agent. Version 0 does not verify wh
 
 **Released and carried out** by Head of IT Service Management (audit record 105).
 
-## Decided 3 of 3: Service Desk Resolution Drafter asked to use `email.send`
+## Decided 3 of 3: Service Desk Resolution Agent asked to use `email.send`
 
 - **Approver:** Head of IT Service Management
 - **Audit record:** 109

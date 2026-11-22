@@ -574,13 +574,13 @@
    }
   },
   {
-   "id": "sd-triage",
-   "name": "Service Desk Ticket Triage",
+   "id": "sd-verifier",
+   "name": "Service Desk Closure Verifier",
    "solution": "07-self-healing-service-desk",
    "owner": "Head of IT Service Management",
-   "purpose": "Reads each new IT ticket, sets its category and priority, and routes it to the right support group.",
-   "model_class": "small",
-   "autonomy": "act",
+   "purpose": "Reopens the question on tickets that are already closed, by this company's resolution agent, by the service desk suite's own agent or by a person: did the fix hold, was the requester entitled, does the record match what was done. It writes findings; it never closes or changes a ticket.",
+   "model_class": "mid",
+   "autonomy": "advise",
    "today": "designed",
    "approval": {
     "status": "approved",
@@ -594,14 +594,14 @@
     "critical_infrastructure": false,
     "safety_component": false,
     "essential_services_access": false,
-    "interacts_with_people": true,
-    "generates_content": false
+    "interacts_with_people": false,
+    "generates_content": true
    },
    "permissions": {
     "tools": [
      "ticket.read",
-     "ticket.update",
-     "kb.read"
+     "kb.read",
+     "verification.write"
     ],
     "data_classes": [
      "internal",
@@ -613,10 +613,10 @@
   },
   {
    "id": "sd-resolution",
-   "name": "Service Desk Resolution Drafter",
+   "name": "Service Desk Resolution Agent",
    "solution": "07-self-healing-service-desk",
    "owner": "Head of IT Service Management",
-   "purpose": "Applies known fixes to routine tickets and writes the reply to the employee, and proposes new knowledge articles when a fix is new.",
+   "purpose": "Works routine IT tickets inside the service desk suite the company already runs, through one connector: reads the ticket, applies a fix the suite offers and writes the reply, at the level the autonomy ladder gives the ticket type. It hands plant-floor and security tickets over and proposes a permanent fix when an incident returns.",
    "model_class": "mid",
    "autonomy": "act",
    "today": "designed",

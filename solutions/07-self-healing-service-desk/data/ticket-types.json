@@ -1,0 +1,67 @@
+{
+  "_note": "Synthetic. The ticket types of the service desk of the fictional company Halden Industrial. 'route' says where a type goes: 'ladder' types are worked here, at the level the autonomy ladder gives them; 'hand over' types are never resolved here. 'actions' are the fixes the suite offers for a type; an agent can ask for no other. 'touches_identity' marks the types where the first question is who is asking.",
+  "types": {
+    "password-reset": {
+      "name": "Password reset",
+      "route": "ladder",
+      "touches_identity": true,
+      "actions": ["reset password and send a one-time sign-in link to the owner's registered contact"]
+    },
+    "mfa-reset": {
+      "name": "Second-factor reset",
+      "route": "ladder",
+      "touches_identity": true,
+      "actions": ["reset the second factor and enrol the owner's registered phone"]
+    },
+    "recovery-contact-change": {
+      "name": "Change of recovery email or phone",
+      "route": "ladder",
+      "touches_identity": true,
+      "actions": ["replace the recovery contact on the account"]
+    },
+    "access-request": {
+      "name": "Access to a shared folder or application",
+      "route": "ladder",
+      "touches_identity": true,
+      "actions": ["grant read access", "grant write access"]
+    },
+    "vpn-connection": {
+      "name": "VPN connection fails",
+      "route": "ladder",
+      "touches_identity": false,
+      "actions": ["reinstall the VPN profile", "install a temporary VPN certificate"]
+    },
+    "software-install": {
+      "name": "Standard software installation",
+      "route": "ladder",
+      "touches_identity": false,
+      "actions": ["install the package from the software catalogue"]
+    },
+    "printer": {
+      "name": "Printer fault",
+      "route": "ladder",
+      "touches_identity": false,
+      "actions": ["clear the print queue and restart the spooler", "roll back the printer driver"]
+    },
+    "mailbox-full": {
+      "name": "Mailbox or disk full",
+      "route": "ladder",
+      "touches_identity": false,
+      "actions": ["enable the online archive", "closed after 72 hours without a reply"]
+    },
+    "plant-terminal": {
+      "name": "Plant-floor terminal or controller workstation",
+      "route": "hand over",
+      "hand_over_to": "OT/IT Convergence Sentinel (solution 02)",
+      "touches_identity": false,
+      "actions": []
+    },
+    "security-report": {
+      "name": "Suspicious email, sign-in or account change",
+      "route": "hand over",
+      "hand_over_to": "OT/IT Convergence Sentinel (solution 02)",
+      "touches_identity": false,
+      "actions": []
+    }
+  }
+}

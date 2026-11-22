@@ -1,0 +1,63 @@
+{
+  "_note": "Synthetic. The autonomy ladder of the fictional company Halden Industrial: which ticket types may be worked at which level. Every threshold here is an assumption, chosen to be plausible, not measured. A company enters its own. Changing this file changes what an agent may do, without changing code.",
+  "levels": [
+    {
+      "id": "watch",
+      "name": "Watch",
+      "the_agent_may": "Read the ticket and write down what it would have done. The note is kept for comparison and is not shown to the person working the ticket.",
+      "a_case_is_checked_by": "Comparing the agent's note with what the person did."
+    },
+    {
+      "id": "propose",
+      "name": "Propose",
+      "the_agent_may": "Put a proposed fix in front of the person working the ticket, who carries it out or not.",
+      "a_case_is_checked_by": "Whether the person carried out the proposal unchanged, and whether the fix held."
+    },
+    {
+      "id": "act_with_check",
+      "name": "Act with check",
+      "the_agent_may": "Carry out the fix and close the ticket. Every closure is checked afterwards.",
+      "a_case_is_checked_by": "A check of every closed ticket: did the fix hold, was the requester entitled, does the record match what was done.",
+      "share_of_closures_checked": 1.0
+    },
+    {
+      "id": "act_alone",
+      "name": "Act alone",
+      "the_agent_may": "Carry out the fix and close the ticket. A sample of closures is checked afterwards.",
+      "a_case_is_checked_by": "The same check, on a sample.",
+      "share_of_closures_checked": 0.2
+    }
+  ],
+  "rules": {
+    "_note": "All assumptions. 'window' is how many of the latest checked cases of a type count.",
+    "window": 20,
+    "step_up": {
+      "checked_cases_at_least": 20,
+      "failed_share_at_most": 0.05,
+      "serious_findings_at_most": 0
+    },
+    "step_down": {
+      "checked_cases_at_least": 10,
+      "failed_share_above": 0.15
+    },
+    "serious_finding_drops_to": "propose"
+  },
+  "start": {
+    "_note": "Where each type stands on the first day of the ladder. The four types that the suite's own agent already closes alone start at 'act with check': everything is checked until the evidence says otherwise.",
+    "password-reset": "act_with_check",
+    "software-install": "act_with_check",
+    "mailbox-full": "act_with_check",
+    "vpn-connection": "act_with_check",
+    "printer": "propose",
+    "mfa-reset": "watch",
+    "access-request": "watch",
+    "recovery-contact-change": "watch"
+  },
+  "ceiling": {
+    "_note": "The highest level a type may ever reach, whatever the evidence. Types that touch identity are never worked alone; a change of recovery contact is always carried out by a person. These are company rules, not thresholds.",
+    "password-reset": "act_with_check",
+    "mfa-reset": "act_with_check",
+    "access-request": "act_with_check",
+    "recovery-contact-change": "propose"
+  }
+}

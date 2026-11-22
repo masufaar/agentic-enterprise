@@ -1,0 +1,1992 @@
+{
+ "_note": "Synthetic. For each closed ticket: the suite's action log (what was done in the system, by whom) and the signals that arrived afterwards. The note a ticket carries is in tickets.json; whether the two agree is for a check to find out.",
+ "tickets": {
+  "SD-26-0001": {
+   "actions": [
+    {
+     "at": "2026-08-17T16:09",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "HMI-plant-09-L1-01"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0002": {
+   "actions": [
+    {
+     "at": "2026-08-17T12:56",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-80984"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-08-17T13:02",
+     "kind": "sign-in",
+     "account": "acct-80984",
+     "device": "the owner's registered laptop LT-64609"
+    }
+   ]
+  },
+  "SD-26-0003": {
+   "actions": [
+    {
+     "at": "2026-08-19T00:03",
+     "actor": "service desk staff",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-94296"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-08-19T00:48",
+     "kind": "sign-in",
+     "account": "acct-94296",
+     "device": "the owner's registered laptop LT-12553"
+    }
+   ]
+  },
+  "SD-26-0004": {
+   "actions": [
+    {
+     "at": "2026-08-21T21:45",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-36203"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-08-21T21:55",
+     "kind": "sign-in",
+     "account": "acct-36203",
+     "device": "the owner's registered laptop LT-37877"
+    }
+   ]
+  },
+  "SD-26-0005": {
+   "actions": [
+    {
+     "at": "2026-08-21T23:34",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-10-2"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0006": {
+   "actions": [
+    {
+     "at": "2026-08-21T13:59",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-37877"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0007": {
+   "actions": [
+    {
+     "at": "2026-08-25T04:19",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-03-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0008": {
+   "actions": [
+    {
+     "at": "2026-08-24T10:36",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-09-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0009": {
+   "actions": [
+    {
+     "at": "2026-08-24T18:45",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-28251"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0010": {
+   "actions": [
+    {
+     "at": "2026-08-25T00:42",
+     "actor": "HI-EMP-59476",
+     "action": "approved the access request",
+     "target": "folder:supplier-contracts"
+    },
+    {
+     "at": "2026-08-25T01:12",
+     "actor": "service desk staff",
+     "action": "grant write access",
+     "target": "folder:supplier-contracts"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0011": {
+   "actions": [
+    {
+     "at": "2026-08-24T21:30",
+     "actor": "HI-EMP-54948",
+     "action": "approved the access request",
+     "target": "app:expense-tool"
+    },
+    {
+     "at": "2026-08-24T22:00",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "app:expense-tool"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0012": {
+   "actions": [
+    {
+     "at": "2026-08-26T17:29",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "HMI-plant-10-L2-01"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0013": {
+   "actions": [
+    {
+     "at": "2026-08-26T12:34",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-39201"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-08-26T13:38",
+     "kind": "sign-in",
+     "account": "acct-39201",
+     "device": "the owner's registered laptop LT-68658"
+    }
+   ]
+  },
+  "SD-26-0014": {
+   "actions": [
+    {
+     "at": "2026-08-26T01:33",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "app:expense-tool"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0015": {
+   "actions": [],
+   "signals": []
+  },
+  "SD-26-0016": {
+   "actions": [],
+   "signals": []
+  },
+  "SD-26-0017": {
+   "actions": [
+    {
+     "at": "2026-08-28T05:35",
+     "actor": "service desk staff",
+     "action": "roll back the printer driver",
+     "target": "PRN-plant-03-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0018": {
+   "actions": [
+    {
+     "at": "2026-08-27T23:53",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-12-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0019": {
+   "actions": [
+    {
+     "at": "2026-08-30T17:53",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "closed after 72 hours without a reply",
+     "target": "LT-75688"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0020": {
+   "actions": [
+    {
+     "at": "2026-08-28T09:53",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-77676"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-08-28T11:15",
+     "kind": "sign-in",
+     "account": "acct-77676",
+     "device": "the owner's registered laptop LT-52678"
+    }
+   ]
+  },
+  "SD-26-0021": {
+   "actions": [
+    {
+     "at": "2026-08-28T14:36",
+     "actor": "HI-EMP-57717",
+     "action": "approved the access request",
+     "target": "folder:engineering-drawings"
+    },
+    {
+     "at": "2026-08-28T15:06",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "folder:engineering-drawings"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0022": {
+   "actions": [
+    {
+     "at": "2026-08-31T07:20",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-29811"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0023": {
+   "actions": [
+    {
+     "at": "2026-08-31T12:15",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-70052"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0024": {
+   "actions": [
+    {
+     "at": "2026-09-01T13:22",
+     "actor": "service desk staff",
+     "action": "enable the online archive",
+     "target": "LT-30821"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0025": {
+   "actions": [
+    {
+     "at": "2026-09-01T09:59",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-55125"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-01T11:07",
+     "kind": "sign-in",
+     "account": "acct-55125",
+     "device": "the owner's registered laptop LT-71307"
+    }
+   ]
+  },
+  "SD-26-0026": {
+   "actions": [
+    {
+     "at": "2026-09-01T15:59",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-52728"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0027": {
+   "actions": [
+    {
+     "at": "2026-09-02T06:00",
+     "actor": "service desk staff",
+     "action": "enable the online archive",
+     "target": "LT-75688"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0028": {
+   "actions": [
+    {
+     "at": "2026-09-06T13:22",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "closed after 72 hours without a reply",
+     "target": "LT-97749"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0029": {
+   "actions": [
+    {
+     "at": "2026-09-03T18:14",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-19216"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-03T18:35",
+     "kind": "sign-in",
+     "account": "acct-19216",
+     "device": "the owner's registered laptop LT-72061"
+    }
+   ]
+  },
+  "SD-26-0030": {
+   "actions": [
+    {
+     "at": "2026-09-04T16:30",
+     "actor": "HI-EMP-64809",
+     "action": "approved the access request",
+     "target": "folder:quality-reports"
+    },
+    {
+     "at": "2026-09-04T17:00",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "folder:quality-reports"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0031": {
+   "actions": [
+    {
+     "at": "2026-09-07T23:04",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "HMI-plant-07-L1-01"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0032": {
+   "actions": [
+    {
+     "at": "2026-09-08T16:31",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-43008"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0033": {
+   "actions": [
+    {
+     "at": "2026-09-08T16:55",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-57793"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-08T18:05",
+     "kind": "sign-in",
+     "account": "acct-57793",
+     "device": "the owner's registered laptop LT-62200"
+    }
+   ]
+  },
+  "SD-26-0034": {
+   "actions": [
+    {
+     "at": "2026-09-08T12:15",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-36787"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-08T12:30",
+     "kind": "sign-in",
+     "account": "acct-36787",
+     "device": "the owner's registered laptop LT-62928"
+    }
+   ]
+  },
+  "SD-26-0035": {
+   "actions": [
+    {
+     "at": "2026-09-07T14:36",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-96313"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-07T16:04",
+     "kind": "sign-in",
+     "account": "acct-96313",
+     "device": "the owner's registered laptop LT-29159"
+    }
+   ]
+  },
+  "SD-26-0036": {
+   "actions": [
+    {
+     "at": "2026-09-07T21:03",
+     "actor": "service desk staff",
+     "action": "enable the online archive",
+     "target": "LT-97749"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0037": {
+   "actions": [
+    {
+     "at": "2026-09-09T17:40",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-10030"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-09T18:26",
+     "kind": "sign-in",
+     "account": "acct-10030",
+     "device": "the owner's registered laptop LT-12451"
+    }
+   ]
+  },
+  "SD-26-0038": {
+   "actions": [
+    {
+     "at": "2026-09-11T05:58",
+     "actor": "service desk staff",
+     "action": "replace the recovery contact on the account",
+     "target": "acct-23570"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0039": {
+   "actions": [
+    {
+     "at": "2026-09-10T09:52",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-18094"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0040": {
+   "actions": [
+    {
+     "at": "2026-09-10T10:09",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-90487"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-10T10:54",
+     "kind": "sign-in",
+     "account": "acct-90487",
+     "device": "the owner's registered laptop LT-25772"
+    }
+   ]
+  },
+  "SD-26-0041": {
+   "actions": [
+    {
+     "at": "2026-09-11T11:21",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-36203"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-11T11:35",
+     "kind": "sign-in",
+     "account": "acct-36203",
+     "device": "the owner's registered laptop LT-37877"
+    }
+   ]
+  },
+  "SD-26-0042": {
+   "actions": [
+    {
+     "at": "2026-09-12T03:11",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "HMI-plant-06-L2-01"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0043": {
+   "actions": [
+    {
+     "at": "2026-09-13T00:24",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-57793"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-13T01:33",
+     "kind": "sign-in",
+     "account": "acct-57793",
+     "device": "the owner's registered laptop LT-62200"
+    }
+   ]
+  },
+  "SD-26-0044": {
+   "actions": [
+    {
+     "at": "2026-09-14T17:25",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-20556"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-14T17:47",
+     "kind": "sign-in",
+     "account": "acct-20556",
+     "device": "the owner's registered laptop LT-73866"
+    }
+   ]
+  },
+  "SD-26-0045": {
+   "actions": [
+    {
+     "at": "2026-09-15T06:49",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-35533"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0046": {
+   "actions": [
+    {
+     "at": "2026-09-14T18:49",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "acct-43970"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0047": {
+   "actions": [
+    {
+     "at": "2026-09-15T14:31",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-77732"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0048": {
+   "actions": [
+    {
+     "at": "2026-09-15T17:16",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-49685"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0049": {
+   "actions": [
+    {
+     "at": "2026-09-16T03:06",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "HMI-plant-01-L2-01"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0050": {
+   "actions": [
+    {
+     "at": "2026-09-16T22:22",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "acct-19216"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0051": {
+   "actions": [
+    {
+     "at": "2026-09-16T12:30",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-72966"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-16T13:27",
+     "kind": "sign-in",
+     "account": "acct-72966",
+     "device": "the owner's registered laptop LT-35074"
+    }
+   ]
+  },
+  "SD-26-0052": {
+   "actions": [
+    {
+     "at": "2026-09-18T08:39",
+     "actor": "service desk staff",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-74589"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-18T09:25",
+     "kind": "sign-in",
+     "account": "acct-74589",
+     "device": "the owner's registered laptop LT-49685"
+    }
+   ]
+  },
+  "SD-26-0053": {
+   "actions": [
+    {
+     "at": "2026-09-22T06:05",
+     "actor": "service desk staff",
+     "action": "enable the online archive",
+     "target": "LT-62610"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0054": {
+   "actions": [
+    {
+     "at": "2026-09-21T08:03",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-62928"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0055": {
+   "actions": [
+    {
+     "at": "2026-09-22T01:16",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-12-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0056": {
+   "actions": [
+    {
+     "at": "2026-09-22T14:36",
+     "actor": "service desk staff",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-13342"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-22T15:57",
+     "kind": "sign-in",
+     "account": "acct-13342",
+     "device": "the owner's registered laptop LT-28554"
+    }
+   ]
+  },
+  "SD-26-0057": {
+   "actions": [
+    {
+     "at": "2026-09-22T15:14",
+     "actor": "HI-EMP-57717",
+     "action": "approved the access request",
+     "target": "folder:engineering-drawings"
+    },
+    {
+     "at": "2026-09-22T15:44",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "folder:engineering-drawings"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0058": {
+   "actions": [
+    {
+     "at": "2026-09-21T14:00",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-20561"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-21T14:55",
+     "kind": "sign-in",
+     "account": "acct-20561",
+     "device": "the owner's registered laptop LT-60926"
+    }
+   ]
+  },
+  "SD-26-0059": {
+   "actions": [
+    {
+     "at": "2026-09-22T00:07",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-29811"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0060": {
+   "actions": [
+    {
+     "at": "2026-09-22T17:21",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-03-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0061": {
+   "actions": [
+    {
+     "at": "2026-09-21T19:16",
+     "actor": "service desk staff",
+     "action": "replace the recovery contact on the account",
+     "target": "acct-83304"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0062": {
+   "actions": [
+    {
+     "at": "2026-09-22T18:14",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-29830"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-22T19:24",
+     "kind": "sign-in",
+     "account": "acct-29830",
+     "device": "the owner's registered laptop LT-70994"
+    }
+   ]
+  },
+  "SD-26-0063": {
+   "actions": [
+    {
+     "at": "2026-09-24T15:22",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-54571"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-24T16:41",
+     "kind": "sign-in",
+     "account": "acct-54571",
+     "device": "the owner's registered laptop LT-79707"
+    }
+   ]
+  },
+  "SD-26-0064": {
+   "actions": [
+    {
+     "at": "2026-09-23T11:27",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-57731"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-23T12:18",
+     "kind": "sign-in",
+     "account": "acct-57731",
+     "device": "the owner's registered laptop LT-82802"
+    }
+   ]
+  },
+  "SD-26-0065": {
+   "actions": [
+    {
+     "at": "2026-09-24T03:42",
+     "actor": "service desk staff",
+     "action": "install a temporary VPN certificate",
+     "target": "LT-62928"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0066": {
+   "actions": [
+    {
+     "at": "2026-09-24T10:29",
+     "actor": "service desk staff",
+     "action": "roll back the printer driver",
+     "target": "PRN-plant-03-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0067": {
+   "actions": [
+    {
+     "at": "2026-09-24T09:31",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-44702"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-24T10:18",
+     "kind": "sign-in",
+     "account": "acct-44702",
+     "device": "the owner's registered laptop LT-13652"
+    }
+   ]
+  },
+  "SD-26-0068": {
+   "actions": [
+    {
+     "at": "2026-09-24T14:26",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-89447"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0069": {
+   "actions": [
+    {
+     "at": "2026-09-25T10:26",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-79563"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0070": {
+   "actions": [
+    {
+     "at": "2026-09-26T20:25",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-07-2"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0071": {
+   "actions": [
+    {
+     "at": "2026-09-28T19:25",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-79563"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0072": {
+   "actions": [
+    {
+     "at": "2026-09-29T05:19",
+     "actor": "HI-EMP-54948",
+     "action": "approved the access request",
+     "target": "app:expense-tool"
+    },
+    {
+     "at": "2026-09-29T05:49",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "app:expense-tool"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0073": {
+   "actions": [
+    {
+     "at": "2026-09-28T11:03",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-18158"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-09-28T12:18",
+     "kind": "sign-in",
+     "account": "acct-18158",
+     "device": "the owner's registered laptop LT-70052"
+    }
+   ]
+  },
+  "SD-26-0074": {
+   "actions": [
+    {
+     "at": "2026-09-29T04:38",
+     "actor": "HI-EMP-64809",
+     "action": "approved the access request",
+     "target": "folder:quality-reports"
+    },
+    {
+     "at": "2026-09-29T05:08",
+     "actor": "service desk staff",
+     "action": "grant write access",
+     "target": "folder:quality-reports"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0075": {
+   "actions": [
+    {
+     "at": "2026-09-28T18:20",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-33399"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0076": {
+   "actions": [
+    {
+     "at": "2026-09-29T13:34",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-96149"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0077": {
+   "actions": [
+    {
+     "at": "2026-10-06T14:29",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-06-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0078": {
+   "actions": [
+    {
+     "at": "2026-10-06T05:54",
+     "actor": "service desk staff",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-24408"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-06T06:22",
+     "kind": "sign-in",
+     "account": "acct-24408",
+     "device": "the owner's registered laptop LT-27139"
+    }
+   ]
+  },
+  "SD-26-0079": {
+   "actions": [
+    {
+     "at": "2026-10-05T14:27",
+     "actor": "service desk staff",
+     "action": "replace the recovery contact on the account",
+     "target": "acct-64912"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0080": {
+   "actions": [
+    {
+     "at": "2026-10-05T13:47",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-76547"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0081": {
+   "actions": [
+    {
+     "at": "2026-10-06T07:46",
+     "actor": "HI-EMP-41582",
+     "action": "approved the access request",
+     "target": "app:shift-roster"
+    },
+    {
+     "at": "2026-10-06T08:16",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "app:shift-roster"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0082": {
+   "actions": [
+    {
+     "at": "2026-10-08T13:42",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-72061"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0083": {
+   "actions": [
+    {
+     "at": "2026-10-08T14:30",
+     "actor": "HI-EMP-59002",
+     "action": "approved the access request",
+     "target": "app:maintenance-planner"
+    },
+    {
+     "at": "2026-10-08T15:00",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "app:maintenance-planner"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0084": {
+   "actions": [
+    {
+     "at": "2026-10-08T00:50",
+     "actor": "HI-EMP-57717",
+     "action": "approved the access request",
+     "target": "folder:engineering-drawings"
+    },
+    {
+     "at": "2026-10-08T01:20",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "folder:engineering-drawings"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0085": {
+   "actions": [
+    {
+     "at": "2026-10-10T01:40",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-31894"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-10T02:20",
+     "kind": "sign-in",
+     "account": "acct-31894",
+     "device": "the owner's registered laptop LT-83336"
+    }
+   ]
+  },
+  "SD-26-0086": {
+   "actions": [
+    {
+     "at": "2026-10-12T08:22",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-34000"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0087": {
+   "actions": [
+    {
+     "at": "2026-10-12T11:57",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-33097"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-12T13:26",
+     "kind": "sign-in",
+     "account": "acct-33097",
+     "device": "the owner's registered laptop LT-87438"
+    }
+   ]
+  },
+  "SD-26-0088": {
+   "actions": [
+    {
+     "at": "2026-10-13T00:00",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "HMI-plant-01-L1-01"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0089": {
+   "actions": [
+    {
+     "at": "2026-10-13T17:34",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-79707"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0090": {
+   "actions": [
+    {
+     "at": "2026-10-13T10:22",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-29159"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0091": {
+   "actions": [
+    {
+     "at": "2026-10-13T12:58",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-13669"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0092": {
+   "actions": [
+    {
+     "at": "2026-10-15T03:12",
+     "actor": "service desk staff",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-36787"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-15T03:37",
+     "kind": "sign-in",
+     "account": "acct-36787",
+     "device": "the owner's registered laptop LT-62928"
+    }
+   ]
+  },
+  "SD-26-0093": {
+   "actions": [
+    {
+     "at": "2026-10-15T03:25",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-89447"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0094": {
+   "actions": [
+    {
+     "at": "2026-10-15T08:55",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-87438"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0095": {
+   "actions": [
+    {
+     "at": "2026-10-16T01:07",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-27139"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0096": {
+   "actions": [
+    {
+     "at": "2026-10-17T01:31",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-12-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0097": {
+   "actions": [
+    {
+     "at": "2026-10-19T13:17",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-44438"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-19T14:13",
+     "kind": "sign-in",
+     "account": "acct-44438",
+     "device": "the owner's registered laptop LT-30435"
+    }
+   ]
+  },
+  "SD-26-0098": {
+   "actions": [
+    {
+     "at": "2026-10-20T14:39",
+     "actor": "HI-EMP-57717",
+     "action": "approved the access request",
+     "target": "folder:engineering-drawings"
+    },
+    {
+     "at": "2026-10-20T15:09",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "folder:engineering-drawings"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0099": {
+   "actions": [
+    {
+     "at": "2026-10-19T17:50",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-11866"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0100": {
+   "actions": [
+    {
+     "at": "2026-10-20T08:21",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-19584"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0101": {
+   "actions": [
+    {
+     "at": "2026-10-21T07:53",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-79020"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0102": {
+   "actions": [
+    {
+     "at": "2026-10-20T14:21",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-62294"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-20T15:40",
+     "kind": "sign-in",
+     "account": "acct-62294",
+     "device": "the owner's registered laptop LT-43995"
+    }
+   ]
+  },
+  "SD-26-0103": {
+   "actions": [],
+   "signals": []
+  },
+  "SD-26-0104": {
+   "actions": [
+    {
+     "at": "2026-10-22T16:23",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-93341"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0105": {
+   "actions": [
+    {
+     "at": "2026-10-22T17:12",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-96831"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0106": {
+   "actions": [
+    {
+     "at": "2026-10-23T10:41",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-93419"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-23T11:21",
+     "kind": "sign-in",
+     "account": "acct-93419",
+     "device": "the owner's registered laptop LT-67949"
+    }
+   ]
+  },
+  "SD-26-0107": {
+   "actions": [
+    {
+     "at": "2026-10-23T14:34",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-31163"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0108": {
+   "actions": [
+    {
+     "at": "2026-10-24T07:14",
+     "actor": "service desk staff",
+     "action": "install a temporary VPN certificate",
+     "target": "LT-93341"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0109": {
+   "actions": [
+    {
+     "at": "2026-10-27T09:54",
+     "actor": "HI-EMP-54948",
+     "action": "approved the access request",
+     "target": "app:expense-tool"
+    },
+    {
+     "at": "2026-10-27T10:24",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "app:expense-tool"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0110": {
+   "actions": [
+    {
+     "at": "2026-10-26T10:09",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-61883"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0111": {
+   "actions": [
+    {
+     "at": "2026-10-26T10:34",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-77566"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-26T11:49",
+     "kind": "sign-in",
+     "account": "acct-77566",
+     "device": "the owner's registered laptop LT-35533"
+    }
+   ]
+  },
+  "SD-26-0112": {
+   "actions": [
+    {
+     "at": "2026-10-26T11:02",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-93137"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-26T12:25",
+     "kind": "sign-in",
+     "account": "acct-93137",
+     "device": "the owner's registered laptop LT-17982"
+    }
+   ]
+  },
+  "SD-26-0113": {
+   "actions": [
+    {
+     "at": "2026-10-28T17:48",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-04-2"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0114": {
+   "actions": [
+    {
+     "at": "2026-10-29T03:22",
+     "actor": "service desk staff",
+     "action": "reset the second factor and enrol the owner's registered phone",
+     "target": "acct-37256"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-10-29T03:58",
+     "kind": "sign-in",
+     "account": "acct-37256",
+     "device": "the owner's registered laptop LT-91146"
+    }
+   ]
+  },
+  "SD-26-0115": {
+   "actions": [
+    {
+     "at": "2026-10-29T03:25",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-head-office-2"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0116": {
+   "actions": [
+    {
+     "at": "2026-10-29T02:16",
+     "actor": "HI-EMP-54948",
+     "action": "approved the access request",
+     "target": "app:expense-tool"
+    },
+    {
+     "at": "2026-10-29T02:46",
+     "actor": "service desk staff",
+     "action": "grant read access",
+     "target": "app:expense-tool"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0117": {
+   "actions": [
+    {
+     "at": "2026-10-29T12:17",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-36553"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0118": {
+   "actions": [
+    {
+     "at": "2026-10-30T10:43",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-23470"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0119": {
+   "actions": [
+    {
+     "at": "2026-10-31T02:42",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-27168"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0120": {
+   "actions": [
+    {
+     "at": "2026-10-31T16:53",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-head-office-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0121": {
+   "actions": [
+    {
+     "at": "2026-10-30T21:16",
+     "actor": "service desk staff",
+     "action": "enable the online archive",
+     "target": "LT-61427"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0122": {
+   "actions": [
+    {
+     "at": "2026-11-02T09:40",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-87438"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0123": {
+   "actions": [
+    {
+     "at": "2026-11-02T10:01",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-70052"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0124": {
+   "actions": [
+    {
+     "at": "2026-11-03T16:03",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "acct-55089"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0125": {
+   "actions": [
+    {
+     "at": "2026-11-02T12:26",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-37889"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0126": {
+   "actions": [
+    {
+     "at": "2026-11-03T08:55",
+     "actor": "service desk staff",
+     "action": "replace the recovery contact on the account",
+     "target": "acct-90487"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0127": {
+   "actions": [
+    {
+     "at": "2026-11-04T08:37",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-27180"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0128": {
+   "actions": [
+    {
+     "at": "2026-11-03T10:00",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-32589"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0129": {
+   "actions": [
+    {
+     "at": "2026-11-03T22:27",
+     "actor": "service desk staff",
+     "action": "install the package from the software catalogue",
+     "target": "LT-13652"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0130": {
+   "actions": [
+    {
+     "at": "2026-11-07T11:28",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "closed after 72 hours without a reply",
+     "target": "LT-97534"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0131": {
+   "actions": [
+    {
+     "at": "2026-11-05T13:18",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-25941"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0132": {
+   "actions": [
+    {
+     "at": "2026-11-05T15:26",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-95847"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-11-05T16:34",
+     "kind": "sign-in",
+     "account": "acct-95847",
+     "device": "the owner's registered laptop LT-13669"
+    }
+   ]
+  },
+  "SD-26-0133": {
+   "actions": [
+    {
+     "at": "2026-11-07T09:26",
+     "actor": "service desk staff",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-21112"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-11-07T10:30",
+     "kind": "sign-in",
+     "account": "acct-21112",
+     "device": "the owner's registered laptop LT-54299"
+    }
+   ]
+  },
+  "SD-26-0134": {
+   "actions": [
+    {
+     "at": "2026-11-06T09:29",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-65132"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0135": {
+   "actions": [
+    {
+     "at": "2026-11-06T11:37",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+     "target": "acct-90443"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-11-06T12:01",
+     "kind": "sign-in",
+     "account": "acct-90443",
+     "device": "the owner's registered laptop LT-32589"
+    }
+   ]
+  },
+  "SD-26-0136": {
+   "actions": [
+    {
+     "at": "2026-11-06T14:02",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-22084"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0137": {
+   "actions": [
+    {
+     "at": "2026-11-07T14:37",
+     "actor": "OT security team",
+     "action": "handled by the OT security team",
+     "target": "acct-71897"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0140": {
+   "actions": [
+    {
+     "at": "2026-11-09T10:38",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "install the package from the software catalogue",
+     "target": "LT-32282"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0141": {
+   "actions": [
+    {
+     "at": "2026-11-09T13:37",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-03-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0142": {
+   "actions": [
+    {
+     "at": "2026-11-09T15:22",
+     "actor": "service desk staff",
+     "action": "replace the recovery contact on the account",
+     "target": "acct-24408"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0143": {
+   "actions": [
+    {
+     "at": "2026-11-09T16:01",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-96149"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0144": {
+   "actions": [
+    {
+     "at": "2026-11-09T16:15",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reinstall the VPN profile",
+     "target": "LT-43175"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0145": {
+   "actions": [
+    {
+     "at": "2026-11-09T17:28",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the address given in the request",
+     "target": "acct-11581"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-11-09T18:21",
+     "kind": "sign-in",
+     "account": "acct-11581",
+     "device": "a device not seen before on this account"
+    }
+   ]
+  },
+  "SD-26-0146": {
+   "actions": [
+    {
+     "at": "2026-11-10T07:42",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the address given in the request",
+     "target": "acct-54267"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-11-10T09:07",
+     "kind": "sign-in",
+     "account": "acct-54267",
+     "device": "a device not seen before on this account"
+    }
+   ]
+  },
+  "SD-26-0148": {
+   "actions": [
+    {
+     "at": "2026-11-11T02:47",
+     "actor": "service desk staff",
+     "action": "clear the print queue and restart the spooler",
+     "target": "PRN-plant-03-1"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0150": {
+   "actions": [
+    {
+     "at": "2026-11-10T14:00",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-43995"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0151": {
+   "actions": [
+    {
+     "at": "2026-11-10T14:02",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "enable the online archive",
+     "target": "LT-89764"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0153": {
+   "actions": [
+    {
+     "at": "2026-11-10T17:53",
+     "actor": "Quillfield Auto-Resolve",
+     "action": "reset password and send a one-time sign-in link to the address given in the request",
+     "target": "acct-21928"
+    }
+   ],
+   "signals": [
+    {
+     "at": "2026-11-10T18:08",
+     "kind": "sign-in",
+     "account": "acct-21928",
+     "device": "a device not seen before on this account"
+    }
+   ]
+  },
+  "SD-26-0158": {
+   "actions": [
+    {
+     "at": "2026-11-12T05:09",
+     "actor": "service desk staff",
+     "action": "reinstall the VPN profile",
+     "target": "LT-64609"
+    }
+   ],
+   "signals": []
+  },
+  "SD-26-0163": {
+   "actions": [
+    {
+     "at": "2026-11-11T14:15",
+     "actor": "service desk staff",
+     "action": "replace the recovery contact on the account",
+     "target": "acct-50875"
+    }
+   ],
+   "signals": []
+  }
+ }
+}

@@ -23,7 +23,7 @@ Two ratings, both proposals awaiting human sign-off. The legal tier is a reading
 | maintenance-diagnosis | 05 | Designed | Head of Maintenance Engineering | VP Operations | act with approval | 3: Acts on accounts, systems or money | minimal | No Annex III use and no direct contact with people |
 | technician-interviewer | 05 | Designed | Head of Maintenance Engineering | NOT APPROVED | act | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (transparency towards people) |
 | portfolio-truth | 06 | Designed | Head of Transformation Office | Chief Financial Officer | advise | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (marking of generated content) |
-| sd-triage | 07 | Designed | Head of IT Service Management | Chief Information Officer | act | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (transparency towards people) |
+| sd-verifier | 07 | Designed | Head of IT Service Management | Chief Information Officer | advise | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (marking of generated content) |
 | sd-resolution | 07 | Designed | Head of IT Service Management | Chief Information Officer | act | 3: Acts on accounts, systems or money | limited | EU AI Act Art. 50 (transparency towards people) |
 | network-twin-validator | 08 | Designed | Head of Network Engineering | Chief Information Security Officer | advise | 2: Writes or proposes inside the company | minimal | No Annex III use and no direct contact with people |
 | quality-traceability | 09 | Designed | Head of Quality Assurance | VP Operations | advise | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (marking of generated content) |

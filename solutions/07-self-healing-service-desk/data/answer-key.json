@@ -1,0 +1,755 @@
+{
+ "_note": "Synthetic. For each closed ticket, whether the fix held, whether the requester was entitled and whether the record matches what was done. Flaws are planted on purpose; their number is a design choice, not a finding about any product. Never handed to an agent: the connector does not serve this file.",
+ "tickets": {
+  "SD-26-0001": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0002": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0003": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0004": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0005": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0006": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0007": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0008": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0009": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0010": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": false
+  },
+  "SD-26-0011": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0012": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0013": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0014": {
+   "fix_held": true,
+   "requester_entitled": false,
+   "record_matches": true
+  },
+  "SD-26-0015": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": false
+  },
+  "SD-26-0016": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": false
+  },
+  "SD-26-0017": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0018": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0019": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0020": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0021": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0022": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0023": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0024": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0025": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0026": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0027": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0028": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0029": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0030": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0031": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0032": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0033": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0034": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0035": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0036": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0037": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0038": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0039": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0040": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0041": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0042": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0043": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0044": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0045": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0046": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0047": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0048": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0049": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0050": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0051": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0052": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0053": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0054": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0055": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0056": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0057": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0058": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0059": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0060": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0061": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0062": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0063": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0064": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0065": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0066": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0067": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0068": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0069": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0070": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0071": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0072": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0073": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0074": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": false
+  },
+  "SD-26-0075": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0076": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0077": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0078": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0079": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0080": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0081": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0082": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0083": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0084": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0085": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0086": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0087": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0088": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0089": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0090": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0091": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0092": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0093": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0094": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0095": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0096": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0097": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0098": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0099": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0100": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0101": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0102": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0103": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": false
+  },
+  "SD-26-0104": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0105": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0106": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0107": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0108": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0109": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0110": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0111": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0112": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0113": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0114": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0115": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0116": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0117": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0118": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0119": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0120": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0121": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0122": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0123": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0124": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0125": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0126": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0127": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0128": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0129": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0130": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0131": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0132": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0133": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0134": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0135": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0136": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0137": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0140": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0141": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0142": {
+   "fix_held": true,
+   "requester_entitled": false,
+   "record_matches": true
+  },
+  "SD-26-0143": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0144": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0145": {
+   "fix_held": true,
+   "requester_entitled": false,
+   "record_matches": true
+  },
+  "SD-26-0146": {
+   "fix_held": true,
+   "requester_entitled": false,
+   "record_matches": true
+  },
+  "SD-26-0148": {
+   "fix_held": false,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0150": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0151": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0153": {
+   "fix_held": true,
+   "requester_entitled": false,
+   "record_matches": true
+  },
+  "SD-26-0158": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  },
+  "SD-26-0163": {
+   "fix_held": true,
+   "requester_entitled": true,
+   "record_matches": true
+  }
+ }
+}

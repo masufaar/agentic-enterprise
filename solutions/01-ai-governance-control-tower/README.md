@@ -86,12 +86,12 @@ Needs Python 3.11 or later. Nothing to install. Run from this folder.
 
 ```
 python -m control_tower inventory
-python -m control_tower check sd-triage ticket.read
+python -m control_tower check sd-verifier ticket.read
 python -m control_tower check sourcing-options erp.po.create amount_eur=250000
 python -m control_tower check sourcing-options erp.po.create amount_eur=12000
 python -m control_tower approvals
 python -m control_tower release ITEM --as "Chief Procurement Officer"
-python -m control_tower kill sd-triage
+python -m control_tower kill sd-verifier
 python -m control_tower redteam
 python -m control_tower board
 python -m control_tower verify

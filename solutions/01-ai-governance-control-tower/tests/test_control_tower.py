@@ -33,14 +33,14 @@ def test_registry_rejects_incomplete_card(tmp_path):
 def test_classifier_tiers():
     cards = registry.load()
     assert classify(cards["ot-response"])["tier"] == "high"
-    assert classify(cards["sd-triage"])["tier"] == "limited"
+    assert classify(cards["sd-verifier"])["tier"] == "limited"
     assert classify(cards["ot-asset-discovery"])["tier"] == "minimal"
     social = {"id": "x", "use_case_flags": {"social_scoring": True}}
     assert classify(social)["tier"] == "prohibited"
 
 
 def test_permitted_action_is_allowed(gateway):
-    assert gateway.check("sd-triage", "ticket.read")["decision"] == "allow"
+    assert gateway.check("sd-verifier", "ticket.read")["decision"] == "allow"
 
 
 def test_unregistered_and_unapproved_agents_are_denied(gateway):
@@ -49,7 +49,7 @@ def test_unregistered_and_unapproved_agents_are_denied(gateway):
 
 
 def test_tool_and_data_outside_permissions_are_denied(gateway):
-    assert gateway.check("sd-triage", "db.delete")["rule"] == "PERM-1"
+    assert gateway.check("sd-verifier", "db.delete")["rule"] == "PERM-1"
     assert gateway.check("quality-traceability", "db.read", {"data_class": "personal"})["rule"] == "PERM-2"
 
 
@@ -75,18 +75,18 @@ def test_missing_value_fails_closed(gateway):
 
 
 def test_kill_switch_single_and_all(gateway):
-    gateway.killswitch.kill("sd-triage")
-    assert gateway.check("sd-triage", "ticket.read")["rule"] == "KILL"
+    gateway.killswitch.kill("sd-verifier")
+    assert gateway.check("sd-verifier", "ticket.read")["rule"] == "KILL"
     assert gateway.check("sd-resolution", "ticket.read")["decision"] == "allow"
     gateway.killswitch.kill("all")
     assert gateway.check("sd-resolution", "ticket.read")["rule"] == "KILL"
     gateway.killswitch.revive("all")
-    assert gateway.check("sd-triage", "ticket.read")["decision"] == "allow"
+    assert gateway.check("sd-verifier", "ticket.read")["decision"] == "allow"
 
 
 def test_every_decision_is_audited_and_tampering_is_detected(gateway):
-    gateway.check("sd-triage", "ticket.read")
-    gateway.check("sd-triage", "db.delete")
+    gateway.check("sd-verifier", "ticket.read")
+    gateway.check("sd-verifier", "db.delete")
     gateway.check("ghost", "ticket.read")
     assert len(gateway.audit) == 3
     assert gateway.audit.verify()[0]
@@ -132,7 +132,7 @@ def test_internal_email_is_carried_out_and_denied_actions_are_not(gateway):
     ok = gateway.execute("sd-resolution", "email.send", {"to": " Employee@Halden-Industrial.example "})
     assert ok["decision"] == "allow" and ok["executed"]
     assert len(gateway.tools.executed) == 1
-    denied = gateway.execute("sd-triage", "db.delete", {"target": "ticket_db"})
+    denied = gateway.execute("sd-verifier", "db.delete", {"target": "ticket_db"})
     assert not denied["executed"] and len(gateway.tools.executed) == 1
 
 
@@ -288,8 +288,8 @@ CPO = "Chief Procurement Officer"
 
 def test_held_request_appears_in_the_queue_with_its_approver_and_reason(gateway):
     held = gateway.execute("sourcing-options", "erp.po.create", {"amount_eur": 12000})
-    gateway.execute("sd-triage", "ticket.read")          # allowed: not in the queue
-    gateway.execute("sd-triage", "db.delete")            # denied: not in the queue
+    gateway.execute("sd-verifier", "ticket.read")          # allowed: not in the queue
+    gateway.execute("sd-verifier", "db.delete")            # denied: not in the queue
     gateway.check("sourcing-options", "erp.po.create", {"amount_eur": 12000})  # dry run: not in the queue
     (item,) = Approvals(gateway).pending()
     assert item["seq"] == held["audit_seq"] and item["approver"] == CPO
@@ -451,7 +451,7 @@ def test_board_page_flags_load_on_one_approver_and_agents_not_approved(gateway):
 
 def test_board_page_shows_agents_that_are_switched_off(gateway):
     report = redteam.run(gateway)
-    assert "| How many are switched off right now? | 1 |" in board.page(report, stopped=["sd-triage"])
+    assert "| How many are switched off right now? | 1 |" in board.page(report, stopped=["sd-verifier"])
     assert "| How many are switched off right now? | all |" in board.page(report, stopped=["all"])
 
 

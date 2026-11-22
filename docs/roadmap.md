@@ -17,7 +17,9 @@ Status words used in this repository: "Designed", "In build", "Working".
 
 **Done, 20 November 2026: solution 10, the AI Value Ledger.** Its ledger is working as fixed code: it reads the recorded runs of the other solutions, prices them from a dated price table and grades every benefit claim as measured, calculated or claimed, with totals held apart by grade. The first measured line is the Sentinel's own cost. Its analyst agent, which challenges each claim and writes the page for the Chief AI Officer, is working as a blueprint: three recorded runs on a real model, one per scenario, 55,538 tokens in and 10,899 out together, under a euro. In those first runs the agent found two faults in the ledger it was given, a line priced at zero by rounding and two states of an agent confused with each other; both were corrected and the published runs are the ones made afterwards. See [the solution page](../solutions/10-ai-value-ledger/README.md).
 
-**Next: solutions 03 to 09 on the same harness**, so none has to be reworked later, and the value ledger reading its own review runs.
+**In build, 22 November 2026: solution 07, the Self-Healing Service Desk.** Working as fixed code, with no model involved: 200 synthetic tickets, a stand-in for the service desk suite behind one connector, and the autonomy ladder that says which ticket types may be worked at which level. The registry card of the earlier triage agent now belongs to the verifier, which holds no tool that changes a ticket. Designed, in this order: the resolution agent and the verifier on the shared harness, the page for the Head of IT Service Management, the red team aimed at the resolution agent, then runs with a real model. See [the solution page](../solutions/07-self-healing-service-desk/README.md).
+
+**Next: solutions 03, 04, 05, 06, 08 and 09 on the same harness**, so none has to be reworked later, and the value ledger reading its own review runs.
 
 **Designed, for the finish:** the ACS wire format and signature on the hook, then the ACS conformance test run against the gateway, with its result published, including what fails.
 

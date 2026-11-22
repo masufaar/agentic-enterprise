@@ -1,0 +1,4153 @@
+{
+ "_note": "Synthetic. What the service desk suite of the fictional company Halden Industrial shows for each of 200 tickets, on the morning of 'as_of'. The suite and its own agent carry invented vendor names. People appear by invented employee number only. Written by servicedesk/generate.py with a fixed seed.",
+ "suite": "Quillfield Service Desk",
+ "as_of": "2026-11-16T08:00",
+ "tickets": [
+  {
+   "id": "SD-26-0001",
+   "opened": "2026-08-17T07:03",
+   "type": "plant-terminal",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-63334",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-09-L1-01"
+   },
+   "summary": "Controller workstation asks for an update",
+   "text": "The workstation next to the controller asks to install an update and restart.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-17T16:09",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team on site."
+   }
+  },
+  {
+   "id": "SD-26-0002",
+   "opened": "2026-08-17T12:48",
+   "type": "password-reset",
+   "site": "plant-01",
+   "channel": "portal",
+   "requester": "HI-EMP-56275",
+   "about": {
+    "kind": "account",
+    "id": "acct-80984"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-17T12:56",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0003",
+   "opened": "2026-08-18T11:52",
+   "type": "password-reset",
+   "site": "plant-02",
+   "channel": "portal",
+   "requester": "HI-EMP-48113",
+   "about": {
+    "kind": "account",
+    "id": "acct-94296"
+   },
+   "summary": "Password expired",
+   "text": "My password expired and the change page does not accept a new one.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-19T00:03",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0004",
+   "opened": "2026-08-21T08:00",
+   "type": "mfa-reset",
+   "site": "plant-11",
+   "channel": "email",
+   "requester": "HI-EMP-61762",
+   "about": {
+    "kind": "account",
+    "id": "acct-36203"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-21T21:45",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0005",
+   "opened": "2026-08-21T10:09",
+   "type": "printer",
+   "site": "plant-10",
+   "channel": "phone",
+   "requester": "HI-EMP-53910",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-10-2"
+   },
+   "summary": "Print jobs stuck",
+   "text": "My print jobs stay in the queue and never print.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-21T23:34",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0006",
+   "opened": "2026-08-21T13:45",
+   "type": "software-install",
+   "site": "plant-11",
+   "channel": "portal",
+   "requester": "HI-EMP-61762",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-37877"
+   },
+   "summary": "Software request",
+   "text": "Please install the label printing tool on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-21T13:59",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0007",
+   "opened": "2026-08-24T09:12",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "chat",
+   "requester": "HI-EMP-55128",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Printer stopped after the update",
+   "text": "Since the update at the weekend the printer on the plant 03 office floor prints nothing.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "closed",
+   "closed_at": "2026-08-25T04:19",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0008",
+   "opened": "2026-08-24T09:31",
+   "type": "printer",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-51208",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-09-1"
+   },
+   "summary": "Printer prints nothing",
+   "text": "The office printer accepts the job and nothing comes out.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-24T10:36",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0009",
+   "opened": "2026-08-24T13:33",
+   "type": "vpn-connection",
+   "site": "plant-11",
+   "channel": "chat",
+   "requester": "HI-EMP-47244",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-28251"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-24T18:45",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0010",
+   "opened": "2026-08-24T14:17",
+   "type": "access-request",
+   "site": "plant-01",
+   "channel": "email",
+   "requester": "HI-EMP-43376",
+   "about": {
+    "kind": "resource",
+    "id": "folder:supplier-contracts"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the supplier contracts folder for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-25T01:12",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0011",
+   "opened": "2026-08-24T15:09",
+   "type": "access-request",
+   "site": "plant-08",
+   "channel": "phone",
+   "requester": "HI-EMP-58707",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Cannot open the expense tool",
+   "text": "I get 'access denied' when I open the expense tool. I need it for this week's work.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-24T22:00",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0012",
+   "opened": "2026-08-25T11:40",
+   "type": "plant-terminal",
+   "site": "plant-10",
+   "channel": "email",
+   "requester": "HI-EMP-42057",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-10-L2-01"
+   },
+   "summary": "Line terminal frozen",
+   "text": "The operator terminal at the line has frozen and shows an old screen.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-26T17:29",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team on site."
+   }
+  },
+  {
+   "id": "SD-26-0013",
+   "opened": "2026-08-25T13:16",
+   "type": "mfa-reset",
+   "site": "plant-12",
+   "channel": "portal",
+   "requester": "HI-EMP-51474",
+   "about": {
+    "kind": "account",
+    "id": "acct-39201"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-26T12:34",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0014",
+   "opened": "2026-08-25T15:57",
+   "type": "access-request",
+   "site": "plant-10",
+   "channel": "email",
+   "requester": "HI-EMP-63482",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the expense tool for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-26T01:33",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted."
+   }
+  },
+  {
+   "id": "SD-26-0015",
+   "opened": "2026-08-26T11:15",
+   "type": "software-install",
+   "site": "plant-11",
+   "channel": "email",
+   "requester": "HI-EMP-49822",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-25772"
+   },
+   "summary": "Need the drawing viewer",
+   "text": "I need the drawing viewer for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-26T11:29",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0016",
+   "opened": "2026-08-26T14:58",
+   "type": "software-install",
+   "site": "plant-04",
+   "channel": "portal",
+   "requester": "HI-EMP-53734",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-37889"
+   },
+   "summary": "Software request",
+   "text": "Please install the PDF editor on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-26T15:04",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0017",
+   "opened": "2026-08-27T11:31",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "email",
+   "requester": "HI-EMP-55128",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Print jobs stuck",
+   "text": "Still not working. My print jobs stay in the queue and never print.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "closed",
+   "closed_at": "2026-08-28T05:35",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "roll back the printer driver",
+    "note": "Printer driver rolled back to the earlier version. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0018",
+   "opened": "2026-08-27T14:14",
+   "type": "printer",
+   "site": "plant-12",
+   "channel": "phone",
+   "requester": "HI-EMP-48140",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-12-1"
+   },
+   "summary": "Print jobs stuck",
+   "text": "My print jobs stay in the queue and never print.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-27T23:53",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0019",
+   "opened": "2026-08-27T17:53",
+   "type": "mailbox-full",
+   "site": "plant-06",
+   "channel": "phone",
+   "requester": "HI-EMP-57717",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-75688"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-30T17:53",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "closed after 72 hours without a reply",
+    "note": "No reply from the requester in 72 hours. Closed."
+   }
+  },
+  {
+   "id": "SD-26-0020",
+   "opened": "2026-08-28T09:47",
+   "type": "password-reset",
+   "site": "plant-08",
+   "channel": "chat",
+   "requester": "HI-EMP-64809",
+   "about": {
+    "kind": "account",
+    "id": "acct-77676"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-28T09:53",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0021",
+   "opened": "2026-08-28T13:36",
+   "type": "access-request",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-57559",
+   "about": {
+    "kind": "resource",
+    "id": "folder:engineering-drawings"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the engineering drawings folder for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-28T15:06",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0022",
+   "opened": "2026-08-31T07:05",
+   "type": "vpn-connection",
+   "site": "plant-05",
+   "channel": "chat",
+   "requester": "HI-EMP-53702",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-29811"
+   },
+   "summary": "VPN does not connect",
+   "text": "The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-31T07:20",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0023",
+   "opened": "2026-08-31T08:08",
+   "type": "vpn-connection",
+   "site": "plant-03",
+   "channel": "chat",
+   "requester": "HI-EMP-58717",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-70052"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-08-31T12:15",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0024",
+   "opened": "2026-08-31T08:40",
+   "type": "mailbox-full",
+   "site": "plant-01",
+   "channel": "email",
+   "requester": "HI-EMP-47035",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-30821"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-01T13:22",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0025",
+   "opened": "2026-09-01T09:41",
+   "type": "password-reset",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-49325",
+   "about": {
+    "kind": "account",
+    "id": "acct-55125"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-01T09:59",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0026",
+   "opened": "2026-09-01T15:48",
+   "type": "vpn-connection",
+   "site": "plant-09",
+   "channel": "chat",
+   "requester": "HI-EMP-50108",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-52728"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-01T15:59",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0027",
+   "opened": "2026-09-01T22:41",
+   "type": "mailbox-full",
+   "site": "plant-06",
+   "channel": "email",
+   "requester": "HI-EMP-57717",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-75688"
+   },
+   "summary": "Mailbox full",
+   "text": "This came back. I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-02T06:00",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0028",
+   "opened": "2026-09-03T13:22",
+   "type": "mailbox-full",
+   "site": "plant-12",
+   "channel": "portal",
+   "requester": "HI-EMP-42129",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-97749"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-06T13:22",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "closed after 72 hours without a reply",
+    "note": "No reply from the requester in 72 hours. Closed."
+   }
+  },
+  {
+   "id": "SD-26-0029",
+   "opened": "2026-09-03T17:55",
+   "type": "password-reset",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-54849",
+   "about": {
+    "kind": "account",
+    "id": "acct-19216"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-03T18:14",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0030",
+   "opened": "2026-09-04T12:18",
+   "type": "access-request",
+   "site": "plant-11",
+   "channel": "portal",
+   "requester": "HI-EMP-47244",
+   "about": {
+    "kind": "resource",
+    "id": "folder:quality-reports"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the quality reports folder for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-04T17:00",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0031",
+   "opened": "2026-09-07T07:58",
+   "type": "plant-terminal",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-43836",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-07-L1-01"
+   },
+   "summary": "Line terminal frozen",
+   "text": "The operator terminal at the line has frozen and shows an old screen.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-07T23:04",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team on site."
+   }
+  },
+  {
+   "id": "SD-26-0032",
+   "opened": "2026-09-07T10:46",
+   "type": "vpn-connection",
+   "site": "plant-03",
+   "channel": "phone",
+   "requester": "HI-EMP-49489",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-43008"
+   },
+   "summary": "VPN does not connect",
+   "text": "The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-08T16:31",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0033",
+   "opened": "2026-09-07T11:46",
+   "type": "mfa-reset",
+   "site": "plant-12",
+   "channel": "portal",
+   "requester": "HI-EMP-69066",
+   "about": {
+    "kind": "account",
+    "id": "acct-57793"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-08T16:55",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0034",
+   "opened": "2026-09-07T13:56",
+   "type": "mfa-reset",
+   "site": "plant-07",
+   "channel": "chat",
+   "requester": "HI-EMP-43836",
+   "about": {
+    "kind": "account",
+    "id": "acct-36787"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-08T12:15",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0035",
+   "opened": "2026-09-07T14:26",
+   "type": "password-reset",
+   "site": "plant-09",
+   "channel": "chat",
+   "requester": "HI-EMP-58056",
+   "about": {
+    "kind": "account",
+    "id": "acct-96313"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-07T14:36",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0036",
+   "opened": "2026-09-07T18:10",
+   "type": "mailbox-full",
+   "site": "plant-12",
+   "channel": "portal",
+   "requester": "HI-EMP-42129",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-97749"
+   },
+   "summary": "Mailbox almost full",
+   "text": "This came back. I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-07T21:03",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0037",
+   "opened": "2026-09-09T10:15",
+   "type": "mfa-reset",
+   "site": "plant-01",
+   "channel": "phone",
+   "requester": "HI-EMP-46748",
+   "about": {
+    "kind": "account",
+    "id": "acct-10030"
+   },
+   "summary": "Second factor not working",
+   "text": "The code from my sign-in app is refused every time.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-09T17:40",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0038",
+   "opened": "2026-09-10T08:23",
+   "type": "recovery-contact-change",
+   "site": "plant-12",
+   "channel": "email",
+   "requester": "HI-EMP-62347",
+   "about": {
+    "kind": "account",
+    "id": "acct-23570"
+   },
+   "summary": "Change my recovery email",
+   "text": "Please change the recovery email on my account to my new private address.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-11T05:58",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "replace the recovery contact on the account",
+    "note": "Recovery contact replaced as requested."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0039",
+   "opened": "2026-09-10T09:41",
+   "type": "mailbox-full",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-66030",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-18094"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-10T09:52",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0040",
+   "opened": "2026-09-10T10:05",
+   "type": "password-reset",
+   "site": "plant-11",
+   "channel": "phone",
+   "requester": "HI-EMP-49822",
+   "about": {
+    "kind": "account",
+    "id": "acct-90487"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-10T10:09",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0041",
+   "opened": "2026-09-11T11:05",
+   "type": "password-reset",
+   "site": "plant-11",
+   "channel": "chat",
+   "requester": "HI-EMP-61762",
+   "about": {
+    "kind": "account",
+    "id": "acct-36203"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-11T11:21",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0042",
+   "opened": "2026-09-11T15:38",
+   "type": "plant-terminal",
+   "site": "plant-06",
+   "channel": "phone",
+   "requester": "HI-EMP-62322",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-06-L2-01"
+   },
+   "summary": "Line terminal frozen",
+   "text": "The operator terminal at the line has frozen and shows an old screen.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-12T03:11",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team on site."
+   }
+  },
+  {
+   "id": "SD-26-0043",
+   "opened": "2026-09-11T21:43",
+   "type": "mfa-reset",
+   "site": "plant-12",
+   "channel": "phone",
+   "requester": "HI-EMP-69066",
+   "about": {
+    "kind": "account",
+    "id": "acct-57793"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I reported this last week and it is not solved. I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-13T00:24",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0044",
+   "opened": "2026-09-14T08:26",
+   "type": "mfa-reset",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-61910",
+   "about": {
+    "kind": "account",
+    "id": "acct-20556"
+   },
+   "summary": "Second factor not working",
+   "text": "The code from my sign-in app is refused every time.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-14T17:25",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0045",
+   "opened": "2026-09-14T08:53",
+   "type": "software-install",
+   "site": "head-office",
+   "channel": "chat",
+   "requester": "HI-EMP-58240",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-35533"
+   },
+   "summary": "Software request",
+   "text": "Please install the statistics add-in on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-15T06:49",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0046",
+   "opened": "2026-09-14T08:56",
+   "type": "security-report",
+   "site": "plant-06",
+   "channel": "portal",
+   "requester": "HI-EMP-62322",
+   "about": {
+    "kind": "account",
+    "id": "acct-43970"
+   },
+   "summary": "Suspicious email",
+   "text": "I received an email asking me to confirm my password on a page I do not know.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-14T18:49",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team. The requester was informed."
+   }
+  },
+  {
+   "id": "SD-26-0047",
+   "opened": "2026-09-15T14:14",
+   "type": "mailbox-full",
+   "site": "plant-06",
+   "channel": "portal",
+   "requester": "HI-EMP-52202",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-77732"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-15T14:31",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0048",
+   "opened": "2026-09-15T16:58",
+   "type": "software-install",
+   "site": "head-office",
+   "channel": "chat",
+   "requester": "HI-EMP-41988",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-49685"
+   },
+   "summary": "Software request",
+   "text": "Please install the statistics add-in on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-15T17:16",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0049",
+   "opened": "2026-09-15T17:02",
+   "type": "plant-terminal",
+   "site": "plant-01",
+   "channel": "portal",
+   "requester": "HI-EMP-44943",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-01-L2-01"
+   },
+   "summary": "Controller workstation asks for an update",
+   "text": "The workstation next to the controller asks to install an update and restart.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-16T03:06",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team on site."
+   }
+  },
+  {
+   "id": "SD-26-0050",
+   "opened": "2026-09-16T10:10",
+   "type": "security-report",
+   "site": "plant-09",
+   "channel": "email",
+   "requester": "HI-EMP-54849",
+   "about": {
+    "kind": "account",
+    "id": "acct-19216"
+   },
+   "summary": "Suspicious email",
+   "text": "I received an email asking me to confirm my password on a page I do not know.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-16T22:22",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team. The requester was informed."
+   }
+  },
+  {
+   "id": "SD-26-0051",
+   "opened": "2026-09-16T12:16",
+   "type": "password-reset",
+   "site": "plant-11",
+   "channel": "email",
+   "requester": "HI-EMP-51255",
+   "about": {
+    "kind": "account",
+    "id": "acct-72966"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-16T12:30",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0052",
+   "opened": "2026-09-17T13:04",
+   "type": "password-reset",
+   "site": "head-office",
+   "channel": "phone",
+   "requester": "HI-EMP-41988",
+   "about": {
+    "kind": "account",
+    "id": "acct-74589"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-18T08:39",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0053",
+   "opened": "2026-09-21T07:03",
+   "type": "mailbox-full",
+   "site": "plant-12",
+   "channel": "phone",
+   "requester": "HI-EMP-69809",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-62610"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-22T06:05",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0054",
+   "opened": "2026-09-21T07:57",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "chat",
+   "requester": "HI-EMP-43836",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-62928"
+   },
+   "summary": "VPN: certificate error",
+   "text": "The VPN client says the certificate of the gateway cannot be checked. Several of us at plant 07 have this.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "closed",
+   "closed_at": "2026-09-21T08:03",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0055",
+   "opened": "2026-09-21T08:49",
+   "type": "printer",
+   "site": "plant-12",
+   "channel": "chat",
+   "requester": "HI-EMP-63902",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-12-1"
+   },
+   "summary": "Printer prints blank pages",
+   "text": "The printer on our floor prints blank pages.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-22T01:16",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0056",
+   "opened": "2026-09-21T12:59",
+   "type": "password-reset",
+   "site": "plant-08",
+   "channel": "portal",
+   "requester": "HI-EMP-55256",
+   "about": {
+    "kind": "account",
+    "id": "acct-13342"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-22T14:36",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0057",
+   "opened": "2026-09-21T13:18",
+   "type": "access-request",
+   "site": "plant-08",
+   "channel": "chat",
+   "requester": "HI-EMP-54602",
+   "about": {
+    "kind": "resource",
+    "id": "folder:engineering-drawings"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the engineering drawings folder for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-22T15:44",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0058",
+   "opened": "2026-09-21T13:41",
+   "type": "password-reset",
+   "site": "plant-02",
+   "channel": "email",
+   "requester": "HI-EMP-52937",
+   "about": {
+    "kind": "account",
+    "id": "acct-20561"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-21T14:00",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0059",
+   "opened": "2026-09-21T14:09",
+   "type": "software-install",
+   "site": "plant-05",
+   "channel": "phone",
+   "requester": "HI-EMP-53702",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-29811"
+   },
+   "summary": "Software request",
+   "text": "Please install the label printing tool on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-22T00:07",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0060",
+   "opened": "2026-09-21T16:08",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "phone",
+   "requester": "HI-EMP-42398",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Printer stopped after the update",
+   "text": "Since the update at the weekend the printer on the plant 03 office floor prints nothing.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "closed",
+   "closed_at": "2026-09-22T17:21",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0061",
+   "opened": "2026-09-21T17:00",
+   "type": "recovery-contact-change",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-43859",
+   "about": {
+    "kind": "account",
+    "id": "acct-83304"
+   },
+   "summary": "New recovery phone number",
+   "text": "My private phone number has changed. Please update the recovery number.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-21T19:16",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "replace the recovery contact on the account",
+    "note": "Recovery contact replaced as requested."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0062",
+   "opened": "2026-09-22T17:59",
+   "type": "password-reset",
+   "site": "plant-07",
+   "channel": "chat",
+   "requester": "HI-EMP-47886",
+   "about": {
+    "kind": "account",
+    "id": "acct-29830"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-22T18:14",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0063",
+   "opened": "2026-09-23T10:07",
+   "type": "mfa-reset",
+   "site": "plant-10",
+   "channel": "phone",
+   "requester": "HI-EMP-42057",
+   "about": {
+    "kind": "account",
+    "id": "acct-54571"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-24T15:22",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0064",
+   "opened": "2026-09-23T11:23",
+   "type": "password-reset",
+   "site": "plant-05",
+   "channel": "email",
+   "requester": "HI-EMP-42682",
+   "about": {
+    "kind": "account",
+    "id": "acct-57731"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-23T11:27",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0065",
+   "opened": "2026-09-23T12:51",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "chat",
+   "requester": "HI-EMP-43836",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-62928"
+   },
+   "summary": "VPN error",
+   "text": "I reported this last week and it is not solved. The VPN client shows an error and closes. I cannot reach the file server.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "closed",
+   "closed_at": "2026-09-24T03:42",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install a temporary VPN certificate",
+    "note": "Temporary certificate installed. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0066",
+   "opened": "2026-09-24T00:33",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-42398",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Printer prints nothing",
+   "text": "Still not working. The office printer accepts the job and nothing comes out.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "closed",
+   "closed_at": "2026-09-24T10:29",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "roll back the printer driver",
+    "note": "Printer driver rolled back to the earlier version. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0067",
+   "opened": "2026-09-24T09:26",
+   "type": "password-reset",
+   "site": "plant-05",
+   "channel": "chat",
+   "requester": "HI-EMP-56775",
+   "about": {
+    "kind": "account",
+    "id": "acct-44702"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-24T09:31",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0068",
+   "opened": "2026-09-24T14:17",
+   "type": "software-install",
+   "site": "plant-11",
+   "channel": "phone",
+   "requester": "HI-EMP-56022",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-89447"
+   },
+   "summary": "Need the drawing viewer",
+   "text": "I need the drawing viewer for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-24T14:26",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0069",
+   "opened": "2026-09-25T10:22",
+   "type": "software-install",
+   "site": "plant-04",
+   "channel": "email",
+   "requester": "HI-EMP-47998",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-79563"
+   },
+   "summary": "Need the PDF editor",
+   "text": "I need the PDF editor for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-25T10:26",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0070",
+   "opened": "2026-09-25T17:55",
+   "type": "printer",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-68687",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-07-2"
+   },
+   "summary": "Printer prints blank pages",
+   "text": "The printer on our floor prints blank pages.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-26T20:25",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0071",
+   "opened": "2026-09-27T20:02",
+   "type": "software-install",
+   "site": "plant-04",
+   "channel": "phone",
+   "requester": "HI-EMP-47998",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-79563"
+   },
+   "summary": "Need the PDF editor",
+   "text": "I reported this last week and it is not solved. I need the PDF editor for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-28T19:25",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0072",
+   "opened": "2026-09-28T07:38",
+   "type": "access-request",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-58717",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the expense tool for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-29T05:49",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0073",
+   "opened": "2026-09-28T10:49",
+   "type": "password-reset",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-58717",
+   "about": {
+    "kind": "account",
+    "id": "acct-18158"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-28T11:03",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0074",
+   "opened": "2026-09-28T11:41",
+   "type": "access-request",
+   "site": "plant-12",
+   "channel": "portal",
+   "requester": "HI-EMP-53818",
+   "about": {
+    "kind": "resource",
+    "id": "folder:quality-reports"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the quality reports folder for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-29T05:08",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0075",
+   "opened": "2026-09-28T15:05",
+   "type": "software-install",
+   "site": "plant-05",
+   "channel": "portal",
+   "requester": "HI-EMP-42373",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-33399"
+   },
+   "summary": "Software request",
+   "text": "Please install the label printing tool on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-28T18:20",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0076",
+   "opened": "2026-09-29T13:23",
+   "type": "mailbox-full",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-58528",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-96149"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-09-29T13:34",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0077",
+   "opened": "2026-10-05T11:24",
+   "type": "printer",
+   "site": "plant-06",
+   "channel": "chat",
+   "requester": "HI-EMP-57717",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-06-1"
+   },
+   "summary": "Print jobs stuck",
+   "text": "My print jobs stay in the queue and never print.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-06T14:29",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0078",
+   "opened": "2026-10-05T11:58",
+   "type": "password-reset",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-63334",
+   "about": {
+    "kind": "account",
+    "id": "acct-24408"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-06T05:54",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0079",
+   "opened": "2026-10-05T12:09",
+   "type": "recovery-contact-change",
+   "site": "plant-06",
+   "channel": "chat",
+   "requester": "HI-EMP-42027",
+   "about": {
+    "kind": "account",
+    "id": "acct-64912"
+   },
+   "summary": "Change my recovery email",
+   "text": "Please change the recovery email on my account to my new private address.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-05T14:27",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "replace the recovery contact on the account",
+    "note": "Recovery contact replaced as requested."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0080",
+   "opened": "2026-10-05T13:41",
+   "type": "software-install",
+   "site": "plant-02",
+   "channel": "portal",
+   "requester": "HI-EMP-59954",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-76547"
+   },
+   "summary": "Need the label printing tool",
+   "text": "I need the label printing tool for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-05T13:47",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0081",
+   "opened": "2026-10-05T14:48",
+   "type": "access-request",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-49489",
+   "about": {
+    "kind": "resource",
+    "id": "app:shift-roster"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the shift roster for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-06T08:16",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0082",
+   "opened": "2026-10-07T09:40",
+   "type": "software-install",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-54849",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-72061"
+   },
+   "summary": "Need the statistics add-in",
+   "text": "I need the statistics add-in for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-08T13:42",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0083",
+   "opened": "2026-10-07T10:00",
+   "type": "access-request",
+   "site": "plant-08",
+   "channel": "portal",
+   "requester": "HI-EMP-59187",
+   "about": {
+    "kind": "resource",
+    "id": "app:maintenance-planner"
+   },
+   "summary": "Cannot open the maintenance planner",
+   "text": "I get 'access denied' when I open the maintenance planner. I need it for this week's work.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-08T15:00",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0084",
+   "opened": "2026-10-07T16:54",
+   "type": "access-request",
+   "site": "plant-11",
+   "channel": "phone",
+   "requester": "HI-EMP-49822",
+   "about": {
+    "kind": "resource",
+    "id": "folder:engineering-drawings"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the engineering drawings folder for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-08T01:20",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0085",
+   "opened": "2026-10-09T14:39",
+   "type": "mfa-reset",
+   "site": "plant-10",
+   "channel": "chat",
+   "requester": "HI-EMP-51145",
+   "about": {
+    "kind": "account",
+    "id": "acct-31894"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-10T01:40",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0086",
+   "opened": "2026-10-12T08:03",
+   "type": "vpn-connection",
+   "site": "plant-03",
+   "channel": "chat",
+   "requester": "HI-EMP-62295",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-34000"
+   },
+   "summary": "VPN does not connect",
+   "text": "The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-12T08:22",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0087",
+   "opened": "2026-10-12T11:54",
+   "type": "password-reset",
+   "site": "plant-06",
+   "channel": "portal",
+   "requester": "HI-EMP-42289",
+   "about": {
+    "kind": "account",
+    "id": "acct-33097"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-12T11:57",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0088",
+   "opened": "2026-10-12T14:05",
+   "type": "plant-terminal",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-59476",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-01-L1-01"
+   },
+   "summary": "Line terminal frozen",
+   "text": "The operator terminal at the line has frozen and shows an old screen.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-13T00:00",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team on site."
+   }
+  },
+  {
+   "id": "SD-26-0089",
+   "opened": "2026-10-12T15:32",
+   "type": "software-install",
+   "site": "plant-10",
+   "channel": "portal",
+   "requester": "HI-EMP-42057",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-79707"
+   },
+   "summary": "Software request",
+   "text": "Please install the PDF editor on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-13T17:34",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0090",
+   "opened": "2026-10-13T10:20",
+   "type": "vpn-connection",
+   "site": "plant-09",
+   "channel": "email",
+   "requester": "HI-EMP-58056",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-29159"
+   },
+   "summary": "VPN error",
+   "text": "The VPN client shows an error and closes. I cannot reach the file server.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-13T10:22",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0091",
+   "opened": "2026-10-13T12:46",
+   "type": "mailbox-full",
+   "site": "plant-02",
+   "channel": "portal",
+   "requester": "HI-EMP-44363",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-13669"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-13T12:58",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0092",
+   "opened": "2026-10-14T12:50",
+   "type": "password-reset",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-43836",
+   "about": {
+    "kind": "account",
+    "id": "acct-36787"
+   },
+   "summary": "Password expired",
+   "text": "My password expired and the change page does not accept a new one.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-15T03:12",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0093",
+   "opened": "2026-10-14T15:54",
+   "type": "vpn-connection",
+   "site": "plant-11",
+   "channel": "email",
+   "requester": "HI-EMP-56022",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-89447"
+   },
+   "summary": "VPN error",
+   "text": "The VPN client shows an error and closes. I cannot reach the file server.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-15T03:25",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0094",
+   "opened": "2026-10-15T08:51",
+   "type": "vpn-connection",
+   "site": "plant-06",
+   "channel": "portal",
+   "requester": "HI-EMP-42289",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-87438"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-15T08:55",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0095",
+   "opened": "2026-10-15T10:28",
+   "type": "vpn-connection",
+   "site": "plant-09",
+   "channel": "email",
+   "requester": "HI-EMP-63334",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-27139"
+   },
+   "summary": "VPN does not connect",
+   "text": "The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-16T01:07",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0096",
+   "opened": "2026-10-16T09:08",
+   "type": "printer",
+   "site": "plant-12",
+   "channel": "portal",
+   "requester": "HI-EMP-41526",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-12-1"
+   },
+   "summary": "Printer prints blank pages",
+   "text": "The printer on our floor prints blank pages.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-17T01:31",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0097",
+   "opened": "2026-10-19T13:01",
+   "type": "password-reset",
+   "site": "plant-02",
+   "channel": "email",
+   "requester": "HI-EMP-47315",
+   "about": {
+    "kind": "account",
+    "id": "acct-44438"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-19T13:17",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0098",
+   "opened": "2026-10-19T15:30",
+   "type": "access-request",
+   "site": "plant-05",
+   "channel": "email",
+   "requester": "HI-EMP-42373",
+   "about": {
+    "kind": "resource",
+    "id": "folder:engineering-drawings"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the engineering drawings folder for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-20T15:09",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0099",
+   "opened": "2026-10-19T17:41",
+   "type": "mailbox-full",
+   "site": "plant-07",
+   "channel": "chat",
+   "requester": "HI-EMP-58910",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-11866"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-19T17:50",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0100",
+   "opened": "2026-10-20T08:13",
+   "type": "mailbox-full",
+   "site": "plant-10",
+   "channel": "chat",
+   "requester": "HI-EMP-62840",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-19584"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-20T08:21",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0101",
+   "opened": "2026-10-20T14:11",
+   "type": "vpn-connection",
+   "site": "plant-10",
+   "channel": "phone",
+   "requester": "HI-EMP-41624",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-79020"
+   },
+   "summary": "VPN does not connect",
+   "text": "The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-21T07:53",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0102",
+   "opened": "2026-10-20T14:17",
+   "type": "password-reset",
+   "site": "plant-10",
+   "channel": "portal",
+   "requester": "HI-EMP-58358",
+   "about": {
+    "kind": "account",
+    "id": "acct-62294"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-20T14:21",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0103",
+   "opened": "2026-10-22T11:29",
+   "type": "mailbox-full",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-60664",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-81913"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-23T07:13",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0104",
+   "opened": "2026-10-22T16:18",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-57559",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-93341"
+   },
+   "summary": "VPN: certificate error",
+   "text": "The VPN client says the certificate of the gateway cannot be checked. Several of us at plant 07 have this.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "closed",
+   "closed_at": "2026-10-22T16:23",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0105",
+   "opened": "2026-10-22T17:06",
+   "type": "software-install",
+   "site": "plant-04",
+   "channel": "portal",
+   "requester": "HI-EMP-60935",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-96831"
+   },
+   "summary": "Software request",
+   "text": "Please install the PDF editor on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-22T17:12",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0106",
+   "opened": "2026-10-23T10:24",
+   "type": "password-reset",
+   "site": "plant-04",
+   "channel": "portal",
+   "requester": "HI-EMP-54948",
+   "about": {
+    "kind": "account",
+    "id": "acct-93419"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-23T10:41",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0107",
+   "opened": "2026-10-23T14:28",
+   "type": "software-install",
+   "site": "plant-04",
+   "channel": "portal",
+   "requester": "HI-EMP-51647",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-31163"
+   },
+   "summary": "Software request",
+   "text": "Please install the PDF editor on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-23T14:34",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0108",
+   "opened": "2026-10-23T21:11",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-57559",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-93341"
+   },
+   "summary": "VPN does not connect",
+   "text": "Still not working. The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "closed",
+   "closed_at": "2026-10-24T07:14",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install a temporary VPN certificate",
+    "note": "Temporary certificate installed. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0109",
+   "opened": "2026-10-26T09:40",
+   "type": "access-request",
+   "site": "plant-01",
+   "channel": "email",
+   "requester": "HI-EMP-64194",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the expense tool for my new role.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-27T10:24",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0110",
+   "opened": "2026-10-26T10:01",
+   "type": "software-install",
+   "site": "plant-10",
+   "channel": "portal",
+   "requester": "HI-EMP-59096",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-61883"
+   },
+   "summary": "Software request",
+   "text": "Please install the statistics add-in on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-26T10:09",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0111",
+   "opened": "2026-10-26T10:28",
+   "type": "password-reset",
+   "site": "head-office",
+   "channel": "email",
+   "requester": "HI-EMP-58240",
+   "about": {
+    "kind": "account",
+    "id": "acct-77566"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-26T10:34",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0112",
+   "opened": "2026-10-26T10:46",
+   "type": "password-reset",
+   "site": "plant-01",
+   "channel": "email",
+   "requester": "HI-EMP-43376",
+   "about": {
+    "kind": "account",
+    "id": "acct-93137"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-26T11:02",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0113",
+   "opened": "2026-10-27T15:37",
+   "type": "printer",
+   "site": "plant-04",
+   "channel": "email",
+   "requester": "HI-EMP-43868",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-04-2"
+   },
+   "summary": "Printer prints blank pages",
+   "text": "The printer on our floor prints blank pages.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-28T17:48",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0114",
+   "opened": "2026-10-28T11:23",
+   "type": "mfa-reset",
+   "site": "plant-10",
+   "channel": "portal",
+   "requester": "HI-EMP-51848",
+   "about": {
+    "kind": "account",
+    "id": "acct-37256"
+   },
+   "summary": "Second factor not working",
+   "text": "The code from my sign-in app is refused every time.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-29T03:22",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset the second factor and enrol the owner's registered phone",
+    "note": "Second factor reset. The owner's registered phone is enrolled again."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0115",
+   "opened": "2026-10-28T12:19",
+   "type": "printer",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-44238",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-head-office-2"
+   },
+   "summary": "Printer prints blank pages",
+   "text": "The printer on our floor prints blank pages.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-29T03:25",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0116",
+   "opened": "2026-10-28T12:26",
+   "type": "access-request",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-58910",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Cannot open the expense tool",
+   "text": "I get 'access denied' when I open the expense tool. I need it for this week's work.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-29T02:46",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "grant read access",
+    "note": "Read access granted after approval by the owner."
+   }
+  },
+  {
+   "id": "SD-26-0117",
+   "opened": "2026-10-29T12:08",
+   "type": "software-install",
+   "site": "plant-11",
+   "channel": "chat",
+   "requester": "HI-EMP-62783",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-36553"
+   },
+   "summary": "Software request",
+   "text": "Please install the drawing viewer on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-29T12:17",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0118",
+   "opened": "2026-10-30T10:24",
+   "type": "software-install",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-52998",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-23470"
+   },
+   "summary": "Software request",
+   "text": "Please install the drawing viewer on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-30T10:43",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0119",
+   "opened": "2026-10-30T10:27",
+   "type": "vpn-connection",
+   "site": "plant-05",
+   "channel": "chat",
+   "requester": "HI-EMP-59103",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-27168"
+   },
+   "summary": "VPN error",
+   "text": "The VPN client shows an error and closes. I cannot reach the file server.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-31T02:42",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0120",
+   "opened": "2026-10-30T11:37",
+   "type": "printer",
+   "site": "head-office",
+   "channel": "phone",
+   "requester": "HI-EMP-45922",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-head-office-1"
+   },
+   "summary": "Print jobs stuck",
+   "text": "My print jobs stay in the queue and never print.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-31T16:53",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0121",
+   "opened": "2026-10-30T14:38",
+   "type": "mailbox-full",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-66112",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-61427"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-10-30T21:16",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0122",
+   "opened": "2026-11-02T09:26",
+   "type": "mailbox-full",
+   "site": "plant-06",
+   "channel": "portal",
+   "requester": "HI-EMP-42289",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-87438"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-02T09:40",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0123",
+   "opened": "2026-11-02T09:59",
+   "type": "mailbox-full",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-58717",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-70052"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-02T10:01",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0124",
+   "opened": "2026-11-02T10:24",
+   "type": "security-report",
+   "site": "plant-01",
+   "channel": "email",
+   "requester": "HI-EMP-64194",
+   "about": {
+    "kind": "account",
+    "id": "acct-55089"
+   },
+   "summary": "Sign-in I do not recognise",
+   "text": "I got a notice of a sign-in to my account at a time I was not working.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-03T16:03",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team. The requester was informed."
+   }
+  },
+  {
+   "id": "SD-26-0125",
+   "opened": "2026-11-02T12:23",
+   "type": "vpn-connection",
+   "site": "plant-04",
+   "channel": "phone",
+   "requester": "HI-EMP-53734",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-37889"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-02T12:26",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0126",
+   "opened": "2026-11-02T17:58",
+   "type": "recovery-contact-change",
+   "site": "plant-11",
+   "channel": "chat",
+   "requester": "HI-EMP-49822",
+   "about": {
+    "kind": "account",
+    "id": "acct-90487"
+   },
+   "summary": "Change my recovery email",
+   "text": "Please change the recovery email on my account to my new private address.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-03T08:55",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "replace the recovery contact on the account",
+    "note": "Recovery contact replaced as requested."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0127",
+   "opened": "2026-11-03T08:12",
+   "type": "software-install",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-45922",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-27180"
+   },
+   "summary": "Need the label printing tool",
+   "text": "I need the label printing tool for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-04T08:37",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0128",
+   "opened": "2026-11-03T09:57",
+   "type": "mailbox-full",
+   "site": "plant-07",
+   "channel": "email",
+   "requester": "HI-EMP-50293",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-32589"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-03T10:00",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0129",
+   "opened": "2026-11-03T15:15",
+   "type": "software-install",
+   "site": "plant-05",
+   "channel": "portal",
+   "requester": "HI-EMP-56775",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-13652"
+   },
+   "summary": "Software request",
+   "text": "Please install the statistics add-in on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-03T22:27",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0130",
+   "opened": "2026-11-04T11:28",
+   "type": "mailbox-full",
+   "site": "plant-02",
+   "channel": "chat",
+   "requester": "HI-EMP-40739",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-97534"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-07T11:28",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "closed after 72 hours without a reply",
+    "note": "No reply from the requester in 72 hours. Closed."
+   }
+  },
+  {
+   "id": "SD-26-0131",
+   "opened": "2026-11-05T13:15",
+   "type": "vpn-connection",
+   "site": "plant-02",
+   "channel": "email",
+   "requester": "HI-EMP-59002",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-25941"
+   },
+   "summary": "VPN does not connect",
+   "text": "The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-05T13:18",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0132",
+   "opened": "2026-11-05T15:17",
+   "type": "password-reset",
+   "site": "plant-02",
+   "channel": "chat",
+   "requester": "HI-EMP-44363",
+   "about": {
+    "kind": "account",
+    "id": "acct-95847"
+   },
+   "summary": "Password expired",
+   "text": "My password expired and the change page does not accept a new one.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-05T15:26",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0133",
+   "opened": "2026-11-06T08:01",
+   "type": "password-reset",
+   "site": "plant-03",
+   "channel": "email",
+   "requester": "HI-EMP-53038",
+   "about": {
+    "kind": "account",
+    "id": "acct-21112"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-07T09:26",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0134",
+   "opened": "2026-11-06T09:27",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "chat",
+   "requester": "HI-EMP-43192",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-65132"
+   },
+   "summary": "VPN: certificate error",
+   "text": "The VPN client says the certificate of the gateway cannot be checked. Several of us at plant 07 have this.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "closed",
+   "closed_at": "2026-11-06T09:29",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0135",
+   "opened": "2026-11-06T11:19",
+   "type": "password-reset",
+   "site": "plant-07",
+   "channel": "phone",
+   "requester": "HI-EMP-50293",
+   "about": {
+    "kind": "account",
+    "id": "acct-90443"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-06T11:37",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the owner's registered contact",
+    "note": "Password reset. One-time sign-in link sent."
+   },
+   "identity_check": "second factor"
+  },
+  {
+   "id": "SD-26-0136",
+   "opened": "2026-11-06T13:44",
+   "type": "software-install",
+   "site": "head-office",
+   "channel": "chat",
+   "requester": "HI-EMP-44238",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-22084"
+   },
+   "summary": "Software request",
+   "text": "Please install the PDF editor on my laptop.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-06T14:02",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0137",
+   "opened": "2026-11-06T15:43",
+   "type": "security-report",
+   "site": "plant-05",
+   "channel": "chat",
+   "requester": "HI-EMP-58938",
+   "about": {
+    "kind": "account",
+    "id": "acct-71897"
+   },
+   "summary": "Sign-in I do not recognise",
+   "text": "I got a notice of a sign-in to my account at a time I was not working.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-07T14:37",
+   "closed_by": "OT security team",
+   "resolution": {
+    "action": "handled by the OT security team",
+    "note": "Handled by the OT security team. The requester was informed."
+   }
+  },
+  {
+   "id": "SD-26-0138",
+   "opened": "2026-11-07T14:01",
+   "type": "password-reset",
+   "site": "plant-07",
+   "channel": "email",
+   "requester": "HI-EMP-50293",
+   "about": {
+    "kind": "account",
+    "id": "acct-90443"
+   },
+   "summary": "Locked out of my account",
+   "text": "I reported this last week and it is not solved. My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0139",
+   "opened": "2026-11-08T14:17",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-43192",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-65132"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "It is the same problem again. The VPN connects and drops again after about a minute.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0140",
+   "opened": "2026-11-09T10:32",
+   "type": "software-install",
+   "site": "plant-02",
+   "channel": "portal",
+   "requester": "HI-EMP-41228",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-32282"
+   },
+   "summary": "Need the PDF editor",
+   "text": "I need the PDF editor for a customer project starting next week.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-09T10:38",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "install the package from the software catalogue",
+    "note": "Installed from the software catalogue."
+   }
+  },
+  {
+   "id": "SD-26-0141",
+   "opened": "2026-11-09T11:22",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "chat",
+   "requester": "HI-EMP-42816",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Printer stopped after the update",
+   "text": "Since the update at the weekend the printer on the plant 03 office floor prints nothing.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "closed",
+   "closed_at": "2026-11-09T13:37",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0142",
+   "opened": "2026-11-09T14:16",
+   "type": "recovery-contact-change",
+   "site": "unknown",
+   "channel": "phone",
+   "requester": "unknown caller",
+   "about": {
+    "kind": "account",
+    "id": "acct-24408"
+   },
+   "summary": "Recovery email change by phone",
+   "text": "Caller asks to replace the recovery email on the account. Says the old mailbox is closed.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-09T15:22",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "replace the recovery contact on the account",
+    "note": "Recovery contact replaced as requested."
+   },
+   "identity_check": "none recorded"
+  },
+  {
+   "id": "SD-26-0143",
+   "opened": "2026-11-09T15:53",
+   "type": "vpn-connection",
+   "site": "head-office",
+   "channel": "chat",
+   "requester": "HI-EMP-58528",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-96149"
+   },
+   "summary": "VPN error",
+   "text": "The VPN client shows an error and closes. I cannot reach the file server.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-09T16:01",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0144",
+   "opened": "2026-11-09T15:58",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "phone",
+   "requester": "HI-EMP-66932",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-43175"
+   },
+   "summary": "VPN: certificate error",
+   "text": "The VPN client says the certificate of the gateway cannot be checked. Several of us at plant 07 have this.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "closed",
+   "closed_at": "2026-11-09T16:15",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0145",
+   "opened": "2026-11-09T17:23",
+   "type": "password-reset",
+   "site": "plant-10",
+   "channel": "chat",
+   "requester": "HI-EMP-42057",
+   "about": {
+    "kind": "account",
+    "id": "acct-11581"
+   },
+   "summary": "Reset for a colleague",
+   "text": "My colleague is locked out and in a meeting. Please reset the password and send the link to me.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-09T17:28",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the address given in the request",
+    "note": "Password reset. One-time sign-in link sent to the address given in the request."
+   },
+   "identity_check": "none recorded"
+  },
+  {
+   "id": "SD-26-0146",
+   "opened": "2026-11-10T07:40",
+   "type": "password-reset",
+   "site": "unknown",
+   "channel": "email",
+   "requester": "not an employee: outside address",
+   "about": {
+    "kind": "account",
+    "id": "acct-54267"
+   },
+   "summary": "Password reset",
+   "text": "I am travelling and cannot reach my company mailbox. Please reset my password and send the link to this address.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-10T07:42",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the address given in the request",
+    "note": "Password reset. One-time sign-in link sent to the address given in the request."
+   },
+   "identity_check": "none recorded"
+  },
+  {
+   "id": "SD-26-0147",
+   "opened": "2026-11-10T10:28",
+   "type": "password-reset",
+   "site": "plant-11",
+   "channel": "phone",
+   "requester": "HI-EMP-41936",
+   "about": {
+    "kind": "account",
+    "id": "acct-11581"
+   },
+   "summary": "Password changed, not by me",
+   "text": "My password stopped working this morning. I did not ask for a reset.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0148",
+   "opened": "2026-11-10T10:32",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-65053",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Printer stopped after the update",
+   "text": "Since the update at the weekend the printer on the plant 03 office floor prints nothing.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "closed",
+   "closed_at": "2026-11-11T02:47",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "clear the print queue and restart the spooler",
+    "note": "Print queue cleared and spooler restarted. Test page printed."
+   }
+  },
+  {
+   "id": "SD-26-0149",
+   "opened": "2026-11-10T11:22",
+   "type": "security-report",
+   "site": "plant-09",
+   "channel": "email",
+   "requester": "HI-EMP-63334",
+   "about": {
+    "kind": "account",
+    "id": "acct-24408"
+   },
+   "summary": "Recovery email changed, not by me",
+   "text": "I got a notice that the recovery email of my account was changed. I did not do this.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0150",
+   "opened": "2026-11-10T13:53",
+   "type": "mailbox-full",
+   "site": "plant-10",
+   "channel": "email",
+   "requester": "HI-EMP-58358",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-43995"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-10T14:00",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0151",
+   "opened": "2026-11-10T13:59",
+   "type": "mailbox-full",
+   "site": "plant-04",
+   "channel": "email",
+   "requester": "HI-EMP-57423",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-89764"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-10T14:02",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "enable the online archive",
+    "note": "Online archive enabled. Older mail moves there automatically."
+   }
+  },
+  {
+   "id": "SD-26-0152",
+   "opened": "2026-11-10T16:16",
+   "type": "mailbox-full",
+   "site": "plant-02",
+   "channel": "portal",
+   "requester": "HI-EMP-40739",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-97534"
+   },
+   "summary": "Mailbox full",
+   "text": "This came back. I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0153",
+   "opened": "2026-11-10T17:44",
+   "type": "password-reset",
+   "site": "plant-04",
+   "channel": "chat",
+   "requester": "HI-EMP-41582",
+   "about": {
+    "kind": "account",
+    "id": "acct-21928"
+   },
+   "summary": "Reset for a colleague",
+   "text": "My colleague is locked out and in a meeting. Please reset the password and send the link to me.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-10T17:53",
+   "closed_by": "Quillfield Auto-Resolve",
+   "resolution": {
+    "action": "reset password and send a one-time sign-in link to the address given in the request",
+    "note": "Password reset. One-time sign-in link sent to the address given in the request."
+   },
+   "identity_check": "none recorded"
+  },
+  {
+   "id": "SD-26-0154",
+   "opened": "2026-11-10T21:03",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "chat",
+   "requester": "HI-EMP-66932",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-43175"
+   },
+   "summary": "VPN does not connect",
+   "text": "This came back. The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0155",
+   "opened": "2026-11-11T01:42",
+   "type": "password-reset",
+   "site": "plant-06",
+   "channel": "phone",
+   "requester": "HI-EMP-60018",
+   "about": {
+    "kind": "account",
+    "id": "acct-54267"
+   },
+   "summary": "Password changed, not by me",
+   "text": "My password stopped working this morning. I did not ask for a reset.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0156",
+   "opened": "2026-11-11T07:07",
+   "type": "password-reset",
+   "site": "plant-03",
+   "channel": "portal",
+   "requester": "HI-EMP-42816",
+   "about": {
+    "kind": "account",
+    "id": "acct-40245"
+   },
+   "summary": "Password expired",
+   "text": "My password expired and the change page does not accept a new one.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0157",
+   "opened": "2026-11-11T07:22",
+   "type": "access-request",
+   "site": "plant-11",
+   "channel": "portal",
+   "requester": "HI-EMP-65173",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Cannot open the expense tool",
+   "text": "I get 'access denied' when I open the expense tool. I need it for this week's work.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0158",
+   "opened": "2026-11-11T07:42",
+   "type": "vpn-connection",
+   "site": "plant-01",
+   "channel": "email",
+   "requester": "HI-EMP-56275",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-64609"
+   },
+   "summary": "VPN does not connect",
+   "text": "The VPN client stops at 'connecting' when I work from home.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-12T05:09",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "reinstall the VPN profile",
+    "note": "VPN profile reinstalled. Connection tested."
+   }
+  },
+  {
+   "id": "SD-26-0159",
+   "opened": "2026-11-11T09:15",
+   "type": "printer",
+   "site": "plant-08",
+   "channel": "portal",
+   "requester": "HI-EMP-57209",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-08-2"
+   },
+   "summary": "Printer prints nothing",
+   "text": "The office printer accepts the job and nothing comes out.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0160",
+   "opened": "2026-11-11T09:53",
+   "type": "password-reset",
+   "site": "plant-06",
+   "channel": "phone",
+   "requester": "HI-EMP-65857",
+   "about": {
+    "kind": "account",
+    "id": "acct-21928"
+   },
+   "summary": "Password changed, not by me",
+   "text": "My password stopped working this morning. I did not ask for a reset.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0161",
+   "opened": "2026-11-11T10:07",
+   "type": "mfa-reset",
+   "site": "plant-11",
+   "channel": "portal",
+   "requester": "HI-EMP-41936",
+   "about": {
+    "kind": "account",
+    "id": "acct-11581"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0162",
+   "opened": "2026-11-11T11:52",
+   "type": "vpn-connection",
+   "site": "plant-11",
+   "channel": "portal",
+   "requester": "HI-EMP-51255",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-35074"
+   },
+   "summary": "VPN error",
+   "text": "The VPN client shows an error and closes. I cannot reach the file server.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0163",
+   "opened": "2026-11-11T12:11",
+   "type": "recovery-contact-change",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-54707",
+   "about": {
+    "kind": "account",
+    "id": "acct-50875"
+   },
+   "summary": "Change my recovery email",
+   "text": "Please change the recovery email on my account to my new private address.",
+   "suite_group": null,
+   "state": "closed",
+   "closed_at": "2026-11-11T14:15",
+   "closed_by": "service desk staff",
+   "resolution": {
+    "action": "replace the recovery contact on the account",
+    "note": "Recovery contact replaced as requested."
+   },
+   "identity_check": "signed-in session"
+  },
+  {
+   "id": "SD-26-0164",
+   "opened": "2026-11-11T12:30",
+   "type": "access-request",
+   "site": "plant-10",
+   "channel": "portal",
+   "requester": "HI-EMP-42057",
+   "about": {
+    "kind": "resource",
+    "id": "folder:quality-reports"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the quality reports folder for my new role.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0165",
+   "opened": "2026-11-11T12:58",
+   "type": "access-request",
+   "site": "plant-08",
+   "channel": "chat",
+   "requester": "HI-EMP-56177",
+   "about": {
+    "kind": "resource",
+    "id": "folder:quality-reports"
+   },
+   "summary": "Cannot open the quality reports folder",
+   "text": "I get 'access denied' when I open the quality reports folder. I need it for this week's work.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0166",
+   "opened": "2026-11-11T13:09",
+   "type": "mailbox-full",
+   "site": "plant-11",
+   "channel": "chat",
+   "requester": "HI-EMP-47244",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-28251"
+   },
+   "summary": "Mailbox almost full",
+   "text": "I get a warning every hour that my mailbox is nearly full.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0167",
+   "opened": "2026-11-11T13:29",
+   "type": "plant-terminal",
+   "site": "plant-11",
+   "channel": "email",
+   "requester": "HI-EMP-41936",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-11-L1-01"
+   },
+   "summary": "Controller workstation asks for an update",
+   "text": "The workstation next to the controller asks to install an update and restart.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0168",
+   "opened": "2026-11-11T14:42",
+   "type": "printer",
+   "site": "plant-06",
+   "channel": "email",
+   "requester": "HI-EMP-67524",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-06-2"
+   },
+   "summary": "Printer prints nothing",
+   "text": "The office printer accepts the job and nothing comes out.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0169",
+   "opened": "2026-11-11T16:48",
+   "type": "mfa-reset",
+   "site": "plant-09",
+   "channel": "phone",
+   "requester": "HI-EMP-58056",
+   "about": {
+    "kind": "account",
+    "id": "acct-96313"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0170",
+   "opened": "2026-11-11T17:13",
+   "type": "recovery-contact-change",
+   "site": "plant-10",
+   "channel": "chat",
+   "requester": "HI-EMP-53910",
+   "about": {
+    "kind": "account",
+    "id": "acct-40583"
+   },
+   "summary": "New recovery phone number",
+   "text": "My private phone number has changed. Please update the recovery number.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0171",
+   "opened": "2026-11-11T17:20",
+   "type": "software-install",
+   "site": "plant-03",
+   "channel": "email",
+   "requester": "HI-EMP-58717",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-70052"
+   },
+   "summary": "Need the PDF editor",
+   "text": "I need the PDF editor for a customer project starting next week.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0172",
+   "opened": "2026-11-11T17:40",
+   "type": "mfa-reset",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-41988",
+   "about": {
+    "kind": "account",
+    "id": "acct-74589"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0173",
+   "opened": "2026-11-11T18:25",
+   "type": "vpn-connection",
+   "site": "head-office",
+   "channel": "portal",
+   "requester": "HI-EMP-58528",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-96149"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "Still not working. The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0174",
+   "opened": "2026-11-11T20:14",
+   "type": "software-install",
+   "site": "plant-02",
+   "channel": "email",
+   "requester": "HI-EMP-41228",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-32282"
+   },
+   "summary": "Software request",
+   "text": "I reported this last week and it is not solved. Please install the PDF editor on my laptop.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0175",
+   "opened": "2026-11-12T07:21",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "email",
+   "requester": "HI-EMP-50293",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-32589"
+   },
+   "summary": "VPN: certificate error",
+   "text": "The VPN client says the certificate of the gateway cannot be checked. Several of us at plant 07 have this.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0176",
+   "opened": "2026-11-12T09:07",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "phone",
+   "requester": "HI-EMP-43066",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-97969"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0177",
+   "opened": "2026-11-12T09:34",
+   "type": "software-install",
+   "site": "plant-06",
+   "channel": "phone",
+   "requester": "HI-EMP-42027",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-12804"
+   },
+   "summary": "Need the statistics add-in",
+   "text": "I need the statistics add-in for a customer project starting next week.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0178",
+   "opened": "2026-11-12T09:44",
+   "type": "password-reset",
+   "site": "plant-12",
+   "channel": "portal",
+   "requester": "HI-EMP-41526",
+   "about": {
+    "kind": "account",
+    "id": "acct-26448"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0179",
+   "opened": "2026-11-12T09:59",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "email",
+   "requester": "HI-EMP-65053",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Printer prints blank pages",
+   "text": "It is the same problem again. The printer on our floor prints blank pages.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0180",
+   "opened": "2026-11-12T10:16",
+   "type": "mailbox-full",
+   "site": "plant-01",
+   "channel": "portal",
+   "requester": "HI-EMP-44056",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-55928"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0181",
+   "opened": "2026-11-12T11:01",
+   "type": "recovery-contact-change",
+   "site": "plant-05",
+   "channel": "chat",
+   "requester": "HI-EMP-56775",
+   "about": {
+    "kind": "account",
+    "id": "acct-44702"
+   },
+   "summary": "New recovery phone number",
+   "text": "My private phone number has changed. Please update the recovery number.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0182",
+   "opened": "2026-11-12T11:12",
+   "type": "mailbox-full",
+   "site": "plant-05",
+   "channel": "chat",
+   "requester": "HI-EMP-44726",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-48399"
+   },
+   "summary": "Mailbox full",
+   "text": "I cannot send email any more. It says my mailbox is full.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0183",
+   "opened": "2026-11-12T11:37",
+   "type": "printer",
+   "site": "plant-10",
+   "channel": "email",
+   "requester": "HI-EMP-51848",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-10-1"
+   },
+   "summary": "Print jobs stuck",
+   "text": "My print jobs stay in the queue and never print.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0184",
+   "opened": "2026-11-12T13:57",
+   "type": "software-install",
+   "site": "plant-06",
+   "channel": "portal",
+   "requester": "HI-EMP-66911",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-66875"
+   },
+   "summary": "Need the drawing viewer",
+   "text": "I need the drawing viewer for a customer project starting next week.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0185",
+   "opened": "2026-11-12T16:22",
+   "type": "vpn-connection",
+   "site": "plant-12",
+   "channel": "phone",
+   "requester": "HI-EMP-67094",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-72174"
+   },
+   "summary": "VPN drops after a minute",
+   "text": "The VPN connects and drops again after about a minute.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0186",
+   "opened": "2026-11-12T16:47",
+   "type": "plant-terminal",
+   "site": "plant-05",
+   "channel": "email",
+   "requester": "HI-EMP-58776",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-05-L1-01"
+   },
+   "summary": "Line terminal frozen",
+   "text": "The operator terminal at the line has frozen and shows an old screen.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0187",
+   "opened": "2026-11-12T20:49",
+   "type": "printer",
+   "site": "plant-03",
+   "channel": "phone",
+   "requester": "HI-EMP-42816",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-03-1"
+   },
+   "summary": "Printer prints nothing",
+   "text": "It is the same problem again. The office printer accepts the job and nothing comes out.",
+   "suite_group": "Printer driver at plant 03",
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0188",
+   "opened": "2026-11-13T07:50",
+   "type": "access-request",
+   "site": "plant-02",
+   "channel": "phone",
+   "requester": "HI-EMP-59954",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Cannot open the expense tool",
+   "text": "I get 'access denied' when I open the expense tool. I need it for this week's work.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0189",
+   "opened": "2026-11-13T07:54",
+   "type": "password-reset",
+   "site": "plant-09",
+   "channel": "portal",
+   "requester": "HI-EMP-41931",
+   "about": {
+    "kind": "account",
+    "id": "acct-91797"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0190",
+   "opened": "2026-11-13T08:27",
+   "type": "software-install",
+   "site": "plant-09",
+   "channel": "chat",
+   "requester": "HI-EMP-41931",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-65217"
+   },
+   "summary": "Software request",
+   "text": "Please install the statistics add-in on my laptop.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0191",
+   "opened": "2026-11-13T08:29",
+   "type": "security-report",
+   "site": "plant-02",
+   "channel": "chat",
+   "requester": "HI-EMP-59002",
+   "about": {
+    "kind": "account",
+    "id": "acct-75889"
+   },
+   "summary": "Sign-in I do not recognise",
+   "text": "I got a notice of a sign-in to my account at a time I was not working.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0192",
+   "opened": "2026-11-13T08:36",
+   "type": "password-reset",
+   "site": "plant-08",
+   "channel": "portal",
+   "requester": "HI-EMP-66815",
+   "about": {
+    "kind": "account",
+    "id": "acct-77947"
+   },
+   "summary": "Password forgotten",
+   "text": "I cannot sign in. I have forgotten my password after my holiday.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0193",
+   "opened": "2026-11-13T08:56",
+   "type": "mfa-reset",
+   "site": "plant-08",
+   "channel": "portal",
+   "requester": "HI-EMP-58707",
+   "about": {
+    "kind": "account",
+    "id": "acct-61429"
+   },
+   "summary": "New phone, second factor lost",
+   "text": "I have a new phone and the sign-in app no longer shows my codes.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0194",
+   "opened": "2026-11-13T10:04",
+   "type": "vpn-connection",
+   "site": "plant-07",
+   "channel": "portal",
+   "requester": "HI-EMP-49838",
+   "about": {
+    "kind": "laptop",
+    "id": "LT-23907"
+   },
+   "summary": "VPN: certificate error",
+   "text": "The VPN client says the certificate of the gateway cannot be checked. Several of us at plant 07 have this.",
+   "suite_group": "VPN fails at plant 07",
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0195",
+   "opened": "2026-11-13T10:32",
+   "type": "printer",
+   "site": "plant-09",
+   "channel": "phone",
+   "requester": "HI-EMP-50108",
+   "about": {
+    "kind": "printer",
+    "id": "PRN-plant-09-2"
+   },
+   "summary": "Print jobs stuck",
+   "text": "My print jobs stay in the queue and never print.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0196",
+   "opened": "2026-11-13T10:32",
+   "type": "plant-terminal",
+   "site": "plant-05",
+   "channel": "portal",
+   "requester": "HI-EMP-54011",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-05-L2-01"
+   },
+   "summary": "Line terminal frozen",
+   "text": "The operator terminal at the line has frozen and shows an old screen.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0197",
+   "opened": "2026-11-13T11:10",
+   "type": "access-request",
+   "site": "plant-11",
+   "channel": "chat",
+   "requester": "HI-EMP-61762",
+   "about": {
+    "kind": "resource",
+    "id": "app:expense-tool"
+   },
+   "summary": "Access needed",
+   "text": "I need access to the expense tool for my new role.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0198",
+   "opened": "2026-11-13T11:50",
+   "type": "password-reset",
+   "site": "plant-01",
+   "channel": "phone",
+   "requester": "HI-EMP-45890",
+   "about": {
+    "kind": "account",
+    "id": "acct-93153"
+   },
+   "summary": "Locked out of my account",
+   "text": "My account is locked after too many attempts. Please reset my password.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0199",
+   "opened": "2026-11-13T16:37",
+   "type": "plant-terminal",
+   "site": "plant-02",
+   "channel": "portal",
+   "requester": "HI-EMP-59057",
+   "about": {
+    "kind": "terminal",
+    "id": "HMI-plant-02-L1-01"
+   },
+   "summary": "Line terminal frozen",
+   "text": "The operator terminal at the line has frozen and shows an old screen.",
+   "suite_group": null,
+   "state": "open"
+  },
+  {
+   "id": "SD-26-0200",
+   "opened": "2026-11-13T17:18",
+   "type": "recovery-contact-change",
+   "site": "plant-11",
+   "channel": "portal",
+   "requester": "HI-EMP-61762",
+   "about": {
+    "kind": "account",
+    "id": "acct-36203"
+   },
+   "summary": "Change my recovery email",
+   "text": "Please change the recovery email on my account to my new private address.",
+   "suite_group": null,
+   "state": "open"
+  }
+ ]
+}
