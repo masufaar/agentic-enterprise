@@ -108,6 +108,19 @@ class Suite:
         self.notes.setdefault(ticket_id, []).append(entry)
         return entry
 
+    def confirm(self, ticket_id: str, actor: str) -> dict:
+        """Send a second-factor prompt to the registered phone of the account's owner.
+        In this stand-in the owner confirms when the owner is the one who asked, and nobody confirms otherwise."""
+        ticket = self._open(ticket_id)
+        if ticket["about"]["kind"] != "account":
+            raise SuiteProblem(f"{ticket_id} is not about an account; there is no owner's phone to ask.")
+        confirmed = self.owner(ticket["about"])["owner"] == ticket["requester"]
+        ticket["identity_check"] = "second factor" if confirmed else "second factor not confirmed"
+        self.activity.setdefault(ticket_id, {"actions": [], "signals": []})["signals"].append(
+            {"at": self.as_of, "kind": "second-factor prompt", "account": ticket["about"]["id"], "asked_by": actor,
+             "result": "confirmed on the owner's registered phone" if confirmed else "not confirmed"})
+        return {"ticket": ticket_id, "confirmed": confirmed, "identity_check": ticket["identity_check"]}
+
     def resolve(self, ticket_id: str, actor: str, action: str, note: str) -> dict:
         """Carry out one of the fixes the suite offers for this ticket type, and close the ticket."""
         ticket = self._open(ticket_id)

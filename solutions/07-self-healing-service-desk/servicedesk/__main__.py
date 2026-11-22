@@ -6,14 +6,28 @@
                                              one call through the connector, for example:
                                              python -m servicedesk try sd-verifier resolve SD-26-0164
   python -m servicedesk generate             write the synthetic data again (same seed, same files)
+
+  python -m servicedesk sample               the three scenarios with prepared replies in place of a model;
+                                             writes reports/samples. Shows the fixed code, proves nothing about a model.
+
+The two agents, with a real model:
+
+  python -m servicedesk scenarios            what scenarios exist
+  python -m servicedesk run [SCENARIO] [--record]
+                                             the verifier and the resolution agent on one scenario; writes the page.
+                                             Needs HALDEN_MODEL_KEY_FILE (path of a file holding the model key).
+                                             Optional: HALDEN_MODEL, HALDEN_EFFORT. --record keeps the run in reports/.
+  python -m servicedesk runs [--record]      every scenario, one after the other
 """
 import json
+import os
 import sys
 from collections import Counter
+from datetime import date
 
 from control_tower.gateway import Gateway
 
-from . import Refused, load
+from . import REPORTS, Refused, load
 from .connector import Connector
 from .ladder import Ladder
 from .suite import SuiteProblem
@@ -61,9 +75,57 @@ def main(argv: list[str]) -> int:
             print(f"REFUSED  {stopped}")
             return 2
         print(json.dumps(out, indent=1))
+    elif command == "scenarios":
+        from .session import load_scenario, scenarios
+        for name in scenarios():
+            print(f"{name:<20}{load_scenario(name)['title']}")
+    elif command == "sample":
+        import tempfile
+        from pathlib import Path
+        from harness.model import Scripted
+        from .prepared import REPLIES
+        from .session import run_scenario
+        (REPORTS / "samples").mkdir(parents=True, exist_ok=True)
+        for name, replies in REPLIES.items():
+            result = run_scenario(Scripted(replies), name, folder=Path(tempfile.mkdtemp()))
+            result["seconds_to_page"] = 0.0   # so that the sample is the same file every time
+            from .page import page
+            (REPORTS / "samples" / f"{name}-scripted.md").write_text(page(result), encoding="utf-8")
+            print(f"Written: reports/samples/{name}-scripted.md")
+    elif command in ("run", "runs"):
+        return run(command, argv)
     else:
         print(__doc__)
         return 1
+    return 0
+
+
+def run(command: str, argv: list[str]) -> int:
+    from harness.model import Claude, ModelError
+    from .session import DEFAULT_SCENARIO, run_scenario, scenarios
+    names = [a for a in argv[1:] if not a.startswith("--")]
+    wanted = [names[0] if names else DEFAULT_SCENARIO] if command == "run" else scenarios()
+    model = Claude(model=os.environ.get("HALDEN_MODEL", "claude-fable-5-2"),
+                   effort=os.environ.get("HALDEN_EFFORT", "medium"))
+    for scenario in wanted:
+        print(f"Scenario: {scenario}. A few minutes; nothing is printed until it ends.", flush=True)
+        try:
+            result = run_scenario(model, scenario)
+        except (ModelError, Refused) as stopped:
+            print(f"Stopped: {stopped}")
+            return 2
+        if command == "run":
+            print(result["page"])
+        else:
+            print(f"  Done in {result['seconds_to_page']} seconds: {len(result['findings'])} findings, "
+                  f"{sum(s['step'] == 'work' for s in result['steps'])} tickets worked.")
+        if "--record" in argv:
+            runs = REPORTS / "runs"
+            runs.mkdir(parents=True, exist_ok=True)
+            stem = f"{scenario}-{date.today().isoformat()}-{model.model}"
+            (runs / f"{stem}.json").write_text(json.dumps(result, indent=1), encoding="utf-8")
+            (runs / f"{stem}.md").write_text(result["page"], encoding="utf-8")
+            print(f"  Recorded: reports/runs/{stem}.md and .json")
     return 0
 
 

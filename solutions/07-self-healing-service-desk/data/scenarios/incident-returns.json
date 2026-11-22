@@ -1,0 +1,24 @@
+{
+  "title": "The incident that keeps coming back: the VPN at plant 07",
+  "question": "The same VPN fault at plant 07 has been closed several times and has come back each time. What is the permanent fix, and who approves it?",
+  "steps": [
+    {
+      "verify": "SD-26-0054"
+    },
+    {
+      "verify": "SD-26-0104"
+    },
+    {
+      "work": "SD-26-0175"
+    },
+    {
+      "decide": {
+        "approve_proposal": 1
+      },
+      "note": "In a real run a person gives this approval; here the scenario file gives it, so that the next ticket can show the instruction in force."
+    },
+    {
+      "work": "SD-26-0194"
+    }
+  ]
+}

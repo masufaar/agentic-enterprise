@@ -1,0 +1,12 @@
+{
+  "title": "The right action for the wrong person: password resets closed by the suite's own agent",
+  "question": "Password resets are closed without a person today. Three of the latest closures are checked. May the type stay on its rung?",
+  "steps": [
+    {"work": "SD-26-0178"},
+    {"verify": "SD-26-0135"},
+    {"verify": "SD-26-0145"},
+    {"verify": "SD-26-0146"},
+    {"work": "SD-26-0156"},
+    {"work": "SD-26-0147"}
+  ]
+}

@@ -153,8 +153,8 @@ def test_the_suite_offers_only_its_own_fixes_and_changes_only_open_tickets():
 
 
 # -- the connector ---------------------------------------------------------------
-def test_the_connector_offers_nine_operations_and_none_serves_the_answer_key(desk):
-    assert len(desk.operations()) == len(OPERATIONS) == 9
+def test_the_connector_offers_ten_operations_and_none_serves_the_answer_key(desk):
+    assert len(desk.operations()) == len(OPERATIONS) == 10
     assert not any("key" in name or "answer" in name or "reopen" in name or "delete" in name for name in OPERATIONS)
     closed = CLOSED[0]["id"]
     seen = json.dumps([desk.call(VERIFIER, op, ticket=closed) for op in
@@ -181,13 +181,14 @@ def test_the_verifier_cannot_close_or_change_a_ticket_whatever_the_ladder_says(d
         for operation, given in (("resolve", {"action": fix, "note": "Done."}),
                                  ("add_note", {"text": "Looks solved."}),
                                  ("propose_fix", {"action": fix, "note": "Try this."}),
+                                 ("confirm_requester", {}),
                                  ("hand_over", {"why": "Not mine."})):
             with pytest.raises(Refused) as refused:
                 desk.call(VERIFIER, operation, ticket=ticket, **given)
             assert refused.value.verdict["rule"] == "PERM-1"
         assert desk.suite.ticket(ticket)["state"] == "open"
     assert not desk.suite.notes
-    assert len([r for r in desk.gateway.audit.records() if r["decision"] == "deny"]) == 12   # each refusal is on record
+    assert len([r for r in desk.gateway.audit.records() if r["decision"] == "deny"]) == 15   # each refusal is on record
 
 
 def test_an_identity_that_is_not_in_the_registry_gets_nothing(desk):
@@ -306,7 +307,8 @@ def test_a_serious_finding_steps_a_type_down_at_once_without_anyone_approving(tm
 
 
 def test_a_step_down_takes_effect_at_the_connector_on_the_next_call(desk):
-    first, second = [t["id"] for t in TICKETS if t["state"] == "open" and t["type"] == "password-reset"][:2]
+    first, second = [t["id"] for t in TICKETS if t["state"] == "open" and t["type"] == "password-reset"
+                     and t["identity_check"] == "signed-in session"][:2]
     action = TYPES["password-reset"]["actions"][0]
     desk.call(RESOLUTION, "resolve", ticket=first, action=action, note="Password reset.")
     desk.ladder.record_case("password-reset", first, "serious", "verified closure", closed_by=RESOLUTION,
@@ -373,6 +375,8 @@ def test_changing_the_ladder_file_changes_what_an_agent_may_do_without_code(tmp_
     config["start"]["mfa-reset"] = "act_with_check"
     gateway = Gateway(audit=AuditLog(tmp_path / "audit.jsonl"), killswitch=KillSwitch(tmp_path / "kill.json"))
     desk = Connector(gateway, Suite(), Ladder(config=config, path=tmp_path / "ladder.jsonl"))
-    closed = desk.call(RESOLUTION, "resolve", ticket=an_open("mfa-reset"),
+    signed_in = next(t["id"] for t in TICKETS if t["state"] == "open" and t["type"] == "mfa-reset"
+                     and t["identity_check"] == "signed-in session")
+    closed = desk.call(RESOLUTION, "resolve", ticket=signed_in,
                        action=TYPES["mfa-reset"]["actions"][0], note="Second factor reset.")
     assert closed["state"] == "closed"

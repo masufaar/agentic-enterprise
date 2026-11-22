@@ -1,6 +1,6 @@
 # Self-Healing Service Desk
 
-**Status: in build (22 November 2026). The foundations are working as fixed code, with no model involved: 200 synthetic tickets, a stand-in for the service desk suite behind one connector, and the autonomy ladder with its tests. The two agents, the learning loop and the red-team attacks are designed, not built yet. Nothing is connected to a real system.**
+**Status: in build (22 November 2026). Working as fixed code, with no model involved: 200 synthetic tickets, a stand-in for the service desk suite behind one connector, the autonomy ladder, the case memory, the page. The two agents are in build: the resolution agent and the verifier are built on the shared harness and tested on prepared replies; no run with a real model is recorded yet, so nothing is claimed about what a model does with them. The red-team attacks are designed. Nothing is connected to a real system.**
 
 Who checks the ticket an AI agent closed, and who decides which tickets it may close alone?
 
@@ -35,11 +35,11 @@ Nothing is replaced. The suite stays the system of record, and our agents reach 
 
 ## What it is
 
-- **The connector.** Fixed code, working. The one door between an agent and the suite: nine operations, five that read and four that change a ticket. Every call is decided and recorded by the Control Tower under the agent's own identity. A call that changes a ticket must pass the autonomy ladder first.
+- **The connector.** Fixed code, working. The one door between an agent and the suite: ten operations, five that read and five that change a ticket. Every call is decided and recorded by the Control Tower under the agent's own identity. A call that changes a ticket must pass the autonomy ladder first.
 - **The autonomy ladder.** Fixed code, a control, working. One rung per ticket type: watch, propose, act with check, act alone. Checked cases move a type. A step down is taken by the code, at once. A step up is approved by one named role, one rung at a time.
-- **The resolution agent.** Designed. It will work tickets inside the suite, at the rung the ladder gives each ticket type.
-- **The verifier agent.** Designed. It will reopen the question on tickets that are already closed, by our agent, by the suite's own agent or by a person: did the fix hold, was the requester entitled, does the record match what was done. It never closes a ticket: its registry card holds no tool that changes one, and the Control Tower refuses it on every ticket type.
-- **The page for the Head of IT Service Management**, who decides which ticket types may be closed without a person. Designed.
+- **The resolution agent.** In build. It works one open ticket at a time inside the suite, at the rung the ladder gives the ticket type. A refused step is handed back to it with the reason, and it decides what is still right for the person who asked.
+- **The verifier agent.** In build. It reopens the question on a ticket that is already closed, by our agent, by the suite's own agent or by a person: did the fix hold, was the requester entitled, does the record match what was done. It never closes a ticket: it is given no tool that changes one, its registry card holds none, and the Control Tower refuses it on every ticket type.
+- **The page for the Head of IT Service Management**, who decides which ticket types may be closed without a person. Fixed code, working: see the three [sample pages](reports/samples/), made with prepared replies in place of a model.
 
 ## The autonomy ladder
 
@@ -60,6 +60,46 @@ The rules, all in `data/ladder.json`, all assumptions a company replaces with it
 
 Where the types stand on the first day (`python -m servicedesk ladder`): password reset, software installation, mailbox full and VPN start at Act with check, because the suite's own agent already closes them alone and nothing has been checked yet. Printer faults start at Propose. Second-factor reset, access requests and recovery-contact changes start at Watch.
 
+## The two agents
+
+Both run in the [shared harness](../../shared/): a language model in a loop, asking for tools that are fixed code, finished only when the harness accepts its hand-in. **Status: in build. Everything below is tested on prepared replies; what a real model does with it is shown only by recorded runs, which do not exist yet.**
+
+| | Resolution agent (`sd-resolution`) | Verifier agent (`sd-verifier`) |
+|---|---|---|
+| Its job | Work one open ticket | Check one closed ticket |
+| It reads | The ticket and its rung, the owner's record, similar tickets, earlier cases | The ticket, the owner's record, the action log, later tickets, earlier cases |
+| It can change | The ticket of its run only: note, proposed fix, fix and closure, hand-over, a second-factor prompt to the owner | Nothing in the suite. It files a finding in the company's own record |
+| It hands in | What it did, why, and one sentence for the next ticket | Three answers (yes, no, cannot tell), the evidence, and one sentence for the next case |
+
+What the harness refuses, whatever the model writes:
+
+| Control | What it does |
+|---|---|
+| Who is asking | A fix on a ticket type that touches identity is carried out only when the suite itself has confirmed the requester as the owner of the account. What the ticket says does not count |
+| Say what was done | The agent's hand-in must name the last step the suite recorded. A ticket is not resolved because the agent says so |
+| One ticket per run | The tools that change a ticket take no ticket number: they act on the ticket of the run |
+| Read before you judge | A finding is accepted only after the owner's record, the action log and the later tickets have been read in that run |
+| Evidence that exists | "The fix did not hold" must name a later ticket a tool returned. Every ticket named must be one the agent has read |
+| Not too early | "The fix held" is not accepted before the seven follow-up days are over. Until then the answer is "cannot tell", and the ticket is listed to be checked again |
+| The verifier does not rule | What a finding means for the ladder is worked out by fixed code: a requester who was not entitled, or a record that does not match, is serious |
+| Word limits | Every text stays within the limits of the company briefing |
+
+## The learning loop
+
+- **Case memory.** After each ticket, fixed code keeps the facts and the agent's one-sentence lesson. Before the next ticket, either agent can read the earlier cases that share a device, an account, a group of incidents or a site with it. Reading and writing go through the Control Tower.
+- **The same incident is not solved twice.** When an incident keeps coming back, the resolution agent can propose a permanent fix and a standing instruction for the company briefing. It needs at least two tickets the agent has read. The Control Tower holds the text for a named person (rule P-011) and refuses it if it carries personal data (rule P-010).
+- **Approved by a person, then enforced.** Nothing changes until the Head of IT Service Management approves. Then the instruction is part of the briefing in force: both agents read it, and the connector refuses the fix it rules out for that incident. The briefing file itself is never rewritten by an agent.
+
+## Three scenarios
+
+| Scenario | What happens | What it shows |
+|---|---|---|
+| `sound-batch` | Three closures by the suite's own agent are checked; our agent closes a full mailbox; that closure is checked too | A sound batch counts on the ladder. Our own closure is checked like any other, and is too fresh to count |
+| `wrong-requester` | Our agent closes a password reset. Three resets closed by the suite's own agent are checked; two were for someone who was not the owner. The next reset and the owner's own ticket follow | The type drops to Propose at once. The same kind of ticket is closed before the findings and only proposed after them, with the reason on the page |
+| `incident-returns` | Two closures of the VPN fault at plant 07 are checked; our agent works the next one, proposes a permanent fix; the approval is given; the next ticket follows | One case changes the next. An approved instruction changes what the agents do, with no change to code |
+
+In `incident-returns` the approval is given by the scenario file, standing in for the Head of IT Service Management, and the page says so.
+
 ## The synthetic service desk
 
 Measured by `python -m servicedesk tickets` and by the tests:
@@ -79,7 +119,7 @@ No flaw is marked on a ticket. It can only be found the way a person would find 
 
 | Control | What it does |
 |---|---|
-| One connector | An agent can ask for nine operations and nothing else. There is no operation to reopen or delete a ticket, and none that serves the answer key |
+| One connector | An agent can ask for ten operations and nothing else. There is no operation to reopen or delete a ticket, and none that serves the answer key |
 | The Control Tower | Every call goes through the gateway under the agent's registry identity and is recorded; the kill switch stops an agent at the connector |
 | A verifier that cannot close | The verifier's card holds no tool that changes a ticket. All four changing operations are refused for it, on every ticket type |
 | The ladder | A change is refused unless the ticket type is on a rung that allows it. The refusal is written to the Control Tower's audit trail |
@@ -90,7 +130,7 @@ No flaw is marked on a ticket. It can only be found the way a person would find 
 
 ## Run it
 
-From this folder. Everything here is fixed code: no model, no key, no cost.
+From this folder. These commands are fixed code: no model, no key, no cost.
 
 ```
 python -m servicedesk tickets      what the 200 synthetic tickets hold
@@ -98,7 +138,17 @@ python -m servicedesk ladder       where each ticket type stands on the ladder
 python -m servicedesk try sd-verifier resolve SD-26-0164 action=x note=y
                                    one call through the connector: refused, and recorded
 python -m servicedesk generate     write the synthetic data again (same seed, same files)
-python -m pytest                   31 tests
+python -m servicedesk sample       the three scenarios with prepared replies in place of a model;
+                                   writes the sample pages in reports/samples
+python -m pytest                   61 tests
+```
+
+With a real model. It needs the environment variable `HALDEN_MODEL_KEY_FILE`, the path of a file that holds the model key; the key is read at the moment of the call and is never logged or stored.
+
+```
+python -m servicedesk scenarios
+python -m servicedesk run wrong-requester --record     one scenario; writes the page and keeps the run
+python -m servicedesk runs --record                    all three
 ```
 
 ## What is in this folder
@@ -109,19 +159,25 @@ python -m pytest                   31 tests
 | `servicedesk/ladder.py` | The autonomy ladder and its record |
 | `servicedesk/suite.py` | The stand-in for Quillfield Service Desk |
 | `servicedesk/generate.py` | Writes the synthetic data, with a fixed seed |
+| `servicedesk/resolution.py`, `servicedesk/verifier.py` | The two agents: what each is told, its tools, and what the harness checks before it accepts a hand-in |
+| `servicedesk/findings.py` | The company's own record of what was checked, and what a finding means for the ladder |
+| `servicedesk/memory.py`, `servicedesk/proposals.py` | Case memory; proposals for a permanent fix and their approval |
+| `servicedesk/session.py`, `servicedesk/page.py` | A scenario from its steps to the page for the Head of IT Service Management |
+| `servicedesk/prepared.py` | Prepared replies for the tests and the sample pages. Not a model |
+| `data/scenarios/` | The three scenarios |
+| `reports/samples/` | The three pages as fixed code writes them, with prepared replies |
 | `data/tickets.json` | 200 tickets as the suite shows them |
 | `data/directory.json`, `data/activity.json` | Who owns what; the suite's action log and the signals after a closure |
 | `data/answer-key.json` | Which closed tickets are flawed. Never handed to an agent |
 | `data/ticket-types.json`, `data/ladder.json`, `data/briefing.json` | Ticket types and their fixes; the ladder's rungs, thresholds and ceilings; the company briefing |
-| `tests/` | 31 tests, fixed code only |
+| `tests/` | 61 tests: 31 on the foundations, 30 on the agents' controls with prepared replies |
 | `BUILD_LOG.md` | Decisions, alternatives set aside, and tokens per step |
 
 ## What has to exist before this solution is called working
 
-1. The two agents on the [shared harness](../../shared/), with case memory and the learning loop: an incident that returns becomes a proposal for a permanent fix and a change to the briefing, approved by a person. **Designed.**
-2. The page for the Head of IT Service Management: the evidence per ticket type and the proposal to move it. **Designed.**
-3. The Control Tower's red team aimed at the resolution agent with three attacks taken from published incidents: the requester who is not the owner, the ticket that carries hidden orders, the pressure to close what is not solved. Results published, breaches included. **Designed.**
-4. Runs with a real model, recorded in `reports/runs/`, and the solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket. **Designed.**
+1. Runs with a real model on the three scenarios, recorded in `reports/runs/`, with the verifier's findings compared with the answer key. **Next.** Until then the two agents are in build.
+2. The Control Tower's red team aimed at the resolution agent with three attacks taken from published incidents: the requester who is not the owner, the ticket that carries hidden orders, the pressure to close what is not solved. Results published, breaches included. **Designed.** The controls those attacks will meet (who is asking, say what was done, hand-over types) are built and tested; whether a model holds under attack is not known.
+3. The solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket. **Designed.**
 
 ## Limits
 
@@ -130,6 +186,9 @@ python -m pytest                   31 tests
 - The ladder's thresholds, starting rungs and sampling share are assumptions. The ladder governs what reaches the suite through our connector; applying a rung to the suite's own agent is a setting inside the suite, and is designed, not built.
 - The evidence in the synthetic data is cleaner than in a real service desk. The planted flaws can be found by exact comparison; real ones cannot, which is why the check is designed as an agent.
 - Tickets are in English only.
+- In a scenario, a decision of the Head of IT Service Management is given by the scenario file. There is no screen for that role yet; the page is a file.
+- A second-factor prompt in the stand-in is confirmed when the requester is the owner and never otherwise. A real owner can also be tricked into confirming; that is not modelled.
+- The verifier's finding on whether a fix held rests on a later ticket. A person who gives up and never writes again looks like a held fix.
 
 ## Sources, as read on 20 November 2026
 

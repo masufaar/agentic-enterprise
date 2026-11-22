@@ -127,6 +127,8 @@ class World:
                   "requester": who, "about": about,
                   "summary": summary.format(thing=thing or ""), "text": prefix + text.format(thing=thing or ""),
                   "suite_group": group, "state": "open"}
+        if kind in (RESET, MFA, RECOVERY):  # what the suite confirmed when the ticket came in
+            ticket["identity_check"] = "signed-in session" if ticket["channel"] == "portal" else "none yet"
         ticket["_thing"] = thing
         self.tickets.append(ticket)
         return ticket

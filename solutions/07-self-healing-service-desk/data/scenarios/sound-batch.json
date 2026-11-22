@@ -1,0 +1,11 @@
+{
+  "title": "An ordinary morning: sound closures, and one ticket too fresh to judge",
+  "question": "Three tickets the suite's own agent closed are checked, our agent closes a fourth, and that one is checked too. May these ticket types stay where they are?",
+  "steps": [
+    {"verify": "SD-26-0122"},
+    {"verify": "SD-26-0123"},
+    {"verify": "SD-26-0118"},
+    {"work": "SD-26-0180"},
+    {"verify": "SD-26-0180"}
+  ]
+}

@@ -63,3 +63,50 @@ No model is involved in anything built in this session.
 | 5 | Solution page, business case, this log, root page and roadmap | Written in the workspace | Main | Output about 8,000, estimated |
 
 A lighter model could have done steps 1, 2 and 5 and the data generator. The ladder's rules and the order of the checks in the connector are the work that needed the main model.
+
+## Session 2, 22 November 2026: build step 2, the two agents
+
+The two agents are built on the shared harness and tested on prepared replies. No real model ran in this session: real runs need Mario's key, and nothing is claimed here about what a model does.
+
+### Decisions
+
+| | Decision | Why | Set aside |
+|---|---|---|---|
+| D21 | Each agent works one ticket per run. The tools that change a ticket take no ticket number. | A short loop is easier to read on the page and cheaper per ticket; and an agent that cannot name another ticket cannot be talked into changing one. | One long run over a batch of tickets. |
+| D22 | "Who is asking" is a rule in the connector, not an instruction to the agent: a fix on an identity-touching type needs the suite's own confirmation that the requester is the owner. A tenth connector operation asks the owner's registered phone. | This is the check that was missing behind Meta's assistant. A briefing sentence can be argued with; a refused call cannot. It is also what the red team of step 3 will attack. | Leaving it to the model's judgement and testing that in step 3. |
+| D23 | Open identity tickets now show what the suite confirmed at intake (signed-in session, or none yet). | The rule in D22 needs a fact to read. The seed and every other field are unchanged. | A confirmation invented at the moment of the fix. |
+| D24 | The hand-in of the resolution agent must name the last step the suite recorded. | "The record says what was done" applies to our own agent first. | Trusting the agent's summary. |
+| D25 | A finding is accepted only after three sources were read in that run; "did not hold" must name a later ticket a tool returned; "held" is refused before the seven days are over. | A finding is evidence for a decision about autonomy. It has to rest on something the page can show. | Free-text findings scored afterwards. |
+| D26 | What a finding means for the ladder is fixed code (`findings.py`). The verifier answers three questions; it does not rule. | An agent must not decide another agent's autonomy, even indirectly. | An "outcome" field in the hand-in. |
+| D27 | "Cannot tell" is a valid answer, counts for nothing on the ladder, and puts the ticket on a list to be checked again. | A closure by our own agent, checked the same morning, cannot honestly be called held. The alternative teaches the verifier to guess. | Forcing yes or no. |
+| D28 | A proposal for a permanent fix is written to the knowledge base through the Control Tower's existing rules: held for a named person (P-011), refused with personal data (P-010). | The approval path already exists and is already tested in solution 01. Nothing new had to be trusted. | A separate approval mechanism in this solution. |
+| D29 | An approved proposal adds a standing instruction to the briefing in force. The briefing file is not rewritten. The instruction is shown to both agents and enforced by the connector. | "A briefing change changes behaviour without code" should hold even when a model ignores what it reads. | Showing the instruction to the model only. |
+| D30 | One waiting proposal per incident. | Found while running the third scenario: a corrected proposal was stored next to the first, and the approval went to the wrong one. | Letting the decider sort out duplicates. |
+| D31 | Case memory is written by fixed code under the identity of the agent whose work it records; `cases.write` was added to both cards. | The same pattern as the Sentinel's case memory. The verifier's card still holds no tool that changes a ticket. | A new registry card for a case writer. |
+| D32 | In a scenario, a decision of the Head of IT Service Management is given by the scenario file, and the page says so in the same sentence. | The third scenario needs the approval to show the instruction in force. Hiding who gave it would be the kind of record mismatch this solution is about. | Stopping the scenario and waiting for a person, which a recorded run cannot do. |
+| D33 | The verifier's findings are compared with the answer key by fixed code after the agents have finished, and the result is on the page. | It is the one measured figure about the verifier that a real run will produce. | Reporting only that the run ended. |
+| D34 | Both cards now say "agent in build", not "working". | Charter: working means recorded runs with a real model. | Calling them working on prepared replies. |
+| D35 | The prepared replies of each scenario include one hand-in the harness refuses, and its correction. The sample pages carry a line saying they prove nothing about a model. | The sample pages should show the controls acting, and nobody should mistake them for a result. | Clean scripts that only show the happy path. |
+
+### What was checked
+
+- Five test suites: Control Tower 82, solution 02 92, shared harness 15, solution 10 34, this solution 61 (31 foundations, 30 agents).
+- The three scenarios run to their page on prepared replies; the three sample pages were read in full.
+- Reading the third sample page found the duplicate proposal (D30) and a doubled sentence in the decision line; both corrected.
+- The Control Tower's reports were generated again. Campaign unchanged: 29 attacks, 1 open breach. Board page: 4 agents working, 2 in build, 6 steps of fixed code, 8 designed.
+
+### Not known
+
+- Whether a real model reads the three sources before filing, recognises a follow-up ticket that is worded differently, or tries the ruled-out fix. The recorded runs will say.
+- Cost per ticket. No tokens were used by the agents in this session.
+
+### Tokens
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Harness, solutions 02 and 10, gateway and policies read again | Main (Claude Fable 5.2) | Input about 60,000, estimated |
+| 2 | Connector rules, memory, proposals, findings, both agents, session, page, prepared replies | Main | Output about 30,000, estimated |
+| 3 | 30 tests written and run; three scenarios run and their pages read | Main | Input about 25,000, output about 12,000, estimated |
+| 4 | Solution page, this log, root page, roadmap | Main | Output about 7,000, estimated |
+
+Not for a lighter model: the controls around the two agents and what the harness must refuse.
