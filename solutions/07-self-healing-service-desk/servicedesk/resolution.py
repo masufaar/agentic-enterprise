@@ -83,6 +83,9 @@ class Desk:
         if self.ticket["state"] != "open":
             raise ValueError(f"{ticket_id} is {self.ticket['state']}. The resolution agent works open tickets only.")
         self.seen: set[str] = {ticket_id}   # every ticket a tool returned in this run
+        # Ticket numbers written in the ticket's own text: the agent may name them when it says what it
+        # did not do. They are not read, and they are no evidence for a proposal.
+        self.mentioned = set(re.findall(r"SD-\d\d-\d{4}", self.ticket["text"]))
         self.done: list[dict] = []          # what the connector carried out on the ticket in this run
         self.refused: list[dict] = []       # what was refused, and why
         self.proposed: list[dict] = []
@@ -114,6 +117,7 @@ class Desk:
                 standing = {"rung": level["name"], "on_this_rung_you_may": level["the_agent_may"],
                             "fixes_the_suite_offers": [a for a in kind["actions"] if a not in kind.get("not_for_agents", [])],
                             "touches_identity": kind["touches_identity"]}
+            standing["teams_you_can_hand_over_to"] = self.briefing["teams"]["names"]
             return {**shown, **standing,
                     "standing_instructions_for_this_ticket": [i["instruction"] for i in self.connector.instructions(self.ticket)]}
 
@@ -242,7 +246,7 @@ class Desk:
             problems.append("Say why in 'reason'.")
         if not lesson:
             problems.append("Say in 'lesson' what this ticket teaches for the next one.")
-        unseen = sorted(set(re.findall(r"SD-\d\d-\d{4}", f"{reason} {lesson}")) - self.seen)
+        unseen = sorted(set(re.findall(r"SD-\d\d-\d{4}", f"{reason} {lesson}")) - self.seen - self.mentioned)
         if unseen:
             problems.append(f"No tool returned {', '.join(unseen)} in this run. Name only tickets you have read.")
         problems += checks.too_long(self.briefing["word_limits"], reason=reason, lesson=lesson)

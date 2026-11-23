@@ -111,8 +111,8 @@ def main(argv: list[str]) -> int:
                 return 2
             if "--record" in argv:
                 (REPORTS / "redteam").mkdir(parents=True, exist_ok=True)
-                redteam.publish(report, f"redteam/live-{date.today().isoformat()}-{model.model}")
-                print(f"Recorded: reports/redteam/live-{date.today().isoformat()}-{model.model}.md and .json")
+                stem = redteam.publish(report, f"redteam/live-{date.today().isoformat()}-{model.model}", keep=True)
+                print(f"Recorded: reports/{stem}.md and .json")
         else:
             report = redteam.run()
             redteam.publish(report)

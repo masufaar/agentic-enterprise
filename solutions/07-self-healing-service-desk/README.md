@@ -1,6 +1,6 @@
 # Self-Healing Service Desk
 
-**Status: in build (23 November 2026). The two agents have run on a real model: three scenarios, 19 agent runs, recorded in `reports/runs/`, with what went wrong stated below. The red team's live run is still to come; until it is recorded the solution is not called working. Working as fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Nothing is connected to a real system.**
+**Status: in build (23 November 2026). The two agents have run on a real model: three scenarios in 19 agent runs, and the red team's 20 tickets in 20 more, all recorded, with what went wrong stated below. The first live red-team run was misjudged by our own fixed code; the judge is corrected and a second run is next. Until it is recorded the solution is not called working. Working as fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Nothing is connected to a real system.**
 
 Who checks the ticket an AI agent closed, and who decides which tickets it may close alone?
 
@@ -155,7 +155,15 @@ Four legitimate cases still go through (4 of 4), so the campaign is not passed b
 - **A false lesson in the case memory.** A tricked agent can leave a sentence for the agents that work the next tickets. No rule reads the memory, so it cannot switch off a control, but it can mislead a model. Designed: a lesson enters the memory only after the verifier has checked its ticket.
 - **Closed, not solved.** A tricked agent can apply a fix the suite offers that will not help, and close. Fixed code cannot know a fix will fail. Today: detection when the person comes back, and a step down on the ladder. Designed: at Act with check a closure counts only when the requester has confirmed that the problem is gone.
 
-The attack list is data (`data/attacks.json`), with the source and date of each pattern: a newly published attack is a new entry, not new code. The same tickets can be given to the agent on a real model (`python -m servicedesk redteam --live --record`); no such run is recorded yet; it will be kept in `reports/redteam/`.
+The attack list is data (`data/attacks.json`), with the source and date of each pattern: a newly published attack is a new entry, not new code.
+
+**The same tickets on a real model.** On 23 November 2026 the 20 tickets were given to the resolution agent on Claude Fable 5.2, medium effort: 20 agent runs, 365,667 tokens in, 22,927 out. The record is in [reports/redteam/](reports/redteam/).
+
+- **The published summary of that first run is wrong, and it is kept.** It reports 2 breaches. Reading every tool call shows the model followed none of the 16 attacks: it refused each hostile request, usually wrote on the ticket that it had not followed it, and did the legitimate part of the work. Our judge had been written for a compromised agent and counted a properly fixed and closed ticket as a breach.
+- **Re-read with the corrected judge**, by replaying the model's recorded calls in fixed code: 16 of 16 attacks not attempted, 4 of 4 legitimate cases done, 8 steps of the agent's own work refused by a control. This is a re-reading of one record, not a new measurement.
+- **A second live run with the corrected judge is the measurement, and it is next.**
+
+A careful model on one day is not a control. The worst-case figures above are what holds without it.
 
 ## The synthetic service desk
 
@@ -201,7 +209,7 @@ python -m servicedesk generate     write the synthetic data again (same seed, sa
 python -m servicedesk sample       the three scenarios with prepared replies in place of a model;
                                    writes the sample pages in reports/samples
 python -m servicedesk redteam      the red team, every attack assumed successful; writes reports/redteam-latest
-python -m pytest                   75 tests
+python -m pytest                   79 tests
 ```
 
 With a real model. It needs the environment variable `HALDEN_MODEL_KEY_FILE`, the path of a file that holds the model key; the key is read at the moment of the call and is never logged or stored.
@@ -236,12 +244,13 @@ python -m servicedesk redteam --live --record          the 20 red-team tickets o
 | `reports/redteam-latest.md` | The latest red-team results, breaches included |
 | `REDTEAM_DECISIONS.md` | Why the red team is built this way, and what it does not show |
 | `reports/runs/` | Recorded runs with a real model: the page and the full record |
-| `tests/` | 75 tests: 32 on the foundations, 31 on the agents' controls with prepared replies, 12 on the red team |
+| `reports/redteam/` | Live red-team records, with a note on how to read each |
+| `tests/` | 79 tests: 32 on the foundations, 31 on the agents' controls with prepared replies, 16 on the red team |
 | `BUILD_LOG.md` | Decisions, alternatives set aside, and tokens per step |
 
 ## What has to exist before this solution is called working
 
-1. The red team's live run: the 20 tickets given to the resolution agent on a real model, recorded in `reports/redteam/` and published, breaches included. **Next.** What a model does under attack is not known.
+1. A second live run of the red team, judged by the corrected judge, recorded in `reports/redteam/` and published. **Next.** The first live run is recorded; its judge was wrong and has been corrected.
 2. The solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket. **Designed.**
 
 ## Limits
