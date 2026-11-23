@@ -183,3 +183,7 @@ Mario started `python -m servicedesk runs --record` with his key. The assistant 
 |---|---|---|---|
 | 1 | Three scenarios, 15 agent runs (Mario's key) | Claude Fable 5.2, medium effort | 191,712 in, 14,893 out, measured |
 | 2 | Records read, corrections, solution page, this log | Main (Claude Fable 5.2) | Input about 25,000, output about 9,000, estimated |
+
+### Second run of `incident-returns`, same day
+
+Mario ran `python -m servicedesk run incident-returns --record` on the corrected data; saved as `-run-b`. Measured: 4 agent runs, 76,905 tokens in, 4,521 out, 48 seconds; 6 of 6 answers agree with the key; no step down; proposal held under P-011, approved by the scenario file, instruction followed on the next ticket. The model did not ask for the ruled-out fix, so the BRIEFING refusal is still shown only by tests and by the red team's worst case, not by a real model.

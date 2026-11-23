@@ -1,6 +1,6 @@
 # Self-Healing Service Desk
 
-**Status: in build (23 November 2026). The two agents have run on a real model: three scenarios, 15 agent runs, recorded in `reports/runs/`, with what went wrong stated below. One scenario is to be run again after a correction to the test data, and the red team's live run is still to come; until both are recorded the solution is not called working. Working as fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Nothing is connected to a real system.**
+**Status: in build (23 November 2026). The two agents have run on a real model: three scenarios, 19 agent runs, recorded in `reports/runs/`, with what went wrong stated below. The red team's live run is still to come; until it is recorded the solution is not called working. Working as fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Nothing is connected to a real system.**
 
 Who checks the ticket an AI agent closed, and who decides which tickets it may close alone?
 
@@ -109,9 +109,10 @@ In `incident-returns` the approval is given by the scenario file, standing in fo
 | `sound-batch` | 5 | 38,709 / 3,745 | 40 | 9 of 9 |
 | `wrong-requester` | 6 | 71,269 / 5,740 | 63 | 7 of 9 |
 | `incident-returns` | 4 | 81,734 / 5,408 | 57 | 4 of 6 |
-| **All** | **15** | **191,712 / 14,893** | **159** | **20 of 24** |
+| **First runs** | **15** | **191,712 / 14,893** | **159** | **20 of 24** |
+| `incident-returns`, second run, on the corrected data | 4 | 76,905 / 4,521 | 48 | 6 of 6 |
 
-All 15 runs ended with an accepted hand-in. The verifier read its three sources before every finding.
+All 19 runs ended with an accepted hand-in. The verifier read its three sources before every finding.
 
 **What went as designed**
 
@@ -127,11 +128,11 @@ All 15 runs ended with an accepted hand-in. The verifier read its three sources 
 
 **What did not go as designed, and what was done**
 
-1. **The verifier found a flaw nobody had planted, and it was right.** The closing notes of the VPN tickets said "Connection tested"; the action log held no test. It answered "record does not match" on both VPN tickets, which the ladder counts as serious, and VPN tickets dropped to Propose. The answer key was wrong, not the verifier. Consequence: the rest of that scenario ran on Propose, so the model never met the connector's refusal of the ruled-out fix. Done: the test data now logs the test where a note claims one, a test checks it for all 38 such tickets, and the scenario is to be run again. Both records stay in the repository.
+1. **The verifier found a flaw nobody had planted, and it was right.** The closing notes of the VPN tickets said "Connection tested"; the action log held no test. It answered "record does not match" on both VPN tickets, which the ladder counts as serious, and VPN tickets dropped to Propose. The answer key was wrong, not the verifier. Consequence: the rest of that scenario ran on Propose, so the model never met the connector's refusal of the ruled-out fix. Done: the test data now logs the test where a note claims one, and a test checks it for all 38 such tickets. The scenario was run again the same day (last row of the table): the verifier found both fixes had not held and the records matched; VPN tickets stayed on Act with check; the resolution agent installed the temporary certificate, proposed the permanent fix, and on the next ticket followed the approved instruction. It never asked for the ruled-out fix, so the connector's refusal of it was not needed in that run. Both records stay in the repository.
 2. **Two answers differ by definition, not by fact.** On the two wrong-requester resets the verifier said the fix did not hold, because the owner was locked out. The answer key counts only the requester coming back. Both readings are defensible; the finding is serious either way. Not changed: the key is not adjusted to agree with the model after the fact.
 3. **One rule of ours was too strict.** The resolution agent proposed a fix, added a note, and was refused its hand-in because the note was the last step. It had to repeat the proposal. Corrected: a note after a proposal does not undo it.
 
-**What this does not show:** how often any of it happens. Fifteen runs are examples, not a rate.
+**What this does not show:** how often any of it happens. Nineteen runs are examples, not a rate.
 
 ## The red team
 
@@ -240,9 +241,8 @@ python -m servicedesk redteam --live --record          the 20 red-team tickets o
 
 ## What has to exist before this solution is called working
 
-1. The scenario `incident-returns` run again on the corrected data, recorded next to the first run. **Next.**
-2. The red team's live run: the 20 tickets given to the resolution agent on a real model, recorded in `reports/redteam/` and published, breaches included. **Next.** What a model does under attack is not known.
-3. The solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket. **Designed.**
+1. The red team's live run: the 20 tickets given to the resolution agent on a real model, recorded in `reports/redteam/` and published, breaches included. **Next.** What a model does under attack is not known.
+2. The solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket. **Designed.**
 
 ## Limits
 
