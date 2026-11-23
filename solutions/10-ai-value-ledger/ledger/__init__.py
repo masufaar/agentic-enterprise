@@ -15,8 +15,9 @@ Two things live here:
                   for the Chief AI Officer. It decides nothing and changes no budget.
 
 Standard library only. All data is synthetic and belongs to the fictional company
-Halden Industrial, except the cost of the Sentinel line, which is read from the real
-run records in solutions/02-ot-it-convergence-sentinel/reports/runs.
+Halden Industrial, except the cost of the Sentinel line and of the service desk line,
+which is read from the real run records in solutions/02-ot-it-convergence-sentinel and
+solutions/07-self-healing-service-desk, under reports/runs.
 """
 import json
 import sys

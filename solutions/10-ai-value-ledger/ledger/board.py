@@ -58,8 +58,8 @@ def page(result: dict) -> str:
     for line in ledger["lines"]:
         cost, benefit = line["cost"], line["benefit"]
         out += [f"**{line['name']}** ({line['agent']})", "",
-                f"- Cost, {cost['basis']}: {cents(cost['eur_per_run'])} a run on {cost['model']}, "
-                f"{cost['runs_per_year']:,} runs a year ({cost['runs_per_year_basis']}), "
+                f"- Cost, {cost['basis']}: {cents(cost['eur_per_run'])} a {cost.get('unit', 'run')} on {cost['model']}, "
+                f"{cost['runs_per_year']:,} {cost.get('unit', 'run')}s a year ({cost['runs_per_year_basis']}), "
                 f"build {cost['build_hours']} hours at {eur(result['build_hour_eur'])} an hour, "
                 f"= {eur(cost['total_first_year_eur'])} in the first year.",
                 f"- {cost['evidence']['note']}"]
@@ -67,6 +67,8 @@ def page(result: dict) -> str:
             out.append(f"- Run records read: {', '.join(cost['evidence']['files'])}.")
         out += [f"- Benefit {eur(benefit['value_eur'])}, stated by the {benefit['stated_by']}. "
                 f"Grade: {GRADE_WORDS[benefit['grade']]}. {benefit['why']}"]
+        if benefit.get("caveat"):
+            out.append(f"- What this measurement does not show: {benefit['caveat']}")
         if benefit["source"]:
             out.append(f"- Source of the claim: {benefit['source']}.")
         if line["trend"]:

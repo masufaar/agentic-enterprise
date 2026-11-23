@@ -1,6 +1,6 @@
 # AI Value Ledger
 
-**Status: working as a blueprint. The ledger is fixed code and the analyst agent runs on a real model, on synthetic data, with three recorded runs (20 November 2026); not connected to real systems.** Each scenario has run once, so these are observations, not rates. The cost of one line is not synthetic: it is read from the real run records of [solution 02](../02-ot-it-convergence-sentinel/) in this repository. Still designed: the ledger reading its own review runs, and more than one measurement record in the portfolio.
+**Status: working as a blueprint. The ledger is fixed code and the analyst agent runs on a real model, on synthetic data, with three recorded runs (20 November 2026); not connected to real systems.** Each scenario has run once, so these are observations, not rates. The cost of two lines is not synthetic: it is read from the real run records of [solution 02](../02-ot-it-convergence-sentinel/) and [solution 07](../07-self-healing-service-desk/) in this repository. Still designed: the ledger reading its own review runs, and more than one measurement record in the portfolio.
 
 One line per AI agent: what it cost, what it returned, and how good the evidence behind that number is.
 
@@ -46,17 +46,35 @@ Run `python -m ledger ledger pays-back`:
 
 | Agent | First-year cost | Benefit | Evidence |
 |---|---|---|---|
-| Service desk resolution agent | EUR 20,953 (assumed) | EUR 611,000 | measured: tickets closed without a person, 13 weeks against the 13 weeks before |
+| Service desk resolution agent, with its verifier (solution 07) | EUR 35,157 (**measured**) | EUR 611,000 | measured: tickets closed without a person, 13 weeks against the 13 weeks before |
 | Portfolio truth agent | EUR 11,521 (assumed) | EUR 180,000 | calculated: 2,000 hours x EUR 90 |
 | Sentinel planner (solution 02) | EUR 15,287 (**measured**) | EUR 800,000 | calculated: 2 plant-days x EUR 400,000 |
 
 The three benefits are never added together. On this blueprint, almost every benefit is graded `calculated` or `claimed`, and that is the point: the ledger shows a board exactly where the evidence is thin and what to measure first.
 
-### The one real figure
+### The two real figures
 
 The Sentinel line's cost is not an assumption. The ledger reads the five recorded runs in `solutions/02-ot-it-convergence-sentinel/reports/runs/`: 332,008 tokens in and 32,012 out on Claude Fable 5.2, which at the list prices of 20 November 2026 is USD 3.94, EUR 3.62 at the stated rate, EUR 0.72 a run. It is an upper bound: the model connector counts cache reads inside the input total, and cache reads cost less. The ledger says so on the line and on the page.
 
 Against it stands EUR 800,000 a year of claimed benefit, which is an assumption from the business case. Cost measured, benefit assumed: that is the honest state of this repository, and the ledger is built to show it rather than hide it.
+
+The service desk line's cost is measured too, since 23 November 2026, and in a different unit: **per verified resolution, not per closed ticket.** One verified resolution is one run of the resolution agent and one check of the closure by the verifier, which cannot close a ticket. The ledger reads the 19 agent runs inside the four scenario records in `solutions/07-self-healing-service-desk/reports/runs/`, on Claude Fable 5.2 at medium effort:
+
+| Agent | Runs | Average tokens in / out | EUR per run |
+|---|---|---|---|
+| Resolution agent | 8 | 25,630 / 1,376 | 0.24 |
+| Verifier | 11 | 5,779 / 764 | 0.07 |
+| **One verified resolution** | | 31,410 / 2,140 | **0.31** |
+
+At 46,000 tickets a year (assumption) that is EUR 14,257 of model cost, of which checking every closure is about EUR 3,250. Build effort, 220 hours at EUR 95 (assumption), brings the first year to EUR 35,157. Three things to read with it:
+
+- It is an upper bound: cache reads are counted at the full input price.
+- It is measured on the model this repository tests with, one of the most expensive on the price table. The portfolio's earlier assumption was a small model at a tenth of a cent a run; a company chooses its model, and the ledger prices whatever it records.
+- Every closure is checked because every ticket type starts the autonomy ladder at "act with check". A type that earns "act alone" is checked on a 20% sample, and the unit gets cheaper. The share is data in the portfolio file, not code.
+
+The red-team records of solution 07 are kept in `reports/redteam/` and are not read: an attack is not a unit of work.
+
+The benefit side of that line is still the company's measurement of tickets **closed** without a person. The page says so on the line: a closure that comes back within seven days is not a saving. Designed: from the next quarter the measurement record counts verified resolutions only, from the verifier's findings.
 
 ## The three scenarios
 
@@ -92,7 +110,7 @@ A review needs a model key: put it in a file and set `HALDEN_MODEL_KEY_FILE` to 
 | `data/prices.json` | Model list prices, with the date they were read and their source |
 | `data/portfolio.json` | The synthetic AI portfolio of Halden Industrial, and the measurements the company holds |
 | `data/scenarios/` | The three scenarios |
-| `tests/` | 34 tests, on the scripted stand-in: no key, no cost |
+| `tests/` | 40 tests, on the scripted stand-in: no key, no cost |
 | `BUILD_LOG.md` | Decisions, alternatives set aside, and tokens per step |
 
 ## The recorded runs of 20 November 2026
@@ -104,6 +122,8 @@ Measured: three reviews, one per scenario, Claude Fable 5.2 at medium effort, st
 | pays-back | [page](reports/runs/pays-back-2026-11-20-claude-fable-5-2.md) | Fund the service desk agent (the one measured benefit); build the evidence for the other two | 3 | 25.56 | 14,178 / 2,940 |
 | cost-growing | [page](reports/runs/cost-growing-2026-11-20-claude-fable-5-2.md) | Do not leave the supply chain monitor's budget unchanged; fund the service desk agent; build the evidence for the quality agent | 4 | 28.94 | 17,429 / 3,141 |
 | benefit-without-evidence | [page](reports/runs/benefit-without-evidence-2026-11-20-claude-fable-5-2.md) | The quality agent's EUR 1,200,000 is worth nothing for this budget round: build the evidence | 4 | 43.10 | 23,931 / 4,818 |
+
+These runs were made before the service desk line was measured (23 November 2026). Their pages show that line as it was then: an assumed cost of EUR 20,953 and the owner "Head of IT Operations". They are kept unchanged as records of what the agent was given; a new review would read the measured line.
 
 Together: 55,538 tokens in and 10,899 out, USD 0.88 at the list prices in `data/prices.json`, EUR 0.81 at the stated rate. Three reviews of a five-agent portfolio cost less than a euro; what they cost in reading time is the point, not what they cost in tokens.
 
@@ -126,7 +146,7 @@ The runs that found this were made before the fix and are not published: their f
 
 ## Limits
 
-- All data is synthetic and belongs to the fictional company Halden Industrial, except the Sentinel cost line.
+- All data is synthetic and belongs to the fictional company Halden Industrial, except the cost of the Sentinel line and of the service desk line.
 - The ledger prices tokens. It does not price the people who run the agents, the systems they call or the licences underneath; build effort is in, as an assumption.
 - The euro rate is an assumption stated in `data/prices.json`.
 - The grade says how good the evidence is, not whether the measurement was well designed. A badly designed measurement still grades as `measured`; the analyst agent is asked to say what was measured and over what period, so a reader can judge it.

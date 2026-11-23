@@ -24,9 +24,9 @@ Further benefits, not quantified here:
 
 ## What the first version adds to this case
 
-The ledger is fixed code and runs today. On the scenario `pays-back` it produces three lines: EUR 20,900, EUR 11,525 and EUR 15,286 of first-year cost, against EUR 611,000 of measured benefit and EUR 980,000 of calculated benefit, shown apart and never added.
+The ledger is fixed code and runs today. On the scenario `pays-back` it produces three lines: EUR 35,157, EUR 11,521 and EUR 15,287 of first-year cost, against EUR 611,000 of measured benefit and EUR 980,000 of calculated benefit, shown apart and never added.
 
-One figure on it is measured, not assumed: the cost of the Sentinel planner of solution 02. The ledger reads the five recorded runs in that solution's `reports/runs/` folder: 332,008 tokens in and 32,012 out on Claude Fable 5.2, which at the list prices read on 20 November 2026 is USD 3.94, EUR 3.62 at the stated rate, EUR 0.72 a run. It is an upper bound, because the model connector counts cache reads at the full input price.
+Two figures on it are measured, not assumed. Since 23 November 2026 the service desk line of solution 07 is priced from its 19 recorded agent runs, per verified resolution: EUR 0.31 for one resolution and one check of it, an upper bound. The other is the cost of the Sentinel planner of solution 02. The ledger reads the five recorded runs in that solution's `reports/runs/` folder: 332,008 tokens in and 32,012 out on Claude Fable 5.2, which at the list prices read on 20 November 2026 is USD 3.94, EUR 3.62 at the stated rate, EUR 0.72 a run. It is an upper bound, because the model connector counts cache reads at the full input price.
 
 Against that measured cost stands the EUR 800,000 a year of this repository's Sentinel business case, which is an assumption with a formula. The ledger grades it `calculated` and prints the formula next to it. That is the honest state of the blueprint: cost measured, benefit assumed, and the page says which is which.
 

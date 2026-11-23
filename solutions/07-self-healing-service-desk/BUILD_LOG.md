@@ -216,3 +216,9 @@ Mario ran the live red team again; saved as `-run-b`. Measured, with the correct
 Checked: five suites (82, 92, 15, 34, 79); Control Tower reports generated again; board page reads 6 agents working, 6 steps of fixed code, 8 designed.
 
 All model tokens of step 4, measured, Mario's key: scenarios 268,617 in and 19,414 out (19 runs); live red team 707,468 in and 44,871 out (40 runs); together 976,085 in and 64,285 out.
+
+## Session 5, 23 November 2026: build step 4c, the line in the value ledger
+
+The service desk line of the AI Value Ledger is now measured from this solution's 19 scenario runs, per verified resolution: one resolution run and one check by the verifier. EUR 0.31 a verified resolution on Claude Fable 5.2, an upper bound; at 46,000 tickets a year (assumption) EUR 14,257 of model cost, of which EUR 3,250 is the check. The red-team records are not read. The owner is aligned to the Head of IT Service Management, which closes the open point of session 1. The decisions (D18 to D23) and the tokens of this step are in the ledger's [BUILD_LOG.md](../10-ai-value-ledger/BUILD_LOG.md), where the code changed.
+
+The solution page and the business case now carry the measured cost; the business case's status line, which still said the two agents were designed, is corrected. Five suites: 82, 92, 15, 40, 79.

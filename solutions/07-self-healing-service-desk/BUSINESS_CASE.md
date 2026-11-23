@@ -8,7 +8,7 @@ The service desk suite a company already runs now ships an agent that closes tic
 
 ## The proposal
 
-In addition to the existing suite, never replacing it: a verifier agent that checks closed tickets and never closes one; an autonomy ladder that grants autonomy per ticket type on that evidence and takes it back at once when a check fails; and a resolution agent that works at the rung each ticket type has earned. Status: the ladder and the connector are working as fixed code; the two agents are designed.
+In addition to the existing suite, never replacing it: a verifier agent that checks closed tickets and never closes one; an autonomy ladder that grants autonomy per ticket type on that evidence and takes it back at once when a check fails; and a resolution agent that works at the rung each ticket type has earned. Status: working as a blueprint since 23 November 2026: the ladder and the connector in fixed code, and the two agents on a real model, with recorded runs.
 
 ## Value levers
 
@@ -27,7 +27,7 @@ Further benefits, not quantified here:
 ## Cost
 
 - **Build effort:** 40 to 60 hours for a thin working slice (estimate for one person working with an AI coding assistant).
-- **Running cost:** not measured yet. It will be read from the recorded runs by the [AI Value Ledger](../10-ai-value-ledger/README.md) once the agents have run.
+- **Running cost:** measured by the [AI Value Ledger](../10-ai-value-ledger/README.md) from 19 recorded agent runs: EUR 0.31 per verified resolution (one resolution, one check), on Claude Fable 5.2 at list prices of 20 November 2026, an upper bound. At 46,000 tickets a year (assumption), EUR 14,257 of model cost, of which checking every closure is about EUR 3,250.
 
 ## Controls
 

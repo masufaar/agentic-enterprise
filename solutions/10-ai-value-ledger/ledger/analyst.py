@@ -135,8 +135,9 @@ class Desk:
             Tool("read_portfolio", "The agents in this ledger: what each costs in its first year, what is claimed "
                  "for it, the grade of that claim, and what the Control Tower registry says each one is today.",
                  read_portfolio),
-            Tool("read_cost", "The cost side of one agent: tokens per run, euro per run, runs a year, build effort, "
-                 "and whether the cost is measured from run records or assumed.", read_cost, {"agent": text}),
+            Tool("read_cost", "The cost side of one agent: tokens and euro per unit of work ('unit': a run, or for "
+                 "the service desk a verified resolution), units a year, build effort, and whether the cost is "
+                 "measured from run records or assumed.", read_cost, {"agent": text}),
             Tool("read_claim", "The benefit claimed for one agent: the figure, who stated it, the grade the ledger "
                  "worked out and why it has that grade.", read_claim, {"agent": text}),
             Tool("read_trend", "Cost per run month by month against the number of runs, for an agent that has "

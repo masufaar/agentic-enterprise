@@ -1,5 +1,5 @@
 {
-  "_note": "Synthetic. The AI portfolio of Halden Industrial as the ledger reads it: one entry per registered agent that costs money. 'state_in_the_company' is what the fictional company says that agent does today; it is not the same as what this repository has behind the agent's card, which the Control Tower registry states. The ledger shows both, because a benefit measured in a company system can only belong to an agent that was running when it was measured. All figures are the fictional company's, except the Sentinel line, whose cost is read from the real run records in this repository. People appear by role only.",
+  "_note": "Synthetic. The AI portfolio of Halden Industrial as the ledger reads it: one entry per registered agent that costs money. 'state_in_the_company' is what the fictional company says that agent does today; it is not the same as what this repository has behind the agent's card, which the Control Tower registry states. The ledger shows both, because a benefit measured in a company system can only belong to an agent that was running when it was measured. All figures are the fictional company's, except the cost of the Sentinel line and of the service desk line, which is read from the real run records in this repository. The service desk line carries two registered agents, the resolution agent and the verifier that checks its closures, priced together per verified resolution. People appear by role only.",
   "year": 2026,
   "build_hour_eur": 95,
   "build_hour_basis": "assumption: fully loaded internal cost of one engineering hour",
@@ -29,22 +29,28 @@
     },
     {
       "id": "sd-resolution",
-      "name": "Service desk resolution agent",
+      "name": "Service desk resolution agent, with its verifier",
       "solution": "07-self-healing-service-desk",
-      "owner": "Head of IT Operations",
+      "owner": "Head of IT Service Management",
       "cost": {
-        "model": "claude-haiku-5-5",
-        "runs_per_year": 46000,
-        "tokens_per_run": {
-          "input": 9000,
-          "output": 700
+        "from_agent_runs": "07-self-healing-service-desk",
+        "unit": {
+          "name": "verified resolution",
+          "runs_per_unit": {
+            "sd-resolution": 1,
+            "sd-verifier": 1.0
+          },
+          "basis": "One verified resolution is one run of the resolution agent and one check by the verifier: on the first day of the autonomy ladder every closure is checked (solutions/07-self-healing-service-desk/data/ladder.json, 'act with check', share 1.0). A type that earns 'act alone' is checked on a 20% sample, which lowers this cost."
         },
+        "runs_per_year": 46000,
+        "runs_per_year_basis": "assumption: tickets the agent works in a year, each checked once",
         "build_hours": 220
       },
       "claim": {
         "value_eur": 611000,
-        "stated_by": "Head of IT Operations",
+        "stated_by": "Head of IT Service Management",
         "formula": "tickets_closed_without_a_person * minutes_saved / 60 * hour_eur",
+        "caveat": "it counts tickets closed without a person, not tickets whose fix held. A closure that comes back within seven days is not a saving. Designed: from the next quarter the measurement record counts verified resolutions only, from the verifier's findings.",
         "assumptions": {
           "tickets_closed_without_a_person": 18500,
           "minutes_saved": 26,

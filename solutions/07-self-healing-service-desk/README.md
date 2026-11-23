@@ -1,6 +1,6 @@
 # Self-Healing Service Desk
 
-**Status: working as a blueprint (23 November 2026). Two agents run on a real model, on synthetic data, with 39 recorded agent runs: three scenarios in 19 runs, and the red team's 20 tickets twice. What went wrong in those runs is stated below, including two errors of our own that the runs exposed. In fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Designed, not built: the fixes for those three breaches, and the solution's line in the value ledger. Nothing is connected to a real system.**
+**Status: working as a blueprint (23 November 2026). Two agents run on a real model, on synthetic data, with 39 recorded agent runs: three scenarios in 19 runs, and the red team's 20 tickets twice. What went wrong in those runs is stated below, including two errors of our own that the runs exposed. In fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Its line in the AI Value Ledger is measured from those runs: EUR 0.31 per verified resolution, one resolution and one check, an upper bound. Designed, not built: the fixes for those three breaches. Nothing is connected to a real system.**
 
 Who checks the ticket an AI agent closed, and who decides which tickets it may close alone?
 
@@ -264,8 +264,7 @@ python -m servicedesk redteam --live --record          the 20 red-team tickets o
 1. The fixes for the three open breaches of the worst-case campaign: a note may not claim an approval the log does not hold; a lesson enters the case memory only after the verifier has checked its ticket; at Act with check a closure counts only when the requester has confirmed the problem is gone.
 2. A closure without an accepted hand-in goes to the verifier first.
 3. Something that schedules the verifier's checks. Today a scenario file decides which closed tickets it is given.
-4. The solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket.
-5. The red team aimed at the verifier, and attacks spread over several tickets.
+4. The red team aimed at the verifier, and attacks spread over several tickets.
 
 ## Limits
 

@@ -19,13 +19,18 @@ No sponsor can type in a grade, and no agent can argue one upwards. A total is m
 per grade and never across grades: a measured euro and a claimed euro are not the
 same money.
 
+Where an agent's work is made of several agent runs, the portfolio names the unit
+(for the service desk: one verified resolution, a resolution run plus the share of a
+verifier run that checks it). The cost per unit is then measured from the individual
+agent runs, and the page prices the unit, not the file.
+
 The ledger also watches cost per use over time, where the portfolio has months. An
 agent whose cost per run grows while its use does not is flagged, because that is
 the pattern a board only notices when the invoice arrives.
 """
 from . import load
 from .prices import Prices
-from .runs import measured
+from .runs import measured, per_unit
 
 GRADES = ("measured", "calculated", "claimed")
 
@@ -95,8 +100,19 @@ def line(entry: dict, prices: Prices, portfolio: dict) -> dict:
     """One agent: what it cost, what is claimed for it, and how good that claim is."""
     cost, hour = entry["cost"], portfolio["build_hour_eur"]
     runs_a_year = cost["runs_per_year"]
+    unit = cost.get("unit")
     seen = measured(cost["from_run_records"], entry["id"]) if cost.get("from_run_records") else None
-    if seen:
+    by_unit = per_unit(cost["from_agent_runs"], unit["runs_per_unit"]) if cost.get("from_agent_runs") else None
+    if by_unit:
+        per_run_tokens, model, basis = by_unit["tokens"], by_unit["model"], "measured"
+        parts = "; ".join(f"{a}: {d['runs']} runs, {d['tokens_per_run']['input']:,} in and "
+                          f"{d['tokens_per_run']['output']:,} out on average, {d['per_unit']:g} per {unit['name']}"
+                          for a, d in by_unit["agents"].items())
+        evidence = {"runs_recorded": by_unit["runs"], "files": by_unit["files"], "agents": by_unit["agents"],
+                    "note": f"Measured from {by_unit['runs']} agent runs in the run records of this repository "
+                            f"({parts}). {unit.get('basis', '')} Cache reads are counted at the full input price, "
+                            "so this is an upper bound.".replace("  ", " ")}
+    elif seen:
         per_run_tokens = {side: round(seen["tokens"][side] / seen["runs"]) for side in ("input", "output")}
         model, basis = seen["model"], "measured"
         evidence = {"runs_recorded": seen["runs"], "files": seen["files"],
@@ -114,13 +130,14 @@ def line(entry: dict, prices: Prices, portfolio: dict) -> dict:
     return {
         "agent": entry["id"], "name": entry["name"], "solution": entry["solution"], "owner": entry["owner"],
         "state_in_the_company": entry.get("state_in_the_company", "not stated"),
-        "cost": {"model": model, "basis": basis, "tokens_per_run": per_run_tokens, "eur_per_run": per_run_eur,
+        "cost": {"model": model, "basis": basis, "unit": (unit or {}).get("name", "run"), "tokens_per_run": per_run_tokens, "eur_per_run": per_run_eur,
                  "runs_per_year": runs_a_year, "runs_per_year_basis": cost.get("runs_per_year_basis", "assumption"),
                  "model_eur_per_year": model_cost, "build_hours": cost["build_hours"], "build_eur": build_cost,
                  "total_first_year_eur": model_cost + build_cost, "evidence": evidence},
         "benefit": {"value_eur": benefit, "grade": graded["grade"], "why": graded["why"].strip(),
                     "record": graded["record"], "stated_by": entry["claim"]["stated_by"],
-                    "as_claimed_eur": entry["claim"]["value_eur"], "source": entry["claim"].get("source")},
+                    "as_claimed_eur": entry["claim"]["value_eur"], "source": entry["claim"].get("source"),
+                    "caveat": entry["claim"].get("caveat")},
         "net_first_year_eur": round(benefit - model_cost - build_cost),
         "trend": trend(cost),
     }

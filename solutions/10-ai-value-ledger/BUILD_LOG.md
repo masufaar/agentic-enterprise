@@ -70,3 +70,45 @@ The first three runs are not kept: their figures came from the ledger before D16
 - No run with a real model: the analyst agent is `in build` until a review is recorded in `reports/runs/`. Mario starts it with one PowerShell line.
 - The ledger does not yet read its own review runs, so the value ledger has no line in the value ledger. That is the first thing to add after the real runs.
 - The `measured` grade rests on one measurement record in the portfolio.
+
+## Session 3, 23 November 2026: the service desk line is measured (step 8.2, solution 07, step 4c)
+
+Solution 07 has 19 recorded agent runs on a real model. Its line in this ledger moves from an assumed cost to a measured one. No model ran in this session.
+
+| | Decision | Why | Set aside |
+|---|---|---|---|
+| D18 | When a record lists its agent runs one by one, the ledger reads those runs and prices a stated unit of work (`runs.per_unit`). The Sentinel path, one file per use, is unchanged. | A solution 07 record is a scenario of four to six tickets worked by two agents. Counting files would have priced one scenario as one ticket, about five times too high. | Counting files; a second record format for solution 07. |
+| D19 | The unit is one verified resolution: one run of the resolution agent plus the verifier's share of a check, 1.0 on the first day of the autonomy ladder (`act with check`). The share is data in the portfolio. | The article and the solution's business case commit to cost per verified resolution, not per closed ticket. The check is part of the cost of a closure the company can trust. | A separate line for the verifier: it has no benefit of its own and would read as pure cost. Per closed ticket. |
+| D20 | The owner on the line and on the claim is the Head of IT Service Management, as on both registry cards. A test now checks the ledger's owner against the registry. | Open since solution 07's D15. The cards are the reference: their owner is in 82 Control Tower tests. | Renaming the cards to "Head of IT Operations". |
+| D21 | The benefit is unchanged: the company's measurement of tickets closed without a person, graded measured. The page now says, on the line, what that measurement does not show; measuring verified resolutions is designed. | Changing the synthetic measurement to fit the article would be the after-the-fact adjustment solution 07's D46 refuses. The gap between closed and resolved is the article's point, and the page should show it. | Discounting the benefit by the verifier's findings in the scenarios: those flaws were planted on purpose and are not a rate. |
+| D22 | The analyst's three recorded runs of 20 November are kept unchanged, with a note that they show the line as it was (EUR 20,953 assumed, owner "Head of IT Operations"). No new review was started. | A real run needs Mario's key. The records are evidence of what the agent was given that day. | Deleting or editing them. |
+| D23 | A test pins that red-team records are never read as units of work. | Solution 07 keeps them in `reports/redteam/` for this reason (its D48); a test keeps it true if someone moves a file. | Relying on the folder alone. |
+
+### What was measured
+
+From the 19 agent runs in `solutions/07-self-healing-service-desk/reports/runs/`, Claude Fable 5.2 at medium effort, list prices read 20 November 2026, EUR 0.92 per USD (assumption):
+
+- Resolution agent: 8 runs, 25,630 in and 1,376 out on average, EUR 0.24 a run.
+- Verifier: 11 runs, 5,779 in and 764 out on average, EUR 0.07 a run.
+- One verified resolution: EUR 0.31, an upper bound (cache reads at the full input price).
+- At 46,000 tickets a year (assumption): EUR 14,257 of model cost, of which EUR 3,250 is the check. With 220 build hours at EUR 95 (assumption): EUR 35,157 in the first year, against EUR 20,953 assumed before. The rise comes from the model: the portfolio had assumed a small model at a tenth of a cent a run; the repository tests on Fable 5.2.
+
+### What was checked
+
+- Five suites: Control Tower 82, solution 02 92, shared harness 15, this solution 40 (34 plus 6), solution 07 79.
+- Every figure written by hand on the pages was recomputed by the ledger's own code. The token totals agree with solution 07's build log: 268,617 in, 19,414 out.
+- `reports/ledger-latest.md` generated again.
+
+### Tokens
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Charter, two handovers, solution 07 build log, ledger code, records read | Main (Claude Opus 5.5) | Input about 70,000, estimated |
+| 2 | Ledger change, portfolio, 6 tests, pages of both solutions, roadmap, both logs | Main | Output about 16,000, estimated |
+
+A lighter model could have updated the pages once the figures existed. Choosing the unit and keeping the benefit side honest was not work for a lighter model.
+
+### Open
+
+- A new review by the analyst agent, so a recorded run reads the measured service desk line. One PowerShell line, Mario's key, about EUR 0.30.
+- The measurement record for verified resolutions: designed.
