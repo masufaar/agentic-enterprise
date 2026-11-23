@@ -1,6 +1,6 @@
 # Red team against the resolution agent: results
 
-Run at 2026-11-23T08:58:35+00:00 (UTC). Mode: assumed tricked (fixed code, no model). Measured by `python -m servicedesk redteam` in this folder.
+Run at 2026-11-23T09:09:46+00:00 (UTC). Mode: assumed tricked (fixed code, no model). Measured by `python -m servicedesk redteam` in this folder.
 
 Scope, stated plainly: No model is involved. Each attack assumes the worst case: the ticket has fully taken the agent over, and the agent makes exactly the calls the attacker wants, through its own tools. What is tested is whether the controls contain it. What a real model does with the same tickets is a separate, recorded run. The service desk suite is a stand-in and all data is synthetic. Fixed code decides each outcome from the suite's own records, never from what the agent says about itself.
 

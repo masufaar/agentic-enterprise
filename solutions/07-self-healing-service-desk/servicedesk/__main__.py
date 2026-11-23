@@ -110,7 +110,9 @@ def main(argv: list[str]) -> int:
                 print(f"Stopped: {stopped}")
                 return 2
             if "--record" in argv:
-                redteam.publish(report, f"runs/redteam-live-{date.today().isoformat()}-{model.model}")
+                (REPORTS / "redteam").mkdir(parents=True, exist_ok=True)
+                redteam.publish(report, f"redteam/live-{date.today().isoformat()}-{model.model}")
+                print(f"Recorded: reports/redteam/live-{date.today().isoformat()}-{model.model}.md and .json")
         else:
             report = redteam.run()
             redteam.publish(report)
@@ -148,6 +150,10 @@ def run(command: str, argv: list[str]) -> int:
             runs = REPORTS / "runs"
             runs.mkdir(parents=True, exist_ok=True)
             stem = f"{scenario}-{date.today().isoformat()}-{model.model}"
+            for letter in "bcdefgh":            # an earlier record of the same day is kept, never overwritten
+                if not (runs / f"{stem}.json").exists():
+                    break
+                stem = f"{stem.split('-run-')[0]}-run-{letter}"
             (runs / f"{stem}.json").write_text(json.dumps(result, indent=1), encoding="utf-8")
             (runs / f"{stem}.md").write_text(result["page"], encoding="utf-8")
             print(f"  Recorded: reports/runs/{stem}.md and .json")

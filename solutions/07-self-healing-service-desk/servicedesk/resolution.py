@@ -30,6 +30,7 @@ from . import RESOLUTION
 
 DID = {"resolve": "resolved", "propose_fix": "proposed a fix", "add_note": "noted what I would do",
        "hand_over": "handed over"}
+WEIGHT = {"add_note": 0, "propose_fix": 1, "hand_over": 2, "resolve": 2}   # a note after a proposal does not undo it
 
 ROLE = (
     "You are the resolution agent of the IT service desk. You are given one open ticket. You work inside the "
@@ -222,6 +223,11 @@ class Desk:
                 "note": f"Recorded. Nothing changes until the {self.proposals.decider} approves it."}
 
     # -- the hand-in -------------------------------------------------------------
+    def _last(self) -> dict:
+        """The step that says what happened to the ticket: the weightiest one, and the latest of those."""
+        top = max(WEIGHT[d["step"]] for d in self.done)
+        return [d for d in self.done if WEIGHT[d["step"]] == top][-1]
+
     def finish(self, given: dict) -> dict:
         problems = []
         said = str(given.get("what_i_did", "")).strip()
@@ -229,9 +235,9 @@ class Desk:
         if not self.done:
             problems.append("Nothing has been done on the ticket in this run. Write a note, propose a fix, "
                             "resolve it or hand it over, as its rung allows, before you finish.")
-        elif said != DID[self.done[-1]["step"]]:
-            problems.append(f"You say '{said}', but the last step the suite carried out on this ticket was "
-                            f"'{DID[self.done[-1]['step']]}'. Say what was done.")
+        elif said != DID[self._last()["step"]]:
+            problems.append(f"You say '{said}', but what the suite carried out on this ticket was "
+                            f"'{DID[self._last()['step']]}'. Say what was done.")
         if not reason:
             problems.append("Say why in 'reason'.")
         if not lesson:
@@ -242,7 +248,7 @@ class Desk:
         problems += checks.too_long(self.briefing["word_limits"], reason=reason, lesson=lesson)
         if problems:
             raise ToolProblem("Not accepted. " + " ".join(problems))
-        last = self.done[-1]
+        last = self._last()
         self.result = {"ticket": self.ticket["id"], "type": self.ticket["type"], "did": said,
                        "action": last.get("action"), "handed_to": self.ticket.get("handed_to"),
                        "reason": reason, "lesson": lesson, "refused": self.refused,

@@ -8,7 +8,7 @@ from harness import page as frame
 
 ASKED = {"fix_held": "Fix held", "requester_entitled": "Requester entitled", "record_matches": "Record matches"}
 COUNTED = {"ok": "sound", "failed": "failed", "serious": "serious", "open": "not counted yet"}
-RULES = {"LADDER": "the autonomy ladder", "HANDOVER": "hand-over ticket type", "IDENTITY": "who is asking",
+RULES = {"LADDER": "the autonomy ladder", "HANDOVER": "hand-over rules", "PRIVACY": "a note names nobody else", "CLOSURE": "no closure without a fix", "IDENTITY": "who is asking",
          "BRIEFING": "the company briefing", "PERM-1": "Control Tower: not on the agent's permission list",
          "KILL": "Control Tower: kill switch"}
 

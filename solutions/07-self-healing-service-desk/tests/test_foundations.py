@@ -99,6 +99,19 @@ def test_every_planted_flaw_can_be_found_from_what_the_suite_shows_and_no_sound_
             assert key["requester_entitled"]
 
 
+def test_a_note_that_says_a_test_was_made_is_backed_by_the_log_unless_the_mismatch_is_planted():
+    """Found by the verifier in the first real runs: notes said 'Connection tested' and the log held no test."""
+    suite, claims = Suite(), {"Connection tested": "connection test passed", "Test page printed": "test page printed",
+                              "was informed": "requester informed"}
+    checked = 0
+    for ticket in CLOSED:
+        for words, test in claims.items():
+            if words in ticket["resolution"]["note"] and KEY[ticket["id"]]["record_matches"]:
+                assert test in [a["action"] for a in suite.log(ticket["id"])["actions"]], ticket["id"]
+                checked += 1
+    assert checked == 38                    # every closed VPN and printer ticket
+
+
 def test_a_follow_up_is_never_linked_to_the_ticket_it_follows():
     assert not any("follow" in key or "parent" in key for t in TICKETS for key in t)
 

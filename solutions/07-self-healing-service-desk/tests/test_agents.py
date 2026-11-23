@@ -149,7 +149,7 @@ def test_what_the_agent_says_it_did_must_be_what_the_suite_recorded(session):
     with pytest.raises(ToolProblem, match="Nothing has been done on the ticket"):
         made.finish({"what_i_did": "resolved", **words})
     made.tool["write_note"]({"text": "Looking at it."})
-    with pytest.raises(ToolProblem, match="You say 'resolved', but the last step the suite carried out"):
+    with pytest.raises(ToolProblem, match="You say 'resolved', but what the suite carried out"):
         made.finish({"what_i_did": "resolved", **words})
     made.tool["resolve"]({"action": ARCHIVE, "note": "Online archive enabled."})
     with pytest.raises(ToolProblem, match="No tool returned SD-26-0001"):
@@ -157,6 +157,18 @@ def test_what_the_agent_says_it_did_must_be_what_the_suite_recorded(session):
     done = made.finish({"what_i_did": "resolved", **words})
     assert done["did"] == "resolved" and done["action"] == ARCHIVE
     assert session.connector.suite.ticket("SD-26-0180")["closed_by"] == RESOLUTION
+
+
+def test_a_note_written_after_a_proposal_does_not_undo_the_proposal(session):
+    """Found in the first real run: the agent proposed, added a note, and was made to propose again."""
+    ticket = next(t["id"] for t in load("tickets.json")["tickets"] if t["type"] == "printer" and t["state"] == "open")
+    made = desk(session, ticket)
+    made.tool["propose_fix"]({"action": "roll back the printer driver", "note": "The fault began with the update."})
+    made.tool["write_note"]({"text": "Nothing was carried out."})
+    words = {"reason": "The type stands on Propose.", "lesson": "Propose, not act."}
+    with pytest.raises(ToolProblem, match="what the suite carried out on this ticket was 'proposed a fix'"):
+        made.finish({"what_i_did": "noted what I would do", **words})
+    assert made.finish({"what_i_did": "proposed a fix", **words})["action"] == "roll back the printer driver"
 
 
 def test_a_fix_that_touches_identity_needs_the_suites_own_confirmation_whatever_the_ticket_says(session):

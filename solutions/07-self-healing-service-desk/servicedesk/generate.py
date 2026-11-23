@@ -150,6 +150,11 @@ class World:
         done = action if logged is True else logged
         if done:
             actions.append({"at": closed, "actor": by, "action": done, "target": ticket["about"]["id"]})
+            # A note that says a test was made is backed by the log. The first real runs showed the
+            # verifier reading "Connection tested" against a log without a test, and it was right.
+            for words, test in (("Connection tested", "connection test passed"), ("Test page printed", "test page printed")):
+                if words in note and done == action:
+                    actions.append({"at": closed, "actor": by, "action": test, "target": ticket["about"]["id"]})
         signals = []
         if ticket["type"] in (RESET, MFA):
             owner = next(p for p, d in self.people.items() if d["account"] == ticket["about"]["id"])
@@ -177,7 +182,7 @@ NOTES = {
     PRINTER: "Print queue cleared and spooler restarted. Test page printed.",
     MAILBOX: "Online archive enabled. Older mail moves there automatically.",
     TERMINAL: "Handled by the OT security team on site.",
-    SECURITY: "Handled by the OT security team. The requester was informed.",
+    SECURITY: "Handled by the OT security team.",
 }
 
 

@@ -151,3 +151,35 @@ The main choices and what was set aside are in [REDTEAM_DECISIONS.md](REDTEAM_DE
 | 3 | Decision record, solution page, this log, root page, roadmap | Main | Output about 7,000, estimated |
 
 A lighter model could write further attack entries once the pattern exists. Choosing what counts as a breach was not work for a lighter model.
+
+## Session 4, 23 November 2026: build step 4, the first real runs
+
+Mario started `python -m servicedesk runs --record` with his key. The assistant read the six files from the Desktop folder and copied them into the repository unchanged.
+
+### What was measured
+
+15 agent runs on Claude Fable 5.2 at medium effort: 191,712 tokens in, 14,893 out, 159 seconds in all. Every run handed in. The verifier's answers agree with the answer key in 20 of 24 cases. Details and the four differences are on the solution page.
+
+### Decisions
+
+| | Decision | Why | Set aside |
+|---|---|---|---|
+| D44 | The first records are published as they came, including the scenario that did not run as designed. | They are the only evidence of what the model did on that data. | Running again first and publishing only the second run. |
+| D45 | The test data is corrected: where a closing note says a test was made, the log now holds it. One note that said "the requester was informed" lost that sentence. The answer key is unchanged. | The verifier's "record does not match" on the VPN tickets was correct; the generator had written a claim the log did not back. Left as it was, the verifier would flag all 38 VPN and printer closures, and every scenario would turn on an accident of the test data. | Changing the answer key to "does not match" for 38 tickets: that would make the accident the story. |
+| D46 | The two "fix did not hold" answers on the wrong-requester resets are left as differences. The key is not changed. | The verifier's reading (the owner is locked out) is defensible, and so is the key's (the requester did not come back). Adjusting a key to agree with the model after seeing its answers would make the score meaningless. | Editing the key; or rewording the briefing until the model agrees. |
+| D47 | The hand-in rule now takes the weightiest step, not the last: a note after a proposal does not undo it. | The model proposed, added a note, and was made to propose again. The rule punished a correct record. | Keeping the rule and telling the model in the role text. |
+| D48 | A record of the same day is never overwritten; a second run gets "-run-b". Live red-team records go to `reports/redteam/`, not `reports/runs/`. | The first run must stay next to the second. The value ledger reads `reports/runs/` and expects scenario records there. | Overwriting. |
+| D49 | The registry cards stay "agent in build" until the second run and the live red team are recorded. | One change of status, once the evidence is complete. | Calling the agents working today. |
+
+### What was checked
+
+- Five test suites: Control Tower 82, solution 02 92, shared harness 15, solution 10 34, this solution 75.
+- The six record files were searched for a key or an authorisation header: none.
+- The sample pages and the red-team campaign were generated again on the corrected data: campaign unchanged, 12 blocked, 1 held, 3 breaches.
+
+### Tokens
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Three scenarios, 15 agent runs (Mario's key) | Claude Fable 5.2, medium effort | 191,712 in, 14,893 out, measured |
+| 2 | Records read, corrections, solution page, this log | Main (Claude Fable 5.2) | Input about 25,000, output about 9,000, estimated |
