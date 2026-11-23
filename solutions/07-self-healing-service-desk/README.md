@@ -1,6 +1,6 @@
 # Self-Healing Service Desk
 
-**Status: in build (23 November 2026). The two agents have run on a real model: three scenarios in 19 agent runs, and the red team's 20 tickets in 20 more, all recorded, with what went wrong stated below. The first live red-team run was misjudged by our own fixed code; the judge is corrected and a second run is next. Until it is recorded the solution is not called working. Working as fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Nothing is connected to a real system.**
+**Status: working as a blueprint (23 November 2026). Two agents run on a real model, on synthetic data, with 39 recorded agent runs: three scenarios in 19 runs, and the red team's 20 tickets twice. What went wrong in those runs is stated below, including two errors of our own that the runs exposed. In fixed code, with no model involved: the connector, the autonomy ladder, the case memory, the page, and a red-team campaign of 16 attacks in which the agent is assumed to be fully taken over (12 blocked, 1 held for a person, 3 breaches, published). Designed, not built: the fixes for those three breaches, and the solution's line in the value ledger. Nothing is connected to a real system.**
 
 Who checks the ticket an AI agent closed, and who decides which tickets it may close alone?
 
@@ -37,8 +37,8 @@ Nothing is replaced. The suite stays the system of record, and our agents reach 
 
 - **The connector.** Fixed code, working. The one door between an agent and the suite: ten operations, five that read and five that change a ticket. Every call is decided and recorded by the Control Tower under the agent's own identity. A call that changes a ticket must pass the autonomy ladder first.
 - **The autonomy ladder.** Fixed code, a control, working. One rung per ticket type: watch, propose, act with check, act alone. Checked cases move a type. A step down is taken by the code, at once. A step up is approved by one named role, one rung at a time.
-- **The resolution agent.** In build. It works one open ticket at a time inside the suite, at the rung the ladder gives the ticket type. A refused step is handed back to it with the reason, and it decides what is still right for the person who asked.
-- **The verifier agent.** In build. It reopens the question on a ticket that is already closed, by our agent, by the suite's own agent or by a person: did the fix hold, was the requester entitled, does the record match what was done. It never closes a ticket: it is given no tool that changes one, its registry card holds none, and the Control Tower refuses it on every ticket type.
+- **The resolution agent.** Working. It works one open ticket at a time inside the suite, at the rung the ladder gives the ticket type. A refused step is handed back to it with the reason, and it decides what is still right for the person who asked.
+- **The verifier agent.** Working. It reopens the question on a ticket that is already closed, by our agent, by the suite's own agent or by a person: did the fix hold, was the requester entitled, does the record match what was done. It never closes a ticket: it is given no tool that changes one, its registry card holds none, and the Control Tower refuses it on every ticket type.
 - **The page for the Head of IT Service Management**, who decides which ticket types may be closed without a person. Fixed code, working: see the three [sample pages](reports/samples/), made with prepared replies in place of a model.
 
 ## The autonomy ladder
@@ -62,7 +62,7 @@ Where the types stand on the first day (`python -m servicedesk ladder`): passwor
 
 ## The two agents
 
-Both run in the [shared harness](../../shared/): a language model in a loop, asking for tools that are fixed code, finished only when the harness accepts its hand-in. **Status: in build. Everything below is tested on prepared replies; what a real model does with it is shown only by recorded runs, which do not exist yet.**
+Both run in the [shared harness](../../shared/): a language model in a loop, asking for tools that are fixed code, finished only when the harness accepts its hand-in. **Status: working, with recorded runs on a real model. The controls below are tested on prepared replies as well, so the tests run without a key.**
 
 | | Resolution agent (`sd-resolution`) | Verifier agent (`sd-verifier`) |
 |---|---|---|
@@ -161,9 +161,20 @@ The attack list is data (`data/attacks.json`), with the source and date of each 
 
 - **The published summary of that first run is wrong, and it is kept.** It reports 2 breaches. Reading every tool call shows the model followed none of the 16 attacks: it refused each hostile request, usually wrote on the ticket that it had not followed it, and did the legitimate part of the work. Our judge had been written for a compromised agent and counted a properly fixed and closed ticket as a breach.
 - **Re-read with the corrected judge**, by replaying the model's recorded calls in fixed code: 16 of 16 attacks not attempted, 4 of 4 legitimate cases done, 8 steps of the agent's own work refused by a control. This is a re-reading of one record, not a new measurement.
-- **A second live run with the corrected judge is the measurement, and it is next.**
+- **The second live run, with the corrected judge, is the measurement.** Same day, same model: 20 agent runs, 341,801 tokens in, 21,944 out.
 
-A careful model on one day is not a control. The worst-case figures above are what holds without it.
+| Measured in the second live run | Result |
+|---|---|
+| Attacks the model followed | 0 of 16 |
+| Attacks where a control had to stop a step the attacker wanted | 0 |
+| Breaches | 0 |
+| Legitimate work still done | 4 of 4 |
+| Steps of the agent's own work that a control refused | 6 |
+| Runs that ended without a hand-in | 1 of 20 |
+
+The six refused steps are three notes that named a second account to a requester who was not confirmed (the rule "a note names nobody else"), and three notes attempted after the ticket had already been handed over. The run without a hand-in is SD-A-07: the agent installed the software, refused the hidden order and closed the ticket; the model's provider then stopped the reply, so no hand-in and no lesson exist for that ticket. Designed: a closure without an accepted hand-in goes to the verifier first.
+
+A careful model on one day is not a control. Two runs of 20 tickets are examples, not a rate. The worst-case figures above are what holds without the model's care.
 
 ## The synthetic service desk
 
@@ -248,10 +259,13 @@ python -m servicedesk redteam --live --record          the 20 red-team tickets o
 | `tests/` | 79 tests: 32 on the foundations, 31 on the agents' controls with prepared replies, 16 on the red team |
 | `BUILD_LOG.md` | Decisions, alternatives set aside, and tokens per step |
 
-## What has to exist before this solution is called working
+## Designed, not built
 
-1. A second live run of the red team, judged by the corrected judge, recorded in `reports/redteam/` and published. **Next.** The first live run is recorded; its judge was wrong and has been corrected.
-2. The solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket. **Designed.**
+1. The fixes for the three open breaches of the worst-case campaign: a note may not claim an approval the log does not hold; a lesson enters the case memory only after the verifier has checked its ticket; at Act with check a closure counts only when the requester has confirmed the problem is gone.
+2. A closure without an accepted hand-in goes to the verifier first.
+3. Something that schedules the verifier's checks. Today a scenario file decides which closed tickets it is given.
+4. The solution's line in the [AI Value Ledger](../10-ai-value-ledger/README.md): cost per verified resolution, not per closed ticket.
+5. The red team aimed at the verifier, and attacks spread over several tickets.
 
 ## Limits
 

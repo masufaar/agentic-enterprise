@@ -581,7 +581,7 @@
    "purpose": "Reopens the question on tickets that are already closed, by this company's resolution agent, by the service desk suite's own agent or by a person: did the fix hold, was the requester entitled, does the record match what was done. It writes findings; it never closes or changes a ticket.",
    "model_class": "mid",
    "autonomy": "advise",
-   "today": "agent in build",
+   "today": "agent working",
    "approval": {
     "status": "approved",
     "approved_by": "Chief Information Officer",
@@ -620,7 +620,7 @@
    "purpose": "Works routine IT tickets inside the service desk suite the company already runs, through one connector: reads the ticket, applies a fix the suite offers and writes the reply, at the level the autonomy ladder gives the ticket type. It hands plant-floor and security tickets over and proposes a permanent fix when an incident returns.",
    "model_class": "mid",
    "autonomy": "act",
-   "today": "agent in build",
+   "today": "agent working",
    "approval": {
     "status": "approved",
     "approved_by": "Chief Information Officer",
