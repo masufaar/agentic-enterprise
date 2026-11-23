@@ -44,5 +44,12 @@
   },
   "standing_instructions": [],
   "_standing_instructions_note": "Instructions for one incident or ticket type, added when the role that decides approves an agent's proposal for a permanent fix. Each has 'applies_to' (fields of a ticket), 'instruction' (what the agents are told) and, optionally, 'do_not_apply' (fixes the connector then refuses for that incident). Empty on the first day.",
-  "how_to_write": "Short sentences. Say what you saw, where you saw it and what you did. No ticket is described as solved unless a tool showed it. People appear by employee number or role."
+  "how_to_write": "Short sentences. Say what you saw, where you saw it and what you did. No ticket is described as solved unless a tool showed it. People appear by employee number or role.",
+  "teams": {
+    "_note": "Where an agent may hand a ticket. Nothing else is accepted as a destination.",
+    "names": [
+      "service desk staff",
+      "OT security team"
+    ]
+  }
 }

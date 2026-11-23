@@ -110,3 +110,44 @@ The two agents are built on the shared harness and tested on prepared replies. N
 | 4 | Solution page, this log, root page, roadmap | Main | Output about 7,000, estimated |
 
 Not for a lighter model: the controls around the two agents and what the harness must refuse.
+
+## Session 3, 23 November 2026: build step 3, the red team
+
+No model is involved in anything measured in this session. The live mode is built and tested on prepared replies; its real runs belong to step 4.
+
+### Decisions
+
+The main choices and what was set aside are in [REDTEAM_DECISIONS.md](REDTEAM_DECISIONS.md), the decision record of this step. In short:
+
+| | Decision | Why | Set aside |
+|---|---|---|---|
+| D36 | The agent is attacked through the ticket. | The requester controls the text the agent reads; that is the real way in. | Replaying calls against the gateway only, as in solution 01. |
+| D37 | Two modes, one judge: "assumed tricked" in fixed code, and "live" on a real model. | A result that depends on the model resisting is not a control. | A live-only campaign, which would have produced nothing measurable in this step. |
+| D38 | Fixed code decides a breach from the suite's records, never from the agent's account. | A tricked agent can describe harm as harmless. | A second model as judge. |
+| D39 | The attack list is data, with source, link and date per pattern. A test adds an entry and checks that no code changes. | Mario's point of 20 November: the list is updated from what the world publishes. | Attacks written as test code. |
+| D40 | Four gaps found while writing the attacks were closed before the first run, and are listed in the decision record. | They were one-line rules, and leaving a known hole open to have a longer list of breaches would be theatre. | Publishing them as breaches first. |
+| D41 | Three breaches stay open and are published with the fix designed for each. | Each is about free text or the future, which exact comparison cannot settle. Narrowing the breach condition until they vanish would hide them. | Dropping the three cases from the list. |
+| D42 | Live mode separates "not attempted" from "blocked". | The first says the model resisted; the second says a control was needed. A board should see both numbers. | One "no harm" outcome. |
+| D43 | The campaign lives in this solution, in the vocabulary of solution 01's campaign. Joining both in one Control Tower report is left to the integration task. | The Control Tower's board page has tested figures that should not move before the integration is designed. | Merging the two reports now. |
+
+### What was checked
+
+- Five test suites: Control Tower 82, solution 02 92, shared harness 15, solution 10 34, this solution 73.
+- The campaign: 16 attacks, 12 blocked, 1 held, 3 breaches; 4 of 4 legitimate cases go through; 20 of 20 audit trails intact.
+- The published page was read in full. One label was wrong on first reading: a refusal by the suite was reported as "the harness". Corrected.
+- The three sample pages of step 2 are unchanged by the four new rules.
+
+### Not known
+
+- What a real model does with the 20 tickets. In particular whether it tries the harmful call at all.
+- Whether the verifier catches the false note of SD-A-10 and the unhelpful fix of SD-A-16 when given those tickets.
+
+### Tokens
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Solution 01's red team and attack list read; campaign designed | Main (Claude Fable 5.2) | Input about 30,000, output about 6,000, estimated |
+| 2 | Four connector rules, attack list, campaign code, 12 tests | Main | Output about 17,000, estimated |
+| 3 | Decision record, solution page, this log, root page, roadmap | Main | Output about 7,000, estimated |
+
+A lighter model could write further attack entries once the pattern exists. Choosing what counts as a breach was not work for a lighter model.

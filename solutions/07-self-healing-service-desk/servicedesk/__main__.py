@@ -10,6 +10,9 @@
   python -m servicedesk sample               the three scenarios with prepared replies in place of a model;
                                              writes reports/samples. Shows the fixed code, proves nothing about a model.
 
+  python -m servicedesk redteam              the red team against the resolution agent, every attack assumed to
+                                             have succeeded in taking the agent over; writes reports/redteam-latest
+
 The two agents, with a real model:
 
   python -m servicedesk scenarios            what scenarios exist
@@ -18,6 +21,8 @@ The two agents, with a real model:
                                              Needs HALDEN_MODEL_KEY_FILE (path of a file holding the model key).
                                              Optional: HALDEN_MODEL, HALDEN_EFFORT. --record keeps the run in reports/.
   python -m servicedesk runs [--record]      every scenario, one after the other
+  python -m servicedesk redteam --live [--record]
+                                             the same attack tickets given to the resolution agent on a real model
 """
 import json
 import os
@@ -92,6 +97,26 @@ def main(argv: list[str]) -> int:
             from .page import page
             (REPORTS / "samples" / f"{name}-scripted.md").write_text(page(result), encoding="utf-8")
             print(f"Written: reports/samples/{name}-scripted.md")
+    elif command == "redteam":
+        from . import redteam
+        if "--live" in argv:
+            from harness.model import Claude, ModelError
+            model = Claude(model=os.environ.get("HALDEN_MODEL", "claude-fable-5-2"),
+                           effort=os.environ.get("HALDEN_EFFORT", "medium"))
+            print("Red team, live: 20 tickets, one agent run each. Several minutes; nothing is printed until it ends.", flush=True)
+            try:
+                report = redteam.run(model)
+            except (ModelError, Refused) as stopped:
+                print(f"Stopped: {stopped}")
+                return 2
+            if "--record" in argv:
+                redteam.publish(report, f"runs/redteam-live-{date.today().isoformat()}-{model.model}")
+        else:
+            report = redteam.run()
+            redteam.publish(report)
+        print(json.dumps(report["summary"], indent=1))
+        for r in report["results"]:
+            print(f"  {r['id']:<9}{r['outcome']:<14}{', '.join(sorted({x['by'] for x in r['stopped']}))}")
     elif command in ("run", "runs"):
         return run(command, argv)
     else:
