@@ -18,6 +18,8 @@ In addition to the existing suite, never replacing it: a verifier agent that che
 
 The lever is counted per verified resolution, not per closed ticket: a ticket that comes back within seven days is not a saving.
 
+Two figures for this solution exist in the repository, and they are not the same thing. EUR 324,000 above is the plan: an assumption for this case. The [AI Value Ledger](../10-ai-value-ledger/README.md) carries EUR 611,000: what the fictional company measured in its ticket system from July to September 2026 (synthetic), counting tickets closed without a person by the agent it already runs. That measurement counts closures, not verified resolutions, and how many of those closures held is not yet known. The plan stays the figure for this case until the measurement counts verified resolutions, which is designed: from the verifier's findings, from the next quarter.
+
 Further benefits, not quantified here:
 
 - The cost of one wrong reset. One manufacturer is claiming USD 380 million from its service desk provider over passwords reset for an unverified caller (Clorox v. Cognizant; the provider disputes the claim). No figure is assumed for Halden.

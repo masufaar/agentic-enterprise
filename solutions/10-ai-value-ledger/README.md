@@ -123,7 +123,9 @@ Measured: three reviews, one per scenario, Claude Fable 5.2 at medium effort, st
 | cost-growing | [page](reports/runs/cost-growing-2026-11-20-claude-fable-5-2.md) | Do not leave the supply chain monitor's budget unchanged; fund the service desk agent; build the evidence for the quality agent | 4 | 28.94 | 17,429 / 3,141 |
 | benefit-without-evidence | [page](reports/runs/benefit-without-evidence-2026-11-20-claude-fable-5-2.md) | The quality agent's EUR 1,200,000 is worth nothing for this budget round: build the evidence | 4 | 43.10 | 23,931 / 4,818 |
 
-These runs were made before the service desk line was measured (23 November 2026). Their pages show that line as it was then: an assumed cost of EUR 20,953 and the owner "Head of IT Operations". They are kept unchanged as records of what the agent was given; a new review would read the measured line.
+These runs were made before the service desk line was measured (23 November 2026). Their pages show that line as it was then: an assumed cost of EUR 20,953 and the owner "Head of IT Operations". They are kept unchanged as records of what the agent was given.
+
+**A fourth run, 24 November 2026, on the measured line:** `pays-back` again, [page](reports/runs/pays-back-2026-11-24-claude-fable-5-2.md), 5 turns, 33.55 seconds, 27,172 tokens in and 3,842 out, USD 0.37, EUR 0.34. The agent recommends funding the service desk line at EUR 35,157 of measured first-year cost, and repeats the ledger's caveat in its own words: the measurement counts closures, not fixes that held, "so the true figure is lower by an unknown amount". The first thing it asks to measure is the share of closed tickets that come back within seven days.
 
 Together: 55,538 tokens in and 10,899 out, USD 0.88 at the list prices in `data/prices.json`, EUR 0.81 at the stated rate. Three reviews of a five-agent portfolio cost less than a euro; what they cost in reading time is the point, not what they cost in tokens.
 

@@ -110,5 +110,9 @@ A lighter model could have updated the pages once the figures existed. Choosing 
 
 ### Open
 
-- A new review by the analyst agent, so a recorded run reads the measured service desk line. One PowerShell line, Mario's key, about EUR 0.30.
+- A new review by the analyst agent, so a recorded run reads the measured service desk line. Done on 24 November, below.
 - The measurement record for verified resolutions: designed.
+
+### A review on the measured line, 24 November 2026
+
+Mario ran `python -m ledger review pays-back --record`. Measured: 1 agent run, 5 turns, 27,172 tokens in and 3,842 out, 33.55 seconds, USD 0.37 at list price. Handed in and accepted. Verdicts: fund the service desk line; build the evidence for the other two. The agent carried the caveat of D21 into its text for the board without being asked to, and named the seven-day return rate as the first thing to measure. Copied into `reports/runs/` unchanged; searched for a key or an authorisation header: none. The three runs of 20 November stay as they are (D22).

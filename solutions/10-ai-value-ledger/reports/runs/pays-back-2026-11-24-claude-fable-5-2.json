@@ -1,0 +1,685 @@
+{
+ "scenario": "pays-back",
+ "ledger": {
+  "title": "An agent that pays back: the service desk, with a measurement behind the benefit",
+  "question": "The service desk agent is the largest line of the AI budget by number of runs. Does it pay back, and on what evidence?",
+  "lines": [
+   {
+    "agent": "sd-resolution",
+    "name": "Service desk resolution agent, with its verifier",
+    "solution": "07-self-healing-service-desk",
+    "owner": "Head of IT Service Management",
+    "state_in_the_company": "Running since 2026-07-01 on the first three ticket types.",
+    "cost": {
+     "model": "claude-fable-5-2",
+     "basis": "measured",
+     "unit": "verified resolution",
+     "tokens_per_run": {
+      "input": 31410,
+      "output": 2140
+     },
+     "eur_per_run": 0.3099296,
+     "runs_per_year": 46000,
+     "runs_per_year_basis": "assumption: tickets the agent works in a year, each checked once",
+     "model_eur_per_year": 14257,
+     "build_hours": 220,
+     "build_eur": 20900,
+     "total_first_year_eur": 35157,
+     "evidence": {
+      "runs_recorded": 19,
+      "files": [
+       "07-self-healing-service-desk/reports/runs/incident-returns-2026-11-23-claude-fable-5-2-run-b.json",
+       "07-self-healing-service-desk/reports/runs/incident-returns-2026-11-23-claude-fable-5-2.json",
+       "07-self-healing-service-desk/reports/runs/sound-batch-2026-11-23-claude-fable-5-2.json",
+       "07-self-healing-service-desk/reports/runs/wrong-requester-2026-11-23-claude-fable-5-2.json"
+      ],
+      "agents": {
+       "sd-resolution": {
+        "runs": 8,
+        "tokens": {
+         "input": 205043,
+         "output": 11007
+        },
+        "tokens_per_run": {
+         "input": 25630,
+         "output": 1376
+        },
+        "per_unit": 1
+       },
+       "sd-verifier": {
+        "runs": 11,
+        "tokens": {
+         "input": 63574,
+         "output": 8407
+        },
+        "tokens_per_run": {
+         "input": 5779,
+         "output": 764
+        },
+        "per_unit": 1.0
+       }
+      },
+      "note": "Measured from 19 agent runs in the run records of this repository (sd-resolution: 8 runs, 25,630 in and 1,376 out on average, 1 per verified resolution; sd-verifier: 11 runs, 5,779 in and 764 out on average, 1 per verified resolution). One verified resolution is one run of the resolution agent and one check by the verifier: on the first day of the autonomy ladder every closure is checked (solutions/07-self-healing-service-desk/data/ladder.json, 'act with check', share 1.0). A type that earns 'act alone' is checked on a 20% sample, which lowers this cost. Cache reads are counted at the full input price, so this is an upper bound."
+     }
+    },
+    "benefit": {
+     "value_eur": 611000,
+     "grade": "measured",
+     "why": "Measured: Tickets closed without a person, same ticket types as the 13 weeks before the agent. (Ticket system, Halden Industrial, 2026-07-01 to 2026-09-28).",
+     "record": "service-desk-2026-q3",
+     "stated_by": "Head of IT Service Management",
+     "as_claimed_eur": 611000,
+     "source": null,
+     "caveat": "it counts tickets closed without a person, not tickets whose fix held. A closure that comes back within seven days is not a saving. Designed: from the next quarter the measurement record counts verified resolutions only, from the verifier's findings."
+    },
+    "net_first_year_eur": 575843,
+    "trend": null
+   },
+   {
+    "agent": "portfolio-truth",
+    "name": "Portfolio truth agent",
+    "solution": "06-portfolio-truth-agent",
+    "owner": "Head of Transformation",
+    "state_in_the_company": "Running since 2026-09-01 on the transformation portfolio only.",
+    "cost": {
+     "model": "claude-sonnet-5-5",
+     "basis": "assumed",
+     "unit": "run",
+     "tokens_per_run": {
+      "input": 48000,
+      "output": 3000
+     },
+     "eur_per_run": 0.11592000000000001,
+     "runs_per_year": 1040,
+     "runs_per_year_basis": "assumption",
+     "model_eur_per_year": 121,
+     "build_hours": 120,
+     "build_eur": 11400,
+     "total_first_year_eur": 11521,
+     "evidence": {
+      "runs_recorded": 0,
+      "files": [],
+      "note": "No run records: the tokens per run are an assumption from the portfolio file."
+     }
+    },
+    "benefit": {
+     "value_eur": 180000,
+     "grade": "calculated",
+     "why": "Calculated from stated assumptions: status_reporting_hours_saved 2,000 x hour_eur 90.",
+     "record": null,
+     "stated_by": "Head of Transformation",
+     "as_claimed_eur": 180000,
+     "source": null,
+     "caveat": null
+    },
+    "net_first_year_eur": 168479,
+    "trend": null
+   },
+   {
+    "agent": "ot-response",
+    "name": "Sentinel planner, plant cyber response",
+    "solution": "02-ot-it-convergence-sentinel",
+    "owner": "Head of OT Security",
+    "state_in_the_company": "Running at 12 plants since 2026-10-01; rehearsed nights and real incidents.",
+    "cost": {
+     "model": "claude-fable-5-2, effort medium",
+     "basis": "measured",
+     "unit": "run",
+     "tokens_per_run": {
+      "input": 66402,
+      "output": 6402
+     },
+     "eur_per_run": 0.72431232,
+     "runs_per_year": 120,
+     "runs_per_year_basis": "assumption: rehearsed and real nights at 12 plants",
+     "model_eur_per_year": 87,
+     "build_hours": 160,
+     "build_eur": 15200,
+     "total_first_year_eur": 15287,
+     "evidence": {
+      "runs_recorded": 5,
+      "files": [
+       "02-ot-it-convergence-sentinel/reports/runs/new-alarm-after-plan-2026-11-19-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/no-safe-response-2026-11-19-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-19-claude-fable-5-2.json",
+       "02-ot-it-convergence-sentinel/reports/runs/plant-monitoring-down-2026-11-19-claude-fable-5-2.json"
+      ],
+      "note": "Measured from the run records of this repository. Cache reads are counted at the full input price, so this is an upper bound."
+     }
+    },
+    "benefit": {
+     "value_eur": 800000,
+     "grade": "calculated",
+     "why": "Calculated from stated assumptions: plant_days_avoided 2 x revenue_per_plant_day 400,000.",
+     "record": null,
+     "stated_by": "Head of OT Security",
+     "as_claimed_eur": 800000,
+     "source": "solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md",
+     "caveat": null
+    },
+    "net_first_year_eur": 784713,
+    "trend": null
+   }
+  ],
+  "totals_by_grade": {
+   "measured": {
+    "benefit_eur": 611000,
+    "agents": [
+     "sd-resolution"
+    ]
+   },
+   "calculated": {
+    "benefit_eur": 980000,
+    "agents": [
+     "portfolio-truth",
+     "ot-response"
+    ]
+   },
+   "claimed": {
+    "benefit_eur": 0,
+    "agents": []
+   }
+  },
+  "cost_eur": 61965,
+  "cost_measured_eur": 50444,
+  "prices": {
+   "as_read_on": "2026-11-20",
+   "source": "Anthropic pricing page, platform.claude.com/docs/en/about-claude/pricing, read 20 November 2026",
+   "eur_per_usd": 0.92
+  },
+  "build_hour_eur": 95,
+  "year": 2026
+ },
+ "note": {
+  "verdicts": [
+   {
+    "agent": "sd-resolution",
+    "verdict": "fund",
+    "reason": "Benefit of EUR 611,000 is measured in the ticket system, 1 July to 28 September 2026, against a first-year cost of EUR 35,157. Caveat: it counts closures, not fixes that held.",
+    "grade": "measured"
+   },
+   {
+    "agent": "portfolio-truth",
+    "verdict": "build the evidence",
+    "reason": "EUR 180,000 is a formula, not a measurement: it rests on 2,000 reporting hours saved, which nobody has measured. The cost of EUR 11,521 is also assumed, with no run records.",
+    "grade": "calculated"
+   },
+   {
+    "agent": "ot-response",
+    "verdict": "build the evidence",
+    "reason": "EUR 800,000 is a formula: it rests on two plant days avoided. No avoided day has been recorded. Cost of EUR 15,287 is measured from 5 runs.",
+    "grade": "calculated"
+   }
+  ],
+  "for_the_board": "The service desk agent pays back on measured evidence. The ticket system shows EUR 611,000 of tickets closed without a person between 1 July and 28 September 2026, on the same ticket types as the 13 weeks before. Its first-year cost is EUR 35,157. One caution: the measure counts closures, not fixes that held. A ticket that returns within seven days is not a saving, so the true figure is lower by an unknown amount. We recommend funding it.\n\nThe other two agents have formulas, not measurements. The portfolio reporting agent's EUR 180,000 rests on 2,000 hours saved, which nobody has counted. The plant cyber response agent's EUR 800,000 rests on two plant days avoided, with nothing on record. We recommend building the evidence for both. These figures are not added to the measured one.\n\nNo monthly cost is recorded, so cost growth against use cannot be judged.",
+  "what_to_measure_first": "For the service desk agent, count how many closed tickets come back within seven days, and restate the EUR 611,000 on verified resolutions only. This is already planned for next quarter. It is the one measurement that tests the only measured benefit in the ledger. Next: record the real hours spent on status reporting before and after the portfolio agent.",
+  "what_nobody_knows": "How many service desk closures held. Whether the agent will really work 46,000 tickets a year: that volume is an assumption, and cost per ticket rests on 19 recorded runs. Whether the plant agent has ever avoided a lost plant day. Whether any agent's cost per use is rising: no monthly record exists."
+ },
+ "decides": "Chief AI Officer",
+ "answers_for_the_agent": "Head of Finance Business Partnering",
+ "analyst": "claude-fable-5-2, effort medium",
+ "runs": [
+  {
+   "agent": "value-ledger",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "verdicts": [
+     {
+      "agent": "sd-resolution",
+      "verdict": "fund",
+      "reason": "Benefit of EUR 611,000 is measured in the ticket system, 1 July to 28 September 2026, against a first-year cost of EUR 35,157. Caveat: it counts closures, not fixes that held.",
+      "grade": "measured"
+     },
+     {
+      "agent": "portfolio-truth",
+      "verdict": "build the evidence",
+      "reason": "EUR 180,000 is a formula, not a measurement: it rests on 2,000 reporting hours saved, which nobody has measured. The cost of EUR 11,521 is also assumed, with no run records.",
+      "grade": "calculated"
+     },
+     {
+      "agent": "ot-response",
+      "verdict": "build the evidence",
+      "reason": "EUR 800,000 is a formula: it rests on two plant days avoided. No avoided day has been recorded. Cost of EUR 15,287 is measured from 5 runs.",
+      "grade": "calculated"
+     }
+    ],
+    "for_the_board": "The service desk agent pays back on measured evidence. The ticket system shows EUR 611,000 of tickets closed without a person between 1 July and 28 September 2026, on the same ticket types as the 13 weeks before. Its first-year cost is EUR 35,157. One caution: the measure counts closures, not fixes that held. A ticket that returns within seven days is not a saving, so the true figure is lower by an unknown amount. We recommend funding it.\n\nThe other two agents have formulas, not measurements. The portfolio reporting agent's EUR 180,000 rests on 2,000 hours saved, which nobody has counted. The plant cyber response agent's EUR 800,000 rests on two plant days avoided, with nothing on record. We recommend building the evidence for both. These figures are not added to the measured one.\n\nNo monthly cost is recorded, so cost growth against use cannot be judged.",
+    "what_to_measure_first": "For the service desk agent, count how many closed tickets come back within seven days, and restate the EUR 611,000 on verified resolutions only. This is already planned for next quarter. It is the one measurement that tests the only measured benefit in the ledger. Next: record the real hours spent on status reporting before and after the portfolio agent.",
+    "what_nobody_knows": "How many service desk closures held. Whether the agent will really work 46,000 tickets a year: that volume is an assumption, and cost per ticket rests on 19 recorded runs. Whether the plant agent has ever avoided a lost plant day. Whether any agent's cost per use is rising: no monthly record exists."
+   },
+   "turns": 5,
+   "tokens": {
+    "input": 27172,
+    "output": 3842
+   },
+   "seconds": 33.45,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_portfolio",
+       "input": {},
+       "result": {
+        "question": "The service desk agent is the largest line of the AI budget by number of runs. Does it pay back, and on what evidence?",
+        "prices": {
+         "as_read_on": "2026-11-20",
+         "source": "Anthropic pricing page, platform.claude.com/docs/en/about-claude/pricing, read 20 November 2026",
+         "eur_per_usd": 0.92
+        },
+        "first_year_cost_of_these_agents_eur": 61965,
+        "agents": [
+         {
+          "agent": "sd-resolution",
+          "name": "Service desk resolution agent, with its verifier",
+          "solution": "07-self-healing-service-desk",
+          "owner": "Head of IT Service Management",
+          "what_the_company_says_it_does_today": "Running since 2026-07-01 on the first three ticket types.",
+          "what_this_repository_has_behind_its_card": "agent working",
+          "first_year_cost_eur": 35157,
+          "cost_basis": "measured",
+          "claimed_benefit_eur": 611000,
+          "evidence_grade": "measured",
+          "cost_over_months_available": false
+         },
+         {
+          "agent": "portfolio-truth",
+          "name": "Portfolio truth agent",
+          "solution": "06-portfolio-truth-agent",
+          "owner": "Head of Transformation",
+          "what_the_company_says_it_does_today": "Running since 2026-09-01 on the transformation portfolio only.",
+          "what_this_repository_has_behind_its_card": "designed",
+          "first_year_cost_eur": 11521,
+          "cost_basis": "assumed",
+          "claimed_benefit_eur": 180000,
+          "evidence_grade": "calculated",
+          "cost_over_months_available": false
+         },
+         {
+          "agent": "ot-response",
+          "name": "Sentinel planner, plant cyber response",
+          "solution": "02-ot-it-convergence-sentinel",
+          "owner": "Head of OT Security",
+          "what_the_company_says_it_does_today": "Running at 12 plants since 2026-10-01; rehearsed nights and real incidents.",
+          "what_this_repository_has_behind_its_card": "agent working",
+          "first_year_cost_eur": 15287,
+          "cost_basis": "measured",
+          "claimed_benefit_eur": 800000,
+          "evidence_grade": "calculated",
+          "cost_over_months_available": false
+         }
+        ],
+        "totals_by_grade_eur": {
+         "measured": 611000,
+         "calculated": 980000,
+         "claimed": 0
+        },
+        "note": "Benefits of different grades are never added together. Two different things are shown per agent: what the company says the agent does today, and what this repository has behind its card. The second is the build state of the blueprint, not the company's operations: an agent can be running at the company while the card in this repository still says designed."
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_cost",
+       "input": {
+        "agent": "sd-resolution"
+       },
+       "result": {
+        "agent": "sd-resolution",
+        "model": "claude-fable-5-2",
+        "basis": "measured",
+        "unit": "verified resolution",
+        "tokens_per_run": {
+         "input": 31410,
+         "output": 2140
+        },
+        "eur_per_run": 0.3099296,
+        "runs_per_year": 46000,
+        "runs_per_year_basis": "assumption: tickets the agent works in a year, each checked once",
+        "model_eur_per_year": 14257,
+        "build_hours": 220,
+        "build_eur": 20900,
+        "total_first_year_eur": 35157,
+        "evidence": {
+         "runs_recorded": 19,
+         "files": [
+          "07-self-healing-service-desk/reports/runs/incident-returns-2026-11-23-claude-fable-5-2-run-b.json",
+          "07-self-healing-service-desk/reports/runs/incident-returns-2026-11-23-claude-fable-5-2.json",
+          "07-self-healing-service-desk/reports/runs/sound-batch-2026-11-23-claude-fable-5-2.json",
+          "07-self-healing-service-desk/reports/runs/wrong-requester-2026-11-23-claude-fable-5-2.json"
+         ],
+         "agents": {
+          "sd-resolution": {
+           "runs": 8,
+           "tokens": {
+            "input": 205043,
+            "output": 11007
+           },
+           "tokens_per_run": {
+            "input": 25630,
+            "output": 1376
+           },
+           "per_unit": 1
+          },
+          "sd-verifier": {
+           "runs": 11,
+           "tokens": {
+            "input": 63574,
+            "output": 8407
+           },
+           "tokens_per_run": {
+            "input": 5779,
+            "output": 764
+           },
+           "per_unit": 1.0
+          }
+         },
+         "note": "Measured from 19 agent runs in the run records of this repository (sd-resolution: 8 runs, 25,630 in and 1,376 out on average, 1 per verified resolution; sd-verifier: 11 runs, 5,779 in and 764 out on average, 1 per verified resolution). One verified resolution is one run of the resolution agent and one check by the verifier: on the first day of the autonomy ladder every closure is checked (solutions/07-self-healing-service-desk/data/ladder.json, 'act with check', share 1.0). A type that earns 'act alone' is checked on a 20% sample, which lowers this cost. Cache reads are counted at the full input price, so this is an upper bound."
+        },
+        "net_first_year_eur": 575843
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cost",
+       "input": {
+        "agent": "portfolio-truth"
+       },
+       "result": {
+        "agent": "portfolio-truth",
+        "model": "claude-sonnet-5-5",
+        "basis": "assumed",
+        "unit": "run",
+        "tokens_per_run": {
+         "input": 48000,
+         "output": 3000
+        },
+        "eur_per_run": 0.11592000000000001,
+        "runs_per_year": 1040,
+        "runs_per_year_basis": "assumption",
+        "model_eur_per_year": 121,
+        "build_hours": 120,
+        "build_eur": 11400,
+        "total_first_year_eur": 11521,
+        "evidence": {
+         "runs_recorded": 0,
+         "files": [],
+         "note": "No run records: the tokens per run are an assumption from the portfolio file."
+        },
+        "net_first_year_eur": 168479
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cost",
+       "input": {
+        "agent": "ot-response"
+       },
+       "result": {
+        "agent": "ot-response",
+        "model": "claude-fable-5-2, effort medium",
+        "basis": "measured",
+        "unit": "run",
+        "tokens_per_run": {
+         "input": 66402,
+         "output": 6402
+        },
+        "eur_per_run": 0.72431232,
+        "runs_per_year": 120,
+        "runs_per_year_basis": "assumption: rehearsed and real nights at 12 plants",
+        "model_eur_per_year": 87,
+        "build_hours": 160,
+        "build_eur": 15200,
+        "total_first_year_eur": 15287,
+        "evidence": {
+         "runs_recorded": 5,
+         "files": [
+          "02-ot-it-convergence-sentinel/reports/runs/new-alarm-after-plan-2026-11-19-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/no-safe-response-2026-11-19-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-19-claude-fable-5-2.json",
+          "02-ot-it-convergence-sentinel/reports/runs/plant-monitoring-down-2026-11-19-claude-fable-5-2.json"
+         ],
+         "note": "Measured from the run records of this repository. Cache reads are counted at the full input price, so this is an upper bound."
+        },
+        "net_first_year_eur": 784713
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_claim",
+       "input": {
+        "agent": "sd-resolution"
+       },
+       "result": {
+        "agent": "sd-resolution",
+        "value_eur": 611000,
+        "grade": "measured",
+        "why": "Measured: Tickets closed without a person, same ticket types as the 13 weeks before the agent. (Ticket system, Halden Industrial, 2026-07-01 to 2026-09-28).",
+        "record": "service-desk-2026-q3",
+        "stated_by": "Head of IT Service Management",
+        "as_claimed_eur": 611000,
+        "source": null,
+        "caveat": "it counts tickets closed without a person, not tickets whose fix held. A closure that comes back within seven days is not a saving. Designed: from the next quarter the measurement record counts verified resolutions only, from the verifier's findings.",
+        "what_this_grade_means": "A record behind the figure: a run record in this repository, or a measurement from a company system, named on the line."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_claim",
+       "input": {
+        "agent": "portfolio-truth"
+       },
+       "result": {
+        "agent": "portfolio-truth",
+        "value_eur": 180000,
+        "grade": "calculated",
+        "why": "Calculated from stated assumptions: status_reporting_hours_saved 2,000 x hour_eur 90.",
+        "record": null,
+        "stated_by": "Head of Transformation",
+        "as_claimed_eur": 180000,
+        "source": null,
+        "caveat": null,
+        "what_this_grade_means": "Computed by fixed code from assumptions that are written down, with the formula shown."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_claim",
+       "input": {
+        "agent": "ot-response"
+       },
+       "result": {
+        "agent": "ot-response",
+        "value_eur": 800000,
+        "grade": "calculated",
+        "why": "Calculated from stated assumptions: plant_days_avoided 2 x revenue_per_plant_day 400,000.",
+        "record": null,
+        "stated_by": "Head of OT Security",
+        "as_claimed_eur": 800000,
+        "source": "solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md",
+        "caveat": null,
+        "what_this_grade_means": "Computed by fixed code from assumptions that are written down, with the formula shown."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_trend",
+       "input": {
+        "agent": "sd-resolution"
+       },
+       "result": "No month-by-month cost is recorded for sd-resolution.",
+       "failed": true
+      },
+      {
+       "tool": "read_trend",
+       "input": {
+        "agent": "portfolio-truth"
+       },
+       "result": "No month-by-month cost is recorded for portfolio-truth.",
+       "failed": true
+      },
+      {
+       "tool": "read_trend",
+       "input": {
+        "agent": "ot-response"
+       },
+       "result": "No month-by-month cost is recorded for ot-response.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_note",
+       "input": {
+        "verdicts": [
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "Benefit of EUR 611,000 is measured in the ticket system, 1 July to 28 September 2026, against a first-year cost of EUR 35,157. Caveat: it counts closures, not fixes that held."
+         },
+         {
+          "agent": "portfolio-truth",
+          "verdict": "build the evidence",
+          "reason": "EUR 180,000 is a formula, not a measurement: 2,000 reporting hours saved at EUR 90. Nobody has measured the hours. The cost of EUR 11,521 is also assumed, with no run records."
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "build the evidence",
+          "reason": "EUR 800,000 is a formula: 2 plant days avoided at EUR 400,000 a day. No avoided day has been recorded. Cost of EUR 15,287 is measured from 5 runs."
+         }
+        ],
+        "for_the_board": "The service desk agent pays back on measured evidence. The ticket system shows EUR 611,000 of tickets closed without a person between 1 July and 28 September 2026, on the same ticket types as the 13 weeks before. Its first-year cost is EUR 35,157. One caution: the measure counts closures, not fixes that held. A ticket that returns within seven days is not a saving, so the true figure is lower by an amount not yet known. We recommend funding it.\n\nThe other two agents have formulas, not measurements. The portfolio reporting agent's EUR 180,000 rests on 2,000 hours saved, which nobody has counted. The plant cyber response agent's EUR 800,000 rests on two plant days avoided, which has not happened on record. We recommend building the evidence for both. These figures are not added to the measured one.\n\nNo month-by-month cost is recorded for any agent, so cost growth against use cannot yet be judged.",
+        "what_to_measure_first": "For the service desk agent, count how many closed tickets come back within seven days, and restate the EUR 611,000 on verified resolutions only. This is already planned for next quarter. It is the one measurement that tests the only measured benefit in the ledger. Next: record the real hours spent on status reporting before and after the portfolio agent.",
+        "what_nobody_knows": "How many service desk closures held. Whether the agent will really work 46,000 tickets a year: that volume is an assumption, and cost per ticket rests on 19 recorded runs. Whether the plant agent has ever avoided a lost plant day. Whether any agent's cost per use is rising: no monthly record exists."
+       },
+       "result": "Not accepted. 'for_the_board' has 156 words; the limit is 150. Shorten it. These figures did not come from a tool: EUR 90, EUR 400,000. Use only the ledger's figures, written in full.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 4,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_note",
+       "input": {
+        "verdicts": [
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "Benefit of EUR 611,000 is measured in the ticket system, 1 July to 28 September 2026, against a first-year cost of EUR 35,157. Caveat: it counts closures, not fixes that held."
+         },
+         {
+          "agent": "portfolio-truth",
+          "verdict": "build the evidence",
+          "reason": "EUR 180,000 is a formula, not a measurement: it rests on 2,000 reporting hours saved, which nobody has measured. The cost of EUR 11,521 is also assumed, with no run records."
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "build the evidence",
+          "reason": "EUR 800,000 is a formula: it rests on two plant days avoided. No avoided day has been recorded. Cost of EUR 15,287 is measured from 5 runs."
+         }
+        ],
+        "for_the_board": "The service desk agent pays back on measured evidence. The ticket system shows EUR 611,000 of tickets closed without a person between 1 July and 28 September 2026, on the same ticket types as the 13 weeks before. Its first-year cost is EUR 35,157. One caution: the measure counts closures, not fixes that held. A ticket that returns within seven days is not a saving, so the true figure is lower by an unknown amount. We recommend funding it.\n\nThe other two agents have formulas, not measurements. The portfolio reporting agent's EUR 180,000 rests on 2,000 hours saved, which nobody has counted. The plant cyber response agent's EUR 800,000 rests on two plant days avoided, with nothing on record. We recommend building the evidence for both. These figures are not added to the measured one.\n\nNo monthly cost is recorded for any agent, so cost growth against use cannot be judged.",
+        "what_to_measure_first": "For the service desk agent, count how many closed tickets come back within seven days, and restate the EUR 611,000 on verified resolutions only. This is already planned for next quarter. It is the one measurement that tests the only measured benefit in the ledger. Next: record the real hours spent on status reporting before and after the portfolio agent.",
+        "what_nobody_knows": "How many service desk closures held. Whether the agent will really work 46,000 tickets a year: that volume is an assumption, and cost per ticket rests on 19 recorded runs. Whether the plant agent has ever avoided a lost plant day. Whether any agent's cost per use is rising: no monthly record exists."
+       },
+       "result": "Not accepted. 'for_the_board' has 151 words; the limit is 150. Shorten it.",
+       "failed": true
+      }
+     ]
+    },
+    {
+     "turn": 5,
+     "said": "",
+     "asked": [
+      {
+       "tool": "submit_note",
+       "input": {
+        "verdicts": [
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "Benefit of EUR 611,000 is measured in the ticket system, 1 July to 28 September 2026, against a first-year cost of EUR 35,157. Caveat: it counts closures, not fixes that held."
+         },
+         {
+          "agent": "portfolio-truth",
+          "verdict": "build the evidence",
+          "reason": "EUR 180,000 is a formula, not a measurement: it rests on 2,000 reporting hours saved, which nobody has measured. The cost of EUR 11,521 is also assumed, with no run records."
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "build the evidence",
+          "reason": "EUR 800,000 is a formula: it rests on two plant days avoided. No avoided day has been recorded. Cost of EUR 15,287 is measured from 5 runs."
+         }
+        ],
+        "for_the_board": "The service desk agent pays back on measured evidence. The ticket system shows EUR 611,000 of tickets closed without a person between 1 July and 28 September 2026, on the same ticket types as the 13 weeks before. Its first-year cost is EUR 35,157. One caution: the measure counts closures, not fixes that held. A ticket that returns within seven days is not a saving, so the true figure is lower by an unknown amount. We recommend funding it.\n\nThe other two agents have formulas, not measurements. The portfolio reporting agent's EUR 180,000 rests on 2,000 hours saved, which nobody has counted. The plant cyber response agent's EUR 800,000 rests on two plant days avoided, with nothing on record. We recommend building the evidence for both. These figures are not added to the measured one.\n\nNo monthly cost is recorded, so cost growth against use cannot be judged.",
+        "what_to_measure_first": "For the service desk agent, count how many closed tickets come back within seven days, and restate the EUR 611,000 on verified resolutions only. This is already planned for next quarter. It is the one measurement that tests the only measured benefit in the ledger. Next: record the real hours spent on status reporting before and after the portfolio agent.",
+        "what_nobody_knows": "How many service desk closures held. Whether the agent will really work 46,000 tickets a year: that volume is an assumption, and cost per ticket rests on 19 recorded runs. Whether the plant agent has ever avoided a lost plant day. Whether any agent's cost per use is rising: no monthly record exists."
+       },
+       "result": {
+        "verdicts": [
+         {
+          "agent": "sd-resolution",
+          "verdict": "fund",
+          "reason": "Benefit of EUR 611,000 is measured in the ticket system, 1 July to 28 September 2026, against a first-year cost of EUR 35,157. Caveat: it counts closures, not fixes that held.",
+          "grade": "measured"
+         },
+         {
+          "agent": "portfolio-truth",
+          "verdict": "build the evidence",
+          "reason": "EUR 180,000 is a formula, not a measurement: it rests on 2,000 reporting hours saved, which nobody has measured. The cost of EUR 11,521 is also assumed, with no run records.",
+          "grade": "calculated"
+         },
+         {
+          "agent": "ot-response",
+          "verdict": "build the evidence",
+          "reason": "EUR 800,000 is a formula: it rests on two plant days avoided. No avoided day has been recorded. Cost of EUR 15,287 is measured from 5 runs.",
+          "grade": "calculated"
+         }
+        ],
+        "for_the_board": "The service desk agent pays back on measured evidence. The ticket system shows EUR 611,000 of tickets closed without a person between 1 July and 28 September 2026, on the same ticket types as the 13 weeks before. Its first-year cost is EUR 35,157. One caution: the measure counts closures, not fixes that held. A ticket that returns within seven days is not a saving, so the true figure is lower by an unknown amount. We recommend funding it.\n\nThe other two agents have formulas, not measurements. The portfolio reporting agent's EUR 180,000 rests on 2,000 hours saved, which nobody has counted. The plant cyber response agent's EUR 800,000 rests on two plant days avoided, with nothing on record. We recommend building the evidence for both. These figures are not added to the measured one.\n\nNo monthly cost is recorded, so cost growth against use cannot be judged.",
+        "what_to_measure_first": "For the service desk agent, count how many closed tickets come back within seven days, and restate the EUR 611,000 on verified resolutions only. This is already planned for next quarter. It is the one measurement that tests the only measured benefit in the ledger. Next: record the real hours spent on status reporting before and after the portfolio agent.",
+        "what_nobody_knows": "How many service desk closures held. Whether the agent will really work 46,000 tickets a year: that volume is an assumption, and cost per ticket rests on 19 recorded runs. Whether the plant agent has ever avoided a lost plant day. Whether any agent's cost per use is rising: no monthly record exists."
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "read": [
+  "sd-resolution",
+  "portfolio-truth",
+  "ot-response",
+  "sd-resolution",
+  "portfolio-truth",
+  "ot-response",
+  "sd-resolution",
+  "portfolio-truth",
+  "ot-response"
+ ],
+ "build_hour_eur": 95,
+ "tokens": {
+  "input": 27172,
+  "output": 3842
+ },
+ "seconds_to_page": 33.55,
+ "flagged": [],
+ "page": "# AI Value Ledger: An agent that pays back: the service desk, with a measurement behind the benefit\n\nFor the Chief AI Officer, with the Chief Financial Officer. Prepared 2026-11-24. All data is synthetic (Halden Industrial), except the cost of agents marked measured, which is read from the run records in this repository.\n\n**The question:** The service desk agent is the largest line of the AI budget by number of runs. Does it pay back, and on what evidence?\n\n## The ledger\n\n| Agent | First-year cost | Benefit | Owner |\n|---|---|---|---|\n| Service desk resolution agent, with its verifier | EUR 35,157 (measured) | EUR 611,000 (measured) | Head of IT Service Management |\n| Portfolio truth agent | EUR 11,521 (assumed) | EUR 180,000 (calculated from assumptions) | Head of Transformation |\n| Sentinel planner, plant cyber response | EUR 15,287 (measured) | EUR 800,000 (calculated from assumptions) | Head of OT Security |\n\nFirst-year cost of these agents: EUR 61,965, of which EUR 50,444 is measured from run records.\n\nBenefit, held apart by the evidence behind it, never added together:\n\n- **Measured:** EUR 611,000 (sd-resolution)\n- **Calculated from assumptions:** EUR 980,000 (portfolio-truth, ot-response)\n\n## What the analyst recommends\n\n| Agent | Recommendation | Why |\n|---|---|---|\n| Service desk resolution agent, with its verifier | fund | Benefit of EUR 611,000 is measured in the ticket system, 1 July to 28 September 2026, against a first-year cost of EUR 35,157. Caveat: it counts closures, not fixes that held. |\n| Portfolio truth agent | build the evidence | EUR 180,000 is a formula, not a measurement: it rests on 2,000 reporting hours saved, which nobody has measured. The cost of EUR 11,521 is also assumed, with no run records. |\n| Sentinel planner, plant cyber response | build the evidence | EUR 800,000 is a formula: it rests on two plant days avoided. No avoided day has been recorded. Cost of EUR 15,287 is measured from 5 runs. |\n\n**For the board, in the analyst's words:**\n\n> The service desk agent pays back on measured evidence. The ticket system shows EUR 611,000 of tickets closed without a person between 1 July and 28 September 2026, on the same ticket types as the 13 weeks before. Its first-year cost is EUR 35,157. One caution: the measure counts closures, not fixes that held. A ticket that returns within seven days is not a saving, so the true figure is lower by an unknown amount. We recommend funding it.\n> The other two agents have formulas, not measurements. The portfolio reporting agent's EUR 180,000 rests on 2,000 hours saved, which nobody has counted. The plant cyber response agent's EUR 800,000 rests on two plant days avoided, with nothing on record. We recommend building the evidence for both. These figures are not added to the measured one.\n> No monthly cost is recorded, so cost growth against use cannot be judged.\n\n**What to measure first:**\n\n> For the service desk agent, count how many closed tickets come back within seven days, and restate the EUR 611,000 on verified resolutions only. This is already planned for next quarter. It is the one measurement that tests the only measured benefit in the ledger. Next: record the real hours spent on status reporting before and after the portfolio agent.\n\n**What nobody knows:**\n\n> How many service desk closures held. Whether the agent will really work 46,000 tickets a year: that volume is an assumption, and cost per ticket rests on 19 recorded runs. Whether the plant agent has ever avoided a lost plant day. Whether any agent's cost per use is rising: no monthly record exists.\n\n## Behind every figure\n\n**Service desk resolution agent, with its verifier** (sd-resolution)\n\n- Cost, measured: EUR 0.31 a verified resolution on claude-fable-5-2, 46,000 verified resolutions a year (assumption: tickets the agent works in a year, each checked once), build 220 hours at EUR 95 an hour, = EUR 35,157 in the first year.\n- Measured from 19 agent runs in the run records of this repository (sd-resolution: 8 runs, 25,630 in and 1,376 out on average, 1 per verified resolution; sd-verifier: 11 runs, 5,779 in and 764 out on average, 1 per verified resolution). One verified resolution is one run of the resolution agent and one check by the verifier: on the first day of the autonomy ladder every closure is checked (solutions/07-self-healing-service-desk/data/ladder.json, 'act with check', share 1.0). A type that earns 'act alone' is checked on a 20% sample, which lowers this cost. Cache reads are counted at the full input price, so this is an upper bound.\n- Run records read: 07-self-healing-service-desk/reports/runs/incident-returns-2026-11-23-claude-fable-5-2-run-b.json, 07-self-healing-service-desk/reports/runs/incident-returns-2026-11-23-claude-fable-5-2.json, 07-self-healing-service-desk/reports/runs/sound-batch-2026-11-23-claude-fable-5-2.json, 07-self-healing-service-desk/reports/runs/wrong-requester-2026-11-23-claude-fable-5-2.json.\n- Benefit EUR 611,000, stated by the Head of IT Service Management. Grade: measured. Measured: Tickets closed without a person, same ticket types as the 13 weeks before the agent. (Ticket system, Halden Industrial, 2026-07-01 to 2026-09-28).\n- What this measurement does not show: it counts tickets closed without a person, not tickets whose fix held. A closure that comes back within seven days is not a saving. Designed: from the next quarter the measurement record counts verified resolutions only, from the verifier's findings.\n\n**Portfolio truth agent** (portfolio-truth)\n\n- Cost, assumed: EUR 0.12 a run on claude-sonnet-5-5, 1,040 runs a year (assumption), build 120 hours at EUR 95 an hour, = EUR 11,521 in the first year.\n- No run records: the tokens per run are an assumption from the portfolio file.\n- Benefit EUR 180,000, stated by the Head of Transformation. Grade: calculated from assumptions. Calculated from stated assumptions: status_reporting_hours_saved 2,000 x hour_eur 90.\n\n**Sentinel planner, plant cyber response** (ot-response)\n\n- Cost, measured: EUR 0.72 a run on claude-fable-5-2, effort medium, 120 runs a year (assumption: rehearsed and real nights at 12 plants), build 160 hours at EUR 95 an hour, = EUR 15,287 in the first year.\n- Measured from the run records of this repository. Cache reads are counted at the full input price, so this is an upper bound.\n- Run records read: 02-ot-it-convergence-sentinel/reports/runs/new-alarm-after-plan-2026-11-19-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/no-safe-response-2026-11-19-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-18-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/plant-04-0302-2026-11-19-claude-fable-5-2.json, 02-ot-it-convergence-sentinel/reports/runs/plant-monitoring-down-2026-11-19-claude-fable-5-2.json.\n- Benefit EUR 800,000, stated by the Head of OT Security. Grade: calculated from assumptions. Calculated from stated assumptions: plant_days_avoided 2 x revenue_per_plant_day 400,000.\n- Source of the claim: solutions/02-ot-it-convergence-sentinel/BUSINESS_CASE.md.\n\n## How this page was made\n\n- Prices: Anthropic pricing page, platform.claude.com/docs/en/about-claude/pricing, read 20 November 2026; euro at 0.92 per USD (assumption).\n- The analyst agent is registered in the Control Tower as advising only; the Head of Finance Business Partnering answers for it.\n- The ledger is fixed code. The analyst agent (claude-fable-5-2, effort medium) read: ot-response, portfolio-truth, sd-resolution.\n- Agent turns: value-ledger 5 (handed in).\n- Tokens: 27,172 in, 3,842 out. Seconds to this page: 33.55.\n- Every step of the agent passed the AI Governance Control Tower under its own identity.\n"
+}

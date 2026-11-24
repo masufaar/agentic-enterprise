@@ -222,3 +222,26 @@ All model tokens of step 4, measured, Mario's key: scenarios 268,617 in and 19,4
 The service desk line of the AI Value Ledger is now measured from this solution's 19 scenario runs, per verified resolution: one resolution run and one check by the verifier. EUR 0.31 a verified resolution on Claude Fable 5.2, an upper bound; at 46,000 tickets a year (assumption) EUR 14,257 of model cost, of which EUR 3,250 is the check. The red-team records are not read. The owner is aligned to the Head of IT Service Management, which closes the open point of session 1. The decisions (D18 to D23) and the tokens of this step are in the ledger's [BUILD_LOG.md](../10-ai-value-ledger/BUILD_LOG.md), where the code changed.
 
 The solution page and the business case now carry the measured cost; the business case's status line, which still said the two agents were designed, is corrected. Five suites: 82, 92, 15, 40, 79.
+
+## Session 6, 24 November 2026: build step 4d, the article checked against the repository
+
+The published article "Who checks the ticket that AI agent closed?" was checked sentence by sentence against the commitments table of its draft, and its status line replaced with measured facts. No model ran in this session.
+
+| | Decision | Why | Set aside |
+|---|---|---|---|
+| D57 | Six of the seven commitments hold as written. The seventh, "All of it works inside the service desk software a company already runs", now reads "is designed to work inside". | Only a stand-in for the suite exists; no real suite is connected. "Works" would claim what is not built. | Leaving it, on the ground that the next sentence says nothing is replaced. |
+| D58 | The article names the role "Head of IT Service Management", as the registry cards, the ledger and the page do. | One name for one role across article, repository and deck. Open since D15. | The shorter "Head of IT Service". |
+| D59 | Reference 4 now points to the solution page, which lists the dated source. The vendor is still not named in the article text. | The old sentence pointed to a research note that is never pushed. Solution 10's article does not name vendors either. | Naming the vendor in the article. |
+| D60 | The red-team result is in this article, not kept for a later post: three breaches in the worst case, none of 16 attacks followed in two live runs ("examples, not a rate"), and our own judge wrong once. | The article promised "results are published, failures included". A reader who comes to check should find them here. A short post can still point to it. | A separate follow-up post only. |
+| D61 | The business case explains its two figures: EUR 324,000 is the plan (assumption); EUR 611,000 in the value ledger is the fictional company's measurement of closures, not of verified resolutions. | Agreed by Mario on 24 November. A board member who reads both should not find two unexplained numbers for one solution. | Changing either figure to match the other. |
+
+Published on 24 November: the assistant replaced the body in the editor; Mario pressed Update, because the permission check refused the assistant's click; the live page was then read and the four changes confirmed. LinkedIn points the GitHub address in the status paragraph to the repository root, as in the other articles; reference 4 links to this solution page. The new status text (two paragraphs, replacing "The two agents, the autonomy ladder and the red-team attacks are designed, not built yet."): working as a blueprint on synthetic data; 39 recorded runs; the verifier agreed with the answer key in 20 of 24 checks and found an unplanted flaw in our test data; two steps down by the ladder on the verifier's finding; about seven euro cents to check a closure, an upper bound; the worst-case red team (12 blocked, 1 held, 3 breaches, published with the fix designed for each); two live runs, none of 16 attacks followed; our judge wrong once; nothing connected to a real system. Every figure was read from the records of this solution and the ledger. The article is about 1,075 words with references, against 982 for solution 10's.
+
+### Tokens
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Desktop copy checked and written; article draft, record and live text read; claims checked against the records | Main (Claude Opus 5.5) | Input about 45,000, estimated |
+| 2 | New text, editor, business case, this log | Main | Output about 6,000, estimated |
+
+Checking sentences against a table could have run on a lighter model. Deciding what "working" may claim could not.
