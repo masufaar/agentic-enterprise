@@ -9,7 +9,7 @@ Version 0 is generated on demand. A fixed quarterly schedule, trends over time a
 | Question | Answer |
 |---|---|
 | How many cards are in the agent registry? | 20 |
-| What stands behind them today? | 6 agents working; 2 agents in build; 6 steps of fixed code without a model; 6 designed agents with nothing behind the card yet. |
+| What stands behind them today? | 8 agents working; 6 steps of fixed code without a model; 6 designed agents with nothing behind the card yet. |
 | How many are approved to act? | 19; 1 registered but not yet approved |
 | How many are switched off right now? | 0 |
 | How many company rules are enforced? | 13, and one daily volume limit |

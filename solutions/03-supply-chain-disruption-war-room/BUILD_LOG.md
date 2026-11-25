@@ -65,7 +65,7 @@ Mario ran the real-model commands with his key, in his cloned repo (`C:\\Users\\
 
 - **D10. Status moved "in build" → "working"** (charter section 3: runs on synthetic data with a real model, recorded in the repository; nothing connected to a real system). README status line updated; this entry records the runs.
 - **D11. The EUR ~1.1M design assumption is now measured.** The single-source halt measures EUR 1,143,000 and the tariff EUR 1,116,000. The LinkedIn article's "designed, not built yet" status line is replaced with a measured "Where it stands" paragraph; the ledger gains a measured line (next steps).
-- **Open — registry cards still "agent in build" (solution 01).** D8 set `disruption-monitor` and `sourcing-options` to "agent in build". With recorded real-model runs they now qualify as "agent working"; promoting them and regenerating solution 01's board report and counts is the next repo step, kept separate so solution 01's tests move with it.
+- **D12. Registry cards promoted "agent in build" → "agent working" (solution 01).** With recorded real-model runs, `disruption-monitor` and `sourcing-options` now qualify as working. Changed `solutions/01-ai-governance-control-tower/data/agents.json`; regenerated `reports/agent-inventory.md` and `reports/board-latest.md` (counts now: 8 agents working, 6 steps of fixed code, 6 designed, none in build); updated the two board-count assertions in `tests/test_control_tower.py`. The 82-test suite is re-run by Mario in PowerShell.
 
 ### Tokens (assistant, this session)
 
