@@ -1,0 +1,8 @@
+{
+ "title": "A rumour about a qualified alternate (Tornelis)",
+ "question": "An unverified rumour says a qualified second source is failing. Is it material, and does an agent act on it?",
+ "steps": [
+  {"assess": "EV-05"},
+  {"respond": "EV-05"}
+ ]
+}

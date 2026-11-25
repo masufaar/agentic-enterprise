@@ -17,8 +17,8 @@ Two ratings, both proposals awaiting human sign-off. The legal tier is a reading
 | ot-briefing | 02 | Fixed code, no model | Chief Information Security Officer | VP Operations | advise | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (marking of generated content) |
 | ot-first-response | 02 | Agent working | Head of Security Operations | Chief Information Security Officer | act | 3: Acts on accounts, systems or money | minimal | No Annex III use and no direct contact with people |
 | ot-challenger | 02 | Agent working | Chief Information Security Officer | VP Operations | advise | 1: Reads only | limited | EU AI Act Art. 50 (marking of generated content) |
-| disruption-monitor | 03 | Designed | Head of Supply Chain Planning | VP Operations | act | 1: Reads only | minimal | No Annex III use and no direct contact with people |
-| sourcing-options | 03 | Designed | Chief Procurement Officer | Chief Financial Officer | act with approval | 3: Acts on accounts, systems or money | limited | EU AI Act Art. 50 (transparency towards people) |
+| disruption-monitor | 03 | Agent in build | Head of Supply Chain Planning | VP Operations | act | 1: Reads only | minimal | No Annex III use and no direct contact with people |
+| sourcing-options | 03 | Agent in build | Chief Procurement Officer | Chief Financial Officer | act with approval | 3: Acts on accounts, systems or money | limited | EU AI Act Art. 50 (transparency towards people) |
 | sop-mediator | 04 | Designed | Head of Operational Excellence | VP Operations | advise | 2: Writes or proposes inside the company | minimal | No Annex III use and no direct contact with people |
 | maintenance-diagnosis | 05 | Designed | Head of Maintenance Engineering | VP Operations | act with approval | 3: Acts on accounts, systems or money | minimal | No Annex III use and no direct contact with people |
 | technician-interviewer | 05 | Designed | Head of Maintenance Engineering | NOT APPROVED | act | 2: Writes or proposes inside the company | limited | EU AI Act Art. 50 (transparency towards people) |

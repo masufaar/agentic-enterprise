@@ -1,0 +1,94 @@
+{
+ "as_of": "2026-02-13",
+ "events": {
+  "EV-01": {
+   "material": true,
+   "kind": "stoppage",
+   "hits_parts": [
+    "PCM-7"
+   ],
+   "hits_products": [
+    "PRD-A",
+    "PRD-B",
+    "PRD-C",
+    "PRD-F"
+   ],
+   "note": "Single-source part from the halted supplier; four products depend on it."
+  },
+  "EV-02": {
+   "material": true,
+   "kind": "cost",
+   "hits_parts": [
+    "HSG-4"
+   ],
+   "hits_products": [
+    "PRD-A",
+    "PRD-C",
+    "PRD-D",
+    "PRD-F"
+   ],
+   "note": "A landed-cost rise on a part used by four products; not a stoppage."
+  },
+  "EV-03": {
+   "material": true,
+   "kind": "delay",
+   "hits_parts": [
+    "SNS-2",
+    "BRD-1",
+    "HSG-4",
+    "CBL-3"
+   ],
+   "hits_products": [
+    "PRD-A",
+    "PRD-B",
+    "PRD-C",
+    "PRD-D",
+    "PRD-E",
+    "PRD-F"
+   ],
+   "note": "European inbound delay touches every European-sourced part; a delay, not a stoppage."
+  },
+  "EV-04": {
+   "material": true,
+   "kind": "watch",
+   "hits_parts": [
+    "PCM-7"
+   ],
+   "hits_products": [
+    "PRD-A",
+    "PRD-B",
+    "PRD-C",
+    "PRD-F"
+   ],
+   "note": "A financial-health signal on the single-source supplier; worth watching, not yet acting."
+  },
+  "EV-05": {
+   "material": false,
+   "kind": "rumor",
+   "hits_parts": [],
+   "hits_products": [],
+   "note": "Unverified rumour about a qualified ALTERNATE, not a primary supplier. Acting on it would wrongly drop a second source. Not material until a second source confirms it."
+  },
+  "EV-06": {
+   "material": false,
+   "kind": "noise",
+   "hits_parts": [],
+   "hits_products": [],
+   "note": "Low-severity weather with no mapped part."
+  },
+  "EV-07": {
+   "material": false,
+   "kind": "noise",
+   "hits_parts": [],
+   "hits_products": [],
+   "note": "A real stoppage at a company that is not a Halden supplier."
+  },
+  "EV-08": {
+   "material": false,
+   "kind": "noise",
+   "hits_parts": [],
+   "hits_products": [],
+   "note": "A soft quarter at a supplier Halden does not currently buy from."
+  }
+ }
+}

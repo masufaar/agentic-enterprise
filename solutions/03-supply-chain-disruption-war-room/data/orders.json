@@ -1,0 +1,140 @@
+{
+ "as_of": "2026-02-13",
+ "customer_orders": [
+  {
+   "id": "CO-001",
+   "product": "PRD-A",
+   "qty": 20,
+   "unit_price_eur": 18000,
+   "due": "2026-03-16",
+   "customer": "Aurora Rail",
+   "region": "Europe",
+   "revenue_eur": 360000,
+   "status": "open"
+  },
+  {
+   "id": "CO-002",
+   "product": "PRD-B",
+   "qty": 15,
+   "unit_price_eur": 9000,
+   "due": "2026-03-09",
+   "customer": "Beltra Energy",
+   "region": "Europe",
+   "revenue_eur": 135000,
+   "status": "open"
+  },
+  {
+   "id": "CO-003",
+   "product": "PRD-C",
+   "qty": 8,
+   "unit_price_eur": 42000,
+   "due": "2026-03-20",
+   "customer": "Cardinal Utilities",
+   "region": "Americas",
+   "revenue_eur": 336000,
+   "status": "open"
+  },
+  {
+   "id": "CO-004",
+   "product": "PRD-F",
+   "qty": 6,
+   "unit_price_eur": 31000,
+   "due": "2026-03-11",
+   "customer": "Delmar Transit",
+   "region": "Americas",
+   "revenue_eur": 186000,
+   "status": "open"
+  },
+  {
+   "id": "CO-005",
+   "product": "PRD-D",
+   "qty": 12,
+   "unit_price_eur": 12000,
+   "due": "2026-03-25",
+   "customer": "Evershed Metro",
+   "region": "Europe",
+   "revenue_eur": 144000,
+   "status": "open"
+  },
+  {
+   "id": "CO-006",
+   "product": "PRD-E",
+   "qty": 30,
+   "unit_price_eur": 3000,
+   "due": "2026-03-30",
+   "customer": "Fjellstad Grid",
+   "region": "Asia",
+   "revenue_eur": 90000,
+   "status": "open"
+  },
+  {
+   "id": "CO-007",
+   "product": "PRD-A",
+   "qty": 5,
+   "unit_price_eur": 18000,
+   "due": "2026-03-13",
+   "customer": "Granholm AG",
+   "region": "Europe",
+   "revenue_eur": 90000,
+   "status": "open"
+  },
+  {
+   "id": "CO-008",
+   "product": "PRD-B",
+   "qty": 4,
+   "unit_price_eur": 9000,
+   "due": "2026-03-18",
+   "customer": "Haldor Shipping",
+   "region": "Europe",
+   "revenue_eur": 36000,
+   "status": "open"
+  }
+ ],
+ "purchase_orders": [
+  {
+   "id": "PO-001",
+   "part": "PCM-7",
+   "supplier": "SUP-NORD",
+   "qty": 6000,
+   "amount_eur": 228000,
+   "due": "2026-03-02",
+   "status": "open"
+  },
+  {
+   "id": "PO-002",
+   "part": "HSG-4",
+   "supplier": "SUP-VALO",
+   "qty": 5000,
+   "amount_eur": 60000,
+   "due": "2026-02-24",
+   "status": "open"
+  },
+  {
+   "id": "PO-003",
+   "part": "SNS-2",
+   "supplier": "SUP-RHEIN",
+   "qty": 4000,
+   "amount_eur": 88000,
+   "due": "2026-03-04",
+   "status": "open"
+  },
+  {
+   "id": "PO-004",
+   "part": "BRD-1",
+   "supplier": "SUP-RHEIN",
+   "qty": 2500,
+   "amount_eur": 135000,
+   "due": "2026-03-07",
+   "status": "open"
+  },
+  {
+   "id": "PO-005",
+   "part": "CBL-3",
+   "supplier": "SUP-TORNA",
+   "qty": 3000,
+   "amount_eur": 27000,
+   "due": "2026-03-01",
+   "status": "open"
+  }
+ ]
+}

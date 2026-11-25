@@ -1,0 +1,138 @@
+{
+ "as_of": "2026-02-13",
+ "parts": {
+  "PCM-7": {
+   "name": "Power Control Module PCM-7",
+   "family": "power semiconductors",
+   "primary_supplier": "SUP-NORD",
+   "single_source": true,
+   "unit_cost_eur": 38
+  },
+  "SNS-2": {
+   "name": "Sensor Module SNS-2",
+   "family": "sensors",
+   "primary_supplier": "SUP-RHEIN",
+   "single_source": false,
+   "unit_cost_eur": 22
+  },
+  "BRD-1": {
+   "name": "Control Board BRD-1",
+   "family": "boards",
+   "primary_supplier": "SUP-RHEIN",
+   "single_source": false,
+   "unit_cost_eur": 54
+  },
+  "HSG-4": {
+   "name": "Aluminium Housing HSG-4",
+   "family": "housings",
+   "primary_supplier": "SUP-VALO",
+   "single_source": false,
+   "unit_cost_eur": 12
+  },
+  "CBL-3": {
+   "name": "Cable Harness CBL-3",
+   "family": "harnesses",
+   "primary_supplier": "SUP-TORNA",
+   "single_source": false,
+   "unit_cost_eur": 9
+  }
+ },
+ "products": {
+  "PRD-A": {
+   "name": "Drive Unit HX-200",
+   "region": "Europe",
+   "bom": [
+    {
+     "part": "PCM-7",
+     "qty": 1
+    },
+    {
+     "part": "BRD-1",
+     "qty": 1
+    },
+    {
+     "part": "HSG-4",
+     "qty": 1
+    }
+   ]
+  },
+  "PRD-B": {
+   "name": "Sensor Pack SP-50",
+   "region": "Europe",
+   "bom": [
+    {
+     "part": "PCM-7",
+     "qty": 2
+    },
+    {
+     "part": "SNS-2",
+     "qty": 3
+    }
+   ]
+  },
+  "PRD-C": {
+   "name": "Power Module PM-900",
+   "region": "Americas",
+   "bom": [
+    {
+     "part": "PCM-7",
+     "qty": 1
+    },
+    {
+     "part": "HSG-4",
+     "qty": 1
+    },
+    {
+     "part": "CBL-3",
+     "qty": 2
+    }
+   ]
+  },
+  "PRD-D": {
+   "name": "Control Cabinet CC-12",
+   "region": "Europe",
+   "bom": [
+    {
+     "part": "BRD-1",
+     "qty": 2
+    },
+    {
+     "part": "HSG-4",
+     "qty": 1
+    }
+   ]
+  },
+  "PRD-E": {
+   "name": "Signal Router SR-7",
+   "region": "Asia",
+   "bom": [
+    {
+     "part": "SNS-2",
+     "qty": 1
+    },
+    {
+     "part": "CBL-3",
+     "qty": 1
+    }
+   ]
+  },
+  "PRD-F": {
+   "name": "Drive Unit HX-400",
+   "region": "Americas",
+   "bom": [
+    {
+     "part": "PCM-7",
+     "qty": 1
+    },
+    {
+     "part": "BRD-1",
+     "qty": 2
+    },
+    {
+     "part": "HSG-4",
+     "qty": 2
+    }
+   ]
+  }
+ }
+}

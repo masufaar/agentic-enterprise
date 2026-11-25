@@ -1,0 +1,56 @@
+{
+ "as_of": "2026-02-13",
+ "suppliers": {
+  "SUP-NORD": {
+   "name": "Nordkamp Semiconductors",
+   "region": "Asia",
+   "financial_health": "stable",
+   "supplies": [
+    "PCM-7"
+   ],
+   "lead_time_days": 56
+  },
+  "SUP-RHEIN": {
+   "name": "Rheinwerk Components",
+   "region": "Europe",
+   "financial_health": "stable",
+   "supplies": [
+    "SNS-2",
+    "BRD-1"
+   ],
+   "lead_time_days": 28
+  },
+  "SUP-VALO": {
+   "name": "Valoria Metals",
+   "region": "Europe",
+   "financial_health": "stable",
+   "supplies": [
+    "HSG-4"
+   ],
+   "lead_time_days": 21
+  },
+  "SUP-TORNA": {
+   "name": "Tornelis Electronics",
+   "region": "Europe",
+   "financial_health": "stable",
+   "supplies": [
+    "CBL-3"
+   ],
+   "lead_time_days": 35
+  },
+  "SUP-MEAD": {
+   "name": "Meadowbrook Sensors",
+   "region": "Americas",
+   "financial_health": "watch",
+   "supplies": [],
+   "lead_time_days": 42
+  },
+  "SUP-GREY": {
+   "name": "Greywater Components",
+   "region": "Asia",
+   "financial_health": "unknown",
+   "supplies": [],
+   "lead_time_days": 30
+  }
+ }
+}

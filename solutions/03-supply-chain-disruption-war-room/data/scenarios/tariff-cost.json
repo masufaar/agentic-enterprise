@@ -1,0 +1,8 @@
+{
+ "title": "A tariff on HSG-4 (a cost, not a stoppage)",
+ "question": "A tariff raises the cost of a part used by four products. What is the exposure, and what is held for sign-off?",
+ "steps": [
+  {"assess": "EV-02"},
+  {"respond": "EV-02"}
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "_note": "The autonomy ladder for response action types. All thresholds are assumptions, labelled as such. A money- or allocation-moving action starts gated; it earns autonomy only on sound cases, and a serious case drops it at once. An unqualified-supplier PO is locked at 'watch': a company rule, never a threshold.",
+ "levels": [
+  {"id": "watch", "name": "Watch"},
+  {"id": "propose", "name": "Propose"},
+  {"id": "act_with_check", "name": "Act with check"},
+  {"id": "act_alone", "name": "Act alone"}
+ ],
+ "rules": {
+  "window": 10,
+  "step_up": {"checked_cases_at_least": 5, "serious_findings_at_most": 0, "failed_share_at_most": 0.2},
+  "step_down": {"checked_cases_at_least": 4, "failed_share_above": 0.25},
+  "serious_finding_drops_to": "propose"
+ },
+ "start": {
+  "supplier_email": "propose",
+  "expedite": "propose",
+  "new_po_qualified": "propose",
+  "new_po_unqualified": "watch"
+ },
+ "ceiling": {
+  "supplier_email": "act_with_check",
+  "expedite": "act_with_check",
+  "new_po_qualified": "act_with_check",
+  "new_po_unqualified": "watch"
+ }
+}

@@ -1,6 +1,8 @@
 # Business case: Supply Chain Disruption War Room
 
-**Company:** Halden Industrial (fictional). **All figures are illustrative assumptions, not measured results.** Replace them with your own numbers.
+**Status: in build (25 November 2026).** See the [README](README.md) and [build log](BUILD_LOG.md).
+
+**Company:** Halden Industrial (fictional). **The value levers below are illustrative assumptions, not measured results.** Replace them with your own numbers. One figure is measured from the synthetic data: a halt at the single source of part PCM-7 maps to four products with **EUR 1,143,000** of open customer orders at 12 days of cover (`python -m warroom trace supplier SUP-NORD`).
 
 ## The problem
 

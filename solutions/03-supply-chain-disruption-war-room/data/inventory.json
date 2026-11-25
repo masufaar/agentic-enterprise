@@ -1,0 +1,30 @@
+{
+ "as_of": "2026-02-13",
+ "inventory": {
+  "PCM-7": {
+   "on_hand": 4800,
+   "daily_consumption": 400,
+   "days_of_cover": 12
+  },
+  "SNS-2": {
+   "on_hand": 9000,
+   "daily_consumption": 300,
+   "days_of_cover": 30
+  },
+  "BRD-1": {
+   "on_hand": 6000,
+   "daily_consumption": 200,
+   "days_of_cover": 30
+  },
+  "HSG-4": {
+   "on_hand": 11000,
+   "daily_consumption": 220,
+   "days_of_cover": 50
+  },
+  "CBL-3": {
+   "on_hand": 8000,
+   "daily_consumption": 160,
+   "days_of_cover": 50
+  }
+ }
+}

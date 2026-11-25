@@ -1,0 +1,20 @@
+{
+ "company": "Halden Industrial makes drive units, power modules and sensor packs for rail, energy and utility customers across Europe, the Americas and Asia, from 12 plants. Supply runs through the ERP (Fenmark MRP) and a subscribed risk feed (Larkspur Supply Signals); both names are invented and no real system is connected. One part family is single-source: the power control module PCM-7, from one supplier.",
+ "who_decides": {
+  "role": "Head of Supply Chain",
+  "about": "approves any response that moves money, re-allocates committed supply between customers or plants, or brings in a new supplier, and approves each step up of the autonomy ladder. A step down is immediate."
+ },
+ "critical_part_families": ["power semiconductors", "boards"],
+ "what_matters_in_this_order": [
+  "Keep the lines that serve committed customer orders running.",
+  "Prefer a qualified source over a cheaper unqualified one.",
+  "Spend the least that removes the risk; an owned decision beats a fast one.",
+  "Say what is not known. A rumour is not an event."
+ ],
+ "risk_appetite": "Act on verified events that map to Halden's own bill of materials. Never bring in an unqualified supplier for a critical part, and never act on an unverified rumour, without the Head of Supply Chain.",
+ "buffer_days": 21,
+ "confirmations_that_count": ["a second independent source", "a filing or official statement", "the supplier's own notice"],
+ "word_limits": {"assessment": 90, "recommendation": 120, "lesson": 40, "reason": 120},
+ "spend_ceiling_without_sign_off_eur": 0,
+ "standing_instructions": []
+}

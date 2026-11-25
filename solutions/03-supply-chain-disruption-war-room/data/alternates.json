@@ -1,0 +1,47 @@
+{
+ "alternates": {
+  "PCM-7": [
+   {
+    "supplier": "SUP-TORNA",
+    "qualified": true,
+    "lead_time_days": 70,
+    "price_index": 1.4,
+    "note": "Qualified second source (PPAP on file 2024). Longer lead, higher price."
+   },
+   {
+    "supplier": "SUP-GREY",
+    "qualified": false,
+    "lead_time_days": 30,
+    "price_index": 0.95,
+    "note": "Not qualified: no PPAP, never audited. Cheaper and fast, but unapproved for PCM-7."
+   }
+  ],
+  "SNS-2": [
+   {
+    "supplier": "SUP-MEAD",
+    "qualified": true,
+    "lead_time_days": 42,
+    "price_index": 1.15,
+    "note": "Qualified second source."
+   }
+  ],
+  "HSG-4": [
+   {
+    "supplier": "SUP-RHEIN",
+    "qualified": true,
+    "lead_time_days": 35,
+    "price_index": 1.1,
+    "note": "Qualified; Rheinwerk also tools housings."
+   }
+  ],
+  "CBL-3": [
+   {
+    "supplier": "SUP-RHEIN",
+    "qualified": true,
+    "lead_time_days": 40,
+    "price_index": 1.05,
+    "note": "Qualified second source."
+   }
+  ]
+ }
+}

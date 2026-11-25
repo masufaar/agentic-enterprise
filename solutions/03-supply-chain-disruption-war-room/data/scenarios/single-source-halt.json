@@ -1,0 +1,11 @@
+{
+ "title": "A single-source halt (Nordkamp, PCM-7)",
+ "question": "Which products, orders and cash does the Nordkamp halt touch, and what do we do before cover runs out?",
+ "steps": [
+  {"assess": "EV-01"},
+  {"respond": "EV-01"},
+  {"decide": {"record_case": {"type": "new_po_qualified", "ref": "EV-01", "outcome": "ok",
+    "finding": "The qualified PO to Tornelis was the right bridge; the exposure was real."}},
+   "note": "One sound case. Four more, clean, and the Head of Supply Chain is offered a step up."}
+ ]
+}

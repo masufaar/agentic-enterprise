@@ -1,0 +1,117 @@
+{
+ "as_of": "2026-02-13",
+ "events": [
+  {
+   "id": "EV-01",
+   "date": "2025-10-27",
+   "source": "Larkspur Supply Signals",
+   "type": "supplier_halt",
+   "about": {
+    "kind": "supplier",
+    "id": "SUP-NORD"
+   },
+   "severity": "high",
+   "verified": true,
+   "headline": "Nordkamp halts shipments amid ownership dispute",
+   "text": "Nordkamp Semiconductors has suspended wafer shipments from its main plant after a government intervention in its ownership. Delivery of its power control modules cannot be guaranteed."
+  },
+  {
+   "id": "EV-02",
+   "date": "2026-01-14",
+   "source": "Larkspur Supply Signals",
+   "type": "tariff",
+   "about": {
+    "kind": "part",
+    "id": "HSG-4"
+   },
+   "severity": "medium",
+   "verified": true,
+   "headline": "25% tariff announced on imported aluminium housings",
+   "text": "A 25% import tariff on aluminium housings takes effect next month, raising the landed cost of HSG-4."
+  },
+  {
+   "id": "EV-03",
+   "date": "2026-02-03",
+   "source": "Larkspur Supply Signals",
+   "type": "port",
+   "about": {
+    "kind": "region",
+    "id": "Europe"
+   },
+   "severity": "medium",
+   "verified": true,
+   "headline": "Port congestion at Rotterdam, nine-day delays",
+   "text": "Congestion at Rotterdam is adding about nine days to inbound European shipments."
+  },
+  {
+   "id": "EV-04",
+   "date": "2026-02-10",
+   "source": "Larkspur Supply Signals",
+   "type": "financial",
+   "about": {
+    "kind": "supplier",
+    "id": "SUP-NORD"
+   },
+   "severity": "medium",
+   "verified": true,
+   "headline": "Nordkamp parent credit rating downgraded",
+   "text": "The parent of Nordkamp Semiconductors has been downgraded two notches by a rating agency."
+  },
+  {
+   "id": "EV-05",
+   "date": "2026-02-12",
+   "source": "Larkspur Supply Signals",
+   "type": "rumor",
+   "about": {
+    "kind": "supplier",
+    "id": "SUP-TORNA"
+   },
+   "severity": "high",
+   "verified": false,
+   "headline": "Unconfirmed: Tornelis facing insolvency",
+   "text": "An unverified social-media post claims Tornelis Electronics is about to file for insolvency. No filing, statement or second source has been found."
+  },
+  {
+   "id": "EV-06",
+   "date": "2026-02-05",
+   "source": "Larkspur Supply Signals",
+   "type": "weather",
+   "about": {
+    "kind": "region",
+    "id": "Americas"
+   },
+   "severity": "low",
+   "verified": true,
+   "headline": "Storms forecast off the Gulf coast",
+   "text": "A storm system may bring short delays to Gulf-coast freight next week."
+  },
+  {
+   "id": "EV-07",
+   "date": "2026-02-08",
+   "source": "Larkspur Supply Signals",
+   "type": "supplier_halt",
+   "about": {
+    "kind": "supplier",
+    "id": "SUP-OTHER"
+   },
+   "severity": "high",
+   "verified": true,
+   "headline": "Castwell Forgings stops a production line",
+   "text": "Castwell Forgings has stopped a line after a fire. Castwell is not a supplier to Halden."
+  },
+  {
+   "id": "EV-08",
+   "date": "2026-02-11",
+   "source": "Larkspur Supply Signals",
+   "type": "financial",
+   "about": {
+    "kind": "supplier",
+    "id": "SUP-MEAD"
+   },
+   "severity": "low",
+   "verified": true,
+   "headline": "Meadowbrook Sensors reports a soft quarter",
+   "text": "Meadowbrook Sensors, a qualified alternate for SNS-2 that Halden does not currently buy from, reported weaker quarterly results."
+  }
+ ]
+}

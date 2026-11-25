@@ -352,7 +352,7 @@
    "purpose": "Watches news and supplier signals and raises an early alert when a supplier risk could stop a plant line.",
    "model_class": "small",
    "autonomy": "act",
-   "today": "designed",
+   "today": "agent in build",
    "approval": {
     "status": "approved",
     "approved_by": "VP Operations",
@@ -390,7 +390,7 @@
    "purpose": "Finds alternative qualified suppliers for an at-risk part and drafts purchase orders and supplier emails for buyer approval, within a fixed spend limit.",
    "model_class": "mid",
    "autonomy": "act_with_approval",
-   "today": "designed",
+   "today": "agent in build",
    "approval": {
     "status": "approved",
     "approved_by": "Chief Financial Officer",
