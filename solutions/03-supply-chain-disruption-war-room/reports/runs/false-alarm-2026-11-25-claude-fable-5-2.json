@@ -1,0 +1,344 @@
+{
+ "scenario": "false-alarm",
+ "title": "A rumour about a qualified alternate (Tornelis)",
+ "question": "An unverified rumour says a qualified second source is failing. Is it material, and does an agent act on it?",
+ "decides": "Head of Supply Chain",
+ "erp": "Fenmark MRP",
+ "feed": "Larkspur Supply Signals",
+ "as_of": "2026-02-13",
+ "steps": [
+  {
+   "step": "assess",
+   "event": "EV-05",
+   "headline": "Unconfirmed: Tornelis facing insolvency",
+   "verified": false,
+   "ended": "handed in",
+   "note": {
+    "event": "EV-05",
+    "headline": "Unconfirmed: Tornelis facing insolvency",
+    "material": false,
+    "kind": "not_material",
+    "affected_parts": [
+     "CBL-3"
+    ],
+    "affected_products": [],
+    "revenue_at_risk_eur": 0,
+    "min_days_of_cover": null,
+    "confidence": "medium",
+    "assessment": "Unverified social-media rumour; no filing, statement, supplier notice or second source on the feed. ERP shows Tornelis as stable. Not an event, so not material. If it were confirmed, the trace maps Tornelis to CBL-3 (not single-source, 50 days of cover against a 21-day buffer), products PRD-C and PRD-E, orders CO-003 and CO-006, EUR 426,000 open revenue. Not known: whether the rumour is true, and whether the alternate CBL-3 source is qualified and has capacity.",
+    "lesson": "An unverified rumour with no filing, supplier notice or second source is not material; trace the exposure anyway so the map is ready if confirmation arrives.",
+    "verified_event": false
+   }
+  },
+  {
+   "step": "respond",
+   "event": "EV-05",
+   "skipped": "no material exposure to respond to"
+  }
+ ],
+ "exposures": {
+  "EV-05": {
+   "event": "EV-05",
+   "headline": "Unconfirmed: Tornelis facing insolvency",
+   "material": false,
+   "kind": "not_material",
+   "affected_parts": [
+    "CBL-3"
+   ],
+   "affected_products": [],
+   "revenue_at_risk_eur": 0,
+   "min_days_of_cover": null,
+   "confidence": "medium",
+   "assessment": "Unverified social-media rumour; no filing, statement, supplier notice or second source on the feed. ERP shows Tornelis as stable. Not an event, so not material. If it were confirmed, the trace maps Tornelis to CBL-3 (not single-source, 50 days of cover against a 21-day buffer), products PRD-C and PRD-E, orders CO-003 and CO-006, EUR 426,000 open revenue. Not known: whether the rumour is true, and whether the alternate CBL-3 source is qualified and has capacity.",
+   "lesson": "An unverified rumour with no filing, supplier notice or second source is not material; trace the exposure anyway so the map is ready if confirmation arrives.",
+   "verified_event": false
+  }
+ },
+ "ladder": [
+  {
+   "type": "supplier_email",
+   "level": "propose",
+   "ceiling": "act_with_check",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "0 of 5 sound cases since the last move."
+  },
+  {
+   "type": "expedite",
+   "level": "propose",
+   "ceiling": "act_with_check",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "0 of 5 sound cases since the last move."
+  },
+  {
+   "type": "new_po_qualified",
+   "level": "propose",
+   "ceiling": "act_with_check",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "0 of 5 sound cases since the last move."
+  },
+  {
+   "type": "new_po_unqualified",
+   "level": "watch",
+   "ceiling": "watch",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "At its ceiling (Watch): a company rule, not a threshold."
+  }
+ ],
+ "ladder_names": {
+  "watch": "Watch",
+  "propose": "Propose",
+  "act_with_check": "Act with check",
+  "act_alone": "Act alone"
+ },
+ "moves": [],
+ "cases": [
+  {
+   "about_id": "SUP-TORNA",
+   "parts": [
+    "CBL-3"
+   ],
+   "event": "EV-05",
+   "kind": "not_material",
+   "material": false,
+   "lesson": "An unverified rumour with no filing, supplier notice or second source is not material; trace the exposure anyway so the map is ready if confirmation arrives."
+  }
+ ],
+ "held": [],
+ "score": {
+  "events_compared": 1,
+  "agreed": 1,
+  "differences": []
+ },
+ "refused": [],
+ "handed_back": [],
+ "audit": {
+  "records": 5,
+  "chain": "chain intact"
+ },
+ "models": {
+  "disruption-monitor": "claude-fable-5-2, effort medium"
+ },
+ "runs": [
+  {
+   "agent": "disruption-monitor",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "event": "EV-05",
+    "headline": "Unconfirmed: Tornelis facing insolvency",
+    "material": false,
+    "kind": "not_material",
+    "affected_parts": [
+     "CBL-3"
+    ],
+    "affected_products": [],
+    "revenue_at_risk_eur": 0,
+    "min_days_of_cover": null,
+    "confidence": "medium",
+    "assessment": "Unverified social-media rumour; no filing, statement, supplier notice or second source on the feed. ERP shows Tornelis as stable. Not an event, so not material. If it were confirmed, the trace maps Tornelis to CBL-3 (not single-source, 50 days of cover against a 21-day buffer), products PRD-C and PRD-E, orders CO-003 and CO-006, EUR 426,000 open revenue. Not known: whether the rumour is true, and whether the alternate CBL-3 source is qualified and has capacity.",
+    "lesson": "An unverified rumour with no filing, supplier notice or second source is not material; trace the exposure anyway so the map is ready if confirmation arrives.",
+    "verified_event": false
+   },
+   "turns": 2,
+   "tokens": {
+    "input": 5554,
+    "output": 689
+   },
+   "seconds": 7.14,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_event",
+       "input": {},
+       "result": {
+        "id": "EV-05",
+        "date": "2026-02-12",
+        "source": "Larkspur Supply Signals",
+        "type": "rumor",
+        "about": {
+         "kind": "supplier",
+         "id": "SUP-TORNA"
+        },
+        "severity": "high",
+        "verified": false,
+        "headline": "Unconfirmed: Tornelis facing insolvency",
+        "text": "An unverified social-media post claims Tornelis Electronics is about to file for insolvency. No filing, statement or second source has been found."
+       },
+       "failed": false
+      },
+      {
+       "tool": "search_events",
+       "input": {
+        "about": "SUP-TORNA"
+       },
+       "result": [
+        {
+         "id": "EV-05",
+         "date": "2026-02-12",
+         "type": "rumor",
+         "about": {
+          "kind": "supplier",
+          "id": "SUP-TORNA"
+         },
+         "severity": "high",
+         "verified": false,
+         "headline": "Unconfirmed: Tornelis facing insolvency"
+        }
+       ],
+       "failed": false
+      },
+      {
+       "tool": "read_supplier",
+       "input": {
+        "supplier": "SUP-TORNA"
+       },
+       "result": {
+        "id": "SUP-TORNA",
+        "name": "Tornelis Electronics",
+        "region": "Europe",
+        "financial_health": "stable",
+        "supplies": [
+         "CBL-3"
+        ],
+        "lead_time_days": 35
+       },
+       "failed": false
+      },
+      {
+       "tool": "trace_exposure",
+       "input": {
+        "kind": "supplier",
+        "id": "SUP-TORNA"
+       },
+       "result": {
+        "about": {
+         "kind": "supplier",
+         "id": "SUP-TORNA"
+        },
+        "affected_parts": [
+         {
+          "id": "CBL-3",
+          "name": "Cable Harness CBL-3",
+          "single_source": false,
+          "days_of_cover": 50
+         }
+        ],
+        "affected_products": [
+         {
+          "id": "PRD-C",
+          "name": "Power Module PM-900",
+          "region": "Americas"
+         },
+         {
+          "id": "PRD-E",
+          "name": "Signal Router SR-7",
+          "region": "Asia"
+         }
+        ],
+        "affected_orders": [
+         {
+          "id": "CO-003",
+          "product": "PRD-C",
+          "qty": 8,
+          "revenue_eur": 336000,
+          "due": "2026-03-20",
+          "customer": "Cardinal Utilities",
+          "region": "Americas"
+         },
+         {
+          "id": "CO-006",
+          "product": "PRD-E",
+          "qty": 30,
+          "revenue_eur": 90000,
+          "due": "2026-03-30",
+          "customer": "Fjellstad Grid",
+          "region": "Asia"
+         }
+        ],
+        "revenue_at_risk_eur": 426000,
+        "min_days_of_cover": 50,
+        "note": "Revenue at risk is the sum of open customer orders for the affected products, from the ERP. It is a measured figure of synthetic data, not a forecast."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cases",
+       "input": {},
+       "result": {
+        "earlier_cases": [],
+        "note": "Each lesson is the monitor's own sentence about one earlier event. It is not a rule."
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "file_exposure",
+       "input": {
+        "material": "no",
+        "kind": "not_material",
+        "confidence": "medium",
+        "assessment": "Unverified social-media rumour; no filing, statement, supplier notice or second source on the feed. ERP shows Tornelis as stable. Not an event, so not material. If it were confirmed, the trace maps Tornelis to CBL-3 (not single-source, 50 days of cover against a 21-day buffer), products PRD-C and PRD-E, orders CO-003 and CO-006, EUR 426,000 open revenue. Not known: whether the rumour is true, and whether the alternate CBL-3 source is qualified and has capacity.",
+        "lesson": "An unverified rumour with no filing, supplier notice or second source is not material; trace the exposure anyway so the map is ready if confirmation arrives."
+       },
+       "result": {
+        "event": "EV-05",
+        "headline": "Unconfirmed: Tornelis facing insolvency",
+        "material": false,
+        "kind": "not_material",
+        "affected_parts": [
+         "CBL-3"
+        ],
+        "affected_products": [],
+        "revenue_at_risk_eur": 0,
+        "min_days_of_cover": null,
+        "confidence": "medium",
+        "assessment": "Unverified social-media rumour; no filing, statement, supplier notice or second source on the feed. ERP shows Tornelis as stable. Not an event, so not material. If it were confirmed, the trace maps Tornelis to CBL-3 (not single-source, 50 days of cover against a 21-day buffer), products PRD-C and PRD-E, orders CO-003 and CO-006, EUR 426,000 open revenue. Not known: whether the rumour is true, and whether the alternate CBL-3 source is qualified and has capacity.",
+        "lesson": "An unverified rumour with no filing, supplier notice or second source is not material; trace the exposure anyway so the map is ready if confirmation arrives.",
+        "verified_event": false
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "tokens": {
+  "input": 5554,
+  "output": 689
+ },
+ "seconds_to_page": 7.16,
+ "page": "# Supply chain disruption: what does this event do to us, and who signs off?\n\nFor the Head of Supply Chain. Session: A rumour about a qualified alternate (Tornelis). Systems as of 2026-02-13. All data is synthetic (Halden Industrial). The risk feed (Larkspur Supply Signals) and the ERP (Fenmark MRP) are stand-ins under invented vendor names; no real system is connected.\n\n**The question:** An unverified rumour says a qualified second source is failing. Is it material, and does an agent act on it?\n\n## What needs your decision\n\nNothing waits for your decision.\n\n## The exposure, mapped onto the bill of materials\n\n| Event | Material | Kind | Parts | Products | Revenue at risk | Cover (days) | Confidence |\n|---|---|---|---|---|---|---|---|\n| EV-05 | no | not_material | CBL-3 | — | — | — | medium |\n\n**EV-05** (Unconfirmed: Tornelis facing insolvency), the monitor's assessment:\n> Unverified social-media rumour; no filing, statement, supplier notice or second source on the feed. ERP shows Tornelis as stable. Not an event, so not material. If it were confirmed, the trace maps Tornelis to CBL-3 (not single-source, 50 days of cover against a 21-day buffer), products PRD-C and PRD-E, orders CO-003 and CO-006, EUR 426,000 open revenue. Not known: whether the rumour is true, and whether the alternate CBL-3 source is qualified and has capacity.\nWhat it keeps for the next event:\n> An unverified rumour with no filing, supplier notice or second source is not material; trace the exposure anyway so the map is ready if confirmation arrives.\n\n## What the sourcing agent proposed\n\nNo response was proposed in this session.\n\n## The autonomy ladder after this session\n\n| Action type | Rung | Ceiling | Sound cases since last move | Not sound | Serious | Step up |\n|---|---|---|---|---|---|---|\n| supplier_email | Propose | Act with check | 0 | 0 | 0 | 0 of 5 sound cases since the last move. |\n| expedite | Propose | Act with check | 0 | 0 | 0 | 0 of 5 sound cases since the last move. |\n| new_po_qualified | Propose | Act with check | 0 | 0 | 0 | 0 of 5 sound cases since the last move. |\n| new_po_unqualified | Watch | Watch | 0 | 0 | 0 | At its ceiling (Watch): a company rule, not a threshold. |\n\n## What was held for you, drafted and not sent\n\nNothing is held for your sign-off in this session.\n\n## What was refused or held\n\nNothing was refused or held in this session.\n\n## How this page was made\n\n- disruption-monitor: claude-fable-5-2, effort medium.\n- Agent turns: disruption-monitor 2 (handed in).\n- Tokens: 5,554 in, 689 out. 7.16 seconds from the first step to this page.\n- The Control Tower recorded 5 steps for this session; chain intact.\n- Checked afterwards against the answer key, which no agent was shown: 1 of 1 assessments agree on whether the event was material and which products it hit.\n- Hand-ins the harness did not accept and handed back for correction: 0.\n- The monitor has no tool that moves money or supply. Every purchase order and every email is held for the Head of Supply Chain. A step up on the ladder is never taken by an agent.\n"
+}

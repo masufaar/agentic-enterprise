@@ -1,0 +1,693 @@
+{
+ "scenario": "tariff-cost",
+ "title": "A tariff on HSG-4 (a cost, not a stoppage)",
+ "question": "A tariff raises the cost of a part used by four products. What is the exposure, and what is held for sign-off?",
+ "decides": "Head of Supply Chain",
+ "erp": "Fenmark MRP",
+ "feed": "Larkspur Supply Signals",
+ "as_of": "2026-02-13",
+ "steps": [
+  {
+   "step": "assess",
+   "event": "EV-02",
+   "headline": "25% tariff announced on imported aluminium housings",
+   "verified": true,
+   "ended": "handed in",
+   "note": {
+    "event": "EV-02",
+    "headline": "25% tariff announced on imported aluminium housings",
+    "material": true,
+    "kind": "cost",
+    "affected_parts": [
+     "HSG-4"
+    ],
+    "affected_products": [
+     "PRD-A",
+     "PRD-C",
+     "PRD-D",
+     "PRD-F"
+    ],
+    "revenue_at_risk_eur": 1116000,
+    "min_days_of_cover": 50,
+    "confidence": "medium",
+    "assessment": "Verified tariff on HSG-4, a multi-source, non-critical housing used in PRD-A, PRD-C, PRD-D and PRD-F. It is a cost event, not a supply interruption: cover is 50 days against the 21-day buffer. Five open orders (CO-001, 003, 004, 005, 007) worth EUR 1,116,000 use the part; that is the order value touched, not expected lost revenue. Not known: which import jurisdiction applies, whether SUP-VALO's shipments fall under it, and the actual landed-cost increase.",
+    "lesson": "A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact.",
+    "verified_event": true
+   }
+  },
+  {
+   "step": "respond",
+   "event": "EV-02",
+   "ended": "handed in",
+   "result": {
+    "event": "EV-02",
+    "recommendation": "Cost event, not a stoppage: HSG-4 has 50 days of cover against a 21-day buffer. 1) Email to Valoria (SUP-VALO) asking whether the tariff applies and the landed-cost change: drafted, held for the Head of Supply Chain to sign off; no cost, reply asked within five working days. 2) If Valoria confirms an increase above about 10%, a PO to qualified Rheinwerk (SUP-RHEIN, 35 days, price index 1.1): not drafted; would need sign-off. 3) No expedite or re-allocation. Not known: jurisdiction, whether Valoria's shipments are in scope, actual cost. Rheinwerk's ERP record does not list HSG-4 and shows 28 days; confirm first.",
+    "options": [
+     "Supplier email to SUP-VALO (Valoria Metals) to confirm tariff scope, effective date and landed-cost change. Cost EUR 0; reply requested in five working days. Drafted and held for the Head of Supply Chain. Ranked 1.",
+     "PO to qualified alternate SUP-RHEIN (Rheinwerk Components). Lead time 35 days, price index 1.1, i.e. about EUR 13.20 per unit against EUR 12; roughly EUR 264 a day extra at 220 units a day, against up to about EUR 660 a day if the full 25% landed on Valoria's price. Illustrative 35-day quantity of 7,700 units is about EUR 101,640. Not drafted: only worthwhile if Valoria's confirmed increase exceeds about 10%. Would be held for the Head of Supply Chain. Ranked 2, conditional.",
+     "Expedite on an open order with SUP-VALO. Rejected: 50 days of cover against a 21-day buffer, so there is no shortage to buy off, and pulling stock forward ahead of an unconfirmed tariff spends money on an unknown.",
+     "Re-allocation of committed supply between customers or plants. Rejected: no supply shortfall; the five open orders (EUR 1,116,000) are touched in value, not at risk of being missed.",
+     "Wait without action. Rejected: the email costs nothing and resolves the main unknowns."
+    ],
+    "lesson": "For a verified cost event on a multi-source part with cover above buffer, ask the incumbent for the real landed-cost change first, and compare it with the qualified alternate's premium before drafting any order.",
+    "drafts_held": [
+     {
+      "kind": "email",
+      "by": "sourcing-options",
+      "to": "SUP-VALO",
+      "subject": "HSG-4: effect of announced 25% aluminium housing tariff on your shipments to Halden",
+      "body": "Dear Valoria Metals team,\n\nA 25% tariff on imported aluminium housings has been announced. We are assessing whether it affects the Aluminium Housing HSG-4 you supply to Halden Industrial, and we would be grateful for your confirmation of the following:\n\n1. Country of origin and shipping route for HSG-4 (finished housings and, if relevant, the castings or extrusions they are made from), and whether any of our deliveries fall within the scope of the tariff.\n2. If they do: the effective date, and the landed-cost change per unit you expect on open and future orders.\n3. Whether you intend to pass any of the cost on, and from which order or delivery date.\n4. Whether your current 21-day lead time and our open orders are otherwise unaffected.\n\nWe currently hold adequate stock, so this is a cost question rather than a supply one, but we would appreciate a reply within five working days so that we can plan.\n\nKind regards,\nSupply Chain, Halden Industrial",
+      "status": "drafted, held for the Head of Supply Chain to sign off",
+      "held_for": "Head of Supply Chain",
+      "action_type": "supplier_email",
+      "rule": "P-006,P-009"
+     }
+    ],
+    "refused": []
+   },
+   "drafts_held": [
+    {
+     "kind": "email",
+     "by": "sourcing-options",
+     "to": "SUP-VALO",
+     "subject": "HSG-4: effect of announced 25% aluminium housing tariff on your shipments to Halden",
+     "body": "Dear Valoria Metals team,\n\nA 25% tariff on imported aluminium housings has been announced. We are assessing whether it affects the Aluminium Housing HSG-4 you supply to Halden Industrial, and we would be grateful for your confirmation of the following:\n\n1. Country of origin and shipping route for HSG-4 (finished housings and, if relevant, the castings or extrusions they are made from), and whether any of our deliveries fall within the scope of the tariff.\n2. If they do: the effective date, and the landed-cost change per unit you expect on open and future orders.\n3. Whether you intend to pass any of the cost on, and from which order or delivery date.\n4. Whether your current 21-day lead time and our open orders are otherwise unaffected.\n\nWe currently hold adequate stock, so this is a cost question rather than a supply one, but we would appreciate a reply within five working days so that we can plan.\n\nKind regards,\nSupply Chain, Halden Industrial",
+     "status": "drafted, held for the Head of Supply Chain to sign off",
+     "held_for": "Head of Supply Chain",
+     "action_type": "supplier_email",
+     "rule": "P-006,P-009"
+    }
+   ],
+   "refused": []
+  }
+ ],
+ "exposures": {
+  "EV-02": {
+   "event": "EV-02",
+   "headline": "25% tariff announced on imported aluminium housings",
+   "material": true,
+   "kind": "cost",
+   "affected_parts": [
+    "HSG-4"
+   ],
+   "affected_products": [
+    "PRD-A",
+    "PRD-C",
+    "PRD-D",
+    "PRD-F"
+   ],
+   "revenue_at_risk_eur": 1116000,
+   "min_days_of_cover": 50,
+   "confidence": "medium",
+   "assessment": "Verified tariff on HSG-4, a multi-source, non-critical housing used in PRD-A, PRD-C, PRD-D and PRD-F. It is a cost event, not a supply interruption: cover is 50 days against the 21-day buffer. Five open orders (CO-001, 003, 004, 005, 007) worth EUR 1,116,000 use the part; that is the order value touched, not expected lost revenue. Not known: which import jurisdiction applies, whether SUP-VALO's shipments fall under it, and the actual landed-cost increase.",
+   "lesson": "A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact.",
+   "verified_event": true
+  }
+ },
+ "ladder": [
+  {
+   "type": "supplier_email",
+   "level": "propose",
+   "ceiling": "act_with_check",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "0 of 5 sound cases since the last move."
+  },
+  {
+   "type": "expedite",
+   "level": "propose",
+   "ceiling": "act_with_check",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "0 of 5 sound cases since the last move."
+  },
+  {
+   "type": "new_po_qualified",
+   "level": "propose",
+   "ceiling": "act_with_check",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "0 of 5 sound cases since the last move."
+  },
+  {
+   "type": "new_po_unqualified",
+   "level": "watch",
+   "ceiling": "watch",
+   "cases_since_last_move": 0,
+   "in_window": 0,
+   "failed": 0,
+   "serious": 0,
+   "failed_share": 0.0,
+   "ready_for_step_up": false,
+   "next": null,
+   "waits_for": "At its ceiling (Watch): a company rule, not a threshold."
+  }
+ ],
+ "ladder_names": {
+  "watch": "Watch",
+  "propose": "Propose",
+  "act_with_check": "Act with check",
+  "act_alone": "Act alone"
+ },
+ "moves": [],
+ "cases": [
+  {
+   "about_id": "HSG-4",
+   "parts": [
+    "HSG-4"
+   ],
+   "event": "EV-02",
+   "kind": "cost",
+   "material": true,
+   "lesson": "A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact."
+  }
+ ],
+ "held": [
+  {
+   "kind": "email",
+   "by": "sourcing-options",
+   "to": "SUP-VALO",
+   "subject": "HSG-4: effect of announced 25% aluminium housing tariff on your shipments to Halden",
+   "body": "Dear Valoria Metals team,\n\nA 25% tariff on imported aluminium housings has been announced. We are assessing whether it affects the Aluminium Housing HSG-4 you supply to Halden Industrial, and we would be grateful for your confirmation of the following:\n\n1. Country of origin and shipping route for HSG-4 (finished housings and, if relevant, the castings or extrusions they are made from), and whether any of our deliveries fall within the scope of the tariff.\n2. If they do: the effective date, and the landed-cost change per unit you expect on open and future orders.\n3. Whether you intend to pass any of the cost on, and from which order or delivery date.\n4. Whether your current 21-day lead time and our open orders are otherwise unaffected.\n\nWe currently hold adequate stock, so this is a cost question rather than a supply one, but we would appreciate a reply within five working days so that we can plan.\n\nKind regards,\nSupply Chain, Halden Industrial",
+   "status": "drafted, held for the Head of Supply Chain to sign off",
+   "held_for": "Head of Supply Chain",
+   "action_type": "supplier_email",
+   "rule": "P-006,P-009"
+  }
+ ],
+ "score": {
+  "events_compared": 1,
+  "agreed": 1,
+  "differences": []
+ },
+ "refused": [
+  {
+   "agent": "sourcing-options",
+   "rule": "P-006,P-009",
+   "reason": "Email to an address outside the company needs a named human approver.",
+   "operation": "draft_supplier_email"
+  }
+ ],
+ "handed_back": [],
+ "audit": {
+  "records": 11,
+  "chain": "chain intact"
+ },
+ "models": {
+  "disruption-monitor": "claude-fable-5-2, effort medium",
+  "sourcing-options": "claude-fable-5-2, effort medium"
+ },
+ "runs": [
+  {
+   "agent": "disruption-monitor",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "event": "EV-02",
+    "headline": "25% tariff announced on imported aluminium housings",
+    "material": true,
+    "kind": "cost",
+    "affected_parts": [
+     "HSG-4"
+    ],
+    "affected_products": [
+     "PRD-A",
+     "PRD-C",
+     "PRD-D",
+     "PRD-F"
+    ],
+    "revenue_at_risk_eur": 1116000,
+    "min_days_of_cover": 50,
+    "confidence": "medium",
+    "assessment": "Verified tariff on HSG-4, a multi-source, non-critical housing used in PRD-A, PRD-C, PRD-D and PRD-F. It is a cost event, not a supply interruption: cover is 50 days against the 21-day buffer. Five open orders (CO-001, 003, 004, 005, 007) worth EUR 1,116,000 use the part; that is the order value touched, not expected lost revenue. Not known: which import jurisdiction applies, whether SUP-VALO's shipments fall under it, and the actual landed-cost increase.",
+    "lesson": "A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact.",
+    "verified_event": true
+   },
+   "turns": 2,
+   "tokens": {
+    "input": 5825,
+    "output": 915
+   },
+   "seconds": 8.73,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_event",
+       "input": {},
+       "result": {
+        "id": "EV-02",
+        "date": "2026-01-14",
+        "source": "Larkspur Supply Signals",
+        "type": "tariff",
+        "about": {
+         "kind": "part",
+         "id": "HSG-4"
+        },
+        "severity": "medium",
+        "verified": true,
+        "headline": "25% tariff announced on imported aluminium housings",
+        "text": "A 25% import tariff on aluminium housings takes effect next month, raising the landed cost of HSG-4."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_part",
+       "input": {
+        "part": "HSG-4"
+       },
+       "result": {
+        "id": "HSG-4",
+        "name": "Aluminium Housing HSG-4",
+        "family": "housings",
+        "primary_supplier": "SUP-VALO",
+        "single_source": false,
+        "unit_cost_eur": 12,
+        "on_hand": 11000,
+        "daily_consumption": 220,
+        "days_of_cover": 50
+       },
+       "failed": false
+      },
+      {
+       "tool": "trace_exposure",
+       "input": {
+        "kind": "part",
+        "id": "HSG-4"
+       },
+       "result": {
+        "about": {
+         "kind": "part",
+         "id": "HSG-4"
+        },
+        "affected_parts": [
+         {
+          "id": "HSG-4",
+          "name": "Aluminium Housing HSG-4",
+          "single_source": false,
+          "days_of_cover": 50
+         }
+        ],
+        "affected_products": [
+         {
+          "id": "PRD-A",
+          "name": "Drive Unit HX-200",
+          "region": "Europe"
+         },
+         {
+          "id": "PRD-C",
+          "name": "Power Module PM-900",
+          "region": "Americas"
+         },
+         {
+          "id": "PRD-D",
+          "name": "Control Cabinet CC-12",
+          "region": "Europe"
+         },
+         {
+          "id": "PRD-F",
+          "name": "Drive Unit HX-400",
+          "region": "Americas"
+         }
+        ],
+        "affected_orders": [
+         {
+          "id": "CO-001",
+          "product": "PRD-A",
+          "qty": 20,
+          "revenue_eur": 360000,
+          "due": "2026-03-16",
+          "customer": "Aurora Rail",
+          "region": "Europe"
+         },
+         {
+          "id": "CO-003",
+          "product": "PRD-C",
+          "qty": 8,
+          "revenue_eur": 336000,
+          "due": "2026-03-20",
+          "customer": "Cardinal Utilities",
+          "region": "Americas"
+         },
+         {
+          "id": "CO-004",
+          "product": "PRD-F",
+          "qty": 6,
+          "revenue_eur": 186000,
+          "due": "2026-03-11",
+          "customer": "Delmar Transit",
+          "region": "Americas"
+         },
+         {
+          "id": "CO-005",
+          "product": "PRD-D",
+          "qty": 12,
+          "revenue_eur": 144000,
+          "due": "2026-03-25",
+          "customer": "Evershed Metro",
+          "region": "Europe"
+         },
+         {
+          "id": "CO-007",
+          "product": "PRD-A",
+          "qty": 5,
+          "revenue_eur": 90000,
+          "due": "2026-03-13",
+          "customer": "Granholm AG",
+          "region": "Europe"
+         }
+        ],
+        "revenue_at_risk_eur": 1116000,
+        "min_days_of_cover": 50,
+        "note": "Revenue at risk is the sum of open customer orders for the affected products, from the ERP. It is a measured figure of synthetic data, not a forecast."
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_cases",
+       "input": {},
+       "result": {
+        "earlier_cases": [],
+        "note": "Each lesson is the monitor's own sentence about one earlier event. It is not a rule."
+       },
+       "failed": false
+      },
+      {
+       "tool": "search_events",
+       "input": {
+        "about": "HSG-4"
+       },
+       "result": [
+        {
+         "id": "EV-02",
+         "date": "2026-01-14",
+         "type": "tariff",
+         "about": {
+          "kind": "part",
+          "id": "HSG-4"
+         },
+         "severity": "medium",
+         "verified": true,
+         "headline": "25% tariff announced on imported aluminium housings"
+        }
+       ],
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "file_exposure",
+       "input": {
+        "material": "yes",
+        "kind": "cost",
+        "affected_products": [
+         "PRD-A",
+         "PRD-C",
+         "PRD-D",
+         "PRD-F"
+        ],
+        "revenue_at_risk_eur": 1116000,
+        "min_days_of_cover": 50,
+        "confidence": "medium",
+        "assessment": "Verified tariff on HSG-4, a multi-source, non-critical housing used in PRD-A, PRD-C, PRD-D and PRD-F. It is a cost event, not a supply interruption: cover is 50 days against the 21-day buffer. Five open orders (CO-001, 003, 004, 005, 007) worth EUR 1,116,000 use the part; that is the order value touched, not expected lost revenue. Not known: which import jurisdiction applies, whether SUP-VALO's shipments fall under it, and the actual landed-cost increase.",
+        "lesson": "A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact."
+       },
+       "result": {
+        "event": "EV-02",
+        "headline": "25% tariff announced on imported aluminium housings",
+        "material": true,
+        "kind": "cost",
+        "affected_parts": [
+         "HSG-4"
+        ],
+        "affected_products": [
+         "PRD-A",
+         "PRD-C",
+         "PRD-D",
+         "PRD-F"
+        ],
+        "revenue_at_risk_eur": 1116000,
+        "min_days_of_cover": 50,
+        "confidence": "medium",
+        "assessment": "Verified tariff on HSG-4, a multi-source, non-critical housing used in PRD-A, PRD-C, PRD-D and PRD-F. It is a cost event, not a supply interruption: cover is 50 days against the 21-day buffer. Five open orders (CO-001, 003, 004, 005, 007) worth EUR 1,116,000 use the part; that is the order value touched, not expected lost revenue. Not known: which import jurisdiction applies, whether SUP-VALO's shipments fall under it, and the actual landed-cost increase.",
+        "lesson": "A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact.",
+        "verified_event": true
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "agent": "sourcing-options",
+   "model": "claude-fable-5-2, effort medium",
+   "ended": "handed in",
+   "result": {
+    "event": "EV-02",
+    "recommendation": "Cost event, not a stoppage: HSG-4 has 50 days of cover against a 21-day buffer. 1) Email to Valoria (SUP-VALO) asking whether the tariff applies and the landed-cost change: drafted, held for the Head of Supply Chain to sign off; no cost, reply asked within five working days. 2) If Valoria confirms an increase above about 10%, a PO to qualified Rheinwerk (SUP-RHEIN, 35 days, price index 1.1): not drafted; would need sign-off. 3) No expedite or re-allocation. Not known: jurisdiction, whether Valoria's shipments are in scope, actual cost. Rheinwerk's ERP record does not list HSG-4 and shows 28 days; confirm first.",
+    "options": [
+     "Supplier email to SUP-VALO (Valoria Metals) to confirm tariff scope, effective date and landed-cost change. Cost EUR 0; reply requested in five working days. Drafted and held for the Head of Supply Chain. Ranked 1.",
+     "PO to qualified alternate SUP-RHEIN (Rheinwerk Components). Lead time 35 days, price index 1.1, i.e. about EUR 13.20 per unit against EUR 12; roughly EUR 264 a day extra at 220 units a day, against up to about EUR 660 a day if the full 25% landed on Valoria's price. Illustrative 35-day quantity of 7,700 units is about EUR 101,640. Not drafted: only worthwhile if Valoria's confirmed increase exceeds about 10%. Would be held for the Head of Supply Chain. Ranked 2, conditional.",
+     "Expedite on an open order with SUP-VALO. Rejected: 50 days of cover against a 21-day buffer, so there is no shortage to buy off, and pulling stock forward ahead of an unconfirmed tariff spends money on an unknown.",
+     "Re-allocation of committed supply between customers or plants. Rejected: no supply shortfall; the five open orders (EUR 1,116,000) are touched in value, not at risk of being missed.",
+     "Wait without action. Rejected: the email costs nothing and resolves the main unknowns."
+    ],
+    "lesson": "For a verified cost event on a multi-source part with cover above buffer, ask the incumbent for the real landed-cost change first, and compare it with the qualified alternate's premium before drafting any order.",
+    "drafts_held": [
+     {
+      "kind": "email",
+      "by": "sourcing-options",
+      "to": "SUP-VALO",
+      "subject": "HSG-4: effect of announced 25% aluminium housing tariff on your shipments to Halden",
+      "body": "Dear Valoria Metals team,\n\nA 25% tariff on imported aluminium housings has been announced. We are assessing whether it affects the Aluminium Housing HSG-4 you supply to Halden Industrial, and we would be grateful for your confirmation of the following:\n\n1. Country of origin and shipping route for HSG-4 (finished housings and, if relevant, the castings or extrusions they are made from), and whether any of our deliveries fall within the scope of the tariff.\n2. If they do: the effective date, and the landed-cost change per unit you expect on open and future orders.\n3. Whether you intend to pass any of the cost on, and from which order or delivery date.\n4. Whether your current 21-day lead time and our open orders are otherwise unaffected.\n\nWe currently hold adequate stock, so this is a cost question rather than a supply one, but we would appreciate a reply within five working days so that we can plan.\n\nKind regards,\nSupply Chain, Halden Industrial",
+      "status": "drafted, held for the Head of Supply Chain to sign off",
+      "held_for": "Head of Supply Chain",
+      "action_type": "supplier_email",
+      "rule": "P-006,P-009"
+     }
+    ],
+    "refused": []
+   },
+   "turns": 4,
+   "tokens": {
+    "input": 12787,
+    "output": 2006
+   },
+   "seconds": 21.87,
+   "steps": [
+    {
+     "turn": 1,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_exposure",
+       "input": {},
+       "result": {
+        "event": "EV-02",
+        "headline": "25% tariff announced on imported aluminium housings",
+        "material": true,
+        "kind": "cost",
+        "affected_parts": [
+         "HSG-4"
+        ],
+        "affected_products": [
+         "PRD-A",
+         "PRD-C",
+         "PRD-D",
+         "PRD-F"
+        ],
+        "revenue_at_risk_eur": 1116000,
+        "min_days_of_cover": 50,
+        "confidence": "medium",
+        "assessment": "Verified tariff on HSG-4, a multi-source, non-critical housing used in PRD-A, PRD-C, PRD-D and PRD-F. It is a cost event, not a supply interruption: cover is 50 days against the 21-day buffer. Five open orders (CO-001, 003, 004, 005, 007) worth EUR 1,116,000 use the part; that is the order value touched, not expected lost revenue. Not known: which import jurisdiction applies, whether SUP-VALO's shipments fall under it, and the actual landed-cost increase.",
+        "lesson": "A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact.",
+        "verified_event": true
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_part",
+       "input": {
+        "part": "HSG-4"
+       },
+       "result": {
+        "id": "HSG-4",
+        "name": "Aluminium Housing HSG-4",
+        "family": "housings",
+        "primary_supplier": "SUP-VALO",
+        "single_source": false,
+        "unit_cost_eur": 12,
+        "on_hand": 11000,
+        "daily_consumption": 220,
+        "days_of_cover": 50
+       },
+       "failed": false
+      },
+      {
+       "tool": "list_alternates",
+       "input": {
+        "part": "HSG-4"
+       },
+       "result": {
+        "part": "HSG-4",
+        "alternates": [
+         {
+          "supplier": "SUP-RHEIN",
+          "qualified": true,
+          "lead_time_days": 35,
+          "price_index": 1.1,
+          "note": "Qualified; Rheinwerk also tools housings.",
+          "supplier_name": "Rheinwerk Components"
+         }
+        ]
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 2,
+     "said": "",
+     "asked": [
+      {
+       "tool": "read_supplier",
+       "input": {
+        "supplier": "SUP-VALO"
+       },
+       "result": {
+        "id": "SUP-VALO",
+        "name": "Valoria Metals",
+        "region": "Europe",
+        "financial_health": "stable",
+        "supplies": [
+         "HSG-4"
+        ],
+        "lead_time_days": 21
+       },
+       "failed": false
+      },
+      {
+       "tool": "read_supplier",
+       "input": {
+        "supplier": "SUP-RHEIN"
+       },
+       "result": {
+        "id": "SUP-RHEIN",
+        "name": "Rheinwerk Components",
+        "region": "Europe",
+        "financial_health": "stable",
+        "supplies": [
+         "SNS-2",
+         "BRD-1"
+        ],
+        "lead_time_days": 28
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 3,
+     "said": "",
+     "asked": [
+      {
+       "tool": "draft_supplier_email",
+       "input": {
+        "to": "SUP-VALO",
+        "subject": "HSG-4: effect of announced 25% aluminium housing tariff on your shipments to Halden",
+        "body": "Dear Valoria Metals team,\n\nA 25% tariff on imported aluminium housings has been announced. We are assessing whether it affects the Aluminium Housing HSG-4 you supply to Halden Industrial, and we would be grateful for your confirmation of the following:\n\n1. Country of origin and shipping route for HSG-4 (finished housings and, if relevant, the castings or extrusions they are made from), and whether any of our deliveries fall within the scope of the tariff.\n2. If they do: the effective date, and the landed-cost change per unit you expect on open and future orders.\n3. Whether you intend to pass any of the cost on, and from which order or delivery date.\n4. Whether your current 21-day lead time and our open orders are otherwise unaffected.\n\nWe currently hold adequate stock, so this is a cost question rather than a supply one, but we would appreciate a reply within five working days so that we can plan.\n\nKind regards,\nSupply Chain, Halden Industrial"
+       },
+       "result": {
+        "kind": "email",
+        "by": "sourcing-options",
+        "to": "SUP-VALO",
+        "subject": "HSG-4: effect of announced 25% aluminium housing tariff on your shipments to Halden",
+        "body": "Dear Valoria Metals team,\n\nA 25% tariff on imported aluminium housings has been announced. We are assessing whether it affects the Aluminium Housing HSG-4 you supply to Halden Industrial, and we would be grateful for your confirmation of the following:\n\n1. Country of origin and shipping route for HSG-4 (finished housings and, if relevant, the castings or extrusions they are made from), and whether any of our deliveries fall within the scope of the tariff.\n2. If they do: the effective date, and the landed-cost change per unit you expect on open and future orders.\n3. Whether you intend to pass any of the cost on, and from which order or delivery date.\n4. Whether your current 21-day lead time and our open orders are otherwise unaffected.\n\nWe currently hold adequate stock, so this is a cost question rather than a supply one, but we would appreciate a reply within five working days so that we can plan.\n\nKind regards,\nSupply Chain, Halden Industrial",
+        "status": "drafted, held for the Head of Supply Chain to sign off",
+        "held_for": "Head of Supply Chain",
+        "action_type": "supplier_email",
+        "rule": "P-006,P-009"
+       },
+       "failed": false
+      }
+     ]
+    },
+    {
+     "turn": 4,
+     "said": "",
+     "asked": [
+      {
+       "tool": "propose_response",
+       "input": {
+        "recommendation": "Cost event, not a stoppage: HSG-4 has 50 days of cover against a 21-day buffer. 1) Email to Valoria (SUP-VALO) asking whether the tariff applies and the landed-cost change: drafted, held for the Head of Supply Chain to sign off; no cost, reply asked within five working days. 2) If Valoria confirms an increase above about 10%, a PO to qualified Rheinwerk (SUP-RHEIN, 35 days, price index 1.1): not drafted; would need sign-off. 3) No expedite or re-allocation. Not known: jurisdiction, whether Valoria's shipments are in scope, actual cost. Rheinwerk's ERP record does not list HSG-4 and shows 28 days; confirm first.",
+        "options": [
+         "Supplier email to SUP-VALO (Valoria Metals) to confirm tariff scope, effective date and landed-cost change. Cost EUR 0; reply requested in five working days. Drafted and held for the Head of Supply Chain. Ranked 1.",
+         "PO to qualified alternate SUP-RHEIN (Rheinwerk Components). Lead time 35 days, price index 1.1, i.e. about EUR 13.20 per unit against EUR 12; roughly EUR 264 a day extra at 220 units a day, against up to about EUR 660 a day if the full 25% landed on Valoria's price. Illustrative 35-day quantity of 7,700 units is about EUR 101,640. Not drafted: only worthwhile if Valoria's confirmed increase exceeds about 10%. Would be held for the Head of Supply Chain. Ranked 2, conditional.",
+         "Expedite on an open order with SUP-VALO. Rejected: 50 days of cover against a 21-day buffer, so there is no shortage to buy off, and pulling stock forward ahead of an unconfirmed tariff spends money on an unknown.",
+         "Re-allocation of committed supply between customers or plants. Rejected: no supply shortfall; the five open orders (EUR 1,116,000) are touched in value, not at risk of being missed.",
+         "Wait without action. Rejected: the email costs nothing and resolves the main unknowns."
+        ],
+        "lesson": "For a verified cost event on a multi-source part with cover above buffer, ask the incumbent for the real landed-cost change first, and compare it with the qualified alternate's premium before drafting any order."
+       },
+       "result": {
+        "event": "EV-02",
+        "recommendation": "Cost event, not a stoppage: HSG-4 has 50 days of cover against a 21-day buffer. 1) Email to Valoria (SUP-VALO) asking whether the tariff applies and the landed-cost change: drafted, held for the Head of Supply Chain to sign off; no cost, reply asked within five working days. 2) If Valoria confirms an increase above about 10%, a PO to qualified Rheinwerk (SUP-RHEIN, 35 days, price index 1.1): not drafted; would need sign-off. 3) No expedite or re-allocation. Not known: jurisdiction, whether Valoria's shipments are in scope, actual cost. Rheinwerk's ERP record does not list HSG-4 and shows 28 days; confirm first.",
+        "options": [
+         "Supplier email to SUP-VALO (Valoria Metals) to confirm tariff scope, effective date and landed-cost change. Cost EUR 0; reply requested in five working days. Drafted and held for the Head of Supply Chain. Ranked 1.",
+         "PO to qualified alternate SUP-RHEIN (Rheinwerk Components). Lead time 35 days, price index 1.1, i.e. about EUR 13.20 per unit against EUR 12; roughly EUR 264 a day extra at 220 units a day, against up to about EUR 660 a day if the full 25% landed on Valoria's price. Illustrative 35-day quantity of 7,700 units is about EUR 101,640. Not drafted: only worthwhile if Valoria's confirmed increase exceeds about 10%. Would be held for the Head of Supply Chain. Ranked 2, conditional.",
+         "Expedite on an open order with SUP-VALO. Rejected: 50 days of cover against a 21-day buffer, so there is no shortage to buy off, and pulling stock forward ahead of an unconfirmed tariff spends money on an unknown.",
+         "Re-allocation of committed supply between customers or plants. Rejected: no supply shortfall; the five open orders (EUR 1,116,000) are touched in value, not at risk of being missed.",
+         "Wait without action. Rejected: the email costs nothing and resolves the main unknowns."
+        ],
+        "lesson": "For a verified cost event on a multi-source part with cover above buffer, ask the incumbent for the real landed-cost change first, and compare it with the qualified alternate's premium before drafting any order.",
+        "drafts_held": [
+         {
+          "kind": "email",
+          "by": "sourcing-options",
+          "to": "SUP-VALO",
+          "subject": "HSG-4: effect of announced 25% aluminium housing tariff on your shipments to Halden",
+          "body": "Dear Valoria Metals team,\n\nA 25% tariff on imported aluminium housings has been announced. We are assessing whether it affects the Aluminium Housing HSG-4 you supply to Halden Industrial, and we would be grateful for your confirmation of the following:\n\n1. Country of origin and shipping route for HSG-4 (finished housings and, if relevant, the castings or extrusions they are made from), and whether any of our deliveries fall within the scope of the tariff.\n2. If they do: the effective date, and the landed-cost change per unit you expect on open and future orders.\n3. Whether you intend to pass any of the cost on, and from which order or delivery date.\n4. Whether your current 21-day lead time and our open orders are otherwise unaffected.\n\nWe currently hold adequate stock, so this is a cost question rather than a supply one, but we would appreciate a reply within five working days so that we can plan.\n\nKind regards,\nSupply Chain, Halden Industrial",
+          "status": "drafted, held for the Head of Supply Chain to sign off",
+          "held_for": "Head of Supply Chain",
+          "action_type": "supplier_email",
+          "rule": "P-006,P-009"
+         }
+        ],
+        "refused": []
+       },
+       "failed": false
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "tokens": {
+  "input": 18612,
+  "output": 2921
+ },
+ "seconds_to_page": 30.61,
+ "page": "# Supply chain disruption: what does this event do to us, and who signs off?\n\nFor the Head of Supply Chain. Session: A tariff on HSG-4 (a cost, not a stoppage). Systems as of 2026-02-13. All data is synthetic (Halden Industrial). The risk feed (Larkspur Supply Signals) and the ERP (Fenmark MRP) are stand-ins under invented vendor names; no real system is connected.\n\n**The question:** A tariff raises the cost of a part used by four products. What is the exposure, and what is held for sign-off?\n\n## What needs your decision\n\n- **Sign-off, for you:** email to SUP-VALO. Drafted, not sent.\n\n## The exposure, mapped onto the bill of materials\n\n| Event | Material | Kind | Parts | Products | Revenue at risk | Cover (days) | Confidence |\n|---|---|---|---|---|---|---|---|\n| EV-02 | yes | cost | HSG-4 | PRD-A, PRD-C, PRD-D, PRD-F | EUR 1,116,000 | 50 | medium |\n\n**EV-02** (25% tariff announced on imported aluminium housings), the monitor's assessment:\n> Verified tariff on HSG-4, a multi-source, non-critical housing used in PRD-A, PRD-C, PRD-D and PRD-F. It is a cost event, not a supply interruption: cover is 50 days against the 21-day buffer. Five open orders (CO-001, 003, 004, 005, 007) worth EUR 1,116,000 use the part; that is the order value touched, not expected lost revenue. Not known: which import jurisdiction applies, whether SUP-VALO's shipments fall under it, and the actual landed-cost increase.\nWhat it keeps for the next event:\n> A verified tariff on a multi-source part with cover above buffer is a cost exposure, not a stoppage; report traced order value as touched, not lost, and state the unknown jurisdiction and cost impact.\n\n## What the sourcing agent proposed\n\n**Event EV-02**, the sourcing agent's recommendation:\n> Cost event, not a stoppage: HSG-4 has 50 days of cover against a 21-day buffer. 1) Email to Valoria (SUP-VALO) asking whether the tariff applies and the landed-cost change: drafted, held for the Head of Supply Chain to sign off; no cost, reply asked within five working days. 2) If Valoria confirms an increase above about 10%, a PO to qualified Rheinwerk (SUP-RHEIN, 35 days, price index 1.1): not drafted; would need sign-off. 3) No expedite or re-allocation. Not known: jurisdiction, whether Valoria's shipments are in scope, actual cost. Rheinwerk's ERP record does not list HSG-4 and shows 28 days; confirm first.\nOptions it weighed:\n- Supplier email to SUP-VALO (Valoria Metals) to confirm tariff scope, effective date and landed-cost change. Cost EUR 0; reply requested in five working days. Drafted and held for the Head of Supply Chain. Ranked 1.\n- PO to qualified alternate SUP-RHEIN (Rheinwerk Components). Lead time 35 days, price index 1.1, i.e. about EUR 13.20 per unit against EUR 12; roughly EUR 264 a day extra at 220 units a day, against up to about EUR 660 a day if the full 25% landed on Valoria's price. Illustrative 35-day quantity of 7,700 units is about EUR 101,640. Not drafted: only worthwhile if Valoria's confirmed increase exceeds about 10%. Would be held for the Head of Supply Chain. Ranked 2, conditional.\n- Expedite on an open order with SUP-VALO. Rejected: 50 days of cover against a 21-day buffer, so there is no shortage to buy off, and pulling stock forward ahead of an unconfirmed tariff spends money on an unknown.\n- Re-allocation of committed supply between customers or plants. Rejected: no supply shortfall; the five open orders (EUR 1,116,000) are touched in value, not at risk of being missed.\n- Wait without action. Rejected: the email costs nothing and resolves the main unknowns.\nDrafts held for the Head of Supply Chain: email to SUP-VALO.\nWhat it keeps for the next event:\n> For a verified cost event on a multi-source part with cover above buffer, ask the incumbent for the real landed-cost change first, and compare it with the qualified alternate's premium before drafting any order.\n\n## The autonomy ladder after this session\n\n| Action type | Rung | Ceiling | Sound cases since last move | Not sound | Serious | Step up |\n|---|---|---|---|---|---|---|\n| supplier_email | Propose | Act with check | 0 | 0 | 0 | 0 of 5 sound cases since the last move. |\n| expedite | Propose | Act with check | 0 | 0 | 0 | 0 of 5 sound cases since the last move. |\n| new_po_qualified | Propose | Act with check | 0 | 0 | 0 | 0 of 5 sound cases since the last move. |\n| new_po_unqualified | Watch | Watch | 0 | 0 | 0 | At its ceiling (Watch): a company rule, not a threshold. |\n\n## What was held for you, drafted and not sent\n\n| Draft | Part | Supplier / to | Amount | Action type | Held for |\n|---|---|---|---|---|---|\n| email | — | SUP-VALO | — | supplier_email | Head of Supply Chain |\n\n## What was refused or held\n\n| Agent | Step | Stopped or held by | Reason | Times |\n|---|---|---|---|---|\n| sourcing-options | draft_supplier_email | Control Tower rule P-006,P-009 | held for a person: Email to an address outside the company needs a named human approver. | 1 |\n\n## How this page was made\n\n- disruption-monitor: claude-fable-5-2, effort medium; sourcing-options: claude-fable-5-2, effort medium.\n- Agent turns: disruption-monitor 2 (handed in), sourcing-options 4 (handed in).\n- Tokens: 18,612 in, 2,921 out. 30.61 seconds from the first step to this page.\n- The Control Tower recorded 11 steps for this session; chain intact.\n- Checked afterwards against the answer key, which no agent was shown: 1 of 1 assessments agree on whether the event was material and which products it hit.\n- Hand-ins the harness did not accept and handed back for correction: 0.\n- The monitor has no tool that moves money or supply. Every purchase order and every email is held for the Head of Supply Chain. A step up on the ladder is never taken by an agent.\n"
+}
