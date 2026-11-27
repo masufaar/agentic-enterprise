@@ -70,3 +70,13 @@ Mario ran the real-model commands with his key, in his cloned repo (`C:\\Users\\
 ### Tokens (assistant, this session)
 
 Estimated, main model (Opus 4.8): about 200,000 in, 10,000 out — orientation, reading both repo copies, the four run records, the article check, and preparing these edits and the push.
+
+
+## Session 3 — 25 November 2026 (the ledger line)
+
+- **D13. A measured line in the value ledger, next to the synthetic one.** `solutions/10-ai-value-ledger/data/portfolio.json` gains `sourcing-options`: the monitor and the sourcing options agent priced together per feed signal from this solution's 5 recorded agent runs. EUR 0.17 a signal (upper bound); at 2,400 signals a year and 180 build hours (both assumptions) EUR 17,511 in the first year. The share of signals that reach the sourcing agent, 0.5, is an assumption from the synthetic feed (4 of 8 material). No benefit is claimed: EUR 1,143,000 is an exposure mapped, not a return. The synthetic `disruption-monitor` line is untouched (D9 holds). Reasons and alternatives: solution 10 BUILD_LOG, D24 to D31.
+- **D14. Root page and roadmap updated** to "Working (blueprint)" for this solution; they had been missed in the push of D10.
+
+### Tokens (assistant, this session)
+
+Estimated, main model (Claude Fable 5.2): about 120,000 in, 18,000 out for the ledger step, counted once here and in solution 10's log.

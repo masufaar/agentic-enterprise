@@ -193,3 +193,52 @@ def test_the_page_says_what_the_service_desk_measurement_does_not_show():
                     "tokens": {"input": 0, "output": 0}, "seconds_to_page": 0.0})
     assert "a verified resolution on claude-fable-5-2" in written
     assert "not tickets whose fix held" in written
+
+
+# -- the war room line: cost per feed signal, and no benefit counted twice ----
+def _war_room_line():
+    return build({"agents": ["sourcing-options"]})["lines"][0]
+
+
+def test_the_war_room_is_priced_per_feed_signal_from_its_agent_runs():
+    """Solution 03 runs the monitor on every signal and the sourcing agent only on a material one.
+    The unit is one monitor run plus the stated share of a sourcing run, from the individual runs."""
+    import json
+    from ledger import SOLUTIONS
+    folder = SOLUTIONS / "03-supply-chain-disruption-war-room" / "reports" / "runs"
+    runs = [r for p in sorted(folder.glob("*.json")) for r in json.loads(p.read_text(encoding="utf-8"))["runs"]]
+    average = {a: {s: sum(r["tokens"][s] for r in runs if r["agent"] == a) / sum(r["agent"] == a for r in runs)
+                   for s in ("input", "output")} for a in ("disruption-monitor", "sourcing-options")}
+    entry = next(a for a in PORTFOLIO["agents"] if a["id"] == "sourcing-options")
+    share = entry["cost"]["unit"]["runs_per_unit"]["sourcing-options"]
+    cost = _war_room_line()["cost"]
+    assert cost["basis"] == "measured" and cost["unit"] == "feed signal"
+    assert cost["evidence"]["runs_recorded"] == len(runs)
+    for side in ("input", "output"):
+        assert cost["tokens_per_run"][side] == round(average["disruption-monitor"][side]
+                                                     + share * average["sourcing-options"][side])
+    assert "assumption" in entry["cost"]["unit"]["basis"] and "assumption" in cost["runs_per_year_basis"]
+    assert "upper bound" in cost["evidence"]["note"]
+    assert not any("redteam" in f for f in cost["evidence"]["files"])
+
+
+def test_solution_03_has_two_lines_and_its_benefit_is_counted_once():
+    """The company's claim stays on its own line with an assumed cost. The line measured in this
+    repository claims nothing: an exposure the agents mapped is not a return."""
+    built = build({"agents": ["disruption-monitor", "sourcing-options"]})
+    company, repository = built["lines"]
+    assert company["cost"]["basis"] == "assumed" and company["benefit"]["grade"] == "calculated"
+    assert repository["benefit"]["value_eur"] == 0 and repository["benefit"]["grade"] == "claimed"
+    assert "exposure" in repository["benefit"]["why"]
+    assert built["totals_by_grade"]["calculated"]["benefit_eur"] == 240000
+    assert built["totals_by_grade"]["claimed"]["benefit_eur"] == 0
+
+
+def test_the_war_room_owner_is_the_owner_on_the_registry_card():
+    import json
+    from ledger import CONTROL_TOWER
+    cards = json.loads((CONTROL_TOWER / "data" / "agents.json").read_text(encoding="utf-8"))
+    cards = cards if isinstance(cards, list) else cards.get("agents", list(cards.values()))
+    owners = {c["id"]: c["owner"] for c in cards if isinstance(c, dict)}
+    line = _war_room_line()
+    assert owners["sourcing-options"] == line["owner"] == line["benefit"]["stated_by"]

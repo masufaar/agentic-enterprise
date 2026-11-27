@@ -1,5 +1,5 @@
 {
-  "_note": "Synthetic. The AI portfolio of Halden Industrial as the ledger reads it: one entry per registered agent that costs money. 'state_in_the_company' is what the fictional company says that agent does today; it is not the same as what this repository has behind the agent's card, which the Control Tower registry states. The ledger shows both, because a benefit measured in a company system can only belong to an agent that was running when it was measured. All figures are the fictional company's, except the cost of the Sentinel line and of the service desk line, which is read from the real run records in this repository. The service desk line carries two registered agents, the resolution agent and the verifier that checks its closures, priced together per verified resolution. People appear by role only.",
+  "_note": "Synthetic. The AI portfolio of Halden Industrial as the ledger reads it: one entry per registered agent that costs money. 'state_in_the_company' is what the fictional company says that agent does today; it is not the same as what this repository has behind the agent's card, which the Control Tower registry states. The ledger shows both, because a benefit measured in a company system can only belong to an agent that was running when it was measured. All figures are the fictional company's, except the cost of the Sentinel line, of the service desk line and of the war room line (sourcing-options), which is read from the real run records in this repository. The service desk line carries two registered agents, the resolution agent and the verifier that checks its closures, priced together per verified resolution. Solution 03 has two lines on purpose: disruption-monitor is the company's own claim about a monitor it says it runs, with an assumed cost; sourcing-options carries the two agents this repository has built and run, the disruption monitor and the sourcing options agent, priced together per feed signal assessed from their recorded runs, with no benefit claimed. People appear by role only.",
   "year": 2026,
   "build_hour_eur": 95,
   "build_hour_basis": "assumption: fully loaded internal cost of one engineering hour",
@@ -162,6 +162,33 @@
         }
       },
       "state_in_the_company": "Running since 2026-09-01 on the transformation portfolio only."
+    },
+    {
+      "id": "sourcing-options",
+      "name": "Supply chain war room: disruption monitor with sourcing options, as built in this repository",
+      "solution": "03-supply-chain-disruption-war-room",
+      "owner": "Chief Procurement Officer",
+      "cost": {
+        "from_agent_runs": "03-supply-chain-disruption-war-room",
+        "unit": {
+          "name": "feed signal",
+          "runs_per_unit": {
+            "disruption-monitor": 1,
+            "sourcing-options": 0.5
+          },
+          "basis": "One feed signal assessed is one run of the disruption monitor, plus one run of the sourcing options agent when the monitor judges the signal material. The share 0.5 is an assumption taken from the synthetic feed: 4 of its 8 signals are material (solutions/03-supply-chain-disruption-war-room/data/answer-key.json). The three recorded runs are examples, not a rate."
+        },
+        "runs_per_year": 2400,
+        "runs_per_year_basis": "assumption: one feed signal a month for each of the top 200 suppliers",
+        "build_hours": 180,
+        "build_hours_basis": "assumption: the fictional company's effort to tailor the blueprint to its own systems"
+      },
+      "claim": {
+        "value_eur": 0,
+        "stated_by": "Chief Procurement Officer",
+        "note": "No benefit is claimed on this line. The agents behind it have run in this repository on synthetic data only, so no company system can have measured a return. The EUR 1,143,000 of open orders mapped in the recorded single-source halt is an exposure the agents made visible, not a benefit. The company's own claim for supply chain monitoring stays on the disruption-monitor line."
+      },
+      "state_in_the_company": "Not running in the company. Working as a blueprint in this repository: three recorded runs with a real model on 2026-11-25, nothing connected to a real system."
     }
   ],
   "measurements": {

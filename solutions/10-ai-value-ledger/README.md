@@ -1,6 +1,6 @@
 # AI Value Ledger
 
-**Status: working as a blueprint. The ledger is fixed code and the analyst agent runs on a real model, on synthetic data, with three recorded runs (20 November 2026); not connected to real systems.** Each scenario has run once, so these are observations, not rates. The cost of two lines is not synthetic: it is read from the real run records of [solution 02](../02-ot-it-convergence-sentinel/) and [solution 07](../07-self-healing-service-desk/) in this repository. Still designed: the ledger reading its own review runs, and more than one measurement record in the portfolio.
+**Status: working as a blueprint. The ledger is fixed code and the analyst agent runs on a real model, on synthetic data, with three recorded runs (20 November 2026); not connected to real systems.** Each scenario has run once, so these are observations, not rates. The cost of three lines is not synthetic: it is read from the real run records of [solution 02](../02-ot-it-convergence-sentinel/), [solution 07](../07-self-healing-service-desk/) and, since 25 November 2026, [solution 03](../03-supply-chain-disruption-war-room/) in this repository. Still designed: the ledger reading its own review runs, and more than one measurement record in the portfolio.
 
 One line per AI agent: what it cost, what it returned, and how good the evidence behind that number is.
 
@@ -74,6 +74,22 @@ At 46,000 tickets a year (assumption) that is EUR 14,257 of model cost, of which
 
 The red-team records of solution 07 are kept in `reports/redteam/` and are not read: an attack is not a unit of work.
 
+The war room has a measured line as well, since 25 November 2026, and solution 03 now has **two lines on purpose**. `disruption-monitor` is unchanged: the fictional company's claim about a monitor it says it runs, with an assumed cost that grows faster than its use and a calculated benefit of EUR 240,000. `sourcing-options` is what this repository has actually built and run: the disruption monitor and the sourcing options agent, priced together **per feed signal**. The monitor runs on every signal; the sourcing agent runs only when the monitor judges the signal material. The ledger reads the 5 agent runs inside the three scenario records in `solutions/03-supply-chain-disruption-war-room/reports/runs/`, on Claude Fable 5.2 at medium effort:
+
+| Agent | Runs | Average tokens in / out | Share per signal | EUR per run |
+|---|---|---|---|---|
+| Disruption monitor | 3 | 5,805 / 804 | 1 | 0.07 |
+| Sourcing options agent | 2 | 13,702 / 2,630 | 0.5 (assumption) | 0.20 |
+| **One feed signal** | | 12,655 / 2,119 | | **0.17** |
+
+At 2,400 signals a year (assumption: one a month for each of the top 200 suppliers) that is EUR 411 of model cost. Build effort, 180 hours at EUR 95 (assumption), brings the first year to EUR 17,511. Three things to read with it:
+
+- The share 0.5 is an assumption taken from the synthetic feed, where 4 of 8 signals are material. The three recorded runs are examples, not a rate. The share is data in the portfolio file, not code.
+- **No benefit is claimed on this line.** The agents have run on synthetic data only, so no company system can have measured a return. The EUR 1,143,000 of open orders they mapped in the recorded single-source halt is an exposure made visible, not a benefit, and the ledger does not count it. The page shows EUR 0, graded "claimed only", and a net first year of minus EUR 17,511.
+- The EUR 240,000 is therefore counted once, on the company's line, as calculated. Putting it on both lines would have doubled the calculated total.
+
+The live red-team record of solution 03 is in `reports/redteam/` and is not read, for the same reason as above.
+
 The benefit side of that line is still the company's measurement of tickets **closed** without a person. The page says so on the line: a closure that comes back within seven days is not a saving. Designed: from the next quarter the measurement record counts verified resolutions only, from the verifier's findings.
 
 ## The three scenarios
@@ -110,7 +126,7 @@ A review needs a model key: put it in a file and set `HALDEN_MODEL_KEY_FILE` to 
 | `data/prices.json` | Model list prices, with the date they were read and their source |
 | `data/portfolio.json` | The synthetic AI portfolio of Halden Industrial, and the measurements the company holds |
 | `data/scenarios/` | The three scenarios |
-| `tests/` | 40 tests, on the scripted stand-in: no key, no cost |
+| `tests/` | 43 tests, on the scripted stand-in: no key, no cost |
 | `BUILD_LOG.md` | Decisions, alternatives set aside, and tokens per step |
 
 ## The recorded runs of 20 November 2026
@@ -148,7 +164,7 @@ The runs that found this were made before the fix and are not published: their f
 
 ## Limits
 
-- All data is synthetic and belongs to the fictional company Halden Industrial, except the cost of the Sentinel line and of the service desk line.
+- All data is synthetic and belongs to the fictional company Halden Industrial, except the cost of the Sentinel line, of the service desk line and of the war room line (`sourcing-options`).
 - The ledger prices tokens. It does not price the people who run the agents, the systems they call or the licences underneath; build effort is in, as an assumption.
 - The euro rate is an assumption stated in `data/prices.json`.
 - The grade says how good the evidence is, not whether the measurement was well designed. A badly designed measurement still grades as `measured`; the analyst agent is asked to say what was measured and over what period, so a reader can judge it.

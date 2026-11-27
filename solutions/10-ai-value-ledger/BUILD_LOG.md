@@ -116,3 +116,49 @@ A lighter model could have updated the pages once the figures existed. Choosing 
 ### A review on the measured line, 24 November 2026
 
 Mario ran `python -m ledger review pays-back --record`. Measured: 1 agent run, 5 turns, 27,172 tokens in and 3,842 out, 33.55 seconds, USD 0.37 at list price. Handed in and accepted. Verdicts: fund the service desk line; build the evidence for the other two. The agent carried the caveat of D21 into its text for the board without being asked to, and named the seven-day return rate as the first thing to measure. Copied into `reports/runs/` unchanged; searched for a key or an authorisation header: none. The three runs of 20 November stay as they are (D22).
+
+
+## Session 4, 25 November 2026: the war room line is measured (solution 03, ledger step)
+
+Solution 03 has three recorded runs on a real model (5 agent runs). The ledger gains a line that prices them. No model ran in this session; no ledger code changed, only data, tests and pages.
+
+| | Decision | Why | Set aside |
+|---|---|---|---|
+| D24 | Solution 03 has two lines. The synthetic `disruption-monitor` line stays as it is; a new line, `sourcing-options`, carries the two agents this repository has built and run. | The synthetic line is the company's claim about a monitor it says it runs, and the `cost-growing` scenario and two tests rest on it (solution 03, D9). What the repository has behind the cards is a different thing, and showing both is the ledger's purpose. | Replacing the synthetic line; measuring the cost on the synthetic line, which would have removed the growing-cost story. |
+| D25 | The new line uses the service desk path (`from_agent_runs` and a unit), not the Sentinel path (one file per use). | The monitor runs on every signal and the sourcing agent only on a material one: the false-alarm record holds one agent run, the other two hold two. Pricing per file would average a rumour with a full halt. | `from_run_records`, which also filters files by the line's id and would have dropped the false alarm. |
+| D26 | The unit is one feed signal: one monitor run plus 0.5 of a sourcing run. The 0.5 is an assumption, taken from the synthetic feed (4 of 8 signals material in `data/answer-key.json`) and written as data in the portfolio. | The three recorded runs are examples, not a rate, so the share cannot be measured from them. The synthetic feed is the only stated basis. | 2 of 3 from the records; a share of 1.0 as a pure upper bound, which the false-alarm record contradicts. |
+| D27 | 2,400 signals a year (assumption: one a month for each of the top 200 suppliers) and 180 build hours (assumption). Both labelled in the file. | Charter: every figure is measured or labelled as an assumption. The synthetic line's 8,760 hourly sweeps describe a different way of working and were not reused. | Reusing 8,760. |
+| D28 | The line claims no benefit: EUR 0, graded "claimed only", with a note. The EUR 240,000 stays on the company's line. | The agents ran on synthetic data, so no company system can have measured a return. EUR 1,143,000 is an exposure they mapped, not a benefit. The same claim on both lines would have doubled the calculated total. A test pins that the total is counted once. | Copying the EUR 240,000 claim; claiming a share of the exposure. |
+| D29 | The line's id is `sourcing-options`, appended last; owner Chief Procurement Officer, as on the registry card. A test checks it against the registry. | The analyst looks each line up in the registry by id, and `disruption-monitor` is taken. An existing test reads the synthetic line by position. Mirrors `sd-resolution` carrying two agents. | An id that is not a registry card. |
+| D30 | The unit is named "feed signal". | The page writes "a <unit>" and "<unit>s a year"; "assessed signal" read badly. | Changing the page code for one word. |
+| D31 | The root page and the roadmap are brought up to date in the same push: solution 03 "Working (blueprint)", five designs left. | Both still said "Designed" and "six designs" after the runs were pushed. | A separate push. |
+
+### What was measured
+
+From the 5 agent runs in `solutions/03-supply-chain-disruption-war-room/reports/runs/`, Claude Fable 5.2 at medium effort, list prices read 20 November 2026, EUR 0.92 per USD (assumption):
+
+- Disruption monitor: 3 runs, 5,805 in and 804 out on average, EUR 0.07 a run.
+- Sourcing options agent: 2 runs, 13,702 in and 2,630 out on average, EUR 0.20 a run.
+- One feed signal (share 0.5, assumption): 12,655 in and 2,119 out, EUR 0.17, an upper bound (cache reads at the full input price).
+- At 2,400 signals a year (assumption): EUR 411 of model cost. With 180 build hours at EUR 95 (assumption): EUR 17,511 in the first year. Benefit EUR 0, net minus EUR 17,511.
+- Whole portfolio, six lines: first-year cost EUR 118,906, of which EUR 67,955 measured.
+
+### What was checked
+
+- The ledger was run by the assistant in the linked workspace and by Mario in PowerShell.
+- Three new tests (43 in this solution). The assistant's workspace has no pytest: it ran the test functions directly, without the ones that need `pytest.raises`; Mario runs the suite.
+- `reports/ledger-latest.md` is the `pays-back` scenario, which does not hold the new line, so it was not regenerated. The three scenarios are unchanged.
+
+### Tokens
+
+| Step | What | Model | Tokens |
+|---|---|---|---|
+| 1 | Charter, process, handover, deck plan, ledger code, run records read; the line | Main (Claude Fable 5.2) | About 75,000 in, 9,000 out, estimated |
+| 2 | Tests, pages, roadmap, both logs, push block | Main | About 45,000 in, 9,000 out, estimated |
+
+Choosing the unit and keeping the benefit side honest needed the main model. The page updates could have run on a lighter one.
+
+### Open
+
+- A review by the analyst agent on a scenario that holds the new line (needs Mario's key; a scenario file would be added first). Designed.
+- The synthetic line's owner reads "Head of Supply Chain"; the registry card of `disruption-monitor` reads "Head of Supply Chain Planning". Not changed here.
